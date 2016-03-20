@@ -1,3 +1,1 @@
-web: npm run start
-
-
+web: gunicorn emondo.wsgi --log-file - --max-requests 1200 --timeout 30 --workers 4
