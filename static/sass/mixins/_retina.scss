@@ -1,0 +1,55 @@
+@import "compass/utilities";
+@import "compass/utilities/sprites";
+
+@mixin retina-image($file, $type) {
+  $filepath: image-url($file + '.' + $type, true, false);
+  $filepath2x: image-url($file + '@2x.' + $type, true, false);
+  background-image: url($filepath);
+  $height: image-height($filepath);
+  $width: image-width($filepath);
+  width: $width;
+  height: $height;
+  background-repeat: no-repeat;
+  @media only screen and (-webkit-min-device-pixel-ratio: 2),
+  only screen and (-moz-min-device-pixel-ratio: 2),
+  only screen and (-o-min-device-pixel-ratio: 2/1),
+  only screen and (min-device-pixel-ratio: 2),
+  only screen and (min-resolution: 192dpi),
+  only screen and (min-resolution: 2dppx) {
+    & {
+      background-image: url($filepath2x);
+      background-size: $width $height;
+    }
+  }
+}
+
+
+
+// Provides styles for a sprite, given a name and 1x and 2x sprite sheets.
+//
+// Requires sprites and the sprites URL because each call to `sprite-url()` will
+// cause the sprite sheet to be recompiled.
+@mixin retina-optimized-sprite($name, $sprites, $sprites-url, $sprites-2x, $sprites-2x-url) {
+  @include inline-block;
+  background-image: $sprites-url;
+  background-position: sprite-position($sprites, $name);
+  width: image-width(sprite-file($sprites, $name));
+  height: image-height(sprite-file($sprites, $name));
+  background-repeat: no-repeat;
+
+  // It's possible to have different sorting of sprites between the
+  // sprite-sheets for standard DPI vs. high DPI, so we must adjust for it.
+  // (The sprites are ordered by file size, instead of file name)
+  // See: https://github.com/chriseppstein/compass/issues/690
+  $xpos: round(nth(sprite-position($sprites-2x, $name), 1) / 2);
+  $ypos: round(nth(sprite-position($sprites-2x, $name), 2) / 2);
+
+  @media (-webkit-min-device-pixel-ratio: 1.3) {
+    background-image: -webkit-image-set($sprites-url 1x, $sprites-2x-url 2x);
+    @if (nth(sprite-position($sprites, $name), 1) == $xpos and nth(sprite-position($sprites, $name), 2) == $ypos) {
+      // Nothing to do here - same position in 2x sheet as in 1x sheet.
+    } @else {
+      background-position: $xpos $ypos;
+    }
+  }
+}

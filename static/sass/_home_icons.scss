@@ -1,0 +1,87 @@
+@import "compass/utilities";
+
+$home-signature-icon-sprites: sprite-map('../images/signatures_icons/*.png');
+$home-signature-icon-sprites-url: sprite-url($home-signature-icon-sprites);
+
+$home-signature-icon-2x-sprites: sprite-map('../images/signatures_icons@2x/*.png');
+$home-signature-icon-2x-sprites-url: sprite-url($home-signature-icon-2x-sprites);
+
+.icon-signature-A {
+  @include retina-optimized-sprite(
+      A,
+      $home-signature-icon-sprites,
+      $home-signature-icon-sprites-url,
+      $home-signature-icon-2x-sprites,
+      $home-signature-icon-2x-sprites-url);
+}
+
+
+.icon-signature-at {
+  @include retina-optimized-sprite(
+      at,
+      $home-signature-icon-sprites,
+      $home-signature-icon-sprites-url,
+      $home-signature-icon-2x-sprites,
+      $home-signature-icon-2x-sprites-url);
+}
+
+
+.icon-signature-characters {
+  @include retina-optimized-sprite(
+      characters,
+      $home-signature-icon-sprites,
+      $home-signature-icon-sprites-url,
+      $home-signature-icon-2x-sprites,
+      $home-signature-icon-2x-sprites-url);
+}
+
+
+.icon-signature-club {
+  @include retina-optimized-sprite(
+      club,
+      $home-signature-icon-sprites,
+      $home-signature-icon-sprites-url,
+      $home-signature-icon-2x-sprites,
+      $home-signature-icon-2x-sprites-url);
+}
+
+
+.icon-signature-fingerprint {
+  @include retina-optimized-sprite(
+      fingerprint,
+      $home-signature-icon-sprites,
+      $home-signature-icon-sprites-url,
+      $home-signature-icon-2x-sprites,
+      $home-signature-icon-2x-sprites-url);
+}
+
+
+.icon-signature-key {
+  @include retina-optimized-sprite(
+      key,
+      $home-signature-icon-sprites,
+      $home-signature-icon-sprites-url,
+      $home-signature-icon-2x-sprites,
+      $home-signature-icon-2x-sprites-url);
+}
+
+
+.icon-signature-lock {
+  @include retina-optimized-sprite(
+      lock,
+      $home-signature-icon-sprites,
+      $home-signature-icon-sprites-url,
+      $home-signature-icon-2x-sprites,
+      $home-signature-icon-2x-sprites-url);
+}
+
+
+.icon-signature-pin {
+  @include retina-optimized-sprite(
+      pin,
+      $home-signature-icon-sprites,
+      $home-signature-icon-sprites-url,
+      $home-signature-icon-2x-sprites,
+      $home-signature-icon-2x-sprites-url);
+}
+

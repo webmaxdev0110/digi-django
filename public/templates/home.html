@@ -1,0 +1,829 @@
+{% load staticfiles %}
+
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang=""> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Emondo</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {# Inline these css files #}
+
+    <link rel="stylesheet" href="{% static 'stylesheets/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'stylesheets/home.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/roblealt_bold_macroman/stylesheet.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/roblealt_regular_macroman/stylesheet.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/roblealt_book_macroman/stylesheet.css' %}">
+
+
+    {# And async load these files so they don't block rendering #}
+    {# Mostly for optimise the load speed for mobile browser #}
+    <script type="text/javascript">
+        var load = function (filePath) {
+            var l = document.createElement('link');
+            l.rel = 'stylesheet';
+            l.href = filePath;
+            var head = document.getElementsByTagName('head')[0];
+            head.appendChild(l);
+        };
+        var asyncLoadCSSFiles = function () {
+            load("https://fonts.googleapis.com/css?family=Open+Sans");
+            load("{% static 'fonts/roblealt_light_macroman/stylesheet.css' %}");
+            load("{% static 'javascripts/remodal/remodal.css' %}");
+            load("{% static 'javascripts/remodal/remodal-default-theme.css' %}");
+            load("{% static 'javascripts/remodal/remodal.css' %}");
+        };
+        var raf = requestAnimationFrame || mozRequestAnimationFrame ||
+                webkitRequestAnimationFrame || msRequestAnimationFrame;
+        if (raf) {
+            raf(asyncLoadCSSFiles);
+        } else {
+            window.addEventListener('load', asyncLoadCSSFiles);
+        }
+    </script>
+</head>
+<body>
+<div class="container-fluid remodal-bg">
+    <div class="row">
+        <div class="col-xs-12 col-sm-10 col-sm-push-1 col-md-8 col-md-push-2">
+            <a href="/" class="logo nav-logo-wrapper">
+                <img class="logo-img" src="{% static 'images/logo_colour_tagline.svg' %}" width="160"/>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-10 col-sm-push-1 col-md-8 col-md-push-2">
+            <div class="slogan-container text-center">
+                <h1 class="font1 dark-blue">
+                    <span>{{ tag_line.0|safe }}</span>
+                </h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-8 col-sm-push-2 col-md-8 col-md-push-2">
+            <div class="sub-slogan-container">
+                <p class="font7 dark-blue text-center">
+                    <span>{{ tag_line.1|safe }}</span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="row cta">
+        <div class="col-xs-12 col-sm-10 col-sm-push-1 col-md-8 col-md-push-2">
+            <div class="cta-container">
+                <form method="POST" class="cta-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="tag_index" value="{{ tag_line_index }}"/>
+                    <fieldset>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <input name="email" type="email" placeholder="Email address"
+                                           class="form-control visible-xs"/>
+                                    <input name="email" type="email" placeholder="Enter your email address"
+                                           class="form-control visible-sm visible-md visible-lg"/>
+                                        <span class="input-group-btn cta-submit">
+                                            <button name="submit" type="button"
+                                                    class="js-submit btn btn-primary btn-block">Get
+                                                your free account
+                                            </button>
+                                        </span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </fieldset>
+                </form>
+                <ul class="faint-blue-2 font3 list-inline text-center">
+                    <li>No credit card required</li>
+                    <li>•</li>
+                    <li>Spam is for cans not emails</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row old-new-compare">
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    <div class="sub-heading-group text-center">
+                        <h2 class="font1 dark-blue">The old way</h2>
+                        <p class="font5 dark-blue font-size-subheading">Timely, costly and wasteful</p>
+                    </div>
+                    <div class="old-il-image"></div>
+                    <div class="horizontal-vs-line text-center visible-xs visible-sm">
+                        <span class="font1">VS</span>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    <div class="visible-md visible-lg vertical-bar-wrapper">
+                        <div class="vertical-vs-line text-center">
+                            <span class="font1">VS</span>
+                        </div>
+                    </div>
+
+                    <div class="new-way-wrapper">
+                        <div class="sub-heading-group text-center">
+                            <h2 class="font1 dark-blue">The new way</h2>
+                            <p class="font5 dark-blue font-size-subheading">Simple, secure and efficient</p>
+                        </div>
+                        <div class="new-il-image"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row efficiency">
+        <div class="col-xs-12 col-lg-10 col-lg-push-1">
+            <div class="sub-heading-group text-center">
+                <h1 class="font1">Signing documents with <span class="dark-blue">Emondo</span> is</h1>
+            </div>
+            <div class="row">
+                <div class="hidden-xs hidden-sm col-md-4">
+                    <div class="efficiency-group text-center">
+                        <img class="x7image" src="{% static 'images/7times_bg.png' %}"
+                             srcset="{% static 'images/7times_bg.png' %} 1x, {% static 'images/7times_bg@2x.png' %} 2x">
+                        <div class="text-wrapper">
+                            <p class="font7 small-text">It takes just 100 paper based applications to save over
+                                <span>$4,700/week</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden-xs col-sm-6 col-md-4">
+                    <img src="{% static 'images/hand_held.png' %}"
+                         srcset="{% static 'images/hand_held.png' %} 1x, {% static 'images/hand_held@2x.png' %} 2x">
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="row">
+                        <div class="col-xs-12 hidden-md hidden-lg">
+                            <div class="efficiency-group text-center">
+                                <img class="x7image" src="{% static 'images/7times_bg.png' %}"
+                                     srcset="{% static 'images/7times_bg.png' %} 1x, {% static 'images/7times_bg@2x.png' %} 2x">
+                                <div class="text-wrapper">
+                                    <p class="font7 small-text">It takes just 100 paper based applications to save
+                                        over
+                                        <span>$4,700/week</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="efficiency-group text-center">
+                                <img class="x5image" src="{% static 'images/7times_bg.png' %}"
+                                     srcset="{% static 'images/5times_bg.png' %} 1x, {% static 'images/5times_bg@2x.png' %} 2x">
+                                <div class="text-wrapper">
+                                    <p class="font7 small-text">
+                                        <span>3 minutes</span> to complete an online form vs. 15
+                                        minutes for a paper based</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="row waste">
+        <div class="col-xs-12 col-sm-8 col-sm-push-2 col-md-8 col-md-push-2">
+            <div class="text-center">
+                <div class="sub-heading-group">
+                    <h2 class="font1 dark-blue">The average office worker is wasting</h2>
+                </div>
+                <div class="waste-image-wrapper">
+                    <img class="paper-waste-image" src="{% static 'images/priting_waste.png' %}"
+                         srcset="{% static 'images/priting_waste.png' %} 1x, {% static 'images/priting_waste@2x.png' %} 2x">
+                </div>
+                <div class="text-wrapper">
+                    <p class="font7 dark-blue small-text">The average office worker uses 10,000 pieces of printing
+                        paper each
+                        year. To produce this many pages takes:</p>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <div class="il-group">
+                            <img class="" src="{% static 'images/tree.png' %}"
+                                 srcset="{% static 'images/tree.png' %} 1x, {% static 'images/tree@2x.png' %} 2x">
+                            <div class="font5">
+                                <span class="font1">12</span> <br/> trees
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="il-group">
+                            <img class="" src="{% static 'images/water.png' %}"
+                                 srcset="{% static 'images/water.png' %} 1x, {% static 'images/water@2x.png' %} 2x">
+                            <div class="font5">
+                                <span class="font1">3,850</span> <br/> litres of water
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="il-group">
+                            <img class="" src="{% static 'images/co2.png' %}"
+                                 srcset="{% static 'images/co2.png' %} 1x, {% static 'images/co2@2x.png' %} 2x">
+                            <div class="font5">
+                                <span class="font1">120</span> <br/>kilograms of CO2
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% spaceless %}
+    <div class="row history">
+        <div class="col-xs-12">
+            <h1 class="font1 text-center dark-blue text-wrapper">
+                In <span style="border-bottom: 2px dotted #073660;">1999</span>, electronic <span
+                    class="visible-xs-block"></span> signatures became <span
+                    class="visible-sm-block visible-md-block visible-lg-block"></span>
+                legal <span class="visible-xs-block"></span> in Australia
+            </h1>
+            <div class="timeline-top">
+                <div class="circle-top">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-sm-push-3">
+                            <div class="row">
+                                <div class="col-xs-5 vcentre">
+                                    <div class="side-content quote dark-blue left-side-content">
+                                        Hardly an area of law
+                                        shows such imbalance between
+                                        legislation and application as electronic signatures.
+                                    </div>
+                                </div>
+                                <div class="col-xs-2 vcentre">
+                                </div>
+                                <div class="col-xs-5 vcentre">
+                                    <div class="side-content quote right-side-content dark-blue">
+                                        application that would launch the use of such signature devices seem yet to
+                                        be yet
+                                        undiscovered.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="timeline">
+                <div class="cd-timeline-block">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-sm-push-3">
+                            <div class="row">
+                                <div class="col-xs-5 vcentre">
+                                    <div class="side-content left-side-content">
+                                        <img src="{% static 'images/stamp.png' %}"
+                                             srcset="{% static 'images/stamp.png' %} 1x, {% static 'images/stamp@2x.png' %} 2x">
+                                    </div>
+                                </div>
+                                <div class="col-xs-2 vcentre">
+                                    <div class="cd-timeline-img">
+                                        <div class="year-label">
+                                            1954
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-5 vcentre">
+                                    <div class="side-content right-side-content dark-blue text-wrapper">
+                                        A rubber stamp was recognised as legally binding signature
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cd-timeline-block">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-sm-push-3">
+                            <div class="row">
+                                <div class="col-xs-5 vcentre">
+                                    <div class="side-content left-side-content dark-blue text-wrapper">
+                                        The concept of Public Key Cryptography was introduced
+                                    </div>
+                                </div>
+                                <div class="col-xs-2 vcentre">
+                                    <div class="cd-timeline-img">
+                                        <div class="year-label">
+                                            1976
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-5 vcentre">
+                                    <div class="side-content right-side-content">
+                                        <img src="{% static 'images/key.png' %}"
+                                             srcset="{% static 'images/key.png' %} 1x, {% static 'images/key@2x.png' %} 2x">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cd-timeline-block">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-sm-push-3">
+                            <div class="row">
+                                <div class="col-xs-5 vcentre">
+                                    <div class="side-content left-side-content">
+                                        <img src="{% static 'images/first_electronic_signature.png' %}"
+                                             srcset="{% static 'images/first_electronic_signature.png' %} 1x, {% static 'images/first_electronic_signature@2x.png' %} 2x">
+                                    </div>
+                                </div>
+                                <div class="col-xs-2 vcentre">
+                                    <div class="cd-timeline-img">
+                                        <div class="year-label">
+                                            1981
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-5 vcentre">
+                                    <div class="side-content right-side-content dark-blue text-wrapper">
+                                        Probably the first time that the term “electronic signature” was legally
+                                        used
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cd-timeline-block">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-sm-push-3">
+                            <div class="row">
+                                <div class="col-xs-5 vcentre">
+                                    <div class="side-content left-side-content dark-blue text-wrapper">
+                                        Utah enacted the world’s first electronic signature legislation
+                                    </div>
+                                </div>
+                                <div class="col-xs-2 vcentre">
+                                    <div class="cd-timeline-img">
+                                        <div class="year-label">
+                                            1995
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-5 vcentre">
+                                    <div class="side-content right-side-content">
+                                        <img src="{% static 'images/1995.png' %}"
+                                             srcset="{% static 'images/1995.png' %} 1x, {% static 'images/1995@2x.png' %} 2x">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cd-timeline-block">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-sm-push-3">
+                            <div class="row">
+                                <div class="col-xs-5 vcentre">
+                                    <div class="side-content left-side-content">
+                                        <img src="{% static 'images/1996.png' %}"
+                                             srcset="{% static 'images/1996.png' %} 1x, {% static 'images/1996@2x.png' %} 2x">
+                                    </div>
+                                </div>
+                                <div class="col-xs-2 vcentre">
+                                    <div class="cd-timeline-img">
+                                        <div class="year-label">
+                                            1996
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-5 vcentre">
+                                    <div class="side-content right-side-content dark-blue text-wrapper">
+                                        Florida defined and distinguished acceptable applications of electronic
+                                        signatures (as did
+                                        the American Bar Association)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cd-timeline-block">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-sm-push-3">
+                            <div class="row">
+                                <div class="col-xs-5 vcentre">
+                                    <div class="side-content left-side-content dark-blue text-wrapper">
+                                        United Nations Commission on International Trade Law (UNCITRAL) Model Law on
+                                        Electronic
+                                        Commerce (MLEC) to ensure harmonious economic relations for United Nations
+                                        members
+                                    </div>
+                                </div>
+                                <div class="col-xs-2 vcentre">
+                                    <div class="cd-timeline-img">
+                                        <div class="year-dot"></div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-5 vcentre">
+                                    <div class="side-content right-side-content">
+                                        <img src="{% static 'images/earth.png' %}"
+                                             srcset="{% static 'images/earth.png' %} 1x, {% static 'images/earth@2x.png' %} 2x">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cd-timeline-block" style="margin-top:85px;">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-sm-push-3">
+                            <div class="row">
+                                <div class="col-xs-5 vcentre">
+                                    <div class="side-content left-side-content">
+                                        <img src="{% static 'images/globle.png' %}"
+                                             srcset="{% static 'images/globle.png' %} 1x, {% static 'images/globle@2x.png' %} 2x">
+                                    </div>
+                                </div>
+                                <div class="col-xs-2 vcentre" style="top: -73px;">
+                                    <div class="cd-timeline-img">
+                                        <div class="year-label">
+                                            1999
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-5 vcentre">
+                                    <div class="side-content right-side-content dark-blue text-wrapper">
+                                        The European Union enacted the Directive on a Community Framework for
+                                        Electronic Signatures
+                                        to address member states uniformity
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cd-timeline-block">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-sm-push-3">
+                            <div class="row">
+                                <div class="col-xs-5 vcentre">
+                                    <div class="side-content left-side-content dark-blue text-wrapper">
+                                        The US Uniform Transactions Act (UETA) to address state inconsistencies
+                                    </div>
+                                </div>
+                                <div class="col-xs-2 vcentre">
+                                    <div class="cd-timeline-img">
+                                        <div class="year-dot"></div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-5 vcentre">
+                                    <div class="side-content right-side-content">
+                                        <img src="{% static 'images/handshake.png' %}"
+                                             srcset="{% static 'images/handshake.png' %} 1x, {% static 'images/handshake@2x.png' %} 2x">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cd-timeline-block">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-sm-push-3">
+                            <div class="row">
+                                <div class="col-xs-5 vcentre">
+                                    <div class="side-content left-side-content">
+                                        <img src="{% static 'images/aus.png' %}"
+                                             srcset="{% static 'images/aus.png' %} 1x, {% static 'images/aus@2x.png' %} 2x">
+                                    </div>
+                                </div>
+                                <div class="col-xs-2 vcentre">
+                                    <div class="cd-timeline-img">
+                                        <div class="year-dot"></div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-5 vcentre">
+                                    <div class="side-content right-side-content dark-blue text-wrapper">
+                                        The Australian Electronic Transactions Act (ETA) to ensure that Australian
+                                        business has the
+                                        opportunity to be at the forefront of electronic commerce
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cd-timeline-block">
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-sm-push-3">
+                            <div class="row">
+                                <div class="col-xs-5 vcentre">
+                                    <div class="side-content left-side-content dark-blue text-wrapper">
+                                        The US Electronic Signatures in Global and National Commerce Act (E-Sign) to
+                                        ensure uniform
+                                        across all US states (only 22 states had specific legislation)
+                                    </div>
+                                </div>
+                                <div class="col-xs-2 vcentre">
+                                    <div class="cd-timeline-img">
+                                        <div class="year-label">
+                                            2000
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-5 vcentre">
+                                    <div class="side-content right-side-content">
+                                        <img src="{% static 'images/shopping_cart.png' %}"
+                                             srcset="{% static 'images/shopping_cart.png' %} 1x, {% static 'images/shopping_cart@2x.png' %} 2x">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cd-timeline-block">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-sm-push-3">
+                            <div class="row">
+                                <div class="col-xs-5 vcentre">
+                                    <div class="side-content left-side-content">
+                                        <img src="{% static 'images/scale.png' %}"
+                                             srcset="{% static 'images/scale.png' %} 1x, {% static 'images/scale@2x.png' %} 2x">
+                                    </div>
+                                </div>
+                                <div class="col-xs-2 vcentre">
+                                    <div class="cd-timeline-img">
+                                        <div class="year-label">
+                                            2001
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-5 vcentre">
+                                    <div class="side-content right-side-content dark-blue text-wrapper">
+                                        The Model Law on Electronic Signatures (MLES) which dealt entirely with
+                                        electronic
+                                        signatures specifically with Public-key infrastructure in mind
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cd-timeline-block">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-sm-push-3">
+                            <div class="row">
+                                <div class="col-xs-5 vcentre">
+                                    <div class="side-content left-side-content">
+                                        <img src="{% static 'images/court.png' %}"
+                                             srcset="{% static 'images/court.png' %} 1x, {% static 'images/court@2x.png' %} 2x">
+                                    </div>
+                                </div>
+                                <div class="col-xs-2 vcentre">
+                                    <div class="cd-timeline-img">
+                                        <div class="year-label">
+                                            2005
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-5 vcentre">
+                                    <div class="side-content right-side-content dark-blue text-wrapper">
+                                        The United Nations Convention on the Use of Electronic Communications in
+                                        International
+                                        Contracts (The Convention) an instrument that is binding under international
+                                        law upon EU
+                                        states
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cd-timeline-block">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-sm-push-3">
+                            <div class="row">
+                                <div class="col-xs-5 vcentre">
+                                    <div class="side-content left-side-content dark-blue text-wrapper">
+                                        Emondo launches in Australia, revolutionising the way forms are created,
+                                        signed and sent.
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-2 vcentre">
+                                    <div class="cd-timeline-img">
+                                        <div class="year-label">
+                                            2016
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-5 vcentre">
+                                    <div class="side-content right-side-content">
+                                        <img src="{% static 'images/emondo_logo.png' %}"
+                                             srcset="{% static 'images/emondo_logo.png' %} 1x, {% static 'images/emondo_logo@2x.png' %} 2x">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endspaceless %}
+    <div class="row electronic-signature">
+        <div class="col-xs-12 col-sm-6 col-sm-push-3">
+            <div class="what-is-electronic-signature-wrapper text-center">
+                <h1 class="dark-blue">Electronic signatures,<br /> what are they?</h1>
+                <div class="icon-illustration-wrapper">
+                    <ul class="list-inline">
+                        <li>
+                            {# Todo: Will need high res pictures, use letters to replace it for now #}
+                            <div class="icon-round-shadow font1 dark-blue-2 vcentre">
+                                A
+                            </div>
+                        </li>
+                        <li>
+                            <div class="icon-round-shadow font1 dark-blue-2 vcentre">
+                                §
+                            </div>
+                        </li>
+                        <li>
+                            <div class="icon-round-shadow font2 icon-club dark-blue-2 vcentre">
+                                ♣
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <p class="dark-blue font7">
+                    Any <span class="font1">letters</span>, <span class="font1">characters</span>, or <span class="font1">symbols</span>, manifested by electronic or similar means, executed or adopted by an identified signatory, using a reliable method with intent to authenticate a writing.
+                </p>
+                <div class="icon-illustration-wrapper">
+                    <ul class="list-inline">
+                        <li>
+                            <div class="icon-round-shadow">
+                                <i class="icon-signature-key"></i>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="icon-round-shadow">
+                                <i class="icon-signature-lock"></i>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="icon-round-shadow font1 dark-blue-2 vcentre icon-star">
+                                *
+                            </div>
+                        </li>
+                        <li>
+                            <div class="icon-round-shadow">
+                                <i class="icon-signature-fingerprint"></i>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="icon-round-shadow font1 dark-blue-2 vcentre">
+                                @
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <p class="dark-blue font7">
+                Other forms of an electronic signature include an <span class="font1">asymmetric cryptosystem</span>, a <span class="font1">password</span>, <span class="font1">PIN</span>, <span class="font1">biometrics</span> or <span class="font1">email</span>.</p>
+            </div>
+        </div>
+    </div>
+    <div class="row cta-bottom">
+        <div class="col-xs-12 col-sm-10 col-sm-push-1 col-md-8 col-md-push-2">
+            <div class="cta-container text-center">
+                <h1>Sign up now! It’s free!</h1>
+                <form method="POST" class="cta-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="tag_index" value="{{ tag_line_index }}"/>
+                    <fieldset>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <input name="email" type="email" placeholder="Email address"
+                                           class="form-control visible-xs"/>
+                                    <input name="email" type="email" placeholder="Enter your email address"
+                                           class="form-control visible-sm visible-md visible-lg"/>
+                                        <span class="input-group-btn cta-submit">
+                                            <button name="submit" type="button"
+                                                    class="js-submit btn btn-primary btn-block">Get
+                                                your free account
+                                            </button>
+                                        </span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </fieldset>
+                </form>
+                <ul class="dark-blue font7 list-inline text-center">
+                    <li>No credit card required</li>
+                    <li>•</li>
+                    <li>Spam is for cans not emails</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-6">
+                <ul class="dark-blue font7 list-inline text-center">
+                    <li>Terms & Conditions</li>
+                    <li>•</li>
+                    <li>Contact</li>
+                </ul>
+            </div>
+            <div class="col-xs-6">
+                <span class="font7">Copyright © 2016 Emondo</span>
+            </div>
+        </div>
+    </div>
+</footer>
+<div class="remodal" data-remodal-id="submitFinished">
+    <h1 class="dark-blue font1">Thanks for signing up!</h1>
+    <span style="font-size:17px;" class="dark-blue font5">We expect to launch our product in June. You’ll be notified via email</span>
+    <br>
+    <button style="float: left;margin-left: 31px;margin-top: 23px;font-size: 20px;border: 1px solid #3893d0;background: transparent;border-radius: 5px;color: #3893d0;padding: 9px 18px;"
+            data-remodal-action="close" class="font1" type="button">
+        Okay
+    </button>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="{% static 'javascripts/remodal/remodal.min.js' %}" async></script>
+<script>
+    // todo: Move to another file
+    // using jQuery
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    var csrftoken = getCookie('csrftoken');
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    function sameOrigin(url) {
+        // test that a given url is a same-origin URL
+        // url could be relative or scheme relative or absolute
+        var host = document.location.host; // host + port
+        var protocol = document.location.protocol;
+        var sr_origin = '//' + host;
+        var origin = protocol + sr_origin;
+        // Allow absolute or scheme relative URLs to same origin
+        return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+                (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+                    // or any other URL that isn't scheme relative or absolute i.e relative.
+                !(/^(\/\/|http:|https:).*/.test(url));
+    }
+    $.ajaxSetup({
+        beforeSend: function (xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
+                // Send the token to same-origin, relative URLs only.
+                // Send the token only if the method warrants CSRF protection
+                // Using the CSRFToken value acquired earlier
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+    $('.js-submit').click(function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        var target = $(e.target);
+        var form = target.parents('form');
+        var email = target.parents('form').find('input[name="email"]:visible').val();
+        if (!/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(email)) {
+            alert('Email format is invalid');
+            return false;
+        }
+        $.post('/', {
+            email: email,
+            tagIndex: form.find('input[name="tag_index"]').val()
+        }, function () {
+            $('[data-remodal-id=submitFinished]').remodal({hashTracking: false}).open();
+        });
+    });
+</script>
+</body>
+</html>

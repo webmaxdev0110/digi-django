@@ -1,0 +1,4 @@
+dj-database-url==0.3.0
+Django==1.9.4
+django-webpack-loader==0.3.0
+whitenoise==2.0.6
