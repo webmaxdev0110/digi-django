@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'webpack_loader',
     'gunicorn',
     'public',
+    'docs',
 ]
 
 MIDDLEWARE_CLASSES = [
