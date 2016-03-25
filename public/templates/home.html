@@ -53,7 +53,7 @@
     <div class="row">
         <div class="col-xs-12 col-sm-10 col-sm-push-1 col-md-8 col-md-push-2">
             <a href="/" class="logo nav-logo-wrapper">
-                <img class="logo-img" src="{% static 'images/logo_colour_tagline.svg' %}" width="160"/>
+                <img class="logo-img" src="{% static 'images/logo_colour_tagline.svg' %}" width="175"/>
             </a>
         </div>
     </div>
@@ -181,8 +181,8 @@
                                      srcset="{% static 'images/5times_bg.png' %} 1x, {% static 'images/5times_bg@2x.png' %} 2x">
                                 <div class="text-wrapper">
                                     <p class="font7 small-text">
-                                        <span>3 minutes</span> to complete an online form vs. 15
-                                        minutes for a paper based</p>
+                                        <span>3 minutes</span> to complete an online form vs. up to
+                                        2 and a half hours for a paper based</p>
                                 </div>
                             </div>
                         </div>
@@ -264,9 +264,7 @@
                                 </div>
                                 <div class="col-xs-5 vcentre">
                                     <div class="side-content quote right-side-content dark-blue">
-                                        application that would launch the use of such signature devices seem yet to
-                                        be yet
-                                        undiscovered.
+                                        The killer application that would launch the use of such signature devices seem yet to be undiscovered.
                                     </div>
                                 </div>
                             </div>
@@ -701,7 +699,7 @@
     <div class="row cta-bottom">
         <div class="col-xs-12 col-sm-10 col-sm-push-1 col-md-8 col-md-push-2">
             <div class="cta-container text-center">
-                <h1>Sign up now! It’s free!</h1>
+                <h1>Join the emondo revolution!</h1>
                 <form method="POST" class="cta-form">
                     {% csrf_token %}
                     <input type="hidden" name="tag_index" value="{{ tag_line_index }}"/>
@@ -737,13 +735,7 @@
 <footer>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-xs-6">
-                <ul class="dark-blue font7 list-inline text-center">
-                    <li>Terms & Conditions</li>
-                    <li>•</li>
-                    <li>Contact</li>
-                </ul>
-            </div>
+            <div class="col-xs-6"></div>
             <div class="col-xs-6">
                 <span class="font7">Copyright © 2016 Emondo</span>
             </div>

@@ -89,6 +89,13 @@ a.logo {
   letter-spacing: 0.5px;
   line-height: 1.4;
   font-size: 19px;
+
+  @include media('<=xs') {
+    font-size: 16px;
+    h1 {
+      font-size: 27px;
+    }
+  }
 }
 
 .cta.row {
@@ -126,10 +133,9 @@ a.logo {
   input[name="email"] {
     color: $dark-blue;
     text-align: left;
-    line-height: 1.1;
-    @include border-radius(4px 4px 0 0);
-    @include media('>xs') {
-      @include border-radius(4px 0 0 4px);
+    line-height: 1.3;
+    @include media('<=xs') {
+      @include border-radius(4px 4px 0 0 !important);
     }
   }
   button[name="submit"] {
@@ -137,6 +143,9 @@ a.logo {
     background-color: $orange;
     @include media('>xs') {
       @include border-radius(0 4px 4px 0);
+    }
+    @include media('<=xs') {
+      @include border-radius(0 0 4px 4px !important);
     }
   }
   input::-webkit-input-placeholder {
@@ -178,6 +187,9 @@ a.logo {
 // The old way new way section
 .old-new-compare {
   margin: 35px 0 65px;
+  @include media('<xs') {
+    margin-bottom: 23px;
+  }
   h2 {
     margin-bottom: 4px;
   }
@@ -186,6 +198,9 @@ a.logo {
   }
   .sub-heading-group {
     margin: 33px 0;
+    @include media('<=xs') {
+      margin: 0;
+    }
   }
   .horizontal-vs-line {
     border: 0.5px solid #ebf4fa;
@@ -199,6 +214,9 @@ a.logo {
       left: 41%;
       width: 15%;
       font-size: 19px;
+    }
+    @include media('<=xs') {
+      margin: 19px 0 38px;
     }
   }
 
@@ -303,7 +321,7 @@ a.logo {
     margin: 0 0 15px 0
   }
   .waste-image-wrapper {
-    margin: 25px 0;
+    margin: 55px 0;
   }
   .text-wrapper {
     width: 80%;
