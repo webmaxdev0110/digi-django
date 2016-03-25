@@ -359,6 +359,9 @@ u {
   padding-top: 40px;
   padding-bottom: 40px;
   background-color: #f3faff;
+  @include media('>=sm') {
+    font-size: 13px;
+  }
 
   h1 {
     font-size: 25px;
@@ -376,9 +379,11 @@ u {
     height: 140px;
     position: relative;
     .quote {
-      //position: absolute;
       width: 150px;
       padding-top: 27px;
+      @include media('>=sm') {
+        width: 200px;
+      }
     }
   }
 
