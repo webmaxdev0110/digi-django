@@ -37,6 +37,7 @@ $dark-blue-2: #3893d0;
 $faint-blue: rgb(239, 243, 247);
 $faint-blue-2: #a8bfd3;
 $faint-blue-3: #f3faff;
+$faint-blue-4: #e0effa;
 $orange: #ff8a00;
 $white: #FFFFFF;
 
@@ -272,6 +273,82 @@ a.logo {
   }
 }
 
+.row.js-how-it-works {
+  color: $dark-blue;
+  background: $faint-blue-3;
+  padding-top: 60px;
+  padding-bottom: 50px;
+  .feature-heading {
+    margin-bottom: 25px;
+  }
+  .feature-text {
+    > p.slide-text {
+      @include animation-duration(0.45s);
+    }
+  }
+  .feature-heading,
+  .feature-text {
+    text-align: center;
+  }
+  .feature-heading.left,
+  .feature-text.left {
+    @include media('>sm') {
+      text-align: right;
+    }
+  }
+  .feature-heading.right,
+  .feature-text.right {
+    @include media('>sm') {
+      text-align: left;
+    }
+  }
+  p.slide-text {
+    font-size: 15px;
+    display: none;
+    min-height: 65px;
+    &.active {
+      display: block;
+    }
+  }
+  ul.slide-controls {
+    text-align: center;
+    padding-left: 0;
+    @include media('<=sm') {
+      margin: 22px 0;
+    }
+    > li {
+      display: block;
+      @include media('<=sm') {
+        // change to horizontal layout
+        display: inline-block;
+        margin: 15px 10px;
+      }
+      width: 14px;
+      height: 14px;
+      margin: 15px auto;
+      text-align: center;
+      > a {
+        width: 12px;
+        height: 12px;
+        @include border-radius(50%);
+        background: $faint-blue-4;
+        cursor: pointer;
+        vertical-align: middle;
+        display: inline-block;
+      }
+      &.active {
+        > a {
+          background: $faint-blue-4;
+          background: $dark-blue-2;
+          width: 14px;
+          height: 14px;
+        }
+      }
+    }
+  }
+
+}
+
 .row.efficiency {
   background: $dark-blue-2;
   padding: 40px 0 0;
@@ -435,7 +512,6 @@ u {
     padding-left: 15px;
   }
   .side-content {
-    @extend .font7;
     max-width: 150px;
     @include media('>xs') {
       max-width: 250px;
