@@ -9,3 +9,5 @@ local_settings.py
 # SASS
 .sass-cache/
 node_modules/
+
+dist/
