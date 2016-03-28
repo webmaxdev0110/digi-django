@@ -41,12 +41,10 @@ else:
 
 
 if DEBUG:
-    COMPRESS_OFFLINE = False
     STATIC_URL = '/static/'
 else:
     ALLOWED_HOSTS = ['emondo.com.au', 'www.emondo.com.au']
     STATIC_URL = '/dist/'
-    COMPRESS_OFFLINE = True
 
 INSTALLED_APPS = [
     'django.contrib.admin',
