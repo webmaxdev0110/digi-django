@@ -150,6 +150,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'dist')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+WHITENOISE_MAX_AGE =  3600 * 24 * 30
 
 WEBPACK_LOADER = {
     'DEFAULT': {
