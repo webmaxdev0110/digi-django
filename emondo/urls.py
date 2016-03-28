@@ -16,7 +16,10 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from letsencrypt.views import letsencrypt_auth_view
+from letsencrypt.views import (
+    letsencrypt_auth_view_emondo_com_au,
+    letsencrypt_auth_view_www_emondo_com_au,
+)
 from public.views import HomeView
 
 urlpatterns = [
@@ -25,6 +28,8 @@ urlpatterns = [
     url(r'^docs/', include('docs.urls')),
     url(r'^admin/', admin.site.urls),
     # emondo.com.au
-    url(r'\.well-known/acme-challenge/iVv3TD-YczP7gw-eyULPQa76v0-nz3rFmUAguNg6nM0', letsencrypt_auth_view)
+    url(r'\.well-known/acme-challenge/iVv3TD-YczP7gw-eyULPQa76v0-nz3rFmUAguNg6nM0', letsencrypt_auth_view_emondo_com_au),
+    # www.emondo.com.au
+    url(r'\.well-known/acme-challenge/5iFdtTWY6NcPjDSCan4lKU0MepR3EF0Vu03rTMY-r74', letsencrypt_auth_view_www_emondo_com_au),
 
 ]
