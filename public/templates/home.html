@@ -14,9 +14,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     {# Inline these css files #}
-    <link rel="stylesheet" href="{% static 'stylesheets/bootstrap.css' %}">
-    <link rel="stylesheet" href="{% static 'stylesheets/home.css' %}">
-    <link rel="stylesheet" href="{% static 'fonts/roblealt_bold_macroman/stylesheet.css' %}">
+    {% compress css inline %}
+        <link rel="stylesheet" href="{% static 'stylesheets/bootstrap.css' %}">
+        <link rel="stylesheet" href="{% static 'stylesheets/home.css' %}">
+        <link rel="stylesheet" href="{% static 'fonts/roblealt_bold_macroman/stylesheet.css' %}">
+    {% endcompress %}
 
     {# And async load these files so they don't block rendering #}
     {# Mostly for optimise the load speed for mobile browser #}
