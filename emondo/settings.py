@@ -156,3 +156,4 @@ WEBPACK_LOADER = {
     }
 }
 
+AUTH_USER_MODEL = 'accounts.User'
