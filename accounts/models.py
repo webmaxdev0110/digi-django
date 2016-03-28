@@ -15,7 +15,7 @@ class User(AbstractUser):
     class Meta:
         swappable = 'AUTH_USER_MODEL'
 
-    country = CountryField(default='AU')
+    country = CountryField(default='AU', blank=True)
     last_active = models.DateTimeField(null=True, blank=True)
     is_pre_launch_signup = models.BooleanField(default=False)
 
