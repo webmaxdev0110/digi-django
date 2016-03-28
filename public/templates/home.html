@@ -18,6 +18,7 @@
         <link rel="stylesheet" href="{% static 'stylesheets/bootstrap.css' %}">
         <link rel="stylesheet" href="{% static 'stylesheets/home.css' %}">
         <link rel="stylesheet" href="{% static 'fonts/roblealt_bold_macroman/stylesheet.css' %}">
+        <link rel="stylesheet" href="{% static 'fonts/roblealt_thin_macroman/stylesheet.css' %}">
     {% endcompress %}
 
     {# And async load these files so they don't block rendering #}
@@ -37,7 +38,6 @@
             load("{% static 'fonts/roblealt_regular_macroman/stylesheet.css' %}");
             load("{% static 'javascripts/remodal/remodal.css' %}");
             load("{% static 'javascripts/remodal/remodal-default-theme.css' %}");
-            load("{% static 'fonts/roblealt_thin_macroman/stylesheet.css' %}");
             load("{% static 'javascripts/remodal/remodal-default-theme.css' %}");
         };
         var raf = requestAnimationFrame || mozRequestAnimationFrame ||
