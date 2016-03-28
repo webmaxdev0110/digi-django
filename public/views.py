@@ -13,13 +13,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from django.utils.decorators import method_decorator
 
 from django.http import HttpResponse
 from django.views.generic import TemplateView
-
-from django.core.mail import EmailMultiAlternatives
 import random
+import uuid
+
+from accounts.models import User
+
 
 class HomeView(TemplateView):
     template_name = 'home.html'
@@ -41,9 +42,15 @@ class HomeView(TemplateView):
         }
 
     def post(self, request, *args, **kwargs):
-#         email = request.POST['email']
-#         person = Person(email=email)
-#         person.put()
+        email = request.POST['email']
+
+        user, _ = User.objects.get_or_create(
+            username='pre_launch_' + uuid.uuid4().hex[:5],
+            email=email,
+            is_active=False,
+            is_pre_launch_signup=True,
+            country=''
+        )
 #
 #         subject = "Beta user signed up"
 #         body = """
