@@ -23,9 +23,9 @@
   font-family: 'roble_alt_lightlight';
 }
 
-//.font6 {
-//  font-family: 'roble_alt_thinthin';
-//}
+.font6 {
+  font-family: 'roble_alt_thinthin';
+}
 
 .font7 {
   font-family: 'Open Sans', sans-serif;
@@ -375,11 +375,33 @@ a.logo {
   .efficiency-group {
     margin: 65px 0;
     @include media('>=md') {
-      margin-top: 205px;
+      margin-top: 130px;
     }
     .text-wrapper {
       width: 80%;
       margin: 0 auto;
+    }
+  }
+  .js-number-count {
+    position: relative;
+    .number-count {
+      font-size: 150px;
+    }
+    .number-appendix {
+      font-size: 125px;
+    }
+    .number-count, .number-appendix {
+      color: $dark-blue;
+      @extend .font6;
+    }
+    .cover-text {
+      display: none;
+      @extend .font3;
+      position: absolute;
+      font-size: 16px;
+      top: 54%;
+      width: 100%;
+      opacity: .9;
     }
   }
 }

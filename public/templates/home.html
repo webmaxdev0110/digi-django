@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="{% static 'fonts/roblealt_bold_macroman/stylesheet.css' %}">
     <link rel="stylesheet" href="{% static 'fonts/roblealt_regular_macroman/stylesheet.css' %}">
     <link rel="stylesheet" href="{% static 'fonts/roblealt_book_macroman/stylesheet.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/roblealt_thin_macroman/stylesheet.css' %}">
 
 
     {# And async load these files so they don't block rendering #}
@@ -190,8 +191,7 @@
             <div class="row">
                 <div class="hidden-xs hidden-sm col-md-4">
                     <div class="efficiency-group text-center">
-                        <img class="x7image" src="{% static 'images/7times_bg.png' %}"
-                             srcset="{% static 'images/7times_bg.png' %} 1x, {% static 'images/7times_bg@2x.png' %} 2x">
+                        <div class="js-number-count" data-counter-end="7" counter-finish-text="MORE COST EFFECTIVE"></div>
                         <div class="text-wrapper">
                             <p class="font7 small-text">It takes just 100 paper based applications to save over
                                 <span>$4,700/week</span>
@@ -207,8 +207,7 @@
                     <div class="row">
                         <div class="col-xs-12 hidden-md hidden-lg">
                             <div class="efficiency-group text-center">
-                                <img class="x7image" src="{% static 'images/7times_bg.png' %}"
-                                     srcset="{% static 'images/7times_bg.png' %} 1x, {% static 'images/7times_bg@2x.png' %} 2x">
+                                <div class="js-number-count" data-counter-end="7" counter-finish-text="MORE COST EFFECTIVE"></div>
                                 <div class="text-wrapper">
                                     <p class="font7 small-text">It takes just 100 paper based applications to save
                                         over
@@ -219,8 +218,7 @@
                         </div>
                         <div class="col-xs-12">
                             <div class="efficiency-group text-center">
-                                <img class="x5image" src="{% static 'images/7times_bg.png' %}"
-                                     srcset="{% static 'images/5times_bg.png' %} 1x, {% static 'images/5times_bg@2x.png' %} 2x">
+                                <div class="js-number-count" data-counter-end="5" counter-finish-text="FASTER"></div>
                                 <div class="text-wrapper">
                                     <p class="font7 small-text">
                                         <span>3 minutes</span> to complete an online form vs. up to
@@ -794,6 +792,8 @@
     </button>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="{% static 'javascripts/vendor/jquery.waypoints.js' %}"></script>
+<script src="{% static 'javascripts/vendor/rssi.js' %}"></script>
 <script src="{% static 'javascripts/remodal/remodal.min.js' %}" async></script>
 <script>
     // todo: Move to another file
@@ -871,7 +871,45 @@
             $(this).children().eq(itemIndex).addClass('active');
             $(this).children().eq(itemIndex).addClass('animated fadeInUp');
         });
-    })
+    });
+
+    var initCountingNumber = function () {
+        // Counting numbers
+        $('.js-number-count').each(function () {
+            var $this = $(this);
+            var finishText = $this.attr('counter-finish-text');
+            var counterEnd = parseInt($this.data('counter-end'), 10);
+
+            var tmpl = fmt('<span class="number-count">0</span>' +
+                    '<span class="number-appendix">x</span>' +
+                    '<div class="cover-text">#{finishText}</div>');
+            var rendered = tmpl({finishText: finishText});
+            $this.append($(rendered));
+            var $numberCount = $this.children('.number-count');
+            var $coverText = $this.find('.cover-text');
+            $this.prop('counter', 0).animate({
+                'counter': counterEnd
+            }, {
+                duration: 600,
+                easing: 'swing',
+                step: function (now) {
+                    $numberCount.text(Math.ceil(now));
+                },
+                complete: function () {
+                    $coverText.show().addClass('animated fadeInUp');
+                }
+            });
+        });
+    };
+
+    var waypoint = new Waypoint({
+      element: $('.row.efficiency')[0],
+      handler: function() {
+        initCountingNumber();
+        this.destroy();
+      }
+    });
+
 </script>
 </body>
 </html>
