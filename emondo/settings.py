@@ -34,15 +34,17 @@ DATABASES = {
 # SECURITY WARNING: don't run with debug turned on in production!
 if os.environ.get('DATABASE_URL'):
     DEBUG = False
-    ALLOWED_HOSTS = ['emondo.com.au', 'www.emondo.com.au']
     db_from_env = dj_database_url.config()
     DATABASES['default'].update(db_from_env)
 else:
     DEBUG = True
-    ALLOWED_HOSTS = []
 
 
-# Application definition
+if DEBUG:
+    STATIC_URL = '/static/'
+else:
+    ALLOWED_HOSTS = ['emondo.com.au', 'www.emondo.com.au']
+    STATIC_URL = '/dist/'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -51,6 +53,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'compressor',
     'webpack_loader',
     'gunicorn',
     'public',
@@ -128,7 +131,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
-STATIC_URL = '/static/'
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # other finders..
+    'compressor.finders.CompressorFinder',
+)
+
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'dist')
 
