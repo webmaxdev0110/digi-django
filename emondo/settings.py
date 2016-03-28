@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'compressor',
     'webpack_loader',
     'gunicorn',
+    'accounts',
     'public',
     'docs',
 ]
@@ -159,3 +160,4 @@ WEBPACK_LOADER = {
     }
 }
 
+AUTH_USER_MODEL = 'accounts.User'
