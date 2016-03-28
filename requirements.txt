@@ -1,6 +1,7 @@
 dj-database-url==0.3.0
 Django==1.9.4
 django-webpack-loader==0.3.0
+django-countries==3.4.1
 whitenoise==2.0.6
 gunicorn==19.4.5
 django-compressor==2.0
