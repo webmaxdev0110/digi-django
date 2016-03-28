@@ -15,11 +15,13 @@
 
     {# Inline these css files #}
 
+    <link rel="stylesheet" href="{% static 'stylesheets/vendor/animate.css' %}">
     <link rel="stylesheet" href="{% static 'stylesheets/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'stylesheets/home.css' %}">
     <link rel="stylesheet" href="{% static 'fonts/roblealt_bold_macroman/stylesheet.css' %}">
     <link rel="stylesheet" href="{% static 'fonts/roblealt_regular_macroman/stylesheet.css' %}">
     <link rel="stylesheet" href="{% static 'fonts/roblealt_book_macroman/stylesheet.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/roblealt_thin_macroman/stylesheet.css' %}">
 
 
     {# And async load these files so they don't block rendering #}
@@ -53,7 +55,7 @@
     <div class="row">
         <div class="col-xs-12 col-sm-10 col-sm-push-1 col-md-8 col-md-push-2">
             <a href="/" class="logo nav-logo-wrapper">
-                <img class="logo-img" src="{% static 'images/logo_colour_tagline.svg' %}" width="160"/>
+                <img class="logo-img" src="{% static 'images/logo_colour_tagline.svg' %}" width="175"/>
             </a>
         </div>
     </div>
@@ -140,6 +142,47 @@
             </div>
         </div>
     </div>
+    <div class="row js-how-it-works">
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="col-xs-12 col-sm-3 col-sm-push-2">
+                    <div class="feature-heading left">
+                        <h2 class="font1">How it works</h2>
+                    </div>
+                    <div class="feature-text left font7">
+                        <p class="slide-text active">Automatically convert any document into online forms</p>
+                        <p class="slide-text">Get your clients to complete and legally sign your forms online</p>
+                        <p class="slide-text">Certify any document online in minutes</p>
+                        <p class="slide-text">Capture data from abandoned forms</p>
+                        <p class="slide-text">Upload any document to instantly legally sign and witness</p>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-2 col-sm-push-2">
+                    <ul class="slide-controls">
+                        <li class="active">
+                            <a href="javascript:;" role="button"></a>
+                        </li>
+                        <li><a href="javascript:;" role="button"></a></li>
+                        <li><a href="javascript:;" role="button"></a></li>
+                        <li><a href="javascript:;" role="button"></a></li>
+                        <li><a href="javascript:;" role="button"></a></li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-3 col-sm-push-2">
+                    <div class="feature-heading right">
+                        <h2 class="font1">How you benefit</h2>
+                    </div>
+                    <div class="feature-text right font7">
+                        <p class="slide-text active">Reduce your client onboarding time, Finish work earlier, More money in your pocket</p>
+                        <p class="slide-text">Eliminate data entry errors, Reduce your client onboarding time, Get more clients, quicker</p>
+                        <p class="slide-text">Eliminate travel costs, Get more clients, quicker, Reduce your client onboarding time</p>
+                        <p class="slide-text">Get new leads and more clients</p>
+                        <p class="slide-text">Finish your tasks and projects ahead of schedule, Increase your productivity, Finish work earlier</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row efficiency">
         <div class="col-xs-12 col-lg-10 col-lg-push-1">
             <div class="sub-heading-group text-center">
@@ -148,8 +191,7 @@
             <div class="row">
                 <div class="hidden-xs hidden-sm col-md-4">
                     <div class="efficiency-group text-center">
-                        <img class="x7image" src="{% static 'images/7times_bg.png' %}"
-                             srcset="{% static 'images/7times_bg.png' %} 1x, {% static 'images/7times_bg@2x.png' %} 2x">
+                        <div class="js-number-count" data-counter-end="7" counter-finish-text="MORE COST EFFECTIVE"></div>
                         <div class="text-wrapper">
                             <p class="font7 small-text">It takes just 100 paper based applications to save over
                                 <span>$4,700/week</span>
@@ -165,8 +207,7 @@
                     <div class="row">
                         <div class="col-xs-12 hidden-md hidden-lg">
                             <div class="efficiency-group text-center">
-                                <img class="x7image" src="{% static 'images/7times_bg.png' %}"
-                                     srcset="{% static 'images/7times_bg.png' %} 1x, {% static 'images/7times_bg@2x.png' %} 2x">
+                                <div class="js-number-count" data-counter-end="7" counter-finish-text="MORE COST EFFECTIVE"></div>
                                 <div class="text-wrapper">
                                     <p class="font7 small-text">It takes just 100 paper based applications to save
                                         over
@@ -177,12 +218,11 @@
                         </div>
                         <div class="col-xs-12">
                             <div class="efficiency-group text-center">
-                                <img class="x5image" src="{% static 'images/7times_bg.png' %}"
-                                     srcset="{% static 'images/5times_bg.png' %} 1x, {% static 'images/5times_bg@2x.png' %} 2x">
+                                <div class="js-number-count" data-counter-end="5" counter-finish-text="FASTER"></div>
                                 <div class="text-wrapper">
                                     <p class="font7 small-text">
-                                        <span>3 minutes</span> to complete an online form vs. 15
-                                        minutes for a paper based</p>
+                                        <span>3 minutes</span> to complete an online form vs. up to
+                                        2 and a half hours for a paper based</p>
                                 </div>
                             </div>
                         </div>
@@ -240,7 +280,7 @@
         </div>
     </div>
     {% spaceless %}
-    <div class="row history">
+    <div class="row history font7">
         <div class="col-xs-12">
             <h1 class="font1 text-center dark-blue text-wrapper">
                 In <span style="border-bottom: 2px dotted #073660;">1999</span>, electronic <span
@@ -251,7 +291,7 @@
             <div class="timeline-top">
                 <div class="circle-top">
                     <div class="row">
-                        <div class="col-xs-12 col-sm-6 col-sm-push-3">
+                        <div class="col-xs-12 col-sm-8 col-sm-push-2">
                             <div class="row">
                                 <div class="col-xs-5 vcentre">
                                     <div class="side-content quote dark-blue left-side-content">
@@ -264,9 +304,7 @@
                                 </div>
                                 <div class="col-xs-5 vcentre">
                                     <div class="side-content quote right-side-content dark-blue">
-                                        application that would launch the use of such signature devices seem yet to
-                                        be yet
-                                        undiscovered.
+                                        The killer application that would launch the use of such signature devices seem yet to be undiscovered.
                                     </div>
                                 </div>
                             </div>
@@ -701,7 +739,7 @@
     <div class="row cta-bottom">
         <div class="col-xs-12 col-sm-10 col-sm-push-1 col-md-8 col-md-push-2">
             <div class="cta-container text-center">
-                <h1>Sign up now! It’s free!</h1>
+                <h1>Join the emondo revolution!</h1>
                 <form method="POST" class="cta-form">
                     {% csrf_token %}
                     <input type="hidden" name="tag_index" value="{{ tag_line_index }}"/>
@@ -737,13 +775,7 @@
 <footer>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-xs-6">
-                <ul class="dark-blue font7 list-inline text-center">
-                    <li>Terms & Conditions</li>
-                    <li>•</li>
-                    <li>Contact</li>
-                </ul>
-            </div>
+            <div class="col-xs-6"></div>
             <div class="col-xs-6">
                 <span class="font7">Copyright © 2016 Emondo</span>
             </div>
@@ -760,6 +792,8 @@
     </button>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="{% static 'javascripts/vendor/jquery.waypoints.js' %}"></script>
+<script src="{% static 'javascripts/vendor/rssi.js' %}"></script>
 <script src="{% static 'javascripts/remodal/remodal.min.js' %}" async></script>
 <script>
     // todo: Move to another file
@@ -807,6 +841,7 @@
             }
         }
     });
+    // click action
     $('.js-submit').click(function (e) {
         e.stopPropagation();
         e.preventDefault();
@@ -824,6 +859,57 @@
             $('[data-remodal-id=submitFinished]').remodal({hashTracking: false}).open();
         });
     });
+    // how it works carousel
+    $('.js-how-it-works .slide-controls > li').click(function() {
+        var $this = $(this);
+        var itemIndex = $this.index();
+        $this.addClass('active').siblings().removeClass('active');
+        $('.js-how-it-works .feature-text').each(function() {
+            $(this).children().eq(itemIndex)
+                    .siblings()
+                    .removeClass('active animated fadeinUp');
+            $(this).children().eq(itemIndex).addClass('active');
+            $(this).children().eq(itemIndex).addClass('animated fadeInUp');
+        });
+    });
+
+    var initCountingNumber = function () {
+        // Counting numbers
+        $('.js-number-count').each(function () {
+            var $this = $(this);
+            var finishText = $this.attr('counter-finish-text');
+            var counterEnd = parseInt($this.data('counter-end'), 10);
+
+            var tmpl = fmt('<span class="number-count">0</span>' +
+                    '<span class="number-appendix">x</span>' +
+                    '<div class="cover-text">#{finishText}</div>');
+            var rendered = tmpl({finishText: finishText});
+            $this.append($(rendered));
+            var $numberCount = $this.children('.number-count');
+            var $coverText = $this.find('.cover-text');
+            $this.prop('counter', 0).animate({
+                'counter': counterEnd
+            }, {
+                duration: 600,
+                easing: 'swing',
+                step: function (now) {
+                    $numberCount.text(Math.ceil(now));
+                },
+                complete: function () {
+                    $coverText.show().addClass('animated fadeInUp');
+                }
+            });
+        });
+    };
+
+    var waypoint = new Waypoint({
+      element: $('.row.efficiency')[0],
+      handler: function() {
+        initCountingNumber();
+        this.destroy();
+      }
+    });
+
 </script>
 </body>
 </html>
