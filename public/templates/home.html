@@ -1,5 +1,5 @@
 {% load staticfiles %}
-
+{% load compress %}
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
@@ -789,9 +789,13 @@
     </button>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-<script src="{% static 'javascripts/vendor/jquery.waypoints.js' %}"></script>
-<script src="{% static 'javascripts/vendor/rssi.js' %}"></script>
-<script src="{% static 'javascripts/remodal/remodal.min.js' %}"></script>
+{% compress js %}
+    <script src="{% static 'javascripts/vendor/jquery.waypoints.js' %}"></script>
+    <script src="{% static 'javascripts/vendor/rssi.js' %}"></script>
+    <script src="{% static 'javascripts/remodal/remodal.min.js' %}"></script>
+{% endcompress %}
+{% compress js %}
 <script src="{% static 'javascripts/pages/home/home.js' %}" async></script>
+{% endcompress %}
 </body>
 </html>
