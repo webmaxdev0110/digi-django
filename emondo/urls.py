@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
+from letsencrypt.views import letsencrypt_auth_view
 from public.views import HomeView
 
 urlpatterns = [
@@ -23,4 +24,6 @@ urlpatterns = [
     url(r'^$', HomeView.as_view(), name='public_home'),
     url(r'^docs/', include('docs.urls')),
     url(r'^admin/', admin.site.urls),
+    url(r'\.well-known/acme-challenge/DyfZfS79fi5pyJ7je61krPjbVmAOsM6-eSpf8mSczmY', letsencrypt_auth_view)
+
 ]
