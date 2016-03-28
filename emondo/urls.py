@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^$', HomeView.as_view(), name='public_home'),
     url(r'^docs/', include('docs.urls')),
     url(r'^admin/', admin.site.urls),
-    url(r'\.well-known/acme-challenge/DyfZfS79fi5pyJ7je61krPjbVmAOsM6-eSpf8mSczmY', letsencrypt_auth_view)
+    # emondo.com.au
+    url(r'\.well-known/acme-challenge/iVv3TD-YczP7gw-eyULPQa76v0-nz3rFmUAguNg6nM0', letsencrypt_auth_view)
 
 ]
