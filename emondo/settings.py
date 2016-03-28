@@ -26,8 +26,12 @@ SECRET_KEY = 'vo!1)2*mv*zt58kl_5smk6mv4a30l7vjqg6%s8($70)w_am!&t'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'emondo',
+        'USER': 'lihanli',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
