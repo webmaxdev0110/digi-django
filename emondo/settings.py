@@ -49,6 +49,7 @@ if DEBUG:
 else:
     ALLOWED_HOSTS = ['emondo.com.au', 'www.emondo.com.au', 'emondo.herokuapp.com']
     STATIC_URL = '/dist/'
+    COMPRESS_OFFLINE = True
 
 INSTALLED_APPS = [
     'django.contrib.admin',
