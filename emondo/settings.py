@@ -47,7 +47,7 @@ else:
 if DEBUG:
     STATIC_URL = '/static/'
 else:
-    ALLOWED_HOSTS = ['emondo.com.au', 'www.emondo.com.au', 'emondo.herokuapp.com']
+    ALLOWED_HOSTS = ['emondo.com.au', 'www.emondo.com.au', 'emondo.herokuapp.com', 'emondo.io', 'www.emondo.io']
     STATIC_URL = '/dist/'
     COMPRESS_OFFLINE = True
 
