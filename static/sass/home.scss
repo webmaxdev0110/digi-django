@@ -63,9 +63,134 @@ $white: #FFFFFF;
   font-style: italic;
 }
 
+
+.email-group {
+  position: relative;
+  span.input-enter-prompt {
+    vertical-align: middle;
+    font-size: 12px;
+    color: #bdd2e5;
+    margin-left: 10px;
+    line-height: 16px;
+    padding-bottom: 15px;
+    background: transparent url(../images/enter.png) no-repeat left bottom;
+    right: 220px;
+    top: 6px;
+    z-index: 4;
+    position: absolute;
+    display: none;
+    @include media('<=xs') {
+      right: 10px;
+    }
+  }
+}
+
+
+.fixed-header-wrapper {
+  position: fixed;
+  display: none;
+  width: 100%;
+  background: $white;
+  box-shadow: 0 25px 25px rgba(62, 123, 166, 0.1);
+  z-index: 5;
+  .header-inner-wrapper {
+    padding: 12px 10px 2px;
+  }
+  form.cta-form {
+    margin: 0 0 15px 0;
+  }
+  .form-group {
+    margin-top: 15px;
+  }
+  input, button {
+    height: 30px;
+    text-align: center;
+    font-size: 14px;
+    line-height: 14px;
+    outline: 0;
+    border: 0;
+    @extend .font1;
+    &:active, &:hover {
+      border: 0;
+      outline: none;
+    }
+  }
+  .email-group {
+    width: 418px;
+    float: right;
+  }
+  .cta-submit {
+    @include media("<=xs") {
+      display: table;
+      width: 100%;
+    }
+  }
+  span.input-enter-prompt {
+    width: 70px;
+    vertical-align: middle;
+    font-size: 12px;
+    color: #bdd2e5;
+    margin-left: 10px;
+    line-height: 16px;
+    padding-bottom: 15px;
+    background: transparent url(../images/enter.png) no-repeat right 32%;;
+    right: 220px;
+    top: 6px;
+    z-index: 4;
+    position: absolute;
+    display: none;
+    //@include media('<=xs') {
+    //  right: 10px;
+    //}
+  }
+  input[name="email"] {
+    color: $dark-blue;
+    float: right;
+    height: 38px;
+    text-align: left;
+    width: 252px;
+    line-height: 38px;
+    @include border-radius(4px 0 0 4px !important);
+    box-shadow: none;
+    border: 1px solid #ecf2f7;
+    @include media('<=xs') {
+      display: none;
+    }
+  }
+  button[name="submit"] {
+    color: $white;
+    background-color: $orange;
+    padding: 7px 13px;
+    height: 38px;
+    @include media('>xs') {
+      @include border-radius(0 4px 4px 0);
+    }
+    @include media('<=xs') {
+      @include border-radius(4px !important);
+    }
+  }
+  input::-webkit-input-placeholder {
+    color: $dark-blue;
+    font-size: 13px;
+  }
+  input:-moz-placeholder { /* Firefox 18- */
+    color: $dark-blue;
+    font-size: 13px;
+  }
+  input::-moz-placeholder { /* Firefox 19+ */
+    color: $dark-blue;
+    font-size: 13px;
+  }
+  input:-ms-input-placeholder {
+    color: $dark-blue;
+    font-size: 13px;
+  }
+
+}
+
 a.nav-logo-wrapper {
   margin: 21px 0 59px 0;
-  display: block;
+  display: inline-block;
   @include media("<=xs") {
     margin: 10px 0 0 0;
   }
@@ -149,27 +274,6 @@ a.nav-logo-wrapper {
         right: 60px;
         bottom: -40px;
       }
-    }
-  }
-}
-
-.email-group {
-  position: relative;
-  span.input-enter-prompt {
-    vertical-align: middle;
-    font-size: 12px;
-    color: #bdd2e5;
-    margin-left: 10px;
-    line-height: 16px;
-    padding-bottom: 15px;
-    background: transparent url(../images/enter.png) no-repeat left bottom;
-    right: 220px;
-    top: 6px;
-    z-index: 4;
-    position: absolute;
-    display: none;
-    @include media('<=xs') {
-      right: 10px;
     }
   }
 }
@@ -362,6 +466,7 @@ a.nav-logo-wrapper {
   .big-circle-left {
     @include media('>sm') {
       &:before {
+        pointer-events: none;
         content: " ";
         position: absolute;
         border: 1px solid #ebf4fa;
@@ -377,6 +482,7 @@ a.nav-logo-wrapper {
   .big-circle-right {
     @include media('>sm') {
       &:after {
+        pointer-events: none;
         content: " ";
         position: absolute;
         border: 1px solid #ebf4fa;

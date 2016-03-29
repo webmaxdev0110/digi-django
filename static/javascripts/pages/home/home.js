@@ -60,7 +60,8 @@ if(!isOnTablet) {
         var emailAddr = $this.val();
         if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(emailAddr)) {
             // So the placeholer will not outside the box
-            var leftDistance = Math.min(emailAddr.length * 10 + 20, $this.innerWidth() - 50);
+            var leftDistance = Math.min(emailAddr.length * 10 + 20, $this.innerWidth() - 80);
+            console.log(emailAddr.length);
             $this.siblings('.input-enter-prompt').css({'left': leftDistance }).show();
             if (e.which === 13) {
                 // Enter key
@@ -131,10 +132,37 @@ var initCountingNumber = function () {
     });
 };
 
-var waypoint = new Waypoint({
+new Waypoint({
     element: $('.row.efficiency')[0],
     handler: function () {
         initCountingNumber();
         this.destroy();
     }
 });
+
+
+new Waypoint({
+  element: $('.row.old-new-compare')[0],
+  handler: function(direction) {
+
+    if (direction === 'down') {
+        $('.fixed-header-wrapper').slideDown(200);
+    } else {
+        $('.fixed-header-wrapper').slideUp(200);
+    }
+  }
+});
+
+new Waypoint({
+  element: $('.row.electronic-signature')[0],
+  handler: function(direction) {
+
+    if (direction === 'down') {
+        $('.fixed-header-wrapper').slideUp(200);
+    } else {
+        $('.fixed-header-wrapper').slideDown(200);
+    }
+  }
+});
+
+
