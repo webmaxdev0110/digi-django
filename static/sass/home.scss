@@ -924,6 +924,9 @@ footer {
 .dot-underline {
   border-bottom: 2px dotted #073660;
 }
+.solid-underline {
+  border-bottom: 2px solid $dark-blue;
+}
 
 // The modal background
 .remodal {
