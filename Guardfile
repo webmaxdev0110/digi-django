@@ -1,3 +1,3 @@
 guard 'livereload' do
-  watch(%r{static/javascripts/.+\.css})
+  watch(%r{static/stylesheets/.+\.css})
 end
