@@ -150,7 +150,28 @@ a.nav-logo-wrapper {
         bottom: -40px;
       }
     }
+  }
+}
 
+.email-group {
+  position: relative;
+  span.input-enter-prompt {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 12px;
+    color: #bdd2e5;
+    margin-left: 10px;
+    line-height: 16px;
+    padding-bottom: 15px;
+    background: transparent url(../images/enter.png) no-repeat left bottom;
+    right: 220px;
+    top: 6px;
+    z-index: 4;
+    position: absolute;
+    display: none;
+    @include media('<=xs') {
+      right: 10px;
+    }
   }
 }
 

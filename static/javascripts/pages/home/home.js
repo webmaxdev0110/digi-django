@@ -43,6 +43,31 @@ $.ajaxSetup({
         }
     }
 });
+
+var submitEmailAddress = function(email, form) {
+    $.post('/', {
+        email: email,
+        tagIndex: form.find('input[name="tag_index"]').val()
+    }, function () {
+        $('[data-remodal-id=submitFinished]').remodal({hashTracking: false}).open();
+    });
+};
+
+$('input[name="email"]').keyup(function(e){
+    var $this = $(this);
+    var emailAddr = $this.val();
+    if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(emailAddr)) {
+        $this.siblings('.input-enter-prompt').show();
+        if (e.which === 13) {
+            // Enter key
+            submitEmailAddress(emailAddr, $this.parents('form'));
+        }
+    } else {
+        $this.siblings('.input-enter-prompt').hide();
+    }
+});
+
+
 // click action
 $('.js-submit').click(function (e) {
     e.stopPropagation();
@@ -54,13 +79,10 @@ $('.js-submit').click(function (e) {
         alert('Email format is invalid');
         return false;
     }
-    $.post('/', {
-        email: email,
-        tagIndex: form.find('input[name="tag_index"]').val()
-    }, function () {
-        $('[data-remodal-id=submitFinished]').remodal({hashTracking: false}).open();
-    });
+    submitEmailAddress(email, form);
 });
+
+
 // how it works carousel
 $('.js-how-it-works .slide-controls > li').click(function () {
     var $this = $(this);
