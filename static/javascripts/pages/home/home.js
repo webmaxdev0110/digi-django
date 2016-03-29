@@ -108,7 +108,7 @@ $('.js-how-it-works .slide-controls > li').click(function () {
             .siblings()
             .removeClass('active animated fadeinUp');
         $(this).children().eq(itemIndex).addClass('active');
-        $(this).children().eq(itemIndex).addClass('animated fadeInUp');
+        $(this).children().eq(itemIndex).addClass('animated fadeIn');
     });
 });
 
