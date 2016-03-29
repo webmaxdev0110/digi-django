@@ -47,6 +47,9 @@ $orange: #ff8a00;
 $white: #FFFFFF;
 
 // helpers
+a:hover, a:visited, a:focus, a:active {
+  text-decoration: none;
+}
 
 .static {
   position: static;
@@ -645,7 +648,6 @@ a.nav-logo-wrapper {
     }
   }
   .efficiency-group {
-
     @include media('>=sm', '<md') {
       margin: 25px 0;
     }
@@ -660,7 +662,24 @@ a.nav-logo-wrapper {
       width: 80%;
       margin: 0 auto;
     }
+    &.left {
+      @include media('>md') {
+        text-align: right;
+        .text-wrapper {
+          margin-right: 0;
+        }
+      }
+    }
+    &.right {
+      @include media('>md') {
+        text-align: left;
+        .text-wrapper {
+          margin-left: 0;
+        }
+      }
+    }
   }
+
   .js-number-count {
     height: 150px;
     position: relative;
@@ -679,7 +698,7 @@ a.nav-logo-wrapper {
       @extend .font3;
       position: absolute;
       font-size: 16px;
-      top: 66%;
+      top: 72%;
       width: 100%;
       opacity: .9;
     }
@@ -745,6 +764,9 @@ u {
   background-color: #f3faff;
   @include media('>=sm') {
     font-size: 13px;
+  }
+  a.js-scroll-to-aus {
+    color: $dark-blue;
   }
 
   h1 {
@@ -923,6 +945,10 @@ footer {
 
 .dot-underline {
   border-bottom: 2px dotted #073660;
+}
+
+.solid-underline {
+  border-bottom: 2px solid $dark-blue;
 }
 
 // The modal background
