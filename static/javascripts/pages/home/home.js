@@ -53,6 +53,9 @@ var submitEmailAddress = function(email, form) {
     });
 };
 var isOnTablet = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile/i.test(navigator.userAgent);
+var isSmallDevice = function() {
+    return $(window).width() <= 480; // This is synced with includemedia.scss
+};
 
 if(!isOnTablet) {
     $('input[name="email"]').keyup(function(e){
@@ -77,6 +80,11 @@ if(!isOnTablet) {
 $('.js-submit').click(function (e) {
     e.stopPropagation();
     e.preventDefault();
+    if (isSmallDevice()) {
+        $('html,body').animate({ scrollTop: $('.row.cta').position().top }, 'slow');
+        return false;
+    }
+
     var target = $(e.target);
     var form = target.parents('form');
     var email = target.parents('form').find('input[name="email"]:visible').val();
@@ -84,6 +92,7 @@ $('.js-submit').click(function (e) {
         alert('Email format is invalid');
         return false;
     }
+
     submitEmailAddress(email, form);
 });
 
