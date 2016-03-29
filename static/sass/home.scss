@@ -46,6 +46,15 @@ $faint-blue-4: #e0effa;
 $orange: #ff8a00;
 $white: #FFFFFF;
 
+// helpers
+
+.static {
+  position: static;
+}
+.relative {
+  position: relative;
+}
+
 .dark-blue {
   color: $dark-blue;
 }
@@ -725,6 +734,9 @@ u {
       }
       @include media('<=xs') {
         font-size: 13px;
+      }
+      &.right-side-content {
+        padding-left: 0;
       }
     }
   }
