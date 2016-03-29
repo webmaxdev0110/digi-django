@@ -114,6 +114,12 @@ $('.js-how-it-works .slide-controls > li').click(function () {
     });
 });
 
+$('.js-scroll-to-aus').click(function() {
+    $('html, body').animate({
+        scrollTop: $("#australian-business").offset().top - 100
+    }, 1500);
+});
+
 var initCountingNumber = function () {
     // Counting numbers
     $('.js-number-count').each(function () {
