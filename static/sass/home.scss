@@ -83,6 +83,7 @@ $white: #FFFFFF;
   position: relative;
   span.input-enter-prompt {
     vertical-align: middle;
+    text-align: left;
     font-size: 12px;
     color: #bdd2e5;
     margin-left: 10px;
@@ -486,7 +487,7 @@ a.nav-logo-wrapper {
         pointer-events: none;
         content: " ";
         position: absolute;
-        border: 1px solid #ebf4fa;
+        border: 1px solid rgba(235, 244, 250, 0.79);
         width: 705px;
         height: 705px;
         border-radius: 1000px;
@@ -502,7 +503,7 @@ a.nav-logo-wrapper {
         pointer-events: none;
         content: " ";
         position: absolute;
-        border: 1px solid #ebf4fa;
+        border: 1px solid rgba(235, 244, 250, 0.79);
         width: 705px;
         height: 705px;
         border-radius: 1000px;
