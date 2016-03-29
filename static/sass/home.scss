@@ -47,6 +47,9 @@ $orange: #ff8a00;
 $white: #FFFFFF;
 
 // helpers
+a:hover, a:visited, a:focus, a:active {
+  text-decoration: none;
+}
 
 .static {
   position: static;
@@ -746,6 +749,9 @@ u {
   @include media('>=sm') {
     font-size: 13px;
   }
+  a.js-scroll-to-aus {
+    color: $dark-blue;
+  }
 
   h1 {
     font-size: 25px;
@@ -924,6 +930,7 @@ footer {
 .dot-underline {
   border-bottom: 2px dotted #073660;
 }
+
 .solid-underline {
   border-bottom: 2px solid $dark-blue;
 }
