@@ -852,7 +852,7 @@ u {
     li {
       padding: 0 20px;
       @include media("<=xs") {
-        padding: 0 10px;
+        padding: 0 8px;
       }
     }
   }
