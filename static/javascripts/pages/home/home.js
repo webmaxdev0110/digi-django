@@ -61,7 +61,6 @@ if(!isOnTablet) {
         if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(emailAddr)) {
             // So the placeholer will not outside the box
             var leftDistance = Math.min(emailAddr.length * 10 + 20, $this.innerWidth() - 80);
-            console.log(emailAddr.length);
             $this.siblings('.input-enter-prompt').css({'left': leftDistance }).show();
             if (e.which === 13) {
                 // Enter key
