@@ -82,6 +82,9 @@ a.logo {
 
 .slogan-container {
   margin: 65px 0 20px;
+  > h1 {
+    font-size: 48px;
+  }
 }
 
 .vcentre {
