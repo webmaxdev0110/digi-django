@@ -64,26 +64,46 @@ $white: #FFFFFF;
 }
 
 a.nav-logo-wrapper {
-  margin: 20px 0 0 0;
+  margin: 21px 0 59px 0;
+  display: block;
   @include media("<=xs") {
     margin: 10px 0 0 0;
   }
+  a.logo {
+    height: 17px;
+    display: inline-block;
+  }
   > img.logo-img {
     width: 160px;
+    position: absolute;
+    left: 1px;
     @include media("<=xs") {
       width: 135px;
+      left: 14px;
+      top: 10px;
     }
   }
 }
 
-a.logo {
-  display: inline-block;
-}
-
 .slogan-container {
   margin: 65px 0 20px;
+  @include media('<=xs') {
+    margin-top: 86px;
+  }
   > h1 {
     font-size: 48px;
+    line-height: 1.2;
+    @include media('>sm', '<md') {
+      font-size: 38px;
+    }
+    @include media('>md', '<lg') {
+      font-size: 40px;
+    }
+    @include media('<=sm') {
+      font-size: 24px;
+    }
+
+
   }
 }
 
@@ -99,7 +119,8 @@ a.logo {
   line-height: 1.4;
   font-size: 19px;
 
-  @include media('<=xs') {
+  @include media('<=sm') {
+    padding-bottom: 20px;
     font-size: 16px;
     h1 {
       font-size: 27px;
@@ -107,7 +128,11 @@ a.logo {
   }
   .tag-line {
     font-size: 22px;
-    line-height: 32px;
+    line-height: 1.5;
+    @include media('<=sm') {
+      font-size: 16px;
+      //line-height: 1.2;
+    }
   }
 }
 
@@ -211,7 +236,7 @@ a.logo {
 
 // The old way new way section
 .old-new-compare {
-  margin: 35px 0 65px;
+  margin: 35px 0 180px;
   @include media('<xs') {
     margin-bottom: 23px;
   }
@@ -300,13 +325,63 @@ a.logo {
 .row.js-how-it-works {
   color: $dark-blue;
   background: $faint-blue-3;
-  padding-top: 60px;
-  padding-bottom: 50px;
+  @include media('<md') {
+    padding-top: 120px;
+    padding-bottom: 100px;
+  }
+  @include media('<sm') {
+    padding-top: 80px;
+    padding-bottom: 60px;
+  }
+  @include media('>md') {
+    padding-top: 170px;
+    padding-bottom: 150px;
+  }
+  .big-circle-left {
+    @include media('>sm') {
+      &:before {
+        content: " ";
+        position: absolute;
+        border: 1px solid #ebf4fa;
+        width: 705px;
+        height: 705px;
+        border-radius: 1000px;
+        top: -292px;
+        margin-right: -220px;
+        left: -5%;
+      }
+    }
+  }
+  .big-circle-right {
+    @include media('>sm') {
+      &:after {
+        content: " ";
+        position: absolute;
+        border: 1px solid #ebf4fa;
+        width: 705px;
+        height: 705px;
+        border-radius: 1000px;
+        top: -292px;
+        margin-left: -220px;
+        right: -4%;
+      }
+    }
+  }
   .feature-heading {
     margin-bottom: 25px;
+    > h2 {
+      font-size: 36px;
+      @include media('<=xs') {
+        font-size: 26px;
+      }
+    }
   }
   .feature-text {
     > p.slide-text {
+      font-size: 24px;
+      @include media('<=xs') {
+        font-size: 18px;
+      }
       @include animation-duration(0.45s);
     }
   }
@@ -347,13 +422,13 @@ a.logo {
         display: inline-block;
         margin: 15px 10px;
       }
-      width: 14px;
-      height: 14px;
+      width: 18px;
+      height: 18px;
       margin: 15px auto;
       text-align: center;
       > a {
-        width: 12px;
-        height: 12px;
+        width: 13px;
+        height: 13px;
         @include border-radius(50%);
         background: $faint-blue-4;
         cursor: pointer;
@@ -364,8 +439,8 @@ a.logo {
         > a {
           background: $faint-blue-4;
           background: $dark-blue-2;
-          width: 14px;
-          height: 14px;
+          width: 17px;
+          height: 17px;
         }
       }
     }
@@ -375,7 +450,11 @@ a.logo {
 
 .row.efficiency {
   background: $dark-blue-2;
-  padding: 40px 0 0;
+  padding: 100px 0 0;
+  @include media('<=xs') {
+    padding-top: 36px;
+    padding-bottom: 36px;
+  }
   color: $white;
   .sub-heading-group {
     margin: 0 0 30px;
@@ -398,6 +477,9 @@ a.logo {
   }
   .efficiency-group {
     margin: 65px 0;
+    @include media ('<xs') {
+      margin: 0;
+    }
     @include media('>=md') {
       margin-top: 130px;
     }
@@ -505,13 +587,20 @@ u {
     .quote {
       width: 150px;
       padding-top: 27px;
+      font-style: italic;
+      font-size: 18px;
+      font-weight: 300;
       @include media('>=sm') {
-        width: 200px;
+        width: 250px;
+      }
+      @include media('<=xs') {
+        font-size: 13px;
       }
     }
   }
 
   .timeline {
+    font-size: 18px;
     position: relative;
     padding-top: 1px;
     &::before {
@@ -533,13 +622,20 @@ u {
     @include border-radius(5px);
     background-color: $white;
     box-shadow: 0 35px 40px 0 rgba(0, 62, 106, 0.1);
-    width: 40px;
-    height: 27px;
+    width: 73px;
+    line-height: 46px;
+    height: 46px;
     display: inline-block;
-    font-size: 14px;
-    line-height: 27px;
+    font-size: 20px;
     color: $dark-blue;
     @extend .font1;
+    @include media ('<xs') {
+      width: 38px;
+      line-height: 20px;
+      height: 20px;
+      display: inline-block;
+      font-size: 13px;
+    }
   }
   .year-dot {
     background: #deeef8;
@@ -558,14 +654,24 @@ u {
     text-align: left;
     padding-left: 15px;
   }
+  .text-wrapper {
+    font-size: 18px;
+    @extend .font8;
+    @include media('<=xs') {
+      font-size: 13px;
+    }
+  }
   .side-content {
     max-width: 150px;
     @include media('>xs') {
       max-width: 250px;
     }
     > img {
-      height: 44px;
+      height: 82px;
       margin-top: 8px;
+      @include media('<=xs') {
+        height: 50px;
+      }
     }
   }
   .cd-timeline-block {
