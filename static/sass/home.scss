@@ -72,6 +72,12 @@ $white: #FFFFFF;
   font-style: italic;
 }
 
+// utils
+.clear-both {
+  // Different to default @clearfix
+  clear: both;
+}
+
 
 .email-group {
   position: relative;
@@ -590,37 +596,64 @@ a.nav-logo-wrapper {
 .row.efficiency {
   background: $dark-blue-2;
   padding: 100px 0 0;
-  @include media('<=xs') {
+  @include media('<sm') {
     padding-top: 36px;
     padding-bottom: 36px;
   }
   color: $white;
   .sub-heading-group {
-    margin: 0 0 30px;
+    @include media('>sm') {
+      margin: 0 0 55px;
+    }
     h1 {
       line-height: 40px;
     }
   }
-
-  .x7image {
-    max-width: 80%;
-    @include media('>=sm', '<=lg') {
-      max-width: 60%;
+  .boxes-row {
+    @include media('>=sm', '<md') {
+      padding-bottom: 90px;
+      > div {
+        clear: both;
+      }
+      &:before {
+        content: " ";
+        position: absolute;
+        bottom: -1px;
+        left: 50%;
+        width: 483px;
+        height: 674px;
+        margin-left: -420px;
+        background: transparent url(../images/hand_held.png) no-repeat;
+        background-size: auto 100%;
+      }
     }
-  }
-  .x5image {
-    max-width: 40%;
-    @include media('>=sm', '<=lg') {
-      max-width: 35%;
+    @include media('>md') {
+      height: 620px;
+      &:before {
+        content: " ";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 460px;
+        height: 662px;
+        margin-left: -220px;
+        background-position: right top;
+        background: transparent url(../images/hand_held.png) no-repeat;
+        background-size: auto;
+      }
     }
   }
   .efficiency-group {
-    margin: 65px 0;
-    @include media ('<xs') {
-      margin: 0;
+
+    @include media('>=sm', '<md') {
+      margin: 25px 0;
     }
-    @include media('>=md') {
-      margin-top: 130px;
+    @include media('>md') {
+      margin: 101px 0 0;
+    }
+    @include media('<=xs') {
+      max-width: 335px;
+      margin: 0 auto;
     }
     .text-wrapper {
       width: 80%;
@@ -628,7 +661,7 @@ a.nav-logo-wrapper {
     }
   }
   .js-number-count {
-    height: 214px;
+    height: 150px;
     position: relative;
     .number-count {
       font-size: 150px;
@@ -638,17 +671,22 @@ a.nav-logo-wrapper {
     }
     .number-count, .number-appendix {
       color: $dark-blue;
-      @extend .font6;
+      @extend .font3;
     }
     .cover-text {
       display: none;
       @extend .font3;
       position: absolute;
       font-size: 16px;
-      top: 54%;
+      top: 66%;
       width: 100%;
       opacity: .9;
     }
+    .faster {
+      left: -44px;
+      top: 73%;
+    }
+
   }
 }
 
@@ -663,7 +701,7 @@ a.nav-logo-wrapper {
     background-position: center !important;
   }
   .sub-heading-group {
-    margin: 0 0 15px 0
+    margin: 0 0 15px 0;
   }
   .waste-image-wrapper {
     margin: 55px 0;
@@ -801,7 +839,7 @@ u {
     }
   }
   .side-content {
-    max-width: 150px;
+    max-width: 120px;
     @include media('>xs') {
       max-width: 250px;
     }
