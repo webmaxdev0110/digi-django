@@ -53,6 +53,9 @@ var submitEmailAddress = function(email, form) {
     });
 };
 var isOnTablet = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile/i.test(navigator.userAgent);
+var isSmallDevice = function() {
+    return $(window).width() <= 480; // This is synced with includemedia.scss
+};
 
 if(!isOnTablet) {
     $('input[name="email"]').keyup(function(e){
@@ -60,7 +63,7 @@ if(!isOnTablet) {
         var emailAddr = $this.val();
         if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(emailAddr)) {
             // So the placeholer will not outside the box
-            var leftDistance = Math.min(emailAddr.length * 10 + 20, $this.innerWidth() - 50);
+            var leftDistance = Math.min(emailAddr.length * 10 + 20, $this.innerWidth() - 80);
             $this.siblings('.input-enter-prompt').css({'left': leftDistance }).show();
             if (e.which === 13) {
                 // Enter key
@@ -78,12 +81,19 @@ $('.js-submit').click(function (e) {
     e.stopPropagation();
     e.preventDefault();
     var target = $(e.target);
+    if (isSmallDevice() && target.parents('.fixed-header-wrapper').length > 0) {
+        $('html,body').animate({ scrollTop: $('.row.cta').position().top }, 'slow');
+        return false;
+    }
+
+
     var form = target.parents('form');
     var email = target.parents('form').find('input[name="email"]:visible').val();
     if (!/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(email)) {
         alert('Email format is invalid');
         return false;
     }
+
     submitEmailAddress(email, form);
 });
 
@@ -98,7 +108,7 @@ $('.js-how-it-works .slide-controls > li').click(function () {
             .siblings()
             .removeClass('active animated fadeinUp');
         $(this).children().eq(itemIndex).addClass('active');
-        $(this).children().eq(itemIndex).addClass('animated fadeInUp');
+        $(this).children().eq(itemIndex).addClass('animated fadeIn');
     });
 });
 
@@ -131,10 +141,37 @@ var initCountingNumber = function () {
     });
 };
 
-var waypoint = new Waypoint({
+new Waypoint({
     element: $('.row.efficiency')[0],
     handler: function () {
         initCountingNumber();
         this.destroy();
     }
 });
+
+
+new Waypoint({
+  element: $('.row.old-new-compare')[0],
+  handler: function(direction) {
+
+    if (direction === 'down') {
+        $('.fixed-header-wrapper').slideDown(200);
+    } else {
+        $('.fixed-header-wrapper').slideUp(200);
+    }
+  }
+});
+
+new Waypoint({
+  element: $('.row.electronic-signature')[0],
+  handler: function(direction) {
+
+    if (direction === 'down') {
+        $('.fixed-header-wrapper').slideUp(200);
+    } else {
+        $('.fixed-header-wrapper').slideDown(200);
+    }
+  }
+});
+
+
