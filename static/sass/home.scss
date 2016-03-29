@@ -111,6 +111,18 @@ a.logo {
 .cta.row {
   > div {
     background-color: $faint-blue;
+    @include media('>=sm') {
+      &:after {
+        content: " ";
+        position: absolute;
+        background: transparent url(../images/arrow.png) no-repeat bottom right;
+        width: 36px;
+        height: 81px;
+        right: 60px;
+        bottom: -40px;
+      }
+    }
+
   }
 }
 
