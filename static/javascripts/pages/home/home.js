@@ -80,12 +80,13 @@ if(!isOnTablet) {
 $('.js-submit').click(function (e) {
     e.stopPropagation();
     e.preventDefault();
-    if (isSmallDevice()) {
+    var target = $(e.target);
+    if (isSmallDevice() && target.parents('.fixed-header-wrapper').length > 0) {
         $('html,body').animate({ scrollTop: $('.row.cta').position().top }, 'slow');
         return false;
     }
 
-    var target = $(e.target);
+
     var form = target.parents('form');
     var email = target.parents('form').find('input[name="email"]:visible').val();
     if (!/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(email)) {
