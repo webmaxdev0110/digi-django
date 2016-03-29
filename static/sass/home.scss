@@ -167,6 +167,8 @@ $white: #FFFFFF;
     }
     @include media('<=xs') {
       @include border-radius(4px !important);
+      float: right;
+      width: auto;
     }
   }
   input::-webkit-input-placeholder {
