@@ -56,6 +56,8 @@ var isOnTablet = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile/i.test(navi
 var isSmallDevice = function() {
     return $(window).width() <= 480; // This is synced with includemedia.scss
 };
+$(document).ready(function(){
+
 
 if(!isOnTablet) {
     $('input[name="email"]').keyup(function(e){
@@ -175,3 +177,4 @@ new Waypoint({
 });
 
 
+});
