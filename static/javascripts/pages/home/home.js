@@ -52,20 +52,25 @@ var submitEmailAddress = function(email, form) {
         $('[data-remodal-id=submitFinished]').remodal({hashTracking: false}).open();
     });
 };
+var isOnTablet = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile/i.test(navigator.userAgent);
 
-$('input[name="email"]').keyup(function(e){
-    var $this = $(this);
-    var emailAddr = $this.val();
-    if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(emailAddr)) {
-        $this.siblings('.input-enter-prompt').show();
-        if (e.which === 13) {
-            // Enter key
-            submitEmailAddress(emailAddr, $this.parents('form'));
+if(!isOnTablet) {
+    $('input[name="email"]').keyup(function(e){
+        var $this = $(this);
+        var emailAddr = $this.val();
+        if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(emailAddr)) {
+            // So the placeholer will not outside the box
+            var leftDistance = Math.min(emailAddr.length * 10 + 20, $this.innerWidth() - 50);
+            $this.siblings('.input-enter-prompt').css({'left': leftDistance }).show();
+            if (e.which === 13) {
+                // Enter key
+                submitEmailAddress(emailAddr, $this.parents('form'));
+            }
+        } else {
+            $this.siblings('.input-enter-prompt').hide();
         }
-    } else {
-        $this.siblings('.input-enter-prompt').hide();
-    }
-});
+    });
+}
 
 
 // click action
