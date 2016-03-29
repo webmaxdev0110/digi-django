@@ -724,7 +724,7 @@ u {
     height: 140px;
     position: relative;
     .quote {
-      width: 150px;
+      width: 100%;
       padding-top: 27px;
       font-style: italic;
       font-size: 18px;
@@ -734,9 +734,6 @@ u {
       }
       @include media('<=xs') {
         font-size: 13px;
-      }
-      &.right-side-content {
-        padding-left: 0;
       }
     }
   }
