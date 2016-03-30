@@ -42,15 +42,15 @@ class HomeView(TemplateView):
         }
 
     def post(self, request, *args, **kwargs):
-        email = request.POST['email']
+        email = request.POST.get('email')
 
         user, _ = User.objects.get_or_create(
             username='pre_launch_' + uuid.uuid4().hex[:5],
             email=email,
             is_active=False,
             is_pre_launch_signup=True,
-            signup_tag_index=request.POST['tagIndex'],
-            signup_form_source=request.POST['formName'],
+            signup_tag_index=request.POST.get('tagIndex'),
+            signup_form_source=request.POST.get('formName'),
             country=''
         )
 #
