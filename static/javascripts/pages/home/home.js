@@ -216,7 +216,7 @@ if (isElementInViewport(eMondoEfficiencySection)) {
     initCountingNumber();
 } else {
     new Waypoint({
-        element: $('.slide-controls')[0],
+        element: eMondoEfficiencySection[0],
         handler: function () {
             console.log('triggered');
             initCountingNumber();
