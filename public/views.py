@@ -32,7 +32,7 @@ class HomeView(TemplateView):
             ('Chasing your clients is painful,<br /> we fix this.',
              'Get your forms legally signed, witnessed, certified and completed online in minutes not weeks. We’re Australia’s only digital platform for end-to-end client onboarding.',),
             ('Capture new leads and convert more clients.',
-             'Your abandoned online forms are now new leads that become your clients up to 45 times faster'
+             'Your abandoned online forms are now new leads that become your clients up to 45 times faster.'
              ),
         ]
         tagline_index = random.randint(0, len(tag_lines) - 1)
@@ -49,6 +49,8 @@ class HomeView(TemplateView):
             email=email,
             is_active=False,
             is_pre_launch_signup=True,
+            signup_tag_index=request.POST['tagIndex'],
+            signup_form_source=request.POST['formName'],
             country=''
         )
 #
