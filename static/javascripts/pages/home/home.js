@@ -127,17 +127,23 @@ $('.js-submit').click(function (e) {
 });
 
 
+var howItWorksInterval;
+var startsHowItWorksCarousel = function() {
+    var getNextSlide = function() {
+        var targetSlide = $('.js-how-it-works .slide-controls li.active').next();
+        if (!targetSlide.length) {
+            targetSlide = $('.js-how-it-works .slide-controls li:first');
+        }
+        return targetSlide;
+    };
+    howItWorksInterval = setInterval(function(){
+        highLightSlide(getNextSlide());
+    }, 3000);
+};
 
-var howItWorksInterval = setInterval(function(){
-    $('.js-how-it-works .slide-controls li.active').next().trigger('click')
-}, 4000);
-
-// how it works carousel
-$('.js-how-it-works .slide-controls > li').click(function () {
-    var $this = $(this);
-    var itemIndex = $this.index();
-    clearInterval(howItWorksInterval);
-    $this.addClass('active').siblings().removeClass('active');
+var highLightSlide = function($targetSlide) {
+    var itemIndex = $targetSlide.index();
+    $targetSlide.addClass('active').siblings().removeClass('active');
     $('.js-how-it-works .feature-text').each(function () {
         $(this).children().eq(itemIndex)
             .siblings()
@@ -145,6 +151,16 @@ $('.js-how-it-works .slide-controls > li').click(function () {
         $(this).children().eq(itemIndex).addClass('active');
         $(this).children().eq(itemIndex).addClass('animated fadeIn');
     });
+};
+
+startsHowItWorksCarousel();
+
+
+// how it works carousel
+$('.js-how-it-works .slide-controls > li').click(function () {
+    var $this = $(this);
+    clearInterval(howItWorksInterval);
+    highLightSlide($this);
 });
 
 
