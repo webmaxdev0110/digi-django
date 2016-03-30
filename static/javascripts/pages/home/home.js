@@ -124,14 +124,7 @@ var initCountingNumber = function () {
     // Counting numbers
     $('.js-number-count').each(function () {
         var $this = $(this);
-        var finishText = $this.attr('counter-finish-text');
         var counterEnd = parseInt($this.data('counter-end'), 10);
-
-        var tmpl = fmt('<span class="number-count">0</span>' +
-            '<span class="number-appendix">x</span>' +
-            '<div class="cover-text">#{finishText}</div>');
-        var rendered = tmpl({finishText: finishText});
-        $this.append($(rendered));
         var $numberCount = $this.children('.number-count');
         var $coverText = $this.find('.cover-text');
         $this.prop('counter', 0).animate({
