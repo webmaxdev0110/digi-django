@@ -339,6 +339,9 @@ a.nav-logo-wrapper {
     @include media('<=xs') {
       @include border-radius(4px 4px 0 0 !important);
     }
+    @include media('>xs') {
+      @include border-radius(4px 0 0 4px !important);
+    }
   }
   button[name="submit"] {
     color: $white;
