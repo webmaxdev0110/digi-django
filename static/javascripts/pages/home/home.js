@@ -67,13 +67,28 @@ var submitEmailAddress = function(email, form) {
         } catch (e) { }
         userSignedUp = true;
         $('input[name="email"]').val('');
+        $('.input-enter-prompt').hide();
+        // Now hide the input hint
     });
 };
+
+$(document).on('opened', '.remodal', function () {
+  $(document).on('keyup', function(e) {
+      console.log('keyup');
+    if (e.which === 13) {
+        var inst = $('[data-remodal-id=submitFinished]').remodal();
+        if (inst) {
+            inst.close();
+        }
+    }
+  });
+});
 
 $(document).on('closed', '.remodal', function () {
     if (userSignedUp) {
         $('html,body').animate({ scrollTop: $('.row.old-new-compare').position().top }, 'slow');
     }
+    $(document).off('keyup');
 });
 
 
@@ -216,9 +231,8 @@ if (isElementInViewport(eMondoEfficiencySection)) {
     initCountingNumber();
 } else {
     new Waypoint({
-        element: $('.slide-controls')[0],
+        element: eMondoEfficiencySection[0],
         handler: function () {
-            console.log('triggered');
             initCountingNumber();
             this.destroy();
         }

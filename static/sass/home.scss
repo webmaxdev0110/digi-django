@@ -971,7 +971,20 @@ footer {
 // The modal background
 .remodal {
   background-image: image-url('Emondo-Icon-Colour.svg') !important;
-  background-position: 116% 358% !important;
+  background-position: 140% 358% !important;
   background-size: 58% 88% !important;
   background-repeat: no-repeat !important;
+  span.input-enter-prompt {
+    text-align: left;
+    font-size: 12px;
+    color: #bdd2e5;
+    display: inline-block !important;
+    line-height: 16px;
+    padding-bottom: 15px;
+    background: transparent url(../images/arrows.svg) no-repeat left 33px;
+    background-size: 19px 12px;
+    z-index: 4;
+    float: left;
+    margin: 21px 0 0 12px;
+  }
 }
