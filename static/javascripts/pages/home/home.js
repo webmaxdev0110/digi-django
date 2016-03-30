@@ -148,14 +148,16 @@ $('.js-submit').click(function (e) {
 
 
 var howItWorksInterval;
+
+var getNextSlide = function() {
+    var targetSlide = $('.js-how-it-works .slide-controls li.active').next();
+    if (!targetSlide.length) {
+        targetSlide = $('.js-how-it-works .slide-controls li:first');
+    }
+    return targetSlide;
+};
 var startsHowItWorksCarousel = function() {
-    var getNextSlide = function() {
-        var targetSlide = $('.js-how-it-works .slide-controls li.active').next();
-        if (!targetSlide.length) {
-            targetSlide = $('.js-how-it-works .slide-controls li:first');
-        }
-        return targetSlide;
-    };
+
     howItWorksInterval = setInterval(function(){
         highLightSlide(getNextSlide());
     }, 3000);
@@ -175,12 +177,17 @@ var highLightSlide = function($targetSlide) {
 
 startsHowItWorksCarousel();
 
-
 // how it works carousel
 $('.js-how-it-works .slide-controls > li').click(function () {
     var $this = $(this);
-    clearInterval(howItWorksInterval);
+    if (howItWorksInterval) {
+        clearInterval(howItWorksInterval);
+        howItWorksInterval = null;
+    }
     highLightSlide($this);
+    slowCarouselIntervalId = setInterval(function() {
+        highLightSlide(getNextSlide());
+    }, 6000);
 });
 
 
