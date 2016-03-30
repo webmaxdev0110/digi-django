@@ -233,7 +233,6 @@ if (isElementInViewport(eMondoEfficiencySection)) {
     new Waypoint({
         element: eMondoEfficiencySection[0],
         handler: function () {
-            console.log('triggered');
             initCountingNumber();
             this.destroy();
         }
