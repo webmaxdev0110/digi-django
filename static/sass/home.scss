@@ -743,6 +743,12 @@ a.nav-logo-wrapper {
       margin-top: 10px;
       > div {
         line-height: 1.1;
+        &:first-child {
+          font-size: 17px;
+        }
+        &:last-child {
+          font-size: 14px;
+        }
       }
     }
   }
