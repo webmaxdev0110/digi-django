@@ -288,6 +288,7 @@ a.nav-logo-wrapper {
 .cta.row {
   > div {
     background-color: $faint-blue;
+    @include border-radius(4px);
     @include media('>=sm') {
       &:after {
         content: " ";

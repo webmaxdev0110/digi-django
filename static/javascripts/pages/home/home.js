@@ -55,7 +55,8 @@ try {
 var submitEmailAddress = function(email, form) {
     $.post('/', {
         email: email,
-        tagIndex: form.find('input[name="tag_index"]').val()
+        tagIndex: form.find('input[name="tag_index"]').val(),
+        formName: form.data('name')
     }, function () {
         $('[data-remodal-id=submitFinished]').remodal({
             hashTracking: false

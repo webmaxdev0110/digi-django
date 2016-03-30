@@ -18,4 +18,7 @@ class User(AbstractUser):
     country = CountryField(default='AU', blank=True)
     last_active = models.DateTimeField(null=True, blank=True)
     is_pre_launch_signup = models.BooleanField(default=False)
+    signup_tag_index = models.CharField(max_length=16, default='', blank=True)
+    signup_form_source = models.CharField(max_length=16, default='', blank=True)
+
 
