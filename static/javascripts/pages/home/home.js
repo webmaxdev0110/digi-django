@@ -44,18 +44,45 @@ $.ajaxSetup({
     }
 });
 
+var userSignedUp = false;
+try {
+    var store = window.localStorage;
+    if ('true' === store.getItem('signed_up')) {
+        userSignedUp = true;
+    }
+} catch(e) {}
+
 var submitEmailAddress = function(email, form) {
     $.post('/', {
         email: email,
         tagIndex: form.find('input[name="tag_index"]').val()
     }, function () {
-        $('[data-remodal-id=submitFinished]').remodal({hashTracking: false}).open();
+        $('[data-remodal-id=submitFinished]').remodal({
+            hashTracking: false
+        }).open();
+        try {
+            var store = window.localStorage;
+            store.setItem('signed_up', 'true');
+        } catch (e) { }
+        userSignedUp = true;
+        $('input[name="email"]').val('');
     });
 };
+
+$(document).on('closed', '.remodal', function () {
+    if (userSignedUp) {
+        $('html,body').animate({ scrollTop: $('.row.old-new-compare').position().top }, 'slow');
+    }
+});
+
+
 var isOnTablet = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile/i.test(navigator.userAgent);
 var isSmallDevice = function() {
     return $(window).width() <= 480; // This is synced with includemedia.scss
 };
+
+
+
 $(document).ready(function(){
 
 
@@ -65,7 +92,7 @@ if(!isOnTablet) {
         var emailAddr = $this.val();
         if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(emailAddr)) {
             // So the placeholer will not outside the box
-            var leftDistance = Math.min(emailAddr.length * 10 + 20, $this.innerWidth() - 80);
+            var leftDistance = Math.min(emailAddr.length * 12 + emailAddr.length * 0.8, $this.innerWidth() - 80);
             $this.siblings('.input-enter-prompt').css({'left': leftDistance }).show();
             if (e.which === 13) {
                 // Enter key
@@ -83,7 +110,7 @@ $('.js-submit').click(function (e) {
     e.stopPropagation();
     e.preventDefault();
     var target = $(e.target);
-    if (isSmallDevice() && target.parents('.fixed-header-wrapper').length > 0) {
+    if (isSmallDevice() && target.parents('.fixed-header-wrapper').length > 0 && !userSignedUp) {
         $('html,body').animate({ scrollTop: $('.row.cta').position().top }, 'slow');
         return false;
     }
@@ -100,17 +127,23 @@ $('.js-submit').click(function (e) {
 });
 
 
+var howItWorksInterval;
+var startsHowItWorksCarousel = function() {
+    var getNextSlide = function() {
+        var targetSlide = $('.js-how-it-works .slide-controls li.active').next();
+        if (!targetSlide.length) {
+            targetSlide = $('.js-how-it-works .slide-controls li:first');
+        }
+        return targetSlide;
+    };
+    howItWorksInterval = setInterval(function(){
+        highLightSlide(getNextSlide());
+    }, 3000);
+};
 
-var howItWorksInterval = setInterval(function(){
-    $('.js-how-it-works .slide-controls li.active').next().trigger('click')
-}, 4000);
-
-// how it works carousel
-$('.js-how-it-works .slide-controls > li').click(function () {
-    var $this = $(this);
-    var itemIndex = $this.index();
-    clearInterval(howItWorksInterval);
-    $this.addClass('active').siblings().removeClass('active');
+var highLightSlide = function($targetSlide) {
+    var itemIndex = $targetSlide.index();
+    $targetSlide.addClass('active').siblings().removeClass('active');
     $('.js-how-it-works .feature-text').each(function () {
         $(this).children().eq(itemIndex)
             .siblings()
@@ -118,6 +151,16 @@ $('.js-how-it-works .slide-controls > li').click(function () {
         $(this).children().eq(itemIndex).addClass('active');
         $(this).children().eq(itemIndex).addClass('animated fadeIn');
     });
+};
+
+startsHowItWorksCarousel();
+
+
+// how it works carousel
+$('.js-how-it-works .slide-controls > li').click(function () {
+    var $this = $(this);
+    clearInterval(howItWorksInterval);
+    highLightSlide($this);
 });
 
 
@@ -183,27 +226,30 @@ if (isElementInViewport(eMondoEfficiencySection)) {
 
 
 new Waypoint({
-  element: $('.row.old-new-compare')[0],
-  handler: function(direction) {
+    element: $('.row.old-new-compare')[0],
+    handler: function (direction) {
+        if (!userSignedUp) {
+            if (direction === 'down') {
+                $('.fixed-header-wrapper').slideDown(200);
+            } else {
+                $('.fixed-header-wrapper').slideUp(200);
+            }
+        }
 
-    if (direction === 'down') {
-        $('.fixed-header-wrapper').slideDown(200);
-    } else {
-        $('.fixed-header-wrapper').slideUp(200);
     }
-  }
 });
 
 new Waypoint({
-  element: $('.row.electronic-signature')[0],
-  handler: function(direction) {
-
-    if (direction === 'down') {
-        $('.fixed-header-wrapper').slideUp(200);
-    } else {
-        $('.fixed-header-wrapper').slideDown(200);
+    element: $('.row.electronic-signature')[0],
+    handler: function (direction) {
+        if (!userSignedUp) {
+            if (direction === 'down') {
+                $('.fixed-header-wrapper').slideUp(200);
+            } else {
+                $('.fixed-header-wrapper').slideDown(200);
+            }
+        }
     }
-  }
 });
 
 

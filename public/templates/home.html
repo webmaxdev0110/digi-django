@@ -834,7 +834,7 @@
         </div>
     </div>
 </footer>
-<div class="remodal" data-remodal-id="submitFinished">
+<div class="remodal" data-remodal-id="submitFinished" data-remodal-options="hashTracking: false">
     <h1 class="dark-blue font1">Thanks for signing up!</h1>
     <span style="font-size:17px;" class="dark-blue font5">We expect to launch our product in June. You’ll be notified via email</span>
     <br>
@@ -847,7 +847,7 @@
 {% compress js %}
     <script src="{% static 'javascripts/vendor/jquery.waypoints.js' %}"></script>
     <script src="{% static 'javascripts/vendor/rssi.js' %}"></script>
-    <script src="{% static 'javascripts/remodal/remodal.min.js' %}"></script>
+    <script src="{% static 'javascripts/remodal/remodal.js' %}"></script>
 {% endcompress %}
 {% compress js %}
 <script src="{% static 'javascripts/pages/home/home.js' %}" async></script>
