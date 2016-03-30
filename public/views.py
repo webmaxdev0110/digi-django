@@ -31,7 +31,7 @@ class HomeView(TemplateView):
              'The only place to create online forms for you and your clients to legally sign, witness, certify and complete. It’s simple, secure and efficient.',),
             ('Chasing your clients is painful,<br /> we fix this.',
              'Get your forms legally signed, witnessed, certified and completed online in minutes not weeks. We’re Australia’s only digital platform for end-to-end client onboarding.',),
-            ('Capture <span class="solid-underline">new</span> leads and convert <span class="solid-underline">more</span> clients.',
+            ('Capture new leads and convert more clients.',
              'Your abandoned online forms are now new leads that become your clients up to 45 times faster'
              ),
         ]
