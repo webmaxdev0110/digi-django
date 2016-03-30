@@ -92,9 +92,10 @@ a:hover, a:visited, a:focus, a:active {
     margin-left: 10px;
     line-height: 16px;
     padding-bottom: 15px;
-    background: transparent url(../images/enter.png) no-repeat left bottom;
+    background: transparent url(../images/arrows.svg) no-repeat left 33px;
+    background-size: 19px 12px;
     right: 220px;
-    top: 6px;
+    top: 4px;
     z-index: 4;
     position: absolute;
     display: none;
@@ -152,7 +153,8 @@ a:hover, a:visited, a:focus, a:active {
     margin-left: 10px;
     line-height: 16px;
     padding-bottom: 15px;
-    background: transparent url(../images/enter.png) no-repeat right 32%;;
+    background: transparent url(../images/arrows.svg) no-repeat 43px 21%;
+    background-size: 24px 20px;
     right: 220px;
     top: 6px;
     z-index: 4;
