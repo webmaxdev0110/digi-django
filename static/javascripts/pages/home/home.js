@@ -92,7 +92,8 @@ if(!isOnTablet) {
         var emailAddr = $this.val();
         if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(emailAddr)) {
             // So the placeholer will not outside the box
-            var leftDistance = Math.min(emailAddr.length * 12 + emailAddr.length * 0.8, $this.innerWidth() - 80);
+            var textDimension = calculateSize(emailAddr, {font: $this.css('font-family'), fontSize: $this.css('font-size')});
+            var leftDistance = Math.min(textDimension.width + 20, $this.innerWidth() - 80);
             $this.siblings('.input-enter-prompt').css({'left': leftDistance }).show();
             if (e.which === 13) {
                 // Enter key
