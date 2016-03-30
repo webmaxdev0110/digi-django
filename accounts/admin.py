@@ -1,12 +1,11 @@
 from django.contrib import admin
 
-from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib.auth.admin import UserAdmin
 from accounts.models import User
 
+class EmondoUserAdmin(UserAdmin):
+    list_display = UserAdmin.list_display + ('signup_tag_index', 'signup_form_source',)
 
 
-class UserAdmin(BaseUserAdmin):
-    pass
+admin.site.register(User, EmondoUserAdmin)
 
-
-admin.site.register(User, UserAdmin)
