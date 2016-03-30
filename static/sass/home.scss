@@ -531,7 +531,7 @@ a.nav-logo-wrapper {
       @include media('<=xs') {
         font-size: 18px;
       }
-      @include animation-duration(0.45s);
+      @include animation-duration(1.5s);
     }
   }
   .feature-heading,

@@ -100,10 +100,16 @@ $('.js-submit').click(function (e) {
 });
 
 
+
+var howItWorksInterval = setInterval(function(){
+    $('.js-how-it-works .slide-controls li.active').next().trigger('click')
+}, 4000);
+
 // how it works carousel
 $('.js-how-it-works .slide-controls > li').click(function () {
     var $this = $(this);
     var itemIndex = $this.index();
+    clearInterval(howItWorksInterval);
     $this.addClass('active').siblings().removeClass('active');
     $('.js-how-it-works .feature-text').each(function () {
         $(this).children().eq(itemIndex)
@@ -113,6 +119,8 @@ $('.js-how-it-works .slide-controls > li').click(function () {
         $(this).children().eq(itemIndex).addClass('animated fadeIn');
     });
 });
+
+
 
 $('.js-scroll-to-aus').click(function() {
     $('html, body').animate({
