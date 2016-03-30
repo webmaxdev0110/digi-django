@@ -57,13 +57,32 @@ var submitEmailAddress = function(email, form) {
         email: email,
         tagIndex: form.find('input[name="tag_index"]').val()
     }, function () {
-        $('[data-remodal-id=submitFinished]').remodal({hashTracking: false}).open();
+        $('[data-remodal-id=submitFinished]').remodal({
+            hashTracking: false
+        }).open();
+        try {
+            var store = window.localStorage;
+            store.setItem('signed_up', 'true');
+        } catch (e) { }
+        userSignedUp = true;
+        $('input[name="email"]').val('');
     });
 };
+
+$(document).on('closed', '.remodal', function () {
+    if (userSignedUp) {
+        $('html,body').animate({ scrollTop: $('.row.old-new-compare').position().top }, 'slow');
+    }
+});
+
+
 var isOnTablet = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile/i.test(navigator.userAgent);
 var isSmallDevice = function() {
     return $(window).width() <= 480; // This is synced with includemedia.scss
 };
+
+
+
 $(document).ready(function(){
 
 
