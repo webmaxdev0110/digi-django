@@ -101,6 +101,9 @@ var isSmallDevice = function() {
 
 $(document).ready(function(){
 
+$('form').submit(function(e){
+    e.preventDefault();
+});
 
 if(!isOnTablet) {
     $('input[name="email"]').keyup(function(e){
