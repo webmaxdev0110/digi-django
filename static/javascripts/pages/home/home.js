@@ -44,6 +44,14 @@ $.ajaxSetup({
     }
 });
 
+var userSignedUp = false;
+try {
+    var store = window.localStorage;
+    if ('true' === store.getItem('signed_up')) {
+        userSignedUp = true;
+    }
+} catch(e) {}
+
 var submitEmailAddress = function(email, form) {
     $.post('/', {
         email: email,
@@ -83,7 +91,7 @@ $('.js-submit').click(function (e) {
     e.stopPropagation();
     e.preventDefault();
     var target = $(e.target);
-    if (isSmallDevice() && target.parents('.fixed-header-wrapper').length > 0) {
+    if (isSmallDevice() && target.parents('.fixed-header-wrapper').length > 0 && !userSignedUp) {
         $('html,body').animate({ scrollTop: $('.row.cta').position().top }, 'slow');
         return false;
     }
@@ -183,27 +191,30 @@ if (isElementInViewport(eMondoEfficiencySection)) {
 
 
 new Waypoint({
-  element: $('.row.old-new-compare')[0],
-  handler: function(direction) {
+    element: $('.row.old-new-compare')[0],
+    handler: function (direction) {
+        if (!userSignedUp) {
+            if (direction === 'down') {
+                $('.fixed-header-wrapper').slideDown(200);
+            } else {
+                $('.fixed-header-wrapper').slideUp(200);
+            }
+        }
 
-    if (direction === 'down') {
-        $('.fixed-header-wrapper').slideDown(200);
-    } else {
-        $('.fixed-header-wrapper').slideUp(200);
     }
-  }
 });
 
 new Waypoint({
-  element: $('.row.electronic-signature')[0],
-  handler: function(direction) {
-
-    if (direction === 'down') {
-        $('.fixed-header-wrapper').slideUp(200);
-    } else {
-        $('.fixed-header-wrapper').slideDown(200);
+    element: $('.row.electronic-signature')[0],
+    handler: function (direction) {
+        if (!userSignedUp) {
+            if (direction === 'down') {
+                $('.fixed-header-wrapper').slideUp(200);
+            } else {
+                $('.fixed-header-wrapper').slideDown(200);
+            }
+        }
     }
-  }
 });
 
 
