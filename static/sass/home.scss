@@ -223,7 +223,7 @@ a.nav-logo-wrapper {
     display: inline-block;
   }
   > img.logo-img {
-    width: 160px;
+    width: 168px;
     position: absolute;
     left: 1px;
     @include media("<=xs") {
@@ -610,9 +610,6 @@ a.nav-logo-wrapper {
   }
   color: $white;
   .sub-heading-group {
-    @include media('>sm') {
-      margin: 0 0 55px;
-    }
     h1 {
       line-height: 40px;
     }
@@ -636,7 +633,7 @@ a.nav-logo-wrapper {
       }
     }
     @include media('>md') {
-      height: 620px;
+      height: 683px;
       &:before {
         content: " ";
         position: absolute;
