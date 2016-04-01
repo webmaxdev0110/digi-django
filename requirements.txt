@@ -6,3 +6,5 @@ whitenoise==2.0.6
 gunicorn==19.4.5
 django-compressor==2.0
 psycopg2==2.6.1
+slacker==0.9.9
+
