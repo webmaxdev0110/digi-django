@@ -57,5 +57,5 @@ class HomeView(TemplateView):
             country=''
         )
         slack = Slacker(os.environ['SLACK_TOKEN'])
-        slack.chat.post_message('landingpagesubs', '%s signed up for beta launch', email)
+        slack.chat.post_message('landingpagesubs', '%s signed up for beta launch' % email, 'Notification')
         return HttpResponse('ok')
