@@ -18,6 +18,9 @@ from django.http import HttpResponse
 from django.views.generic import TemplateView
 import random
 import uuid
+import os
+from slacker import Slacker
+
 
 from accounts.models import User
 
@@ -53,20 +56,6 @@ class HomeView(TemplateView):
             signup_form_source=request.POST.get('formName'),
             country=''
         )
-#
-#         subject = "Beta user signed up"
-#         body = """
-# %s just signed up
-# We have total %d beta users
-# """ % (email, Person.query().count())
-#
-#         mail = EmailMultiAlternatives(
-#             subject=subject,
-#             body=body,
-#             from_email="Robot <lilihan.it@gmail.com>",
-#             to=["mccown@emondo.io", 'li@emondo.io'],
-#             headers={"Reply-To": "mccown@emondo.io"}
-#         )
-#         mail.send()
-
+        slack = Slacker(os.environ['SLACK_TOKEN'])
+        slack.chat.post_message('landingpagesubs', '%s signed up for beta launch', email)
         return HttpResponse('ok')
