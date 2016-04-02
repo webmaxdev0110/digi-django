@@ -92,7 +92,6 @@ $(document).on('closed', '.remodal', function () {
 });
 
 
-var isOnTablet = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile/i.test(navigator.userAgent);
 var isSmallDevice = function() {
     return $(window).width() <= 480; // This is synced with includemedia.scss
 };
@@ -105,7 +104,7 @@ $('form').submit(function(e){
     e.preventDefault();
 });
 
-if(!isOnTablet) {
+if(!isSmallDevice()) {
     $('input[name="email"]').keyup(function(e){
         var $this = $(this);
         var emailAddr = $this.val();
