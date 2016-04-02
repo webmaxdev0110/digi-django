@@ -92,7 +92,6 @@ $(document).on('closed', '.remodal', function () {
 });
 
 
-var isOnTablet = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile/i.test(navigator.userAgent);
 var isSmallDevice = function() {
     return $(window).width() <= 480; // This is synced with includemedia.scss
 };
@@ -105,7 +104,7 @@ $('form').submit(function(e){
     e.preventDefault();
 });
 
-if(!isOnTablet) {
+if(!isSmallDevice()) {
     $('input[name="email"]').keyup(function(e){
         var $this = $(this);
         var emailAddr = $this.val();
@@ -160,7 +159,7 @@ var startsHowItWorksCarousel = function() {
 
     howItWorksInterval = setInterval(function(){
         highLightSlide(getNextSlide());
-    }, 3000);
+    }, 5000);
 };
 
 var highLightSlide = function($targetSlide) {
@@ -185,9 +184,6 @@ $('.js-how-it-works .slide-controls > li').click(function () {
         howItWorksInterval = null;
     }
     highLightSlide($this);
-    slowCarouselIntervalId = setInterval(function() {
-        highLightSlide(getNextSlide());
-    }, 6000);
 });
 
 
