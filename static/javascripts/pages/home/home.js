@@ -160,7 +160,7 @@ var startsHowItWorksCarousel = function() {
 
     howItWorksInterval = setInterval(function(){
         highLightSlide(getNextSlide());
-    }, 3000);
+    }, 5000);
 };
 
 var highLightSlide = function($targetSlide) {
@@ -185,9 +185,6 @@ $('.js-how-it-works .slide-controls > li').click(function () {
         howItWorksInterval = null;
     }
     highLightSlide($this);
-    slowCarouselIntervalId = setInterval(function() {
-        highLightSlide(getNextSlide());
-    }, 6000);
 });
 
 
