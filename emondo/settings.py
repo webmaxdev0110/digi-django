@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 
 import os
 import dj_database_url
+import raven
+
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -50,6 +53,13 @@ else:
     ALLOWED_HOSTS = ['emondo.com.au', 'www.emondo.com.au', 'emondo.herokuapp.com', 'emondo.io', 'www.emondo.io']
     STATIC_URL = '/dist/'
     COMPRESS_OFFLINE = True
+
+RAVEN_CONFIG = {
+    'dsn': 'https://5564545ed6d441e3a26a613a9c772c3e:bc234b3c419d4132a5e0237b2f6b3274@app.getsentry.com/72730',
+    # If you are using git, you can also automatically configure the
+    # release based on the git info.
+    # 'release': raven.fetch_git_sha(os.path.dirname(__file__)),
+}
 
 INSTALLED_APPS = [
     'django.contrib.admin',
