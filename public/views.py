@@ -56,6 +56,6 @@ class HomeView(TemplateView):
             signup_form_source=request.POST.get('formName'),
             country=''
         )
-        slack = Slacker(os.environ['SLACK_TOKEN'])
-        slack.chat.post_message('landingpagesubs', '%s signed up for beta launch' % email, 'Notification')
+        # slack = Slacker(os.environ['SLACK_TOKEN'])
+        # slack.chat.post_message('landingpagesubs', '%s signed up for beta launch' % email, 'Notification')
         return HttpResponse('ok')
