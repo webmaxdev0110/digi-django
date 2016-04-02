@@ -229,6 +229,10 @@ a:hover, a:visited, a:focus, a:active {
   }
 }
 
+.cta-submit > button {
+  width: auto;
+}
+
 .fixed-header-wrapper {
   position: fixed;
   display: none;
