@@ -105,6 +105,12 @@ a:hover, a:visited, a:focus, a:active {
   }
 }
 
+.cta-submit {
+  > button {
+    // Firefox needs this property to have the button showing in the right size
+    width: auto;
+  }
+}
 
 .fixed-header-wrapper {
   position: fixed;
@@ -837,7 +843,7 @@ u {
       position: absolute;
       top: 0;
       left: 49.96%;
-      height: 100%;
+      height: 98%;
       width: 1px;
       background: #d7e4ed;
     }
@@ -946,6 +952,7 @@ u {
     }
   }
 }
+
 
 
 
