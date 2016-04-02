@@ -689,6 +689,9 @@ a.nav-logo-wrapper {
     position: relative;
     .number-count {
       font-size: 150px;
+      @include media('<xs') {
+        font-size: 128px;
+      }
     }
     .number-appendix {
       font-size: 125px;
@@ -705,6 +708,10 @@ a.nav-logo-wrapper {
       top: 72%;
       width: 100%;
       opacity: .9;
+      @include media('<xs') {
+        top: 55%;
+      }
+
     }
     .faster {
       left: -44px;
