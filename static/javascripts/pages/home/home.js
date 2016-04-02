@@ -159,7 +159,7 @@ var startsHowItWorksCarousel = function() {
 
     howItWorksInterval = setInterval(function(){
         highLightSlide(getNextSlide());
-    }, 5000);
+    }, 8000);
 };
 
 var highLightSlide = function($targetSlide) {
