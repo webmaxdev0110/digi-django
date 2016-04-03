@@ -18,7 +18,7 @@
     <meta property="og:image" content="http://{{ request.get_host }}{% static 'images/facebook_sharing.jpg' %}" />
 
     {# Inline these css files #}
-    {% compress css inline %}
+    {% compress css %}
         <link rel="stylesheet" href="{% static 'stylesheets/bootstrap.css' %}">
         <link rel="stylesheet" href="{% static 'stylesheets/home.css' %}">
         <link rel="stylesheet" href="{% static 'fonts/roblealt_bold_macroman/stylesheet.css' %}">
