@@ -859,11 +859,17 @@ u {
   .cd-timeline-img {
     text-align: center;
   }
+  .year-container {
+    @include media('<xs') {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
   .year-label {
     @include border-radius(5px);
     background-color: $white;
     box-shadow: 0 35px 40px 0 rgba(0, 62, 106, 0.1);
-    width: 73px;
+    width: 100%;
     line-height: 46px;
     height: 46px;
     display: inline-block;
@@ -871,11 +877,11 @@ u {
     color: $dark-blue;
     @extend .font1;
     @include media ('<xs') {
-      width: 38px;
       line-height: 20px;
       height: 20px;
       display: inline-block;
       font-size: 13px;
+      max-width: 45px;
     }
   }
   .year-dot {
