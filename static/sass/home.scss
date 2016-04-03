@@ -84,6 +84,10 @@ a:hover, a:visited, a:focus, a:active {
 
 .email-group {
   position: relative;
+  @include media('<=xs') {
+    // Firefox needs this
+    width: 100%;
+  }
   span.input-enter-prompt {
     vertical-align: middle;
     text-align: left;
@@ -108,7 +112,9 @@ a:hover, a:visited, a:focus, a:active {
 .cta-submit {
   > button {
     // Firefox needs this property to have the button showing in the right size
-    width: auto;
+    @include media('>xs') {
+      width: auto;
+    }
   }
 }
 

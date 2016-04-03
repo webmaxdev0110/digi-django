@@ -207,6 +207,11 @@ a:hover, a:visited, a:focus, a:active {
 .email-group {
   position: relative;
 }
+@media (max-width: 480px) {
+  .email-group {
+    width: 100%;
+  }
+}
 .email-group span.input-enter-prompt {
   vertical-align: middle;
   text-align: left;
@@ -229,8 +234,10 @@ a:hover, a:visited, a:focus, a:active {
   }
 }
 
-.cta-submit > button {
-  width: auto;
+@media (min-width: 481px) {
+  .cta-submit > button {
+    width: auto;
+  }
 }
 
 .fixed-header-wrapper {
