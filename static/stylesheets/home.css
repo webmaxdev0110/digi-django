@@ -1096,13 +1096,19 @@ u {
 .row.history .cd-timeline-img {
   text-align: center;
 }
+@media (max-width: 479px) {
+  .row.history .year-container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
 .row.history .year-label {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
   background-color: #FFFFFF;
   box-shadow: 0 35px 40px 0 rgba(0, 62, 106, 0.1);
-  width: 73px;
+  width: 100%;
   line-height: 46px;
   height: 46px;
   display: inline-block;
@@ -1111,11 +1117,11 @@ u {
 }
 @media (max-width: 479px) {
   .row.history .year-label {
-    width: 38px;
     line-height: 20px;
     height: 20px;
     display: inline-block;
     font-size: 13px;
+    max-width: 45px;
   }
 }
 .row.history .year-dot {
