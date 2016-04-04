@@ -539,19 +539,39 @@ a.nav-logo-wrapper > img.logo-img {
   color: #073660;
   font-size: 19px;
 }
+@media (max-width: 480px) {
+  .cta-container input::-webkit-input-placeholder {
+    text-align: center !important;
+  }
+}
 .cta-container input:-moz-placeholder {
   /* Firefox 18- */
   color: #073660;
   font-size: 19px;
+}
+@media (max-width: 480px) {
+  .cta-container input:-moz-placeholder {
+    text-align: center !important;
+  }
 }
 .cta-container input::-moz-placeholder {
   /* Firefox 19+ */
   color: #073660;
   font-size: 19px;
 }
+@media (max-width: 480px) {
+  .cta-container input::-moz-placeholder {
+    text-align: center !important;
+  }
+}
 .cta-container input:-ms-input-placeholder {
   color: #073660;
   font-size: 19px;
+}
+@media (max-width: 480px) {
+  .cta-container input:-ms-input-placeholder {
+    text-align: center !important;
+  }
 }
 .cta-container input:focus::-webkit-input-placeholder {
   color: rgba(7, 54, 96, 0.3);
