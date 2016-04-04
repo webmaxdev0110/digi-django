@@ -373,18 +373,30 @@ a.nav-logo-wrapper {
   input::-webkit-input-placeholder {
     color: $dark-blue;
     font-size: 19px;
+    @include media('<=xs') {
+      text-align: center !important;
+    }
   }
   input:-moz-placeholder { /* Firefox 18- */
     color: $dark-blue;
     font-size: 19px;
+    @include media('<=xs') {
+      text-align: center !important;
+    }
   }
   input::-moz-placeholder { /* Firefox 19+ */
     color: $dark-blue;
     font-size: 19px;
+    @include media('<=xs') {
+      text-align: center !important;
+    }
   }
   input:-ms-input-placeholder {
     color: $dark-blue;
     font-size: 19px;
+    @include media('<=xs') {
+      text-align: center !important;
+    }
   }
   input:focus::-webkit-input-placeholder {
     color: rgba(7, 54, 96, 0.3);
