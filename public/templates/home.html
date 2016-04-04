@@ -1,5 +1,6 @@
 {% load staticfiles %}
 {% load compress %}
+{% load analytics_tags %}
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
@@ -850,6 +851,7 @@
     </div>
 
 </div>
+{% include_google_analytics %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 {% compress js %}
     <script src="{% static 'javascripts/vendor/jquery.waypoints.js' %}"></script>

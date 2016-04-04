@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'compressor',
     'webpack_loader',
+    'google_analytics',
     'letsencrypt',
     'gunicorn',
     'accounts',
