@@ -30,7 +30,7 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         tag_lines = [
-            ('Australia’s only digital platform <br/> to create, sign and send',
+            ('The world’s most secure platform <br/> to create, sign and send',
              'The only place to create online forms for you and your clients to legally sign, witness, certify and complete. It’s simple, secure and efficient.',),
             ('Chasing your clients is painful,<br /> we fix this',
              'Get your forms legally signed, witnessed, certified and completed online in minutes not weeks. We’re Australia’s only digital platform for end-to-end client onboarding.',),
