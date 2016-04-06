@@ -15,12 +15,18 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-
 from letsencrypt.views import (
     letsencrypt_auth_view_emondo_com_au,
     letsencrypt_auth_view_www_emondo_com_au,
 )
+from django.contrib.sitemaps.views import sitemap
 from public.views import HomeView
+from public_sitemaps.sitemaps import StaticViewSitemap
+
+sitemaps = {
+    'static': StaticViewSitemap,
+}
+
 
 urlpatterns = [
 
@@ -31,5 +37,8 @@ urlpatterns = [
     url(r'\.well-known/acme-challenge/TIZhUMHi5Z3bw6xV67n7DXRIAXeKI02pHTnN_ZJm1T4', letsencrypt_auth_view_emondo_com_au),
     # www.emondo.com.au
     url(r'\.well-known/acme-challenge/5iFdtTWY6NcPjDSCan4lKU0MepR3EF0Vu03rTMY-r74', letsencrypt_auth_view_www_emondo_com_au),
+
+    url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps},
+        name='django.contrib.sitemaps.views.sitemap')
 
 ]
