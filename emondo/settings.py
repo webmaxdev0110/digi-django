@@ -48,7 +48,10 @@ else:
 
 
 if DEBUG:
-    STATIC_URL = '/static/'
+    # STATIC_URL = '/static/'
+    # This is the URL of webpack devserver
+    # Run npm run dev to make below address work, otherwise use /static/
+    STATIC_URL = 'http://127.0.0.1:8080/static/'
 else:
     ALLOWED_HOSTS = ['emondo.com.au', 'www.emondo.com.au', 'emondo.herokuapp.com', 'emondo.io', 'www.emondo.io']
     STATIC_URL = '/dist/'
