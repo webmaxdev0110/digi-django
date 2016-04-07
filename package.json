@@ -7,11 +7,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "heroku-postbuild": "NODE_ENV=production webpack --config webpack/conf/production.config.js",
-    "watch": "NODE_ENV=development webpack --config webpack/webpack.config.js --progress --colors --watch"
+    "watch": "NODE_ENV=development webpack --config webpack/webpack.config.js --progress --colors --watch",
+    "dev": "NODE_ENV=development node webpack_devserver.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
     "babel-core": "^6.7.2",
