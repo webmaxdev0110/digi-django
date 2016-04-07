@@ -75,6 +75,7 @@ INSTALLED_APPS = [
     'hostname_redirect',
     'public_sitemaps',
     'hotjar',
+    'intercom',
     'compressor',
     'webpack_loader',
     'google_analytics',
