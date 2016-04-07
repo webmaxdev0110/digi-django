@@ -6,7 +6,8 @@
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild": "webpack --config webpack/conf/production.config.js"
+    "heroku-postbuild": "NODE_ENV=production webpack --config webpack/conf/production.config.js",
+    "watch": "NODE_ENV=development webpack --config webpack/webpack.config.js --progress --colors --watch"
   },
   "author": "",
   "license": "ISC",
