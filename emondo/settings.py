@@ -74,6 +74,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'hostname_redirect',
     'public_sitemaps',
+    'hotjar',
     'compressor',
     'webpack_loader',
     'google_analytics',
