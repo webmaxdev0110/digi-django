@@ -72,6 +72,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
     'django.contrib.sites',
+    'raven.contrib.django.raven_compat',
     'hostname_redirect',
     'public_sitemaps',
     'hotjar',
