@@ -30,24 +30,35 @@
                 <form id="theForm" class="simform" autocomplete="off">
                     {% csrf_token %}
                     <div class="simform-inner">
-                        <ol class="questions">
-                            <li>
-                                <span><label for="q1">What's your name?</label></span>
-                                <input id="q1" name="full_name" type="text" placeholder="Julie Appleseed" required />
-                            </li>
-                            <li>
-                                <span><label for="q2">Thanks q1, what's your email?</label></span>
-                                <input id="q2" name="email" type="email" required/>
-                            </li>
-                            <li>
-                                <span><label for="q3">Set a password for your account</label></span>
-                                <input id="q3" name="password" type="password"/>
-                            </li>
-                        </ol><!-- /questions -->
-                        <button class="submit" type="submit">Send answers</button>
-                        <div class="controls">
-                            <button class="next"></button>
+                        <div class="form-questions-wrapper">
+                            <ol class="questions">
+                                <li>
+                                    <span><label for="q1">What's your name?</label></span>
+                                    <input id="q1" name="full_name" type="text" placeholder="Julie Appleseed" required/>
+                                </li>
+                                <li>
+                                    <span><label for="q2">Thanks q1, what's your email?</label></span>
+                                    <input id="q2" name="email" type="email" required/>
+                                </li>
+                                <li>
+                                    <span><label for="q3">Create a password</label></span>
+                                    <input id="q3" name="password" type="password"/>
+                                    <a href="javascript:;" class="checkbox-inline checkbox show-password">
+                                        <input type="checkbox" name="show_hide_password" /> Show
+                                    </a>
+                                </li>
+                            </ol><!-- /questions -->
                             <div class="progress"></div>
+                        </div>
+                        <div class="form-actions-wrapper">
+                            <button class="next" role="button">
+                                press<br/>
+                                ENTER
+                            </button>
+                        </div>
+
+                        <button class="submit" type="submit">Submit</button>
+                        <div class="controls">
 							<span class="number">
 								<span class="number-current"></span>
 								<span class="number-total"></span>
