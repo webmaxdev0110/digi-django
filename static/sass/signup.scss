@@ -17,9 +17,34 @@
 }
 
 .signup-form-wrapper {
-  margin: 100px 0 0 0;
+  margin: 138px 0 0 0;
+	> h3 {
+		font-size: 19px;
+    color: #171717;
+    text-transform: uppercase;
+    text-align: center;
+	}
 }
+.line-behind {
+	display: table;
+	white-space: nowrap;
+	font-size: 18px;
+	font-family: 'Open Sans';
+	font-weight: 400;
+	&:before, &:after {
+		border-top: 1px solid green;
+		content: '';
+		display: table-cell;
+		position: relative;
+		top: 0.75em;
+		width: 45%;
+	}
+	&:before { right: 1.5%; }
+	&:after { left: 1.5%; }
+}
+.social-login-btn {
 
+}
 label {
   font-family: 'roble_alt_boldbold';
 }
@@ -102,12 +127,14 @@ label {
 	margin-left: 10px;
 }
 
-.questions li.current > span label,
-.no-js .questions li > span label {
+.questions li.current > span label{
 	-webkit-transition: none;
 	transition: none;
 	-webkit-transform: translateY(0);
 	transform: translateY(0);
+	@include media('<=xs') {
+		font-size: 23px;
+	}
 }
 
 .show-next .questions li.current > span label {
@@ -306,13 +333,13 @@ a.show-password {
 }
 
 .final-message {
-	top: 50%;
-	left: 0;
 	padding: 0.5em;
 	width: 100%;
 	text-align: center;
 	-webkit-transform: translateY(-50%);
 	transform: translateY(-50%);
+	margin-top: 31px;
+	font-size: 18px;
 }
 
 .error-message.show,
@@ -354,4 +381,10 @@ input[type=text]::-ms-clear {
     display: none;
 }
 
+.row.social {
+	margin-top: 10px;
+	.btn-social {
+		margin: 5px 0;
+	}
+}
 /* Adjust form for smaller screens */

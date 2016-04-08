@@ -7,7 +7,7 @@ new stepsForm(theForm, {
         $.post('/accounts/api/users/', $(form).serialize(), function() {
             // let's just simulate something...
             var messageEl = theForm.querySelector('.final-message');
-            messageEl.innerHTML = 'Your account activation link has sent to your email';
+            messageEl.innerHTML = 'Your account activation link has sent to your email <br /> Redirecting to Dashboard...';
             classie.addClass(messageEl, 'show');
         });
     }

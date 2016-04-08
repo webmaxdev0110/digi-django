@@ -129,6 +129,12 @@
 	};
 
 	stepsForm.prototype._nextQuestion = function() {
+
+		if (this.current === 0) {
+			$('.row.social').hide();
+			$('.line-behind').hide();
+		}
+
 		if( !this._validade() ) {
 			return false;
 		}

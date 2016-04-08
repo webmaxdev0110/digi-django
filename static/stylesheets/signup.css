@@ -154,7 +154,35 @@
 }
 
 .signup-form-wrapper {
-  margin: 100px 0 0 0;
+  margin: 138px 0 0 0;
+}
+.signup-form-wrapper > h3 {
+  font-size: 19px;
+  color: #171717;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.line-behind {
+  display: table;
+  white-space: nowrap;
+  font-size: 18px;
+  font-family: 'Open Sans';
+  font-weight: 400;
+}
+.line-behind:before, .line-behind:after {
+  border-top: 1px solid green;
+  content: '';
+  display: table-cell;
+  position: relative;
+  top: 0.75em;
+  width: 45%;
+}
+.line-behind:before {
+  right: 1.5%;
+}
+.line-behind:after {
+  left: 1.5%;
 }
 
 label {
@@ -238,12 +266,16 @@ label {
   margin-left: 10px;
 }
 
-.questions li.current > span label,
-.no-js .questions li > span label {
+.questions li.current > span label {
   -webkit-transition: none;
   transition: none;
   -webkit-transform: translateY(0);
   transform: translateY(0);
+}
+@media (max-width: 480px) {
+  .questions li.current > span label {
+    font-size: 23px;
+  }
 }
 
 .show-next .questions li.current > span label {
@@ -443,13 +475,13 @@ a.show-password:hover {
 }
 
 .final-message {
-  top: 50%;
-  left: 0;
   padding: 0.5em;
   width: 100%;
   text-align: center;
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
+  margin-top: 31px;
+  font-size: 18px;
 }
 
 .error-message.show,
@@ -490,6 +522,13 @@ a.show-password:hover {
 /* Remove IE clear cross */
 input[type=text]::-ms-clear {
   display: none;
+}
+
+.row.social {
+  margin-top: 10px;
+}
+.row.social .btn-social {
+  margin: 5px 0;
 }
 
 /* Adjust form for smaller screens */
