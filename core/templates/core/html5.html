@@ -17,8 +17,13 @@
     {# Prevent IE from presenting the compatibility-mode tip; Allow Chrome Frame #}
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>emondo - {% block title %} he world's most secure platform to create, sign and send{% endblock %}</title>
-    {% block seo_contents %}{% endblock %}
-    {% block open_graph %}{% endblock %}
+    {% block seo_contents %}
+        <meta name="description" content="Get your forms legally signed, witnessed, certified and completed online in minutes not weeks. We’re Australia’s only digital platform for end-to-end client onboarding.">
+    {% endblock %}
+    {% block open_graph %}
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="http://{{ request.get_host }}{% static 'images/facebook_sharing.jpg' %}" />
+    {% endblock %}
     {% block head_styles %}{% endblock %}
     <meta name="google-site-verification" content="ftZyDyfvNp-OVBVUDzrt3q1wijYGvMgkowYKABxSPVo" />
     <style type="text/css">
