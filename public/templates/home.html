@@ -3,7 +3,6 @@
 {% load compress %}
 {% load hotjar_tags %}
 {% load intercom_tags %}
-{% load analytics_tags %}
 
 
 {% block seo_contents %}
@@ -45,7 +44,6 @@
             window.addEventListener('load', asyncLoadCSSFiles);
         }
     </script>
-    {% include_google_analytics %}
 {% endblock %}
 
 {% block wrapper %}

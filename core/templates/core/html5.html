@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load analytics_tags %}
 {% comment %}
 
   Base HTML5 template
@@ -32,6 +33,7 @@
     </style>
     <link rel="shortcut icon" href="{% static 'favicon.ico' %}"/>
     {% block head_scripts %}{% endblock %}
+    {% include_google_analytics %}
 </head>
 
 <body class="{% block layout_class %}{% endblock %}">
