@@ -15,6 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.conf import settings
+
+from accounts.views import (
+    # LoginView,
+    SignupView,
+)
 from letsencrypt.views import (
     letsencrypt_auth_view_emondo_com_au,
     letsencrypt_auth_view_www_emondo_com_au,
@@ -32,13 +38,26 @@ urlpatterns = [
 
     url(r'^$', HomeView.as_view(), name='public_home'),
     url(r'^docs/', include('docs.urls')),
+    url(r'^accounts/', include('accounts.urls')),
     url(r'^admin/', admin.site.urls),
+    # url(r'^login/$',
+    #     LoginView.as_view(),
+    #     name='accounts_login'),
+
+    url(r'^signup/$',
+        SignupView.as_view(),
+        name='accounts_signup'),
+
     # emondo.com.au
     url(r'\.well-known/acme-challenge/TIZhUMHi5Z3bw6xV67n7DXRIAXeKI02pHTnN_ZJm1T4', letsencrypt_auth_view_emondo_com_au),
     # www.emondo.com.au
     url(r'\.well-known/acme-challenge/5iFdtTWY6NcPjDSCan4lKU0MepR3EF0Vu03rTMY-r74', letsencrypt_auth_view_www_emondo_com_au),
 
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps},
-        name='django.contrib.sitemaps.views.sitemap')
-
+        name='django.contrib.sitemaps.views.sitemap'),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
+if settings.DEBUG:
+    urlpatterns += [
+        url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    ]

@@ -76,6 +76,8 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
     'django.contrib.sites',
     'raven.contrib.django.raven_compat',
+    'rest_framework',
+    'core',
     'hostname_redirect',
     'public_sitemaps',
     'hotjar',
@@ -123,6 +125,17 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'emondo.wsgi.application'
 
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+    )
+}
 
 
 

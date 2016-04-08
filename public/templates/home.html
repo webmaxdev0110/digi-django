@@ -1,34 +1,23 @@
+{% extends 'core/html5.html' %}
 {% load staticfiles %}
 {% load compress %}
 {% load hotjar_tags %}
 {% load intercom_tags %}
-{% load analytics_tags %}
-<!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
-<!--[if gt IE 8]><!-->
-<html class="no-js" lang=""> <!--<![endif]-->
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>emondo - The world's most secure platform to create, sign and send</title>
-    <meta name="description" content="Get your forms legally signed, witnessed, certified and completed online in minutes not weeks. We’re Australia’s only digital platform for end-to-end client onboarding.">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="google-site-verification" content="ftZyDyfvNp-OVBVUDzrt3q1wijYGvMgkowYKABxSPVo" />
-    <link rel="shortcut icon" href="{% static 'favicon.ico' %}"/>
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="http://{{ request.get_host }}{% static 'images/facebook_sharing.jpg' %}" />
 
-    {# Inline these css files #}
+
+{% block seo_contents %}
+    <meta name="description" content="Get your forms legally signed, witnessed, certified and completed online in minutes not weeks. We’re Australia’s only digital platform for end-to-end client onboarding.">
+{% endblock %}
+
+{% block head_styles %}
     {% compress css %}
         <link rel="stylesheet" href="{% static 'stylesheets/bootstrap.css' %}">
         <link rel="stylesheet" href="{% static 'stylesheets/home.css' %}">
         <link rel="stylesheet" href="{% static 'fonts/roblealt_bold_macroman/stylesheet.css' %}">
     {% endcompress %}
+{% endblock %}
 
-    {# And async load these files so they don't block rendering #}
-    {# Mostly for optimise the load speed for mobile browser #}
+{% block head_scripts %}
     <script type="text/javascript">
         var load = function (filePath) {
             var l = document.createElement('link');
@@ -54,10 +43,10 @@
             window.addEventListener('load', asyncLoadCSSFiles);
         }
     </script>
-    {% include_google_analytics %}
-</head>
-<body>
-<div class="fixed-header-wrapper">
+{% endblock %}
+
+{% block wrapper %}
+    <div class="fixed-header-wrapper">
      <div class="row">
         <div class="col-xs-4">
             <div class="header-inner-wrapper">
@@ -841,7 +830,11 @@
         </div>
     </div>
 </footer>
-<div class="remodal" data-remodal-id="submitFinished" data-remodal-options="hashTracking: false">
+{% endblock %}
+
+
+{% block after_wrapper %}
+    <div class="remodal" data-remodal-id="submitFinished" data-remodal-options="hashTracking: false">
     <h1 class="dark-blue font1">Thanks for signing up!</h1>
     <span style="font-size:17px;" class="dark-blue font5">We expect to launch our product in July. You’ll be notified via email</span>
     <br>
@@ -852,18 +845,22 @@
         </button>
         <span class="input-enter-prompt">press<br/>ENTER</span>
     </div>
-
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-{% compress js %}
-    <script src="{% static 'javascripts/vendor/jquery.waypoints.js' %}"></script>
-    <script src="{% static 'javascripts/vendor/calculate-size.js' %}"></script>
-    <script src="{% static 'javascripts/remodal/remodal.js' %}"></script>
-{% endcompress %}
-{% compress js %}
-<script src="{% static 'javascripts/pages/home/home.js' %}" async></script>
-{% endcompress %}
-{% include_intercom %}
-{% include_hotjar %}
-</body>
-</html>
+{% endblock %}
+{% block footer_scripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    {% compress js %}
+        <script src="{% static 'javascripts/vendor/jquery.waypoints.js' %}"></script>
+        <script src="{% static 'javascripts/vendor/calculate-size.js' %}"></script>
+        <script src="{% static 'javascripts/remodal/remodal.js' %}"></script>
+    {% endcompress %}
+    {% compress js %}
+        <script src="{% static 'javascripts/pages/home/home.js' %}" async></script>
+    {% endcompress %}
+{% endblock %}
+{% block tracking_scripts %}
+    {% include_intercom %}
+    {% include_hotjar %}
+{% endblock %}
+
+

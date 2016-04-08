@@ -1,0 +1,55 @@
+{% load staticfiles %}
+{% load analytics_tags %}
+{% comment %}
+
+  Base HTML5 template
+
+  IE conditional comments for embedding browser-sniff classes, used by
+  our stylesheets.
+
+{% endcomment %}<!--[if IE]><![endif]--> {# Required to prevent quirks mode in IE9 #}
+<!doctype html>
+<!--[if IE 8]><html lang="en" class="is-ie8"><![endif]-->
+<!--[if IE 9]><html lang="en" class="is-ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html xmlns:fb="http://ogp.me/ns/fb#" lang="en"><!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    {# Prevent IE from presenting the compatibility-mode tip; Allow Chrome Frame #}
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>emondo - {% block title %} he world's most secure platform to create, sign and send{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    {% block seo_contents %}
+        <meta name="description" content="Get your forms legally signed, witnessed, certified and completed online in minutes not weeks. We’re Australia’s only digital platform for end-to-end client onboarding.">
+    {% endblock %}
+    {% block open_graph %}
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="http://{{ request.get_host }}{% static 'images/facebook_sharing.jpg' %}" />
+    {% endblock %}
+    {% block head_styles %}{% endblock %}
+    <meta name="google-site-verification" content="ftZyDyfvNp-OVBVUDzrt3q1wijYGvMgkowYKABxSPVo" />
+    <style type="text/css">
+        {% comment %}
+        Fixes page scaling issues on our Windows 8 App when viewed on a Hi-DPI
+        device such as Surface Pro. Fixed by overriding
+        `width: device-width` declarations in our stylesheets.
+        See: http://timkadlec.com/2013/01/windows-phone-8-and-device-width/
+        and: http://getbootstrap.com/getting-started/#support-ie10-width
+        {% endcomment %}
+        @-ms-viewport { width: auto !important; }
+    </style>
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}"/>
+    {% block head_scripts %}{% endblock %}
+    {% include_google_analytics %}
+</head>
+
+<body class="{% block layout_class %}{% endblock %}">
+{% block before_wrapper %}{% endblock %}
+<div class="body-wrapper">
+    {% block wrapper %}{% endblock %}
+</div>
+{% block after_wrapper %}{% endblock %}
+{% block footer_scripts %}{% endblock %}
+{% block tracking_scripts %}{% endblock %}
+{% block intercom_widget %}{% endblock %}
+</body>
+</html>
