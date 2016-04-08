@@ -54,7 +54,8 @@
 		classie.addClass( this.questions[0], 'current' );
 		
 		// next question control
-		this.ctrlNext = this.el.querySelector( 'button.next' );
+
+		this.ctrlNext = this.el.querySelectorAll('button.next')[0];
 
 		// progress bar
 		this.progress = this.el.querySelector( 'div.progress' );
@@ -95,14 +96,27 @@
 		} );
 
 		// pressing enter will jump to next question
+		document.addEventListener('keyup', function( ev ) {
+			// enter
+			var result = self._canContinueOrNot();
+			var keyCode = ev.keyCode || ev.which;
+			if (keyCode === 13) {
+				if (result) {
+					self._nextQuestion();
+				}
+				ev.preventDefault();
+			}
+
+		} );
+
+		// pressing enter will jump to next question
 		document.addEventListener('keydown', function( ev ) {
 			var keyCode = ev.keyCode || ev.which;
 			// enter
-			if( keyCode === 13) {
+			if(keyCode === 13) {
 				ev.preventDefault();
-				self._nextQuestion();
 			}
-		} );
+		});
 
 		// disable tab
 		this.el.addEventListener( 'keydown', function( ev ) {
@@ -118,6 +132,7 @@
 		if( !this._validade() ) {
 			return false;
 		}
+		classie.removeClass(this.ctrlNext, 'active');
 
 		// check if form is filled
 		if( this.current === this.questionsCount - 1 ) {
@@ -184,7 +199,8 @@
 
 	// updates the progress bar by setting its width
 	stepsForm.prototype._progress = function() {
-		this.progress.style.width = this.current * ( 100 / this.questionsCount ) + '%';
+		var portion = this.current / this.questionsCount;
+		this.progress.style.width = 'calc((100% - 2em)*' + portion + ')';
 	}
 
 	// changes the current question number
@@ -200,6 +216,36 @@
 	// submits the form
 	stepsForm.prototype._submit = function() {
 		this.options.onSubmit( this.el );
+	}
+	stepsForm.prototype._canContinueOrNot = function() {
+		var inputElm = this.questions[ this.current ].querySelector( 'input' );
+		var val = inputElm.value;
+
+
+		if (inputElm.name === 'email') {
+			if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(val)) {
+				classie.addClass(this.ctrlNext, 'active');
+
+			} else {
+				classie.removeClass(this.ctrlNext, 'active');
+				return false;
+			}
+		} else if(inputElm.name === 'password') {
+			if (val.length >= 6) {
+				classie.addClass(this.ctrlNext, 'active');
+			} else {
+				classie.removeClass(this.ctrlNext, 'active');
+				return false;
+			}
+		} else {
+			if (val.length >= 2) {
+				classie.addClass(this.ctrlNext, 'active');
+			} else {
+				classie.removeClass(this.ctrlNext, 'active');
+				return false;
+			}
+		}
+		return true;
 	}
 
 	// TODO (next version..)

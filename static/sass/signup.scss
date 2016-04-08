@@ -24,17 +24,6 @@ label {
   font-family: 'roble_alt_boldbold';
 }
 
-@font-face {
-	font-weight: normal;
-	font-style: normal;
-	font-family: 'icomoon';
-	src:url('../fonts/icomoon/icomoon.eot?-9heso');
-	src:url('../fonts/icomoon/icomoon.eot?#iefix-9heso') format('embedded-opentype'),
-		url('../fonts/icomoon/icomoon.woff?-9heso') format('woff'),
-		url('../fonts/icomoon/icomoon.ttf?-9heso') format('truetype'),
-		url('../fonts/icomoon/icomoon.svg?-9heso#icomoon') format('svg');
-}
-
 .simform {
 	position: relative;
 	margin: 0 auto;
@@ -73,7 +62,6 @@ label {
 
 .simform ol:before {
 	content: '';
-	background-color: #eff3f7;
 	position: absolute;
 	left: 0;
 	bottom: 0;
@@ -111,6 +99,7 @@ label {
 	-webkit-transform: translateY(-100%);
 	transform: translateY(-100%);
   color: #073660;
+	margin-left: 10px;
 }
 
 .questions li.current > span label,
@@ -139,13 +128,13 @@ label {
 /* Input field */
 .questions input {
 	display: block;
-	margin: 0.3em 0 0 0;
-	padding: 0.5em 1em 0.5em 0.7em;
-	width: calc(100% - 2em);
+	margin: 10px 0 0 0;
+	padding: 8.5px 15px;
+	background-color: #eff3f7;
+	width: 100%;
 	border: none;
-	background: transparent;
-	font-size: 1em;
-	line-height: 1;
+	font-size: 0.7em;
+	line-height: 1.2;
 	opacity: 0;
 	-webkit-transition: opacity 0.3s;
 	transition: opacity 0.3s;
@@ -165,47 +154,43 @@ label {
 .next {
 	position: absolute;
 	right: 0;
-	bottom: 2.15em; /* padding-bottom of form plus progress bar height */
-	display: block;
-	padding: 0;
-	width: 2em;
-	height: 2em;
-	border: none;
-	background: none;
-	color: rgba(0,0,0,0.4);
-	text-align: center;
-	opacity: 0;
+	bottom: 0;
+	border: 1px solid #DBDBDB;
+	display: inline-block;
+	width: 80px;
+	height: 47px;
+	@include border-radius(4px);
+	color: #DBDBDB;
+	opacity: 1;
 	z-index: 100;
-	cursor: pointer;
+
 	-webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
 	transition: transform 0.3s, opacity 0.3s;
-	-webkit-transform: translateX(-20%);
-	transform: translateX(-20%);
-	pointer-events: none;
-	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	-webkit-transform: translateX(0);
+	transform: translateX(0);
+	pointer-events: auto;
+	-webkit-tap-highlight-color: transparent;
+	font-size: 12px;
+	line-height: 14px;
+	padding: 7px 0 15px 4px;
+	background: transparent url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.52 14.53"><title>arrows-grey</title><path d="M16.77,3.27h0V6.45H6.21L9.08,3.59h0L8,2.48H8L3.18,7.27h0L8,12.06H8L9.08,11h0L6.21,8.09H18.36V3.31H16.77v0Z" style="fill:#dbdbdb"/><rect x="0.5" y="0.5" width="20.52" height="13.53" rx="1" ry="1" style="fill:none;stroke:#dbdbdb;stroke-miterlimit:10"/></svg>') no-repeat 50px center;
+	background-size: 23px 17px;
+	cursor: pointer;
+	text-align: left;
+
+	&.active {
+		color: #073660;
+		border-color: #073660;
+		background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.52 14.53"><title>arrows-dark-blue</title><path d="M16.77,3.27h0V6.45H6.21L9.08,3.59h0L8,2.48H8L3.18,7.27h0L8,12.06H8L9.08,11h0L6.21,8.09H18.36V3.31H16.77v0Z" style="fill:#073660"/><rect x="0.5" y="0.5" width="20.52" height="13.53" rx="1" ry="1" style="fill:none;stroke:#073660;stroke-miterlimit:10"/></svg>');
+	}
+
 }
 
+.next-active {
+}
 .next:hover {
-	color: rgba(0,0,0,0.5);
 }
 
-.next::after {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	content: "\e600";
-	text-transform: none;
-	font-weight: normal;
-	font-style: normal;
-	font-variant: normal;
-	font-family: 'icomoon';
-	line-height: 2;
-	speak: none;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-}
 
 .next.show {
 	opacity: 1;
@@ -214,9 +199,31 @@ label {
 	pointer-events: auto;
 }
 
+a.show-password {
+	position: absolute;
+	right: 6px;
+	bottom: 6px;
+	background: grey;
+	color: white;
+	font-size: 15px;
+	padding: 3px 8px 3px 25px;
+	vertical-align: baseline;
+	display: inline;
+	border-radius: 3px;
+	> input[type="checkbox"] {
+		position: absolute;
+    bottom: 7px;
+	}
+	&:hover {
+		outline: 0;
+		text-decoration: none;
+	}
+}
+
 /* Progress bar */
 .simform .progress {
-	width: 0%;
+	width: 0;
+	max-width: calc(100% - 2em);
 	height: 0.15em;
 	background: rgba(0,0,0,0.3);
 	-webkit-transition: width 0.4s ease-in-out;
@@ -226,7 +233,7 @@ label {
 .simform .progress::before {
 	position: absolute;
 	top: auto;
-	width: 100%;
+	width: calc(100% - 90px);
 	height: inherit;
 	background: rgba(0,0,0,0.05);
 	content: '';
@@ -241,6 +248,7 @@ label {
 	width: 3em;
 	font-weight: 700;
 	font-size: 0.4em;
+	color: #073660;
 }
 
 .simform .number:after {
@@ -317,6 +325,9 @@ label {
 	-webkit-transition-delay: 0.5s;
 	transition-delay: 0.5s;
 }
+.simform-inner {
+	position: relative;
+}
 
 /* Final hiding of form / showing message */
 .simform-inner.hide {
@@ -326,26 +337,16 @@ label {
 	transition: opacity 0.3s, visibility 0s 0.3s;
 }
 
-/* No JS Fallback */
-.no-js .simform {
-	font-size: 1.75em;
+.form-questions-wrapper {
+	display: table;
+	width: calc(100% - 90px);
+	padding-top: 10px;
 }
 
-.no-js .questions li {
-	padding: 0 0 2em;
-}
-
-.no-js .simform .submit {
-	display: block;
-	float: right;
-	padding: 10px 20px;
-	border: none;
-	background: rgba(0,0,0,0.3);
-	color: rgba(0,0,0,0.4);
-}
-
-.no-js .simform .controls {
-	display: none;
+.form-actions-wrapper {
+	width: 90px;
+	z-index: 100;
+	display: table-cell;
 }
 
 /* Remove IE clear cross */
@@ -354,14 +355,3 @@ input[type=text]::-ms-clear {
 }
 
 /* Adjust form for smaller screens */
-@media screen and (max-width: 44.75em) {
-	.simform {
-		font-size: 1.8em;
-	}
-}
-
-@media screen and (max-width: 33.5625em) {
-	.simform {
-		font-size: 1.2em;
-	}
-}

@@ -12,3 +12,12 @@ new stepsForm(theForm, {
         });
     }
 });
+
+$('.show-password').click(function() {
+    var passwordInput = $(this).siblings('input');
+    if (passwordInput.attr('type') === 'password') {
+        passwordInput.attr('type', 'text')
+    } else {
+        passwordInput.attr('type', 'password')
+    }
+});
