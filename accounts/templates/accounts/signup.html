@@ -3,3 +3,77 @@
 {% load compress %}
 {% load hotjar_tags %}
 
+
+{% block head_styles %}
+    {% compress css %}
+        <link rel="stylesheet" href="{% static 'stylesheets/bootstrap.css' %}">
+        <link rel="stylesheet" href="{% static 'stylesheets/signup.css' %}">
+        <link rel="stylesheet" href="{% static 'fonts/roblealt_bold_macroman/stylesheet.css' %}">
+    {% endcompress %}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400">
+{% endblock %}
+
+{% block wrapper %}
+    <div class="fixed-header-wrapper" style="display: block;">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="header-inner-wrapper text-center">
+                    <img class="logo-img" src="{% static 'images/logo_colour_tagline.svg' %}" width="150">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="col-xs-12 col-sm-8 col-sm-push-2 col-md-6 col-md-push-3">
+            <div class="signup-form-wrapper">
+                <h3>Get your free 30 day trial</h3>
+                <form id="theForm" class="simform" autocomplete="off">
+                    {% csrf_token %}
+                    <div class="simform-inner">
+                        <ol class="questions">
+                            <li>
+                                <span><label for="q1">What's your name?</label></span>
+                                <input id="q1" name="full_name" type="text" placeholder="Julie Appleseed" required />
+                            </li>
+                            <li>
+                                <span><label for="q2">Thanks q1, what's your email?</label></span>
+                                <input id="q2" name="email" type="email" required/>
+                            </li>
+                            <li>
+                                <span><label for="q3">Set a password for your account</label></span>
+                                <input id="q3" name="password" type="password"/>
+                            </li>
+                        </ol><!-- /questions -->
+                        <button class="submit" type="submit">Send answers</button>
+                        <div class="controls">
+                            <button class="next"></button>
+                            <div class="progress"></div>
+							<span class="number">
+								<span class="number-current"></span>
+								<span class="number-total"></span>
+							</span>
+                            <span class="error-message"></span>
+                        </div><!-- / controls -->
+                    </div><!-- /simform-inner -->
+                    <span class="final-message"></span>
+                </form><!-- /simform -->
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block footer_scripts %}
+    {% compress js %}
+        <script src="{% static 'javascripts/vendor/jquery-1.12.3.js' %}"></script>
+    {% endcompress %}
+    {% compress js %}
+        <script src="{% static 'javascripts/pages/accounts/classie.js' %}"></script>
+        <script src="{% static 'javascripts/pages/accounts/modernizr.custom.js' %}"></script>
+        <script src="{% static 'javascripts/pages/accounts/stepsForm.js' %}"></script>
+    {% endcompress %}
+    {% compress js %}
+        <script src="{% static 'javascripts/pages/accounts/signup.js' %}" async></script>
+    {% endcompress %}
+{% endblock %}
