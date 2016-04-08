@@ -15,6 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.conf import settings
+
+from accounts.views import (
+    # LoginView,
+    SignupView,
+)
 from letsencrypt.views import (
     letsencrypt_auth_view_emondo_com_au,
     letsencrypt_auth_view_www_emondo_com_au,
