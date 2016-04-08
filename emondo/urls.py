@@ -32,6 +32,7 @@ urlpatterns = [
 
     url(r'^$', HomeView.as_view(), name='public_home'),
     url(r'^docs/', include('docs.urls')),
+    url(r'^accounts/', include('accounts.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^signup/$',
         SignupView.as_view(),
