@@ -40,6 +40,10 @@ urlpatterns = [
     url(r'^docs/', include('docs.urls')),
     url(r'^accounts/', include('accounts.urls')),
     url(r'^admin/', admin.site.urls),
+    # url(r'^login/$',
+    #     LoginView.as_view(),
+    #     name='accounts_login'),
+
     url(r'^signup/$',
         SignupView.as_view(),
         name='accounts_signup'),
@@ -50,6 +54,10 @@ urlpatterns = [
     url(r'\.well-known/acme-challenge/5iFdtTWY6NcPjDSCan4lKU0MepR3EF0Vu03rTMY-r74', letsencrypt_auth_view_www_emondo_com_au),
 
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps},
-        name='django.contrib.sitemaps.views.sitemap')
-
+        name='django.contrib.sitemaps.views.sitemap'),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
+if settings.DEBUG:
+    urlpatterns += [
+        url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    ]
