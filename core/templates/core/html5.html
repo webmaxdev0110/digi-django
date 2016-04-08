@@ -1,3 +1,4 @@
+{% load staticfiles %}
 {% comment %}
 
   Base HTML5 template
@@ -29,6 +30,7 @@
         {% endcomment %}
         @-ms-viewport { width: auto !important; }
     </style>
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}"/>
     {% block head_scripts %}{% endblock %}
 </head>
 
