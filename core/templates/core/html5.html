@@ -1,0 +1,45 @@
+{% comment %}
+
+  Base HTML5 template
+
+  IE conditional comments for embedding browser-sniff classes, used by
+  our stylesheets.
+
+{% endcomment %}<!--[if IE]><![endif]--> {# Required to prevent quirks mode in IE9 #}
+<!doctype html>
+<!--[if IE 8]><html lang="en" class="is-ie8"><![endif]-->
+<!--[if IE 9]><html lang="en" class="is-ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html xmlns:fb="http://ogp.me/ns/fb#" lang="en"><!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    {# Prevent IE from presenting the compatibility-mode tip; Allow Chrome Frame #}
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>emondo - {% block title %} he world's most secure platform to create, sign and send{% endblock %}</title>
+    {% block seo_contents %}{% endblock %}
+    {% block open_graph %}{% endblock %}
+    {% block head_styles %}{% endblock %}
+    <meta name="google-site-verification" content="ftZyDyfvNp-OVBVUDzrt3q1wijYGvMgkowYKABxSPVo" />
+    <style type="text/css">
+        {% comment %}
+        Fixes page scaling issues on our Windows 8 App when viewed on a Hi-DPI
+        device such as Surface Pro. Fixed by overriding
+        `width: device-width` declarations in our stylesheets.
+        See: http://timkadlec.com/2013/01/windows-phone-8-and-device-width/
+        and: http://getbootstrap.com/getting-started/#support-ie10-width
+        {% endcomment %}
+        @-ms-viewport { width: auto !important; }
+    </style>
+    {% block head_scripts %}{% endblock %}
+</head>
+
+<body class="{% block layout_class %}{% endblock %}">
+{% block before_wrapper %}{% endblock %}
+<div class="body-wrapper">
+    {% block wrapper %}{% endblock %}
+</div>
+{% block after_wrapper %}{% endblock %}
+{% block footer_scripts %}{% endblock %}
+{% block tracking_scripts %}{% endblock %}
+{% block intercom_widget %}{% endblock %}
+</body>
+</html>
