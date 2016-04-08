@@ -33,6 +33,10 @@ urlpatterns = [
     url(r'^$', HomeView.as_view(), name='public_home'),
     url(r'^docs/', include('docs.urls')),
     url(r'^admin/', admin.site.urls),
+    url(r'^signup/$',
+        SignupView.as_view(),
+        name='accounts_signup'),
+
     # emondo.com.au
     url(r'\.well-known/acme-challenge/TIZhUMHi5Z3bw6xV67n7DXRIAXeKI02pHTnN_ZJm1T4', letsencrypt_auth_view_emondo_com_au),
     # www.emondo.com.au
