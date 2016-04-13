@@ -49,7 +49,6 @@ INSTALLED_APPS = [
     'raven.contrib.django.raven_compat',
     'rest_framework',
     'core',
-    'hostname_redirect',
     'public_sitemaps',
     'hotjar',
     'intercom',
@@ -64,7 +63,6 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE_CLASSES = [
-    'hostname_redirect.middleware.HostnameRedirectMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
