@@ -1,0 +1,22 @@
+DEBUG = True
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'emondo',
+        'USER': 'your username',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
+}
+STATIC_URL = 'http://127.0.0.1:8080/static/'
+
+ALLOWED_HOSTS = [
+    'emondo.com.au',
+    'www.emondo.com.au',
+    'emondo.io',
+    'www.emondo.io'
+]
+
+COMPRESS_OFFLINE = False
