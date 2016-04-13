@@ -15,3 +15,4 @@ dist/
 # Webpack
 webpack-stats\.json
 static/bundles/
+settings/local_settings.py

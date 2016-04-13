@@ -11,8 +11,6 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
-import dj_database_url
-import raven
 
 
 
@@ -24,38 +22,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+# Will be override by local_settings
 SECRET_KEY = 'vo!1)2*mv*zt58kl_5smk6mv4a30l7vjqg6%s8($70)w_am!&t'
 
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'emondo',
-        'USER': 'lihanli',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': '',
-    }
-}
-
 # SECURITY WARNING: don't run with debug turned on in production!
-if os.environ.get('DATABASE_URL'):
-    DEBUG = False
-    db_from_env = dj_database_url.config()
-    DATABASES['default'].update(db_from_env)
-else:
-    DEBUG = True
+DEBUG = False
 
-
-if DEBUG:
-    # STATIC_URL = '/static/'
-    # This is the URL of webpack devserver
-    # Run npm run dev to make below address work, otherwise use /static/
-    STATIC_URL = 'http://127.0.0.1:8080/static/'
-else:
-    ALLOWED_HOSTS = ['emondo.com.au', 'www.emondo.com.au', 'emondo.herokuapp.com', 'emondo.io', 'www.emondo.io']
-    STATIC_URL = '/dist/'
-    COMPRESS_OFFLINE = True
 
 RAVEN_CONFIG = {
     'dsn': 'https://5564545ed6d441e3a26a613a9c772c3e:bc234b3c419d4132a5e0237b2f6b3274@app.getsentry.com/72730',
@@ -64,7 +36,6 @@ RAVEN_CONFIG = {
     # 'release': raven.fetch_git_sha(os.path.dirname(__file__)),
 }
 
-SITE_ID = 1
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -193,7 +164,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'dist')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
-WHITENOISE_MAX_AGE =  3600 * 24 * 30
+WHITENOISE_MAX_AGE = 3600 * 24 * 30
+
 
 WEBPACK_LOADER = {
     'DEFAULT': {
