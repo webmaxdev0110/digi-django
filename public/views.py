@@ -30,13 +30,10 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         tag_lines = [
-            ('The world’s most secure platform <br/> to create, sign and send',
-             'The only place to create online forms for you and your clients to legally sign, witness, certify and complete. It’s simple, secure and efficient.',),
-            ('Chasing your clients is painful,<br /> we fix this',
-             'Get your forms legally signed, witnessed, certified and completed online in minutes not weeks. We’re Australia’s only digital platform for end-to-end client onboarding.',),
-            ('Capture new leads and convert more clients',
-             'Your abandoned online forms are now new leads that become your clients up to 50 times faster.'
-             ),
+            ('Create simple, human-like, conversational forms  that autofill your existing documents',
+             'emondo is the world\'s most secure platform for your clients to complete, sign like Steve Jobs, witness'
+             ' and certify documents online. Instantly identify your clients in over 30 countries and stamp on the '
+             'Blockchain. Get your free account today!',),
         ]
         tagline_index = random.randint(0, len(tag_lines) - 1)
         return {
