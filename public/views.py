@@ -31,8 +31,9 @@ class HomeView(TemplateView):
     def get_context_data(self, **kwargs):
         tag_lines = [
             ('Create simple, human-like, conversational forms  that autofill your existing documents',
-             'emondo is the world\'s most secure platform for your clients to complete, sign like Steve Jobs, witness'
-             ' and certify documents online. Instantly identify your clients in over 30 countries and stamp on the '
+             'emondo is the world\'s most secure platform for your clients to sign like Steve Jobs, '
+            'witness, complete, and certify documents online. '
+             'Instantly identify your clients in over 30 countries and stamp on the '
              'Blockchain. Get your free account today!',),
         ]
         tagline_index = random.randint(0, len(tag_lines) - 1)
