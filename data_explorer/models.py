@@ -5,6 +5,7 @@ from core.models import (
     TimeStampedModel,
     StatusModel,
 )
+from django.utils.translation import ugettext_lazy as _
 
 
 class DataSourceModel(TimeStampedModel, StatusModel, models.Model):
@@ -25,9 +26,16 @@ class AFSLicenseeEntry(TimeStampedModel, models.Model):
     status = models.CharField(max_length=32)
     principle_business_address = models.CharField(max_length=512)
 
+    class Meta(object):
+        verbose_name = _('Australian Financial Services Licensee')
+        verbose_name_plural = _('Australian Financial Services Licensee')
+
 
 class AFSAuthorisedRepresentative(TimeStampedModel, models.Model):
     name = models.CharField(max_length=256)
     license_no = models.IntegerField()
     licensed_by = models.ForeignKey(AFSLicenseeEntry, null=True)
 
+    class Meta(object):
+        verbose_name = _('Australian Financial Services Authorised Representative')
+        verbose_name_plural = _('Australian Financial Services Authorised Representatives')
