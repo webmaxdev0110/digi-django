@@ -1,13 +1,14 @@
 from django.contrib import admin
 
 # Register your models here.
+from core.admin_mixins import NonSuperUserReadonlyAdmin
 from data_explorer.models import (
     AFSLicenseeEntry,
     AFSAuthorisedRepresentative,
 )
 
 
-class AFSLicenseeEntryAdmin(admin.ModelAdmin):
+class AFSLicenseeEntryAdmin(NonSuperUserReadonlyAdmin, admin.ModelAdmin):
     list_display = [
         'name',
         'license_no',
@@ -26,8 +27,7 @@ class AFSLicenseeEntryAdmin(admin.ModelAdmin):
     date_hierarchy = 'commenced_date'
 
 
-
-class AFSAuthorisedRepresentativeAdmin(admin.ModelAdmin):
+class AFSAuthorisedRepresentativeAdmin(NonSuperUserReadonlyAdmin, admin.ModelAdmin):
     list_display = [
         'name',
         'license_no',
@@ -41,7 +41,6 @@ class AFSAuthorisedRepresentativeAdmin(admin.ModelAdmin):
         'license_no',
         'licensed_by__name',
     )
-
 
 
 admin.site.register(AFSLicenseeEntry, AFSLicenseeEntryAdmin)
