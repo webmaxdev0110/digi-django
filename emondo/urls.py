@@ -55,9 +55,13 @@ urlpatterns = [
 
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps},
         name='django.contrib.sitemaps.views.sitemap'),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^grappelli/', include('grappelli.urls')),  # grappelli URLS
 ]
 if settings.DEBUG:
     urlpatterns += [
         url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
     ]
+
+
+admin.site.site_header = 'Emondo'
