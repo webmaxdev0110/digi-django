@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'hotjar',
     'intercom',
     'compressor',
+    'data_explorer',
     'webpack_loader',
     'google_analytics',
     'letsencrypt',
