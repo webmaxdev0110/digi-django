@@ -40,6 +40,9 @@ class AFSAuthorisedRepresentative(TimeStampedModel, models.Model):
     license_no = models.IntegerField()
     licensed_by = models.ForeignKey(AFSLicenseeEntry, null=True)
 
+    def __unicode__(self):
+        return '{0} <{1}>'.format(self.name, self.license_no)
+
     class Meta(object):
         verbose_name = _('Australian Financial Services Authorised Representative')
         verbose_name_plural = _('Australian Financial Services Authorised Representatives')

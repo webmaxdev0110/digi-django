@@ -1,0 +1,6 @@
+{% extends 'admin/change_form.html' %}
+{% block object-tools %}
+    {% if request.user.is_superuser %}
+        {{ block.super }}
+    {% endif %}
+{% endblock %}
