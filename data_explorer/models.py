@@ -20,11 +20,12 @@ class DataSourceModel(TimeStampedModel, StatusModel, models.Model):
 class AFSLicenseeEntry(TimeStampedModel, models.Model):
     name = models.CharField(max_length=256)
     license_no = models.IntegerField()
-    abn = models.IntegerField()
+    abn = models.BigIntegerField(null=True)
+    acn = models.BigIntegerField(null=True)
     commenced_date = models.DateField(null=True)
-    service_address = models.CharField(max_length=512)
-    status = models.CharField(max_length=32)
-    principle_business_address = models.CharField(max_length=512)
+    service_address = models.CharField(max_length=512, null=True)
+    status = models.CharField(max_length=32, null=True)
+    principle_business_address = models.CharField(max_length=512, null=True)
 
     class Meta(object):
         verbose_name = _('Australian Financial Services Licensee')
