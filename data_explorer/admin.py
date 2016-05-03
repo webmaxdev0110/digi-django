@@ -16,7 +16,7 @@ class AFSLicenseeEntryAdmin(admin.ModelAdmin):
         'status'
     ]
     list_filter = (
-        'status'
+        'status',
     )
     search_fields = (
         'name',
