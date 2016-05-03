@@ -38,6 +38,7 @@ RAVEN_CONFIG = {
 
 
 INSTALLED_APPS = [
+    'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
     'django.contrib.sites',
     'raven.contrib.django.raven_compat',
+
     'rest_framework',
     'core',
     'public_sitemaps',
@@ -177,3 +179,6 @@ WEBPACK_LOADER = {
 }
 
 AUTH_USER_MODEL = 'accounts.User'
+
+
+GRAPPELLI_ADMIN_TITLE = 'Emondo'
