@@ -27,6 +27,9 @@ class AFSLicenseeEntry(TimeStampedModel, models.Model):
     status = models.CharField(max_length=32, null=True)
     principle_business_address = models.CharField(max_length=512, null=True)
 
+    def __unicode__(self):
+        return '{0} <{1}>'.format(self.name, self.license_no)
+
     class Meta(object):
         verbose_name = _('Australian Financial Services Licensee')
         verbose_name_plural = _('Australian Financial Services Licensee')

@@ -33,6 +33,14 @@ class AFSAuthorisedRepresentativeAdmin(admin.ModelAdmin):
         'license_no',
         'licensed_by'
     ]
+    list_filter = (
+        'licensed_by',
+    )
+    search_fields = (
+        'name',
+        'license_no',
+        'licensed_by__name',
+    )
 
 
 
