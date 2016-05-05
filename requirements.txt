@@ -13,3 +13,4 @@ Markdown==2.6.6   # Markdown support for the browsable API. todo: migrate to dev
 django-grappelli==2.8.1
 celery==3.1.23
 librabbitmq==1.6.1
+sqlalchemy
