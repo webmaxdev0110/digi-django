@@ -15,6 +15,11 @@ import os
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from kombu import (
+    Exchange,
+    Queue,
+)
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
@@ -182,3 +187,62 @@ AUTH_USER_MODEL = 'accounts.User'
 
 
 GRAPPELLI_ADMIN_TITLE = 'Emondo'
+
+
+# Celery
+
+
+## Broker settings.
+# transport://userid:password@hostname:port/virtual_host
+BROKER_URL = 'amqp://guest:guest@localhost:5672//'
+
+# Might be RAM limited https://rpm.newrelic.com/accounts/333738/servers/2434660
+CELERYD_CONCURRENCY = 4
+CELERYD_MAX_TASKS_PER_CHILD = 500 # Periodically restart workers
+CELERYD_TASK_TIME_LIMIT = 80 # Hard limit
+CELERYD_TASK_SOFT_TIME_LIMIT = 60
+
+
+# By default we will route to the 'default' queue where we can't find a
+# match in our CELERY_ROUTES
+CELERY_DEFAULT_QUEUE = "default"
+CELERY_DEFAULT_EXCHANGE = "emondo"
+CELERY_DEFAULT_EXCHANGE_TYPE = "direct"
+CELERY_DEFAULT_ROUTING_KEY = "default"
+
+
+CELERY_QUEUES = (
+    Queue('default', Exchange('emondo'), routing_key='default'),
+    Queue('high', Exchange('emondo'), routing_key='high_priority'),
+)
+
+# CELERY_ROUTES = {
+#     'my_taskA': {'queue': 'for_task_A', 'routing_key': 'for_task_A'}
+# }
+
+
+# Save one thread as we don't use this feature
+CELERY_DISABLE_RATE_LIMITS = True
+
+# Stop Celery from trying to overwrite our LOGGING configuration!
+# See: https://github.com/celery/celery/issues/1867
+CELERYD_HIJACK_ROOT_LOGGER = False
+CELERY_REDIRECT_STDOUTS = False
+
+
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
+
+
+
+## Using the database to store task state and results.
+# sqlite (filename)
+CELERY_RESULT_BACKEND = 'db+sqlite:///celery-results.sqlite'
+CELERY_IGNORE_RESULT = True
+
+CELERY_TIMEZONE = 'Australia/Sydney'
+
+CELERY_TRACK_STARTED = True
+CELERY_SEND_EVENTS = True
+
