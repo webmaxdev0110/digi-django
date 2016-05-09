@@ -61,3 +61,11 @@ class JusticeOfPeace(TimeStampedModel, models.Model):
     phone2 = models.CharField(_('Contact Number2'), max_length=24, blank=True, help_text='After hour')
     state = models.CharField(_('State'), blank=True, max_length=24)
     raw = JSONField()
+
+    def __unicode__(self):
+        return '{0} <{1}>'.format(self.first_name, self.jp_number)
+
+    class Meta(object):
+        verbose_name = _('Justice Of Peace')
+        verbose_name_plural = _('Justice Of Peace')
+        
