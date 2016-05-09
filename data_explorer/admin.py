@@ -5,6 +5,7 @@ from core.admin_mixins import NonSuperUserReadonlyAdmin
 from data_explorer.models import (
     AFSLicenseeEntry,
     AFSAuthorisedRepresentative,
+    JusticeOfPeace,
 )
 
 
@@ -43,5 +44,29 @@ class AFSAuthorisedRepresentativeAdmin(NonSuperUserReadonlyAdmin, admin.ModelAdm
     )
 
 
+class JusticeOfPeaceAdmin(NonSuperUserReadonlyAdmin, admin.ModelAdmin)
+    list_display = [
+        'first_name',
+        'last_name',
+        'jp_number',
+        'suburb',
+        'state',
+    ]
+    list_filter = (
+        'state',
+        'suburb',
+    )
+    search_fields = (
+        'first_name',
+        'last_name',
+        'jp_number',
+        'suburb',
+        'state',
+        'mobile_phone',
+        'phone',
+    )
+
+
 admin.site.register(AFSLicenseeEntry, AFSLicenseeEntryAdmin)
 admin.site.register(AFSAuthorisedRepresentative, AFSAuthorisedRepresentativeAdmin)
+admin.site.register(JusticeOfPeace, JusticeOfPeaceAdmin)
