@@ -25,7 +25,7 @@ def process_nsw(data_obj):
 
     if data_obj.get('telephone'):
         if is_australian_mobile_number(data_obj['telephone']):
-            data['telephone'] = data_obj['telephone']
+            data['mobile_number'] = data_obj['telephone']
         else:
             data['phone'] = data_obj['telephone']
 
@@ -99,5 +99,5 @@ class Command(BaseCommand):
 
         for item in project.job(job_id).items():
             dict = processor(item)
-            print dict
+            JusticeOfPeace.objects.create(**dict)
 
