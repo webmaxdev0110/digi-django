@@ -52,14 +52,15 @@ class AFSAuthorisedRepresentative(TimeStampedModel, models.Model):
 
 
 class JusticeOfPeace(TimeStampedModel, models.Model):
-    jp_number = models.CharField(max_length=32, blank=True)
-    first_name = models.CharField(_('first name'), max_length=30, blank=True)
-    last_name = models.CharField(_('last name'), max_length=30, blank=True)
-    email = models.EmailField(_('email address'), blank=True)
-    mobile_number = models.CharField(_('Contact Number'), max_length=24, blank=True)
-    phone = models.CharField(_('Contact Number'), max_length=24, blank=True)
-    phone2 = models.CharField(_('Contact Number2'), max_length=24, blank=True, help_text='After hour')
-    state = models.CharField(_('State'), blank=True, max_length=24)
+    jp_number = models.CharField(max_length=32, blank=True, default='')
+    first_name = models.CharField(_('first name'), max_length=30, blank=True, default='')
+    last_name = models.CharField(_('last name'), max_length=30, blank=True, default='')
+    email = models.EmailField(_('email address'), blank=True, default='')
+    mobile_number = models.CharField(_('Contact Number'), max_length=24, blank=True, default='')
+    phone = models.CharField(_('Contact Number'), max_length=24, blank=True, default='')
+    phone2 = models.CharField(_('Contact Number2'), max_length=24, blank=True, help_text='After hour', default='')
+    state = models.CharField(_('State'), blank=True, max_length=24, default='')
+    suburb = models.CharField(_('Suburb'), blank=True, max_length=32, default='')
     raw = JSONField()
 
     def __unicode__(self):
