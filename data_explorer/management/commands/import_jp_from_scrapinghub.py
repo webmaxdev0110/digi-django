@@ -44,8 +44,9 @@ def process_qld(data_obj):
         first_name = first_middlename
 
     data = {}
-    data['Suburb'] = data_obj.get('Suburb', '')
+    data['suburb'] = data_obj.get('Suburb', '')
     data['first_name'] = first_name
+    data['state'] = 'QLD'
     data['last_name'] = last_name
     if data_obj.get('Phone'):
         if is_australian_mobile_number(data_obj['Phone']):
