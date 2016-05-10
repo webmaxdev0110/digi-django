@@ -51,6 +51,8 @@ class JusticeOfPeaceAdmin(NonSuperUserReadonlyAdmin, admin.ModelAdmin):
         'jp_number',
         'suburb',
         'state',
+        'mobile_number',
+        'phone',
     ]
     list_filter = (
         'state',
@@ -62,7 +64,7 @@ class JusticeOfPeaceAdmin(NonSuperUserReadonlyAdmin, admin.ModelAdmin):
         'jp_number',
         'suburb',
         'state',
-        'mobile_phone',
+        'mobile_number',
         'phone',
     )
 
