@@ -39,6 +39,7 @@ urlpatterns = [
     url(r'^$', HomeView.as_view(), name='public_home'),
     url(r'^docs/', include('docs.urls')),
     url(r'^accounts/', include('accounts.urls')),
+    url(r'^notifications/', include('notifications.urls')),
     url(r'^admin/', admin.site.urls),
     # url(r'^login/$',
     #     LoginView.as_view(),
