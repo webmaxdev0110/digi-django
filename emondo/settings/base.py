@@ -43,7 +43,6 @@ RAVEN_CONFIG = {
 
 
 INSTALLED_APPS = [
-    'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -231,7 +230,6 @@ WEBPACK_LOADER = {
 AUTH_USER_MODEL = 'accounts.User'
 
 
-GRAPPELLI_ADMIN_TITLE = 'Emondo'
 
 
 # Celery
