@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 import logging
 
@@ -23,3 +24,4 @@ def telstra_sms_callback_handler(request):
     logger.info('telstra_sms_callback_handler', exe_info=True, extra={
         'request': request,
     })
+    return HttpResponse('ok')
