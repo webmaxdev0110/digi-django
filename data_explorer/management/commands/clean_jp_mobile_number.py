@@ -14,7 +14,7 @@ class Command(BaseCommand):
     help = 'Clean JusticeOfPeace from scraping hub'
 
     def handle(self, *args, **kwargs):
-        for jp in JusticeOfPeace.objects.exclude(Q(mobile_number='')|Q(phone='')).iterator():
+        for jp in JusticeOfPeace.objects.exclude(mobile_number='', phone='').iterator():
             mobile_number = jp.mobile_number
             changed = False
 
