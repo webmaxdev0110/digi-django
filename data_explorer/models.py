@@ -56,10 +56,10 @@ class JusticeOfPeace(TimeStampedModel, models.Model):
     first_name = models.CharField(_('first name'), max_length=30, blank=True, default='')
     last_name = models.CharField(_('last name'), max_length=30, blank=True, default='')
     email = models.EmailField(_('email address'), blank=True, default='')
-    mobile_number = models.CharField(_('Contact Number'), max_length=24, blank=True, default='')
-    phone = models.CharField(_('Contact Number'), max_length=24, blank=True, default='')
-    phone2 = models.CharField(_('Contact Number2'), max_length=24, blank=True, help_text='After hour', default='')
-    state = models.CharField(_('State'), blank=True, max_length=24, default='')
+    mobile_number = models.CharField(_('Contact Number'), max_length=128, blank=True, default='')
+    phone = models.CharField(_('Contact Number'), max_length=128, blank=True, default='')
+    phone2 = models.CharField(_('Contact Number2'), max_length=128, blank=True, help_text='After hour', default='')
+    state = models.CharField(_('State'), blank=True, max_length=128, default='')
     suburb = models.CharField(_('Suburb'), blank=True, max_length=32, default='')
     raw = JSONField()
 
@@ -69,4 +69,3 @@ class JusticeOfPeace(TimeStampedModel, models.Model):
     class Meta(object):
         verbose_name = _('Justice Of Peace')
         verbose_name_plural = _('Justice Of Peace')
-        
