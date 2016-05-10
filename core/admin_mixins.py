@@ -6,11 +6,18 @@ class NonSuperUserReadonlyAdmin(admin.ModelAdmin):
 
     def __init__(self, model, admin_site):
         super(NonSuperUserReadonlyAdmin, self).__init__(model, admin_site)
-        self.readonly_fields = [field.name for field in filter(lambda f: not f.auto_created, model._meta.fields)]
+
+    def get_readonly_fields(self, request, obj=None):
+        if not request.user.is_superuser:
+            return [field.name for field in filter(lambda f: not f.auto_created, self.model._meta.fields)]
+        else:
+            return super(NonSuperUserReadonlyAdmin, self).get_readonly_fields(request, obj)
 
     def get_actions(self, request):
         if not request.user.is_superuser:
             return []
+        else:
+            return super(NonSuperUserReadonlyAdmin, self).get_actions(request)
 
     def has_delete_permission(self, request, obj=None):
         return request.user.is_superuser
