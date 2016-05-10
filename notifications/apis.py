@@ -13,13 +13,13 @@ logger = logging.getLogger(__name__)
 def send_sms_message(number, text, provider='plivo'):
     if provider == 'plivo':
         result = send_plivo_sms(number, text)
-        SMSNotificationTransaction.objects.create({
+        SMSNotificationTransaction.objects.create(**{
             'remote_id': result['message_id']
         })
 
     elif provider == 'telstra':
         result = send_telstra_sms(number, text)
-        SMSNotificationTransaction.objects.create({
+        SMSNotificationTransaction.objects.create(**{
             'remote_id':  json.loads(result['text'])['messageId']
         })
     else:
