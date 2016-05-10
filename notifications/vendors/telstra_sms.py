@@ -5,15 +5,16 @@ from django.conf import settings
 
 
 def send_telstra_sms(number, message):
-
     APP_KEY = settings.TELSTRA_SMS_APPKEY  # Get from https://dev.telstra.com/user/me/apps
     APP_SECRET = settings.TELSTRA_SMS_APPSECRET  # Get from https://dev.telstra.com/user/me/apps
+    if not APP_KEY or not APP_SECRET:
+        raise Exception('TELSTRA_SMS_APPKEY or TELSTRA_SMS_APPSECRET not configured')
 
     tokenPayload = {
         'client_id': APP_KEY,
         'client_secret': APP_SECRET,
         'grant_type' : 'client_credentials',
-        'scope' : 'SMS'
+        'scope': 'SMS'
     }
 
     request = "https://api.telstra.com/v1/oauth/token"
