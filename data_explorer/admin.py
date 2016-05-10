@@ -2,6 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 from core.admin_mixins import NonSuperUserReadonlyAdmin
+from data_explorer.admin_filters import HasMobileNumberFilter
 from data_explorer.models import (
     AFSLicenseeEntry,
     AFSAuthorisedRepresentative,
@@ -57,6 +58,7 @@ class JusticeOfPeaceAdmin(NonSuperUserReadonlyAdmin, admin.ModelAdmin):
     list_filter = (
         'state',
         'suburb',
+        HasMobileNumberFilter,
     )
     search_fields = (
         'first_name',
@@ -66,6 +68,7 @@ class JusticeOfPeaceAdmin(NonSuperUserReadonlyAdmin, admin.ModelAdmin):
         'state',
         'mobile_number',
         'phone',
+
     )
 
 
