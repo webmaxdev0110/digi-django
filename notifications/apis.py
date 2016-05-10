@@ -1,3 +1,4 @@
+from notifications.models import SMSNotificationTransaction
 from notifications.vendors.plivo_sms import (
     send_plivo_sms,
 )
@@ -10,7 +11,11 @@ logger = logging.getLogger(__name__)
 
 def send_sms_message(number, text, provider='plivo'):
     if provider == 'plivo':
-        send_plivo_sms(number, text)
+        result = send_plivo_sms(number, text)
+        SMSNotificationTransaction.objects.create({
+            'remote_id': result.message_id
+        })
+
     elif provider == 'telstra':
         send_telstra_sms(number, text)
     else:
