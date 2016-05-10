@@ -26,6 +26,8 @@ from letsencrypt.views import (
     letsencrypt_auth_view_www_emondo_com_au,
 )
 from django.contrib.sitemaps.views import sitemap
+
+from notifications.views import telstra_sms_callback_handler
 from public.views import HomeView
 from public_sitemaps.sitemaps import StaticViewSitemap
 
@@ -40,6 +42,8 @@ urlpatterns = [
     url(r'^docs/', include('docs.urls')),
     url(r'^accounts/', include('accounts.urls')),
     url(r'^notifications/', include('notifications.urls')),
+    # Temp URL until Telstra updates their record
+    url(r'^notification/sms_callback/telstra/', telstra_sms_callback_handler),
     url(r'^admin/', admin.site.urls),
     # url(r'^login/$',
     #     LoginView.as_view(),
