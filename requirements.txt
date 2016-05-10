@@ -15,3 +15,4 @@ celery==3.1.23
 librabbitmq==1.6.1
 scrapinghub==1.7.0
 sqlalchemy
+plivo==0.11.0
