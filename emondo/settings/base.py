@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'compressor',
     'data_explorer',
     'webpack_loader',
+    'notifications',
     'google_analytics',
     'letsencrypt',
     'gunicorn',
