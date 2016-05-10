@@ -22,7 +22,7 @@ def process_nsw(data_obj):
     data['first_name'] = first_name
     data['last_name'] = last_name
     data['suburb'] = data_obj.get('suburb', '')
-
+    data['state'] = 'NSW'
     if data_obj.get('telephone'):
         if is_australian_mobile_number(data_obj['telephone']):
             data['mobile_number'] = data_obj['telephone']
