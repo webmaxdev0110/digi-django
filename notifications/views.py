@@ -16,3 +16,10 @@ def plivo_sms_status_callback_handler(request):
     logger.info('plivo_sms_status_callback_handler', exe_info=True, extra={
         'request': request,
     })
+
+
+@csrf_exempt
+def telstra_sms_callback_handler(request):
+    logger.info('telstra_sms_callback_handler', exe_info=True, extra={
+        'request': request,
+    })
