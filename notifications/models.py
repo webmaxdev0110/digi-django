@@ -5,11 +5,12 @@ from django.db import models
 # Create your models here.
 from core.models import TimeStampedModel
 
-NOTIFICATION_CHOICES = (
-    ('0', 'SMS',),
-     ('1', 'EMAIL',),
-)
 
 
-class NotificationTransaction(TimeStampedModel, models.Model):
-    type = models.CharField(choices=NOTIFICATION_CHOICES, max_length=1)
+class SMSNotificationTransaction(TimeStampedModel, models.Model):
+    remote_id = models.CharField(max_length=128, null=True)
+    user_response = models.CharField(max_length=256, null=True)
+    message = models.CharField(max_length=512)
+    dest_number = models.CharField(max_length=64)
+
+
