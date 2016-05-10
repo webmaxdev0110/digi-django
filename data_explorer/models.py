@@ -56,7 +56,7 @@ class JusticeOfPeace(TimeStampedModel, models.Model):
     first_name = models.CharField(_('first name'), max_length=30, blank=True, default='')
     last_name = models.CharField(_('last name'), max_length=30, blank=True, default='')
     email = models.EmailField(_('email address'), blank=True, default='')
-    mobile_number = models.CharField(_('Contact Number'), max_length=128, blank=True, default='')
+    mobile_number = models.CharField(_('Mobile Number'), max_length=128, blank=True, default='')
     phone = models.CharField(_('Contact Number'), max_length=128, blank=True, default='')
     phone2 = models.CharField(_('Contact Number2'), max_length=128, blank=True, help_text='After hour', default='')
     state = models.CharField(_('State'), blank=True, max_length=128, default='')
