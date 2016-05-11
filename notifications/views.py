@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 import logging
+import json
 
 # Get an instance of a logger
 from notifications.models import SMSNotificationTransaction
@@ -30,14 +31,18 @@ def telstra_sms_callback_handler(request):
     #     "acknowledgedTimestamp": "2014-10-26T23:10:00+11:00",
     #     "content": "Some response"
     # }
-    message_id = request.POST.get('messageId')
+
+    body_unicode = request.body.decode('utf-8')
+    body_data = json.loads(body_unicode)
+
+    message_id = body_data.get('messageId')
     if message_id:
         qs = SMSNotificationTransaction.objects.filter(
             remote_id=message_id
         )
         if qs.exists():
             transaction = qs[0]
-            transaction.user_response = request.POST.get('content')
-            transaction.status = request.POST.get('status')
+            transaction.user_response = body_data.get('content')
+            transaction.status = body_data.get('status')
             transaction.save()
     return HttpResponse('')
