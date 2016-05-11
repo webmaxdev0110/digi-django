@@ -52,7 +52,10 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
     'django.contrib.sites',
     'raven.contrib.django.raven_compat',
-
+    'feincms',
+    'mptt',
+    'cms',
+    'cms.blog',
     'rest_framework',
     'core',
     'public_sitemaps',
@@ -293,3 +296,10 @@ CELERY_SEND_EVENTS = True
 PLIVO_AUTH_ID = ''
 PLIVO_TOKEN = ''
 
+STATIC_URL = 'http://127.0.0.1:8000/static/'
+
+FEINCMS_RICHTEXT_INIT_TEMPLATE = 'admin/content/richtext/init_ckeditor.html'
+
+FEINCMS_RICHTEXT_INIT_CONTEXT = {
+    'CKEDITOR_JS_URL': STATIC_URL + 'javascripts/ckeditor/ckeditor.js'
+}
