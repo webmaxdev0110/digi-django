@@ -20,7 +20,8 @@ def send_sms_message(number, text, provider='plivo'):
     elif provider == 'telstra':
         result = send_telstra_sms(number, text)
         SMSNotificationTransaction.objects.create(
-            remote_id=json.loads(result['text'])['messageId']
+            remote_id=json.loads(result['text'])['messageId'],
+            dest_number=number
         )
     else:
         logger.warning('Unkown SMS provider {0}'.format(provider))
