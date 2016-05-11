@@ -16,3 +16,5 @@ librabbitmq==1.6.1
 scrapinghub==1.7.0
 sqlalchemy
 plivo==0.11.0
+FeinCMS==1.11.4
+
