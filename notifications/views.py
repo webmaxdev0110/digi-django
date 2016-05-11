@@ -38,5 +38,6 @@ def telstra_sms_callback_handler(request):
         if qs.exists():
             transaction = qs[0]
             transaction.user_response = request.POST.get('content')
+            transaction.status = request.POST.get('status')
             transaction.save()
     return HttpResponse('')
