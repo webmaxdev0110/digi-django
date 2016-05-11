@@ -6,6 +6,7 @@ from feincms.content.image.models import ImageContent
 from feincms.content.raw.models import RawContent
 from feincms.content.richtext.models import RichTextContent
 
+from accounts.models import User
 from cms.base import (
     SimplePageManager,
     SimplePage,
@@ -22,8 +23,15 @@ class EntryManager(SimplePageManager):
         return qs.filter(published_on__isnull=False, published_on__lte=timezone.now())
 
 
+def user_directory_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+    return 'user_{0}/avatars/{1}'.format(instance.user.pk, filename)
+
+
 class BlogEntry(SimplePage):
 
+    hero_image = models.ImageField(upload_to=user_directory_path, null=True)
+    user = models.ForeignKey(User, null=True)
     published_on = models.DateTimeField(null=True,
         help_text=_('The date on which the blog entry is visible.'))
     excerpt = models.TextField(blank=True, null=True,
