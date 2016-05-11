@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
     'django.contrib.sites',
     'raven.contrib.django.raven_compat',
+    'storages',
     'feincms',
     'mptt',
     'cms',
@@ -72,6 +73,20 @@ INSTALLED_APPS = [
     'public',
     'docs',
 ]
+
+
+LIBCLOUD_PROVIDERS = {
+    'google': {
+        'type': 'libcloud.storage.types.Provider.GOOGLE_STORAGE',
+        'user': '<your_key>',
+        'key': '<secret>',
+        'bucket': 'emondo-media',
+    },
+}
+
+DEFAULT_LIBCLOUD_PROVIDER = 'google'
+
+DEFAULT_FILE_STORAGE = 'storages.backends.apache_libcloud.LibCloudStorage'
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
@@ -303,3 +318,6 @@ FEINCMS_RICHTEXT_INIT_TEMPLATE = 'admin/content/richtext/init_ckeditor.html'
 FEINCMS_RICHTEXT_INIT_CONTEXT = {
     'CKEDITOR_JS_URL': STATIC_URL + 'javascripts/ckeditor/ckeditor.js'
 }
+
+FEINCMS_UPLOAD_PREFIX = 'cms'
+FEINCMS_MEDIALIBRARY_UPLOAD_TO = 'uploads'
