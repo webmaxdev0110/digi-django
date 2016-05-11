@@ -1,0 +1,8 @@
+<div class="image-content {% if content.position %}image-content-{{ content.position }}{% endif %} {% if content.format %}image-content-format-{{ content.format|slugify }}{% endif %}">
+    <img src="{{ content.get_image.url }}" alt="{{ content.alt_text }}"/>
+    {% if content.caption %}
+        <div class="caption">
+            <p>{{ content.caption }}</p>
+        </div>
+    {% endif %}
+</div>

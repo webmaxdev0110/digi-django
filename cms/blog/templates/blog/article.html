@@ -1,0 +1,28 @@
+{% extends 'blog/layout_blog.html' %}
+{% load feincms_tags %}
+{% load i18n %}
+
+{% block title %}emondo :: {{ entry.title }}{% endblock %}
+
+{% block content %}
+
+<h2>{{ entry.title }}</h2>
+<p class="small text-muted">Published {{ entry.published_on|date:'j E Y' }}</p>
+
+
+<div>
+    {% for content in entry.content.body %}
+        {{ content.render|safe }}
+    {% endfor %}
+</div>
+
+
+
+<div class="row">
+    <div class="col-sm-6">
+        <h4>{% trans "Share this article" %}</h4>
+        {% include "blog/partials/addthis_widget.html" %}
+    </div>
+</div>
+
+{% endblock %}

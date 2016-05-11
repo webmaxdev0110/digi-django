@@ -1,0 +1,21 @@
+{% extends "core/html5.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block head_styles %}
+    <link rel="stylesheet" href="{% static 'stylesheets/bootstrap.css' %}">
+{% endblock %}
+
+{% block wrapper %}
+    <div class="chapter-fixed-header-wrapper">
+        <div class="chapter-fixed-header-spacing"></div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-push-2 col-lg-6 col-lg-push-3 text-justify">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+        <div class="clearfix">&nbsp;</div>
+    </div>
+{% endblock wrapper %}
