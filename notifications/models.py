@@ -12,6 +12,6 @@ class SMSNotificationTransaction(TimeStampedModel, models.Model):
     user_response = models.CharField(max_length=256, null=True)
     message = models.CharField(max_length=512)
     dest_number = models.CharField(max_length=64)
-    status = models.CharField(max_length=16)
+    status = models.CharField(max_length=16, null=True)
 
 
