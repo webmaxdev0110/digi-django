@@ -8,9 +8,16 @@ from cms.blog.models import BlogEntry
 
 class BlogHomeView(TemplateView):
     """ Simple view to redirect us to the latest blog entry. """
+    template_name = 'blog/blog_home.html'
 
-    def get(self, request, *args, **kwargs):
-        return Http404()
+    def get_context_data(self, **kwargs):
+        context = super(BlogHomeView, self).get_context_data(**kwargs)
+        context.update({
+            'entries': BlogEntry.objects.published().order_by('-published_on')
+        })
+
+        return context
+
 
 class BlogDetailView(TemplateView):
     """ Our view to set the template path prior to a regular get request. """
