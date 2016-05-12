@@ -31,14 +31,14 @@ def user_directory_path(instance, filename):
 
 class BlogEntry(SimplePage):
 
-    hero_image = models.ImageField(upload_to=user_directory_path, null=True)
+    hero_image = models.ImageField(null=True, blank=True, upload_to='cms/hero_images/')
     user = models.ForeignKey(User, null=True)
     published_on = models.DateTimeField(null=True,
         help_text=_('The date on which the blog entry is visible.'))
     excerpt = models.TextField(blank=True, null=True,
         help_text=_('Add a brief excerpt summarizing the content of this page.'))
     slug = models.SlugField(max_length=100)
-    tags = TaggableManager()
+    tags = TaggableManager(blank=True)
 
     class Meta(object):
         get_latest_by = 'published_on'
