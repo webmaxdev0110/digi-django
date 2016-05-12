@@ -4,25 +4,69 @@
 
 {% block title %}emondo :: {{ entry.title }}{% endblock %}
 
+
+
+
 {% block content %}
+    <article class="blog-post">
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2 class="blog-title">
+                        <a href="{{ entry.get_absolute_url }}">
+                            {{ entry.title }}
+                        </a>
+                    </h2>
+                    {% if entry.hero_image %}
+                        <div class="hero-image">
+                            <img src="{{ entry.hero_image.url }}"/>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <section class="col-lg-8 main-section">
+                    <div>
+                        {% for content in entry.content.body %}
+                            {{ content.render|safe }}
+                        {% endfor %}
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div id="disqus_thread"></div>
+                            <script>
+                                /**
+                                 * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                                 * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+                                 */
+                                /*
+                                 var disqus_config = function () {
+                                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                                 };
+                                 */
+                                (function () { // DON'T EDIT BELOW THIS LINE
+                                    var d = document, s = d.createElement('script');
 
-<h2>{{ entry.title }}</h2>
-<p class="small text-muted">Published {{ entry.published_on|date:'j E Y' }}</p>
+                                    s.src = '//emondo.disqus.com/embed.js';
+
+                                    s.setAttribute('data-timestamp', +new Date());
+                                    (d.head || d.body).appendChild(s);
+                                })();
+                            </script>
+                            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+                                powered by Disqus.</a></noscript>
+                        </div>
+                    </div>
+                </section>
+                <aside class="col-lg-4 aside">
+                </aside>
+            </div>
+        </div>
+    </article>
 
 
-<div>
-    {% for content in entry.content.body %}
-        {{ content.render|safe }}
-    {% endfor %}
-</div>
 
-
-
-<div class="row">
-    <div class="col-sm-6">
-        <h4>{% trans "Share this article" %}</h4>
-        {% include "blog/partials/addthis_widget.html" %}
-    </div>
-</div>
+    {% include "blog/partials/addthis_widget.html" %}
 
 {% endblock %}
