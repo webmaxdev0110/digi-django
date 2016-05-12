@@ -1,0 +1,42 @@
+{% extends 'blog/layout_blog.html' %}
+{% load feincms_tags %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}emondo :: {{ entry.title }}{% endblock %}
+
+{% block content %}
+
+    <section class="col-lg-8 main-section">
+        {% for entry in entries %}
+            <article class="article-preview">
+                <h2 class="blog-title">
+                    <a href="{{ entry.get_absolute_url }}">
+                        {{ entry.title }}
+                    </a>
+                </h2>
+                {% if entry.hero_image %}
+                    <div class="hero-image">
+                        <a href="{{ entry.get_absolute_url }}">
+                            <img src="{{ entry.hero_image.url }}"/>
+                        </a>
+                    </div>
+                {% endif %}
+                <div class="author-row">
+                    <span class="image">
+                        <img src="{{ entry.user.avatar.url }}" width="50" height="50" />
+                    </span>
+                    <span class="name">
+                        {{ entry.user.get_full_name }}
+                    </span>
+                </div>
+                <div>
+                    {{ entry.excerpt|safe }}
+                </div>
+            </article>
+        {% endfor %}
+    </section>
+    <aside class="col-lg-4 aside">
+    </aside>
+
+{% endblock %}

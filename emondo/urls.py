@@ -13,7 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url, include
+from django.conf.urls import url, include, patterns
 from django.contrib import admin
 from django.conf import settings
 
@@ -52,6 +52,7 @@ urlpatterns = [
     url(r'^signup/$',
         SignupView.as_view(),
         name='accounts_signup'),
+    url(r'^blog/', include('cms.blog.urls')),
 
     # emondo.com.au
     url(r'\.well-known/acme-challenge/TIZhUMHi5Z3bw6xV67n7DXRIAXeKI02pHTnN_ZJm1T4', letsencrypt_auth_view_emondo_com_au),
@@ -61,7 +62,11 @@ urlpatterns = [
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps},
         name='django.contrib.sitemaps.views.sitemap'),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
 ]
+urlpatterns += patterns('',
+    url(r'', include('feincms.urls')),
+)
 if settings.DEBUG:
     urlpatterns += [
         url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))

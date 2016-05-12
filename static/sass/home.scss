@@ -1,85 +1,12 @@
 @import "compass/css3";
 @import "mixins/mixins";
+@import "global/variables";
+@import "global/typography";
+@import "global/helpers";
 @import "home_icons";
 
-// Todo: Move to another file
-.font1 {
-  font-family: 'roble_alt_boldbold';
-}
-
-//.font2 {
-//  font-family: 'roble_alt_mediummedium';
-//}
-
-.font3 {
-  font-family: 'roble_altregular';
-}
-
-.font4 {
-  font-family: 'roble_alt_bookbook';
-}
-
-.font5 {
-  font-family: 'roble_alt_lightlight';
-}
-
-.font6 {
-  font-family: 'roble_alt_thinthin';
-}
-
-.font7 {
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 400;
-}
-.font8 {
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 300;
-}
-
-// Todo: Move to another file
-$dark-blue: #073660;
-$dark-blue-2: #3893d0;
-$faint-blue: rgb(239, 243, 247);
-$faint-blue-2: #a8bfd3;
-$faint-blue-3: #f3faff;
-$faint-blue-4: #e0effa;
-$orange: #ff8a00;
-$white: #FFFFFF;
 
 // helpers
-a:hover, a:visited, a:focus, a:active {
-  text-decoration: none;
-}
-
-.static {
-  position: static;
-}
-.relative {
-  position: relative;
-}
-
-.dark-blue {
-  color: $dark-blue;
-}
-
-
-.dark-blue-2 {
-  color: $dark-blue-2;
-}
-
-.faint-blue-2 {
-  color: $faint-blue-2;
-}
-
-.italic {
-  font-style: italic;
-}
-
-// utils
-.clear-both {
-  // Different to default @clearfix
-  clear: both;
-}
 
 
 .email-group {

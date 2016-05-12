@@ -1,0 +1,30 @@
+{% extends 'blog/layout_blog.html' %}
+{% load page_tags %}
+{% load feincms_tags %}
+{% load core %}
+{% load i18n %}
+
+
+{% block title %}Mathspace :: {{ feincms_page.title }}{% endblock %}
+
+{% block content %}
+<div class="publicLeft">
+    <div class="publicContent">
+        <div class="heading-bar heading-bar-alt">
+            <h2>
+                <span class="left">{{ feincms_page.title }}</span>
+                <span class="right">&nbsp;</span>
+                <span class="heading-bar-accent">&nbsp;</span>
+            </h2>
+        </div>
+
+        {% for body in feincms_page|body %}
+            {% feincms_render_content body request %}
+        {% endfor %}
+
+        <br/>
+        <br/>
+    </div>
+    <div class="globalCorner">&nbsp;</div>
+</div>
+{% endblock %}

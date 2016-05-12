@@ -1,0 +1,67 @@
+{% extends "core/html5.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block head_styles %}
+    <link rel="stylesheet" href="{% static 'stylesheets/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'stylesheets/blog.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/roblealt_bold_macroman/stylesheet.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/roblealt_light_macroman/stylesheet.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/roblealt_regular_macroman/stylesheet.css' %}">
+{% endblock %}
+
+{% block wrapper %}
+    <div class="fixed-header-wrapper">
+        <div class="row">
+            <div class="col-xs-4">
+                <div class="header-inner-wrapper">
+                    <img class="logo-img" src="{% static 'images/logo_colour_tagline.svg' %}" width="130"/>
+                </div>
+            </div>
+            <div class="col-xs-6 col-xs-push-2">
+                <div class="header-inner-wrapper">
+
+                    <form method="POST" class="cta-form" data-name="fixed-header">
+                        {% csrf_token %}
+                        <input type="hidden" name="tag_index" value="{{ tag_line_index }}"/>
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="input-group email-group">
+                                    <span class="input-enter-prompt">
+                                        press<br/>
+                                        ENTER
+                                    </span>
+                                        <input name="email" type="email" placeholder="Enter your email address"
+                                               class="form-control"/>
+                                        <span class="input-group-btn cta-submit">
+                                            <button name="submit" type="button"
+                                                    class="js-submit btn btn-primary btn-block">Get
+                                                your free account
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row site-heading-row">
+            <div class="col-xs-12">
+                <a href="{% url 'cms_blog_home' %}" class="logo nav-logo-wrapper">
+                    <img class="logo-img" src="{% static 'images/logo_colour_tagline.svg' %}" width="175"/>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <div class="clearfix">&nbsp;</div>
+    </div>
+{% endblock wrapper %}
