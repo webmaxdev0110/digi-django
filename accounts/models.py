@@ -20,5 +20,8 @@ class User(AbstractUser):
     is_pre_launch_signup = models.BooleanField(default=False)
     signup_tag_index = models.CharField(max_length=16, default='', blank=True)
     signup_form_source = models.CharField(max_length=16, default='', blank=True)
+    avatar = models.ImageField(blank=True, null=True, upload_to='users/avatars/')
+    short_description = models.CharField(blank=True, max_length=256)
+
 
 
