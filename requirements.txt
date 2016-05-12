@@ -18,4 +18,5 @@ sqlalchemy
 plivo==0.11.0
 FeinCMS==1.11.4
 django-storages==1.4.1
+django-taggit==0.18.2
 
