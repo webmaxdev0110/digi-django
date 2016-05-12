@@ -54,6 +54,9 @@ INSTALLED_APPS = [
     'raven.contrib.django.raven_compat',
     'storages',
     'feincms',
+    # 'feincms.module.page',
+    # 'feincms.module.medialibrary',
+    'taggit',
     'mptt',
     'cms',
     'cms.blog',
@@ -72,6 +75,7 @@ INSTALLED_APPS = [
     'accounts',
     'public',
     'docs',
+    'debug_toolbar',
 ]
 
 
@@ -97,6 +101,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'emondo.urls'
