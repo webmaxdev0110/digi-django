@@ -203,6 +203,17 @@ a:hover, a:visited, a:focus, a:active {
   padding: 70px 0;
   border-bottom: 1px solid #eaeaea;
 }
+.main-section .article-preview .author-row > .image > img {
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+}
+.main-section .article-preview .author-row > .name {
+  margin-left: 14px;
+  font-size: 20px;
+  vertical-align: middle;
+  color: #000000;
+}
 
 article .hero-image img {
   max-width: 100%;

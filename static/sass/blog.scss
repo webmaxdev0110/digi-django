@@ -133,6 +133,20 @@
   .article-preview {
     padding: 70px 0;
     border-bottom: 1px solid #eaeaea;
+    .author-row {
+      > .image {
+        > img {
+          @include border-radius(50%);
+        }
+      }
+      > .name {
+        margin-left: 14px;
+        font-size: 20px;
+        vertical-align: middle;
+        color: $black;
+      }
+
+    }
   }
 }
 article {

@@ -22,6 +22,14 @@
                         </a>
                     </div>
                 {% endif %}
+                <div class="author-row">
+                    <span class="image">
+                        <img src="{{ entry.user.avatar.url }}" width="50" height="50" />
+                    </span>
+                    <span class="name">
+                        {{ entry.user.get_full_name }}
+                    </span>
+                </div>
                 <div>
                     {{ entry.excerpt|safe }}
                 </div>
