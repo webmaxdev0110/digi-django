@@ -1,0 +1,34 @@
+@import "variables";
+
+a:hover, a:visited, a:focus, a:active {
+  text-decoration: none;
+}
+
+.static {
+  position: static;
+}
+.relative {
+  position: relative;
+}
+
+.dark-blue {
+  color: $dark-blue;
+}
+
+.dark-blue-2 {
+  color: $dark-blue-2;
+}
+
+.faint-blue-2 {
+  color: $faint-blue-2;
+}
+
+.italic {
+  font-style: italic;
+}
+
+// utils
+.clear-both {
+  // Different to default @clearfix
+  clear: both;
+}

@@ -1,3 +1,69 @@
+.font1, .fixed-header-wrapper input, .fixed-header-wrapper button, .cta-container input, .cta-container button, .row.history .year-label {
+  font-family: "roble_alt_boldbold";
+}
+
+.font2 {
+  font-family: "roble_alt_mediummedium";
+}
+
+.font3, .row.efficiency .js-number-count .number-count, .row.efficiency .js-number-count .number-appendix, .row.efficiency .js-number-count .cover-text {
+  font-family: "roble_altregular";
+}
+
+.font4 {
+  font-family: "roble_alt_bookbook";
+}
+
+.font5 {
+  font-family: "roble_alt_lightlight";
+}
+
+.font6 {
+  font-family: "roble_alt_thinthin";
+}
+
+.font7 {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+}
+
+.font8, .row.history .text-wrapper {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 300;
+}
+
+a:hover, a:visited, a:focus, a:active {
+  text-decoration: none;
+}
+
+.static {
+  position: static;
+}
+
+.relative {
+  position: relative;
+}
+
+.dark-blue {
+  color: #073660;
+}
+
+.dark-blue-2 {
+  color: #3893d0;
+}
+
+.faint-blue-2 {
+  color: #a8bfd3;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.clear-both {
+  clear: both;
+}
+
 .icon-signature-A {
   display: inline-block;
   vertical-align: middle;
@@ -140,68 +206,6 @@
   .icon-signature-pin {
     background-image: -webkit-image-set(url('../images/../images/signatures_icons-s931838819b.png') 1x, url('../images/../images/signatures_icons@2x-sd2f39cfc11.png') 2x);
   }
-}
-
-.font1, .fixed-header-wrapper input, .fixed-header-wrapper button, .cta-container input, .cta-container button, .row.history .year-label {
-  font-family: 'roble_alt_boldbold';
-}
-
-.font3, .row.efficiency .js-number-count .number-count, .row.efficiency .js-number-count .number-appendix, .row.efficiency .js-number-count .cover-text {
-  font-family: 'roble_altregular';
-}
-
-.font4 {
-  font-family: 'roble_alt_bookbook';
-}
-
-.font5 {
-  font-family: 'roble_alt_lightlight';
-}
-
-.font6 {
-  font-family: 'roble_alt_thinthin';
-}
-
-.font7 {
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 400;
-}
-
-.font8, .row.history .text-wrapper {
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 300;
-}
-
-a:hover, a:visited, a:focus, a:active {
-  text-decoration: none;
-}
-
-.static {
-  position: static;
-}
-
-.relative {
-  position: relative;
-}
-
-.dark-blue {
-  color: #073660;
-}
-
-.dark-blue-2 {
-  color: #3893d0;
-}
-
-.faint-blue-2 {
-  color: #a8bfd3;
-}
-
-.italic {
-  font-style: italic;
-}
-
-.clear-both {
-  clear: both;
 }
 
 .email-group {
