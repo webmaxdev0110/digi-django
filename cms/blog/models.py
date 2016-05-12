@@ -5,6 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from feincms.content.image.models import ImageContent
 from feincms.content.raw.models import RawContent
 from feincms.content.richtext.models import RichTextContent
+from taggit.managers import TaggableManager
 
 from accounts.models import User
 from cms.base import (
@@ -37,6 +38,7 @@ class BlogEntry(SimplePage):
     excerpt = models.TextField(blank=True, null=True,
         help_text=_('Add a brief excerpt summarizing the content of this page.'))
     slug = models.SlugField(max_length=100)
+    tags = TaggableManager()
 
     class Meta(object):
         get_latest_by = 'published_on'
