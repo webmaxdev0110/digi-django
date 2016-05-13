@@ -37,7 +37,7 @@ class BlogEntry(SimplePage):
         help_text=_('The date on which the blog entry is visible.'))
     excerpt = models.TextField(blank=True, null=True,
         help_text=_('Add a brief excerpt summarizing the content of this page.'))
-    slug = models.SlugField(max_length=100)
+    slug = models.SlugField(max_length=100, unique=True)
     tags = TaggableManager(blank=True)
 
     class Meta(object):
