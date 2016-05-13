@@ -314,7 +314,7 @@ CELERY_SEND_EVENTS = True
 PLIVO_AUTH_ID = ''
 PLIVO_TOKEN = ''
 
-STATIC_URL = 'http://127.0.0.1:8000/static/'
+STATIC_URL = '/static/'
 
 FEINCMS_RICHTEXT_INIT_TEMPLATE = 'admin/content/richtext/init_ckeditor.html'
 
