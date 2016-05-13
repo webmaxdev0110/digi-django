@@ -23,9 +23,11 @@
                     </div>
                 {% endif %}
                 <div class="author-row">
+                    {% if entry.user.avatar %}
                     <span class="image">
                         <img src="{{ entry.user.avatar.url }}" width="50" height="50" />
                     </span>
+                    {% endif %}
                     <span class="name">
                         {{ entry.user.get_full_name }}
                     </span>
