@@ -77,7 +77,7 @@ INSTALLED_APPS = [
     'docs',
 ]
 
-
+# todo: Remove later
 LIBCLOUD_PROVIDERS = {
     'google': {
         'type': 'libcloud.storage.types.Provider.GOOGLE_STORAGE',
@@ -89,7 +89,9 @@ LIBCLOUD_PROVIDERS = {
 
 DEFAULT_LIBCLOUD_PROVIDER = 'google'
 
-DEFAULT_FILE_STORAGE = 'storages.backends.apache_libcloud.LibCloudStorage'
+
+DEFAULT_FILE_STORAGE = 'storages.backends.gs.GSBotoStorage'
+GS_BUCKET_NAME = 'emondo-media'
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
