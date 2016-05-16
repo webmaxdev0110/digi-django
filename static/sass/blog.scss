@@ -141,11 +141,16 @@
       }
       > .name {
         margin-left: 14px;
-        font-size: 20px;
+        margin-right: 30px;
+        font-size: 14px;
         vertical-align: middle;
         color: $black;
       }
-
+      > .categories {
+        font-size: 14px;
+        color: #519edd;
+        vertical-align: middle;
+      }
     }
   }
 }

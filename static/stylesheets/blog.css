@@ -210,9 +210,15 @@ a:hover, a:visited, a:focus, a:active {
 }
 .main-section .article-preview .author-row > .name {
   margin-left: 14px;
-  font-size: 20px;
+  margin-right: 30px;
+  font-size: 14px;
   vertical-align: middle;
   color: #000000;
+}
+.main-section .article-preview .author-row > .categories {
+  font-size: 14px;
+  color: #519edd;
+  vertical-align: middle;
 }
 
 article .hero-image img {
