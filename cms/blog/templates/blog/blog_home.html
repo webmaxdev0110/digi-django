@@ -31,10 +31,17 @@
                     <span class="name">
                         {{ entry.user.get_full_name }}
                     </span>
+                    <span class="categories hide-sm">
+                    {% for tag in entry.tags.all %}
+                        {{ tag.name }}{% if not forloop.last %},&nbsp;{% endif %} 
+                    {% endfor %}
+                    </span>
                 </div>
+                {% if entry.excerpt %}
                 <div>
-                    {{ entry.excerpt|safe }}
+                    {{ entry.excerpt|safe }}...&nbsp;<a href="{{ entry.get_absolute_url }}">Read More</a>
                 </div>
+                {% endif %}
             </article>
         {% endfor %}
     </section>
