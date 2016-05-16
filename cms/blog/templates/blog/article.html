@@ -25,6 +25,17 @@
                 </div>
             </div>
             <div class="row">
+                <aside class="col-lg-4 aside">
+                    <div class="banner-author">
+                        <h4>Author</h4>
+                        {% if entry.user.avatar %}
+                            <a href="#" class="name">
+                                <img src="{{ entry.user.avatar.url }}" width="70" height="70" alt="{{ entry.user.get_full_name }}" />
+                            </a>
+                        {% endif %}
+                        <a href="#" class="name">{{ entry.user.get_full_name }}</a>
+                    </div>
+                </aside>
                 <section class="col-lg-8 main-section">
                     <div>
                         {% for content in entry.content.body %}
@@ -59,8 +70,6 @@
                         </div>
                     </div>
                 </section>
-                <aside class="col-lg-4 aside">
-                </aside>
             </div>
         </div>
     </article>
