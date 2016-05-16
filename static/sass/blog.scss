@@ -180,3 +180,41 @@ article {
     line-height: 1.8;
   }
 }
+.blog-post {
+  .hero-image {
+    margin-bottom: 33px;
+  }
+  #disqus_thread {
+    margin: 40px 0;
+  }
+}
+.banner-author {
+  text-align: center;
+  h4 {
+    margin: 10px 0 20px;
+    text-transform: uppercase;
+    color: #757575;
+  }
+  .name {
+    display: block;
+    margin-top: 15px;
+  }
+  img {
+    border-radius: 50%;
+  }
+}
+@media (min-width: 800px) {
+  .blog-post {
+    .blog-title {
+      margin-bottom: 30px;
+      width: 70%;
+      > a {
+        font-size: 42px;
+      }
+    }
+    .aside {
+      float: right;
+    }
+  }  
+}
+

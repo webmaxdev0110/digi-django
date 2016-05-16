@@ -242,3 +242,39 @@ article > div, article p {
   font-size: 16px;
   line-height: 1.8;
 }
+
+.blog-post .hero-image {
+  margin-bottom: 33px;
+}
+.blog-post #disqus_thread {
+  margin: 40px 0;
+}
+
+.banner-author {
+  text-align: center;
+}
+.banner-author h4 {
+  margin: 10px 0 20px;
+  text-transform: uppercase;
+  color: #757575;
+}
+.banner-author .name {
+  display: block;
+  margin-top: 15px;
+}
+.banner-author img {
+  border-radius: 50%;
+}
+
+@media (min-width: 800px) {
+  .blog-post .blog-title {
+    margin-bottom: 30px;
+    width: 70%;
+  }
+  .blog-post .blog-title > a {
+    font-size: 42px;
+  }
+  .blog-post .aside {
+    float: right;
+  }
+}
