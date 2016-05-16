@@ -1,22 +1,20 @@
 from django.core.urlresolvers import reverse
 from django.http import Http404
 from django.shortcuts import redirect, get_object_or_404
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 
 from cms.blog.models import BlogEntry
 
 
-class BlogHomeView(TemplateView):
+class BlogHomeView(ListView):
     """ Simple view to redirect us to the latest blog entry. """
+    models = BlogEntry
+    context_object_name = 'entries'
+    paginate_by = 8
     template_name = 'blog/blog_home.html'
 
-    def get_context_data(self, **kwargs):
-        context = super(BlogHomeView, self).get_context_data(**kwargs)
-        context.update({
-            'entries': BlogEntry.objects.published().order_by('-published_on')
-        })
-
-        return context
+    def get_queryset(self):
+        return self.models.objects.published().order_by('-published_on')
 
 
 class BlogDetailView(TemplateView):

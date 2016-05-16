@@ -220,6 +220,11 @@ a:hover, a:visited, a:focus, a:active {
   color: #519edd;
   vertical-align: middle;
 }
+.main-section .article-navigation {
+  padding: 20px 0 40px;
+  color: #757575;
+  font-size: 16px;
+}
 
 article .hero-image img {
   max-width: 100%;
