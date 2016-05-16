@@ -72,5 +72,9 @@ if settings.DEBUG:
         url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
     ]
 
+if settings.DEBUG:
+    urlpatterns += [
+        url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
+    ]
 
 admin.site.site_header = 'Emondo'
