@@ -33,7 +33,7 @@
                     </span>
                     <span class="categories hide-sm">
                     {% for tag in entry.tags.all %}
-                        {{ tag.name }}{% if not forloop.last %},&nbsp;{% endif %} 
+                        {{ tag.name|title }}{% if not forloop.last %},&nbsp;{% endif %} 
                     {% endfor %}
                     </span>
                 </div>
@@ -44,6 +44,21 @@
                 {% endif %}
             </article>
         {% endfor %}
+
+        {% if is_paginated %}
+            <div class="article-navigation">
+                <div class="col-sm-6 text-left">
+                    {% if page_obj.has_previous %}
+                        <a href="{% url 'cms_blog_home' %}?page={{ page_obj.previous_page_number }}">&lt; Newer</a>
+                    {% endif %}
+                </div>
+                <div class="col-sm-6 text-right">
+                    {% if page_obj.has_next %}
+                        <a href="{% url 'cms_blog_home' %}?page={{ page_obj.next_page_number }}">Older &gt;</a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
     </section>
     <aside class="col-lg-4 aside">
     </aside>
