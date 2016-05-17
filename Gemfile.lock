@@ -78,3 +78,6 @@ DEPENDENCIES
   bootstrap-sass
   compass
   guard-livereload (~> 2.5)
+
+BUNDLED WITH
+   1.12.3
