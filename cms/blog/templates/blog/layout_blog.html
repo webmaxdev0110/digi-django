@@ -99,7 +99,9 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12 text-right">
-                <a href="{% url 'cms_blog_feed' %}"><i class="icon icon-rss" title="RSS"></i>RSS</a>
+                <a href="{% url 'cms_blog_feed' %}">
+                    <img src="{% static 'images/feed-icon-28x28.png' %}" alt="Blog RSS">
+                </a>
             </div>
         </div>
     </div>
