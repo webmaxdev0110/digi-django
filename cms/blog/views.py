@@ -2,6 +2,7 @@ from django.core.urlresolvers import reverse
 from django.http import Http404
 from django.shortcuts import redirect, get_object_or_404
 from django.views.generic import TemplateView, ListView
+from django.contrib.syndication.views import Feed
 
 from cms.blog.models import BlogEntry
 
@@ -44,3 +45,23 @@ class BlogDetailView(TemplateView):
         })
 
         return context
+
+
+class BlogFeed(Feed):
+    """ RSS Feed Class """
+    title = "Emondo blog feed"
+    link = "/blog/feed"
+    description = "Emondo blog feed"
+
+    def items(self):
+        return BlogEntry.objects.published().order_by('-published_on')
+
+    def item_title(self, item):
+        return item.title
+
+    def item_description(self, item):
+        return item.excerpt
+
+    def item_link(self, item):
+        return reverse('cms_blog', args=[item.slug])
+

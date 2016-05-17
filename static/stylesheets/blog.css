@@ -267,6 +267,15 @@ article > div, article p {
   border-radius: 50%;
 }
 
+footer {
+  background: #212b39;
+  padding: 30px 0;
+  color: #6e7681;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
 @media (min-width: 800px) {
   .blog-post .blog-title {
     margin-bottom: 30px;

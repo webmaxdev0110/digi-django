@@ -93,3 +93,16 @@
         <div class="clearfix">&nbsp;</div>
     </div>
 {% endblock wrapper %}
+
+{% block after_wrapper %}
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 text-right">
+                <a href="{% url 'cms_blog_feed' %}"><i class="icon icon-rss" title="RSS"></i>RSS</a>
+            </div>
+        </div>
+    </div>
+</footer>
+{% endblock %}
+
