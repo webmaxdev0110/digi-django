@@ -1,3 +1,5 @@
+import random
+
 from django.core.urlresolvers import reverse
 from django.http import Http404
 from django.shortcuts import redirect, get_object_or_404
@@ -16,6 +18,18 @@ class BlogHomeView(ListView):
 
     def get_queryset(self):
         return self.models.objects.published().order_by('-published_on')
+
+    def get_context_data(self, **kwargs):
+        context = super(BlogHomeView, self).get_context_data(**kwargs)
+        tag_lines = [
+            ('Create simple, human-like, conversational forms  that autofill your existing documents',
+             'emondo is the world\'s most secure platform for your clients to sign like Steve Jobs, '
+             'witness, complete, and certify documents online. '
+             'Instantly identify your clients in over 30 countries and stamp on the '
+             'Blockchain. Get your free account today!',),
+        ]
+        context['tagline_index'] = random.randint(0, len(tag_lines) - 1)
+        return context
 
 
 class BlogDetailView(TemplateView):
@@ -40,8 +54,16 @@ class BlogDetailView(TemplateView):
         """
 
         context = super(BlogDetailView, self).get_context_data(**kwargs)
+        tag_lines = [
+            ('Create simple, human-like, conversational forms  that autofill your existing documents',
+             'emondo is the world\'s most secure platform for your clients to sign like Steve Jobs, '
+             'witness, complete, and certify documents online. '
+             'Instantly identify your clients in over 30 countries and stamp on the '
+             'Blockchain. Get your free account today!',),
+        ]
         context.update({
-            'entry': self.entry
+            'entry': self.entry,
+            'tagline_index': random.randint(0, len(tag_lines) - 1)
         })
 
         return context
