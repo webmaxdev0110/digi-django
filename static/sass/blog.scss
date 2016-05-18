@@ -10,10 +10,12 @@
 .fixed-header-wrapper {
   position: fixed;
   width: 100%;
+  display: none;
   background: $white;
   box-shadow: 0 25px 25px rgba(62, 123, 166, 0.1);
   top: 0;
   z-index: 5;
+  padding: 2px 0;
   .header-inner-wrapper {
     padding: 12px 10px 2px;
   }
@@ -118,9 +120,6 @@
 
 .container {
   padding: 0 60px;
-  .blog-content {
-    padding-top: 76px;
-  }
 }
 
 

@@ -71,10 +71,12 @@ a:hover, a:visited, a:focus, a:active {
 .fixed-header-wrapper {
   position: fixed;
   width: 100%;
+  display: none;
   background: #FFFFFF;
   box-shadow: 0 25px 25px rgba(62, 123, 166, 0.1);
   top: 0;
   z-index: 5;
+  padding: 2px 0;
 }
 .fixed-header-wrapper .header-inner-wrapper {
   padding: 12px 10px 2px;
@@ -190,9 +192,6 @@ a:hover, a:visited, a:focus, a:active {
 
 .container {
   padding: 0 60px;
-}
-.container .blog-content {
-  padding-top: 76px;
 }
 
 .image-content {
