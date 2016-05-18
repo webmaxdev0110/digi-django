@@ -30,7 +30,7 @@ a:hover, a:visited, a:focus, a:active {
   clear: both;
 }
 
-.font1, .fixed-header-wrapper input, .fixed-header-wrapper button, .blog-header-wrapper input, .blog-header-wrapper button {
+.font1, .fixed-header-wrapper input, .fixed-header-wrapper button {
   font-family: "roble_alt_boldbold";
 }
 
@@ -70,23 +70,22 @@ a:hover, a:visited, a:focus, a:active {
 
 .fixed-header-wrapper {
   position: fixed;
-  display: none;
   width: 100%;
   background: #FFFFFF;
   box-shadow: 0 25px 25px rgba(62, 123, 166, 0.1);
+  top: 0;
   z-index: 5;
 }
-
-.fixed-header-wrapper .header-inner-wrapper, .blog-header-wrapper .header-inner-wrapper {
+.fixed-header-wrapper .header-inner-wrapper {
   padding: 12px 10px 2px;
 }
-.fixed-header-wrapper form.cta-form, .blog-header-wrapper form.cta-form {
+.fixed-header-wrapper form.cta-form {
   margin: 0 0 15px 0;
 }
-.fixed-header-wrapper .form-group, .blog-header-wrapper .form-group {
+.fixed-header-wrapper .form-group {
   margin-top: 15px;
 }
-.fixed-header-wrapper input, .fixed-header-wrapper button, .blog-header-wrapper input, .blog-header-wrapper button {
+.fixed-header-wrapper input, .fixed-header-wrapper button {
   height: 30px;
   text-align: center;
   font-size: 14px;
@@ -94,22 +93,22 @@ a:hover, a:visited, a:focus, a:active {
   outline: 0;
   border: 0;
 }
-.fixed-header-wrapper input:active, .fixed-header-wrapper input:hover, .fixed-header-wrapper button:active, .fixed-header-wrapper button:hover, .blog-header-wrapper input:active, .blog-header-wrapper input:hover, .blog-header-wrapper button:active, .blog-header-wrapper button:hover {
+.fixed-header-wrapper input:active, .fixed-header-wrapper input:hover, .fixed-header-wrapper button:active, .fixed-header-wrapper button:hover {
   border: 0;
   outline: none;
 }
-.fixed-header-wrapper .email-group, .blog-header-wrapper .email-group {
+.fixed-header-wrapper .email-group {
   width: 418px;
   float: right;
 }
 @media (max-width: 480px) {
-  .fixed-header-wrapper .cta-submit, .blog-header-wrapper .cta-submit {
+  .fixed-header-wrapper .cta-submit {
     display: table;
     width: 100%;
     padding-top: 7px;
   }
 }
-.fixed-header-wrapper span.input-enter-prompt, .blog-header-wrapper span.input-enter-prompt {
+.fixed-header-wrapper span.input-enter-prompt {
   width: 70px;
   vertical-align: middle;
   font-size: 12px;
@@ -125,7 +124,7 @@ a:hover, a:visited, a:focus, a:active {
   position: absolute;
   display: none;
 }
-.fixed-header-wrapper input[name="email"], .blog-header-wrapper input[name="email"] {
+.fixed-header-wrapper input[name="email"] {
   color: #073660;
   float: right;
   height: 38px;
@@ -139,30 +138,30 @@ a:hover, a:visited, a:focus, a:active {
   border: 1px solid #ecf2f7;
 }
 @media (min-width: 768px) {
-  .fixed-header-wrapper input[name="email"], .blog-header-wrapper input[name="email"] {
+  .fixed-header-wrapper input[name="email"] {
     padding-right: 85px;
   }
 }
 @media (max-width: 480px) {
-  .fixed-header-wrapper input[name="email"], .blog-header-wrapper input[name="email"] {
+  .fixed-header-wrapper input[name="email"] {
     display: none;
   }
 }
-.fixed-header-wrapper button[name="submit"], .blog-header-wrapper button[name="submit"] {
+.fixed-header-wrapper button[name="submit"] {
   color: #FFFFFF;
   background-color: #ff8a00;
   padding: 7px 13px;
   height: 38px;
 }
 @media (min-width: 481px) {
-  .fixed-header-wrapper button[name="submit"], .blog-header-wrapper button[name="submit"] {
+  .fixed-header-wrapper button[name="submit"] {
     -moz-border-radius: 0 4px 4px 0;
     -webkit-border-radius: 0;
     border-radius: 0 4px 4px 0;
   }
 }
 @media (max-width: 480px) {
-  .fixed-header-wrapper button[name="submit"], .blog-header-wrapper button[name="submit"] {
+  .fixed-header-wrapper button[name="submit"] {
     -moz-border-radius: 4px !important;
     -webkit-border-radius: 4px;
     border-radius: 4px !important;
@@ -170,27 +169,30 @@ a:hover, a:visited, a:focus, a:active {
     width: auto;
   }
 }
-.fixed-header-wrapper input::-webkit-input-placeholder, .blog-header-wrapper input::-webkit-input-placeholder {
+.fixed-header-wrapper input::-webkit-input-placeholder {
   color: #073660;
   font-size: 13px;
 }
-.fixed-header-wrapper input:-moz-placeholder, .blog-header-wrapper input:-moz-placeholder {
+.fixed-header-wrapper input:-moz-placeholder {
   /* Firefox 18- */
   color: #073660;
   font-size: 13px;
 }
-.fixed-header-wrapper input::-moz-placeholder, .blog-header-wrapper input::-moz-placeholder {
+.fixed-header-wrapper input::-moz-placeholder {
   /* Firefox 19+ */
   color: #073660;
   font-size: 13px;
 }
-.fixed-header-wrapper input:-ms-input-placeholder, .blog-header-wrapper input:-ms-input-placeholder {
+.fixed-header-wrapper input:-ms-input-placeholder {
   color: #073660;
   font-size: 13px;
 }
 
 .container {
   padding: 0 60px;
+}
+.container .blog-content {
+  padding-top: 76px;
 }
 
 .image-content {
