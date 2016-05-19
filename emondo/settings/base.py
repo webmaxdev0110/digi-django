@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'feincms.module.page',
     'feincms.module.medialibrary',
     'taggit',
+    'forms',
     'cms',
     'cms.blog',
     'rest_framework',
