@@ -25,3 +25,11 @@ class User(AbstractUser):
 
 
 
+# todos:
+# 1. Billings
+# 1
+# 2. Permission models
+# 3. Feature flags
+# 4. Permission specific URLs
+#
+
