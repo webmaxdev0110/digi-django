@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-
+from django.utils.translation import ugettext_lazy as _
 from django.contrib.postgres.fields import JSONField
 from django.contrib.sites.models import Site
 from django.db import models
@@ -26,3 +26,27 @@ class FormDocument(TimeStampedModel):
 
     def __unicode__(self):
         return '<FormDocument: {0}>'.format(self.title[:16])
+
+
+ABANDONED = 0
+OPENED = 1
+SAVED = 2
+COMPLETED = 3
+
+FORM_COMPLETION_STATUS = (
+    (ABANDONED, _('abandoned')),
+    (OPENED, _('opened')),
+    (SAVED, _('saved')),
+    (COMPLETED, _('completed')),
+)
+
+
+class FormDocumentResponse(TimeStampedModel):
+    user = models.ForeignKey(
+        User,
+        null=True,
+        help_text='The user who submitted the form, optional')
+    form = models.ForeignKey(FormDocument)
+    form_response_data = JSONField()
+    status = models.CharField(choices=FORM_COMPLETION_STATUS)
+    
