@@ -33,3 +33,12 @@ class User(AbstractUser):
 # 4. Permission specific URLs
 #
 
+
+class Company(models.Model):
+    """
+    Represents a company in our system
+    """
+    title = models.CharField(max_length=256)
+
+
+
