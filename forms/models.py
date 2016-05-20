@@ -48,5 +48,5 @@ class FormDocumentResponse(TimeStampedModel):
         help_text='The user who submitted the form, optional')
     form = models.ForeignKey(FormDocument)
     form_response_data = JSONField()
-    status = models.CharField(choices=FORM_COMPLETION_STATUS)
+    status = models.CharField(max_length=100, choices=FORM_COMPLETION_STATUS)
     
