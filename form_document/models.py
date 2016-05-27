@@ -30,31 +30,6 @@ class FormDocument(TimeStampedModel):
         return '<FormDocument: {0}>'.format(self.title[:16])
 
 
-UNOPENED = 1
-OPENED = 2
-SAVED = 3
-SUBMITTED = 4
-ABANDONED = 5
-
-FORM_COMPLETION_STATUS = (
-    (UNOPENED, _('Unopen')),
-    (ABANDONED, _('Abandoned')),
-    (OPENED, _('Opened')),
-    (SAVED, _('Saved')),
-    (SUBMITTED, _('Submitted')),
-)
-
-class FormDocumentResponse(TimeStampedModel):
-    """
-    FormDocumentResponse represents Form submission per User
-    When form is published, users registered to platform or anonymose users can submit form
-    """
-    user = models.ForeignKey(User, null=True, help_text='The user who submitted the form, optional')
-    form = models.ForeignKey(FormDocument)
-    form_response_data = JSONField()
-    status = models.SmallIntegerField(choices=FORM_COMPLETION_STATUS, default=UNOPENED)
-
-
 class FormDocumentUserShare(TimeStampedModel):
     """
     FormDocumentUserShare represents sharings of form(document) with individual users
@@ -100,4 +75,57 @@ class FormDocumentCompanyUserShare(TimeStampedModel):
     """
     share_obj = models.ForeignKey(FormDocumentCompanyShare, related_name="shares_among_members")
     user = models.ForeignKey(User)
+
+
+FROM_OWNER = 0
+FROM_SHARED_USER = 1
+FROM_SHARED_COMPANY_ADMIN = 2
+FROM_SHARED_COMPANY_USER = 3
+
+AVAILABLE_FORM_SOURCES = (
+    (FROM_OWNER, _('From form owner')),
+    (FROM_SHARED_USER, _('From shared user')),
+    (FROM_SHARED_COMPANY_ADMIN, _('From shared company admin')),
+    (FROM_SHARED_COMPANY_USER, _('From shared company user'))
+)
+
+
+class FormDocumentSource(TimeStampedModel):
+    """
+    FormDocumentSource represents where form comes from
+
+    If form comes from 'shared user', user_share field would be filled
+    If form comes from 'shared company admin', company_share field would be filled
+    If form comes from 'shared company user', company_share_user field would be filled
+    """
+    source = models.SmallIntegerField(default=FROM_OWNER, choices=AVAILABLE_FORM_SOURCES)
+    user_share = models.ForeignKey(FormDocumentUserShare, null=True)
+    company_share = models.ForeignKey(FormDocumentCompanyShare, null=True)
+    company_share_user = models.ForeignKey(FormDocumentCompanyUserShare, null=True)
+
+
+UNOPENED = 1
+OPENED = 2
+SAVED = 3
+SUBMITTED = 4
+ABANDONED = 5
+
+FORM_COMPLETION_STATUS = (
+    (UNOPENED, _('Unopen')),
+    (ABANDONED, _('Abandoned')),
+    (OPENED, _('Opened')),
+    (SAVED, _('Saved')),
+    (SUBMITTED, _('Submitted')),
+)
+
+class FormDocumentResponse(TimeStampedModel):
+    """
+    FormDocumentResponse represents Form submission per User
+    When form is published, users registered to platform or anonymose users can submit form
+    """
+    user = models.ForeignKey(User, null=True, help_text='The user who submitted the form, optional')
+    form = models.ForeignKey(FormDocument)
+    form_response_data = JSONField()
+    status = models.SmallIntegerField(choices=FORM_COMPLETION_STATUS, default=UNOPENED)
+    form_source = models.ForeignKey(FormDocumentSource)
 
