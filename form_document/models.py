@@ -30,16 +30,18 @@ class FormDocument(TimeStampedModel):
         return '<FormDocument: {0}>'.format(self.title[:16])
 
 
-ABANDONED = 0
-OPENED = 1
-SAVED = 2
-COMPLETED = 3
+UNOPENED = 1
+OPENED = 2
+SAVED = 3
+SUBMITTED = 4
+ABANDONED = 5
 
 FORM_COMPLETION_STATUS = (
+    (UNOPENED, _('Unopen')),
     (ABANDONED, _('abandoned')),
     (OPENED, _('opened')),
     (SAVED, _('saved')),
-    (COMPLETED, _('completed')),
+    (SUBMITTED, _('Submitted')),
 )
 
 class FormDocumentResponse(TimeStampedModel):
