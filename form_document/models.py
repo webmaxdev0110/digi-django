@@ -76,7 +76,7 @@ FROM_SHARED_COMPANY = 2
 AVAILABLE_FORM_SOURCES = (
     (FROM_OWNER, _('From form owner')),
     (FROM_SHARED_USER, _('From shared user')),
-    (FROM_SHARED_COMPANY_ADMIN, _('From shared company')),
+    (FROM_SHARED_COMPANY, _('From shared company')),
 )
 
 
