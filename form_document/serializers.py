@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 
-from .models import FormDocument
+from .models import FormDocument, FormDocumentResponse
 
 
 class FormDocumentSerializer(ModelSerializer):
@@ -22,3 +22,9 @@ class FormDocumentDetailSerializer(ModelSerializer):
         model = FormDocument
         fields = '__all__'
 
+
+
+class FormDocumentResponseSerializer(ModelSerializer):
+    class Meta:
+        model = FormDocumentResponse
+        fields = '__all__'

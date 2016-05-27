@@ -97,8 +97,8 @@ class FormDocumentSource(TimeStampedModel):
     If form comes from 'shared company user', company_share_user field would be filled
     """
     source = models.SmallIntegerField(default=FROM_OWNER, choices=AVAILABLE_FORM_SOURCES)
-    user_share = models.ForeignKey(FormDocumentUserShare, null=True)
-    company_share = models.ForeignKey(FormDocumentCompanyShare, null=True)
+    user_share = models.ForeignKey(FormDocumentUserShare, null=True, blank=True)
+    company_share = models.ForeignKey(FormDocumentCompanyShare, null=True, blank=True)
 
     class Meta:
         verbose_name = 'FormSource'
@@ -106,8 +106,8 @@ class FormDocumentSource(TimeStampedModel):
 
 
 class RecipientTracking(models.Model):
-    email = models.EmailField(null=True)
-    phone = models.CharField(max_length=30, null=True)
+    email = models.EmailField(null=True, blank=True)
+    phone = models.CharField(max_length=30, null=True, blank=True)
 
     class Meta:
         abstract = True
