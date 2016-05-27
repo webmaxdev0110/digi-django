@@ -66,7 +66,7 @@ class FormDocumentUserShare(TimeStampedModel):
         help_text="Send form response result to Form owner automatically")
 
     class Meta:
-        unique_together = (('form_document', 'user'),)
+        unique_together = (('form_document', 'shared_to_user'),)
 
 
 FROM_OWNER = 0
