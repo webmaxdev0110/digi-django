@@ -38,42 +38,66 @@ ABANDONED = 5
 
 FORM_COMPLETION_STATUS = (
     (UNOPENED, _('Unopen')),
-    (ABANDONED, _('abandoned')),
-    (OPENED, _('opened')),
-    (SAVED, _('saved')),
+    (ABANDONED, _('Abandoned')),
+    (OPENED, _('Opened')),
+    (SAVED, _('Saved')),
     (SUBMITTED, _('Submitted')),
 )
 
 class FormDocumentResponse(TimeStampedModel):
-    user = models.ForeignKey(
-        User,
-        null=True,
-        help_text='The user who submitted the form, optional')
+    """
+    FormDocumentResponse represents Form submission per User
+    When form is published, users registered to platform or anonymose users can submit form
+    """
+    user = models.ForeignKey(User, null=True, help_text='The user who submitted the form, optional')
     form = models.ForeignKey(FormDocument)
     form_response_data = JSONField()
-    status = models.CharField(max_length=2, choices=FORM_COMPLETION_STATUS)
+    status = models.SmallIntegerField(choices=FORM_COMPLETION_STATUS, default=UNOPENED)
 
 
-class FormDocumentUserShare(models.Model):
+class FormDocumentUserShare(TimeStampedModel):
     """
     FormDocumentUserShare represents sharings of form(document) with individual users
     There're 2 cases for sharing of document.
         - share with company
-        - share with individual users (within company or user outside company)
+        - share with individual users
     And this model represents second case.
 
-    Regarding document's permission, we don't have "delete" permission for shared users.
-    Only document owner can delete his own document.
     """
-    form_document = models.ForeignKey(FormDocument, related_name="shares")
-    user = models.ForeignKey(User, related_name="shared_documents")
+    form_document = models.ForeignKey(FormDocument, related_name="shares_to_users")
+    user = models.ForeignKey(User, related_name="shares_from_users")
+
+    # Send form response result automatically to FormDocument Owner
+    send_response_to_owner_automatically = models.BooleanField(default=True,
+        help_text="Send form response result to Form owner automatically")
+
+    class Meta:
+        unique_together = (('form_document', 'user'),)
 
 
-class FormDocumentCompanyShare(models.Model):
+class FormDocumentCompanyShare(TimeStampedModel):
     """
     FormDocumentCompanyShare represents first case of sharing document.
-    Relation between this model and FormDocument is OneToOneField.
+
     """
-    form_document = models.OneToOneField(FormDocument, related_name="share_in_company")
-    company = models.ForeignKey(Company)
+    form_document = models.ForeignKey(FormDocument, related_name="shares_to_companies")
+    company = models.ForeignKey(Company, related_name="shares_from_companies")
+
+    # field to share a "shared form for organisation" to organisation members
+    share_to_all_members = models.BooleanField(default=False)
+
+    class Meta:
+        unique_together = (('form_document', 'company'),)
+
+
+class FormDocumentCompanyUserShare(TimeStampedModel):
+    """
+    If document is shared with company, 
+        - company manager can decide to share it all with team members,
+        - or share with specific team members
+    FormDocumentCompanyShare.share_to_all_members is for 1st case
+    And FormDocumentCompanyUserShare represents 2nd case
+    """
+    share_obj = models.ForeignKey(FormDocumentCompanyShare, related_name="shares_among_members")
+    user = models.ForeignKey(User)
 
