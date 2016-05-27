@@ -4,7 +4,7 @@ from django.contrib.postgres.fields import JSONField
 from django.contrib.sites.models import Site
 from django.db import models
 
-from accounts.models import User
+from accounts.models import User, Company
 from core.models import TimeStampedModel
 
 
@@ -76,3 +76,4 @@ class FormDocumentCompanyShare(models.Model):
     Relation between this model and FormDocument is OneToOneField.
     """
     form_document = models.OneToOneField(FormDocument, related_name="share_in_company")
+    company = models.ForeignKey(Company)
