@@ -2,13 +2,6 @@ from django.conf.urls import include, url
 
 from rest_framework.routers import DefaultRouter
 
-from msproblem.adaptive.rest import (
-    AdaptiveWorkoutViewSet,
-    MasteryHistoryCSVExportView,
-    MasteryHistoryCSVViewSet,
-    MasteryHistoryGridViewSet,
-)
-
 from form_document.rest import FormDocumentViewSet
 
 api_urlpatterns = [

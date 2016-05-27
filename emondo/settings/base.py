@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'raven.contrib.django.raven_compat',
     'storages',
     'feincms',
+    'crawlers',
     'mptt',
     'feincms.module.page',
     'feincms.module.medialibrary',
