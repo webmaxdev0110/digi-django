@@ -12,3 +12,13 @@ class FormDocumentSerializer(ModelSerializer):
             'slug',
             'created',
         )
+
+
+class FormDocumentDetailSerializer(ModelSerializer):
+    """
+    FormDocumentDetailSerializer used to get details of Form
+    """
+    class Meta:
+        model = FormDocument
+        fields = '__all__'
+
