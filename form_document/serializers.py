@@ -1,15 +1,14 @@
 from rest_framework.serializers import ModelSerializer
 
-from form_document.models import FormDocument
-
-
+from .models import FormDocument
 
 
 class FormDocumentSerializer(ModelSerializer):
     class Meta:
         model = FormDocument
         fields = (
+            'id',
             'title',
             'slug',
-            'form_data'
+            'created',
         )

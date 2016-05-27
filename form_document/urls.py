@@ -9,10 +9,10 @@ api_urlpatterns = [
 ]
 
 router = DefaultRouter()
-#router.register(r'form', FormDocumentViewSet)
-
+router.register(r'form', FormDocumentViewSet)
 
 api_urlpatterns += router.urls
+
 
 urlpatterns = [
     url(r'^api/', include(api_urlpatterns, namespace='api_form')),
