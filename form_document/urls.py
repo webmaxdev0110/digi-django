@@ -4,6 +4,7 @@ from rest_framework.routers import DefaultRouter
 
 from form_document.rest import FormDocumentViewSet
 
+
 api_urlpatterns = [
 ]
 
@@ -14,6 +15,5 @@ router = DefaultRouter()
 api_urlpatterns += router.urls
 
 urlpatterns = [
-    url(r'^api/', include(api_urlpatterns,
-                          namespace='api_form')),
+    url(r'^api/', include(api_urlpatterns, namespace='api_form')),
 ]

@@ -29,6 +29,10 @@ class FormDocument(TimeStampedModel):
     def __unicode__(self):
         return '<FormDocument: {0}>'.format(self.title[:16])
 
+    class Meta:
+        verbose_name = 'Form'
+        verbose_name_plural = 'Forms'
+
 
 class FormDocumentCompanyShare(TimeStampedModel):
     """
@@ -43,6 +47,8 @@ class FormDocumentCompanyShare(TimeStampedModel):
 
     class Meta:
         unique_together = (('form_document', 'company'),)
+        verbose_name = 'FormCompanyShare'
+        verbose_name_plural = 'FormCompanyShares'
 
 
 class FormDocumentUserShare(TimeStampedModel):
@@ -67,6 +73,8 @@ class FormDocumentUserShare(TimeStampedModel):
 
     class Meta:
         unique_together = (('form_document', 'shared_to_user'),)
+        verbose_name = 'FormUserShare'
+        verbose_name_plural = 'FormUserShares'
 
 
 FROM_OWNER = 0
@@ -91,6 +99,10 @@ class FormDocumentSource(TimeStampedModel):
     source = models.SmallIntegerField(default=FROM_OWNER, choices=AVAILABLE_FORM_SOURCES)
     user_share = models.ForeignKey(FormDocumentUserShare, null=True)
     company_share = models.ForeignKey(FormDocumentCompanyShare, null=True)
+
+    class Meta:
+        verbose_name = 'FormSource'
+        verbose_name_plural = 'FormSources'
 
 
 class RecipientTracking(models.Model):
@@ -126,3 +138,6 @@ class FormDocumentResponse(TimeStampedModel, RecipientTracking):
     status = models.SmallIntegerField(choices=FORM_COMPLETION_STATUS, default=UNOPENED)
     form_source = models.ForeignKey(FormDocumentSource)
 
+    class Meta:
+        verbose_name = 'FormResponse'
+        verbose_name_plural = 'FormResponses'
