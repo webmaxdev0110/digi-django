@@ -52,15 +52,8 @@ class FormDocumentResponse(TimeStampedModel):
     form = models.ForeignKey(FormDocument)
     form_response_data = JSONField()
     status = models.CharField(max_length=2, choices=FORM_COMPLETION_STATUS)
-    
 
-CAN_READ = 0
-CAN_UPDATE = 1
 
-FORM_DOCUMENT_PERMISSIONS = (
-    (CAN_READ, _('Can read form_document')),
-    (CAN_UPDATE, _('Can update form_document')),
-)
 
 class FormDocumentUserShare(models.Model):
     """
@@ -75,7 +68,6 @@ class FormDocumentUserShare(models.Model):
     """
     form_document = models.ForeignKey(FormDocument, related_name="shares")
     user = models.ForeignKey(User, related_name="shared_documents")
-    permission = models.SmallIntegerField(choices=FORM_DOCUMENT_PERMISSIONS, default=CAN_READ)
 
 
 class FormDocumentCompanyShare(models.Model):
@@ -84,5 +76,3 @@ class FormDocumentCompanyShare(models.Model):
     Relation between this model and FormDocument is OneToOneField.
     """
     form_document = models.OneToOneField(FormDocument, related_name="share_in_company")
-    permission = models.SmallIntegerField(choices=FORM_DOCUMENT_PERMISSIONS, default=CAN_READ)
-
