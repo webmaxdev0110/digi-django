@@ -77,35 +77,9 @@ class FormDocumentUserShare(TimeStampedModel):
         verbose_name_plural = 'FormUserShares'
 
 
-FROM_OWNER = 0
-FROM_SHARED_USER = 1
-FROM_SHARED_COMPANY = 2
-
-AVAILABLE_FORM_SOURCES = (
-    (FROM_OWNER, _('From form owner')),
-    (FROM_SHARED_USER, _('From shared user')),
-    (FROM_SHARED_COMPANY, _('From shared company')),
-)
-
-
-class FormDocumentSource(TimeStampedModel):
-    """
-    FormDocumentSource represents where form comes from
-
-    If form comes from 'shared user', user_share field would be filled
-    If form comes from 'shared company admin', company_share field would be filled
-    If form comes from 'shared company user', company_share_user field would be filled
-    """
-    source = models.SmallIntegerField(default=FROM_OWNER, choices=AVAILABLE_FORM_SOURCES)
-    user_share = models.ForeignKey(FormDocumentUserShare, null=True, blank=True)
-    company_share = models.ForeignKey(FormDocumentCompanyShare, null=True, blank=True)
-
-    class Meta:
-        verbose_name = 'FormSource'
-        verbose_name_plural = 'FormSources'
-
-
-class RecipientTracking(models.Model):
+class DocumentRecipient(models.Model):
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
     email = models.EmailField(null=True, blank=True)
     phone = models.CharField(max_length=30, null=True, blank=True)
 
@@ -127,7 +101,7 @@ FORM_COMPLETION_STATUS = (
     (SUBMITTED, _('Submitted')),
 )
 
-class FormDocumentResponse(TimeStampedModel, RecipientTracking):
+class FormDocumentResponse(TimeStampedModel, DocumentRecipient):
     """
     FormDocumentResponse represents Form submission per User
     When form is published, users registered to platform or anonymose users can submit form
@@ -136,8 +110,8 @@ class FormDocumentResponse(TimeStampedModel, RecipientTracking):
     form = models.ForeignKey(FormDocument)
     form_response_data = JSONField()
     status = models.SmallIntegerField(choices=FORM_COMPLETION_STATUS, default=UNOPENED)
-    form_source = models.ForeignKey(FormDocumentSource)
 
     class Meta:
         verbose_name = 'FormResponse'
         verbose_name_plural = 'FormResponses'
+
