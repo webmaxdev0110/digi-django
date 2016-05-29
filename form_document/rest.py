@@ -2,8 +2,15 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 
 from core.rest_pagination import get_pagination_class
-from .models import FormDocument, FormDocumentResponse
-from .serializers import FormDocumentSerializer, FormDocumentDetailSerializer, FormDocumentResponseSerializer
+from .models import (
+    FormDocument,
+    FormDocumentResponse,
+)
+from .serializers import (
+    FormDocumentSerializer,
+    FormDocumentDetailSerializer,
+    FormDocumentResponseSerializer,
+)
 
 
 class FormDocumentViewSet(viewsets.ReadOnlyModelViewSet):
