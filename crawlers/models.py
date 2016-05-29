@@ -40,7 +40,7 @@ class ASICJob(Job):
 
         project = 'DOSWebCrawler'
         spider = 'asic'
-        start_index = 241055
+        start_index = 200000
         end_index = 500000
         step = 100
 
