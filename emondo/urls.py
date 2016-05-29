@@ -41,6 +41,7 @@ urlpatterns = [
     url(r'^$', HomeView.as_view(), name='public_home'),
     url(r'^docs/', include('docs.urls')),
     url(r'^accounts/', include('accounts.urls')),
+    url(r'^form_document/', include('form_document.urls')),
     url(r'^notifications/', include('notifications.urls')),
     # Temp URL until Telstra updates their record
     url(r'^notification/sms_callback/telstra/', telstra_sms_callback_handler),
@@ -72,5 +73,9 @@ if settings.DEBUG:
         url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
     ]
 
+if settings.DEBUG:
+    urlpatterns += [
+        url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
+    ]
 
 admin.site.site_header = 'Emondo'

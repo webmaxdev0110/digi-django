@@ -24,4 +24,72 @@ class User(AbstractUser):
     short_description = models.CharField(blank=True, max_length=256)
 
 
+####################################
+# Todos:
+#   1. Billings
+#   2. Permission models
+#   3. Feature flags
+#   4. Permission specific URLs
+####################################
+
+
+class Company(models.Model):
+    """
+    Represents a company in our system
+    """
+    title = models.CharField(max_length=256)
+
+    # company owner would have every permissions
+    owner = models.ForeignKey(User, related_name="companies")
+
+    # if company is valid or invalid.
+    # when company is registered, it should be reviewed first before it goes public on system.
+    active = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.title
+
+
+class CompanyPermission(models.Model):
+    """
+    Permission class to manage company's permissions
+    Now we only define company's permission scope as "member" and "billing"
+    We can add further scope later whenever it comes.
+
+    Using CompanyPermission model, we can define permissions like "management", "employee", for example.
+
+    Notice:
+        CompanyPermission class is not for any specific Company object.
+        Instead, it would be applied for Company model.
+    """
+
+    name = models.CharField(max_length=100, unique=True)
+
+    # member scope permissions
+    # notice: edit_member permission covers ability to disable member.
+    add_member = models.BooleanField(default=False)
+    edit_member = models.BooleanField(default=False)
+    delete_member = models.BooleanField(default=False)
+
+    # billing scope permissions
+    add_billing = models.BooleanField(default=False)
+    edit_billing = models.BooleanField(default=False)
+    delete_billing = models.BooleanField(default=False)
+
+    # manage plan permission means up/downgrade company's plan
+    manage_plan = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.name
+
+
+class CompanyMember(models.Model):
+    """
+    Represent company member(i.e team member) in our system
+    """
+    company = models.ForeignKey(Company, related_name="members")
+    user = models.ForeignKey(User)
+    permission = models.ForeignKey(CompanyPermission)
+    active = models.BooleanField(default=True)
+
 

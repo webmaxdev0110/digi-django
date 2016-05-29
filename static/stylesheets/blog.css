@@ -70,11 +70,13 @@ a:hover, a:visited, a:focus, a:active {
 
 .fixed-header-wrapper {
   position: fixed;
-  display: none;
   width: 100%;
+  display: none;
   background: #FFFFFF;
   box-shadow: 0 25px 25px rgba(62, 123, 166, 0.1);
+  top: 0;
   z-index: 5;
+  padding: 2px 0;
 }
 .fixed-header-wrapper .header-inner-wrapper {
   padding: 12px 10px 2px;
@@ -200,7 +202,7 @@ a:hover, a:visited, a:focus, a:active {
 }
 
 .main-section .article-preview {
-  padding: 70px 0;
+  padding: 30px 0;
   border-bottom: 1px solid #eaeaea;
 }
 .main-section .article-preview .author-row > .image > img {
@@ -210,9 +212,20 @@ a:hover, a:visited, a:focus, a:active {
 }
 .main-section .article-preview .author-row > .name {
   margin-left: 14px;
-  font-size: 20px;
+  margin-right: 30px;
+  font-size: 14px;
   vertical-align: middle;
   color: #000000;
+}
+.main-section .article-preview .author-row > .categories {
+  font-size: 14px;
+  color: #519edd;
+  vertical-align: middle;
+}
+.main-section .article-navigation {
+  padding: 20px 0 40px;
+  color: #757575;
+  font-size: 16px;
 }
 
 article .hero-image img {
@@ -227,7 +240,52 @@ article h2.blog-title > a {
 }
 article > div, article p {
   margin: 22px 0 0;
-  color: #757575;
+  color: #000000;
   font-size: 16px;
   line-height: 1.8;
+}
+
+.blog-post .hero-image {
+  margin-bottom: 33px;
+}
+.blog-post #disqus_thread {
+  margin: 40px 0;
+}
+
+.banner-author {
+  text-align: center;
+}
+.banner-author h4 {
+  margin: 10px 0 20px;
+  text-transform: uppercase;
+  color: #757575;
+}
+.banner-author .name {
+  display: block;
+  margin-top: 15px;
+}
+.banner-author img {
+  border-radius: 50%;
+}
+
+footer {
+  background: #212b39;
+  padding: 30px 0;
+  color: #6e7681;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+@media (min-width: 800px) {
+  .blog-post .blog-title {
+    margin-bottom: 30px;
+    width: 70%;
+  }
+  .blog-post .blog-title > a {
+    font-size: 42px;
+  }
+  .blog-post .aside {
+    float: right;
+  }
 }

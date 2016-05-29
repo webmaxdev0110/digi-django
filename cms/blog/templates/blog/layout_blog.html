@@ -1,6 +1,7 @@
 {% extends "core/html5.html" %}
 {% load i18n %}
 {% load static %}
+{% load compress %}
 
 {% block head_styles %}
     <link rel="stylesheet" href="{% static 'stylesheets/bootstrap.css' %}">
@@ -8,6 +9,31 @@
     <link rel="stylesheet" href="{% static 'fonts/roblealt_bold_macroman/stylesheet.css' %}">
     <link rel="stylesheet" href="{% static 'fonts/roblealt_light_macroman/stylesheet.css' %}">
     <link rel="stylesheet" href="{% static 'fonts/roblealt_regular_macroman/stylesheet.css' %}">
+{% endblock %}
+
+{% block head_scripts %}
+    <script type="text/javascript">
+        var load = function (filePath) {
+            var l = document.createElement('link');
+            l.rel = 'stylesheet';
+            l.href = filePath;
+            var head = document.getElementsByTagName('head')[0];
+            head.appendChild(l);
+        };
+        var asyncLoadCSSFiles = function () {
+            load("https://fonts.googleapis.com/css?family=Open+Sans:300,400");
+            load("{% static 'stylesheets/vendor/animate.css' %}");
+            load("{% static 'javascripts/remodal/remodal.css' %}");
+            load("{% static 'javascripts/remodal/remodal-default-theme.css' %}");
+        };
+        var raf = requestAnimationFrame || mozRequestAnimationFrame ||
+                webkitRequestAnimationFrame || msRequestAnimationFrame;
+        if (raf) {
+            raf(asyncLoadCSSFiles);
+        } else {
+            window.addEventListener('load', asyncLoadCSSFiles);
+        }
+    </script>
 {% endblock %}
 
 {% block wrapper %}
@@ -21,7 +47,7 @@
             <div class="col-xs-6 col-xs-push-2">
                 <div class="header-inner-wrapper">
 
-                    <form method="POST" class="cta-form" data-name="fixed-header">
+                    <form method="POST" class="cta-form" data-name="blog-header">
                         {% csrf_token %}
                         <input type="hidden" name="tag_index" value="{{ tag_line_index }}"/>
                         <fieldset>
@@ -52,16 +78,54 @@
     </div>
     <div class="container">
         <div class="row site-heading-row">
-            <div class="col-xs-12">
+            <div class="col-xs-6">
                 <a href="{% url 'cms_blog_home' %}" class="logo nav-logo-wrapper">
                     <img class="logo-img" src="{% static 'images/logo_colour_tagline.svg' %}" width="175"/>
                 </a>
             </div>
         </div>
-        <div class="row">
+        <div class="row blog-content">
             {% block content %}
             {% endblock %}
         </div>
         <div class="clearfix">&nbsp;</div>
     </div>
 {% endblock wrapper %}
+
+{% block after_wrapper %}
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 text-right">
+                <a href="{% url 'cms_blog_feed' %}">
+                    <img src="{% static 'images/feed-icon-28x28.png' %}" alt="Blog RSS">
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+<div class="remodal" data-remodal-id="submitFinished" data-remodal-options="hashTracking: false">
+    <h1 class="dark-blue font1">Thanks for signing up!</h1>
+    <span style="font-size:17px;" class="dark-blue font5">We expect to launch our product in July. You’ll be notified via email</span>
+    <br>
+    <div>
+        <button style="float: left;margin-left: 31px;margin-top: 23px;font-size: 20px;border: 1px solid #3893d0;background: transparent;border-radius: 5px;color: #3893d0;padding: 9px 18px;"
+                data-remodal-action="close" class="font1" type="button">
+            Okay
+        </button>
+        <span class="input-enter-prompt">press<br/>ENTER</span>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer_scripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    {% compress js %}
+        <script src="{% static 'javascripts/vendor/jquery.waypoints.js' %}"></script>
+        <script src="{% static 'javascripts/vendor/calculate-size.js' %}"></script>
+        <script src="{% static 'javascripts/remodal/remodal.js' %}"></script>
+    {% endcompress %}
+    {% compress js %}
+        <script src="{% static 'javascripts/pages/blog/blog.js' %}" async></script>
+    {% endcompress %}
+{% endblock %}

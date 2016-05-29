@@ -16,3 +16,6 @@ dist/
 webpack-stats\.json
 static/bundles/
 settings/local_settings.py
+
+# Python compiled files
+*.pyc
