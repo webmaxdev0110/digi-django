@@ -75,6 +75,7 @@ INSTALLED_APPS = [
     'letsencrypt',
     'gunicorn',
     'accounts',
+    'verifications',
     'public',
     'docs',
 ]
