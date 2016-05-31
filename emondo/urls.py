@@ -59,6 +59,7 @@ urlpatterns = [
     url(r'\.well-known/acme-challenge/TIZhUMHi5Z3bw6xV67n7DXRIAXeKI02pHTnN_ZJm1T4', letsencrypt_auth_view_emondo_com_au),
     # www.emondo.com.au
     url(r'\.well-known/acme-challenge/5iFdtTWY6NcPjDSCan4lKU0MepR3EF0Vu03rTMY-r74', letsencrypt_auth_view_www_emondo_com_au),
+    url(r'^verifications/', include('verifications.urls')),
 
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps},
         name='django.contrib.sitemaps.views.sitemap'),
