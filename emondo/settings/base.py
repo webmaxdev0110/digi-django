@@ -330,3 +330,7 @@ FEINCMS_RICHTEXT_INIT_CONTEXT = {
 FEINCMS_USE_PAGE_ADMIN = False
 FEINCMS_UPLOAD_PREFIX = 'cms'
 FEINCMS_MEDIALIBRARY_UPLOAD_TO = 'uploads'
+
+# Obtain your own key, and override in local_settings.py
+MAILGUN_PRIVATE_API_KEY = ''
+MAILGUN_PUBLIC_API_KEY = ''
