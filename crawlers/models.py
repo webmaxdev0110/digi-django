@@ -41,28 +41,30 @@ class ASICJob(Job):
 
         project = 'DOSWebCrawler'
         spider = 'asic'
-        start_index = 200000
-        end_index = 500000
         step = 100
 
-        registers = (
-            'Australian Financial Services Licensee',
-            'Australian Financial Services Authorised Representative',
-            'Credit Representative',
-            'Credit Licensee'
-        )
+        registers_config = {
+            'Australian Financial Services Licensee': {'start_index': 218580, 'end_index': 500000},
+            'Australian Financial Services Authorised Representative': {'start_index': 218580, 'end_index': 500000},
+            'Credit Representative': {'start_index': 218585, 'end_index': 500000},
+            'Credit Licensee': {'start_index': 219610, 'end_index': 500000}
+        }
         jobs = []
-        for register in registers:
-            for index in xrange(start_index, end_index, step):
+        for register_name, config in registers_config.items():
+            start_index = config['start_index']
+            end_index = config['end_index']
+            for index in range(start_index, end_index, step):
                 job = {
                     'project': project,
                     'spider': spider,
-                    'register': register,
+                    'register': register_name,
                     'start_index': index,
                     'end_index': index + step
                 }
                 jobs.append(json.dumps(job))
+        shuffle(jobs)
         return jobs
+
 
 
 class JPCrawlingJob(Job):
