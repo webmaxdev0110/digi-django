@@ -3,7 +3,8 @@ from __future__ import unicode_literals
 from django.conf import settings
 import redis
 import json
-
+from random import shuffle
+import sys
 
 class Job(object):
     """ Base class for job """
@@ -28,7 +29,7 @@ class Job(object):
         jobs = self.break_down()
         redis_conn = redis_conn or self.get_redis_conn()
         redis_conn.rpush('task_queue', *jobs)
-        print 'Distributed %d jobs into Redis' % len(jobs)
+        sys.stdout.write('Distributed %d jobs into Redis' % len(jobs))
 
 
 class ASICJob(Job):
