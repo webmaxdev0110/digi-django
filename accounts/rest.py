@@ -1,6 +1,6 @@
 from rest_framework.generics import CreateAPIView, GenericAPIView
 from rest_framework.permissions import AllowAny
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet
@@ -49,3 +49,14 @@ class AuthenticationAPIView(APIView):
         })
 
 
+class LogoutAPIView(APIView):
+    http_method_names = ['post']
+    authentication_classes = []
+    permission_classes = []
+
+    def post(self, request, *args, **kwargs):
+        logout(request)
+
+        return Response({
+            'authenticated': False
+        })
