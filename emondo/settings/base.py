@@ -142,6 +142,11 @@ REST_FRAMEWORK = {
     )
 }
 
+# Authentication backends process user credentials and permissions
+AUTHENTICATION_BACKENDS = (
+    'accounts.backends.EmailBasedAuthenticationBackend',
+)
+
 
 
 # Password validation
