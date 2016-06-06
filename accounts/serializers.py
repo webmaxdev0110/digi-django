@@ -4,10 +4,14 @@ from accounts.models import User
 import uuid
 
 
-class OnboardingSignupFormSerializer(serializers.Serializer):
-    full_name = serializers.CharField(write_only=True)
-    email = serializers.CharField()
+class PaidSignupFormSerializer(serializers.Serializer):
+    email = serializers.CharField(required=True)
     password = serializers.CharField()
+    credit_card_number = serializers.CharField()
+    credit_card_expiry = serializers.CharField()
+    credit_card_cvc = serializers.CharField()
+    plan_id = serializers.CharField()
+    number_of_user = serializers.IntegerField()
 
     def create(self, validated_data):
         full_name = validated_data['full_name'].strip()
@@ -30,3 +34,23 @@ class OnboardingSignupFormSerializer(serializers.Serializer):
 
     def validate(self, attrs):
         return attrs
+
+
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    """
+    This serializer is for returning and updating an user
+    """
+
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'email',)
+        write_only_fields = ('password',)
+        read_only_fields = ('date_joined',)
+
+    def restore_object(self, attrs, instance=None):
+        # call set_password on user object. Without this
+        # the password will be stored in plain text.
+        user = super(UserProfileSerializer, self).restore_object(attrs, instance)
+        user.set_password(attrs['password'])
+        return user
