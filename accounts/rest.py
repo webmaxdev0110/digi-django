@@ -6,13 +6,13 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet
 from accounts.models import User
 from rest_framework import mixins
-from accounts.serializers import OnboardingSignupFormSerializer
+from accounts.serializers import PaidSignupFormSerializer
 
 
 class OnboardingCreate(mixins.CreateModelMixin,
                        GenericViewSet):
 
-    serializer_class = OnboardingSignupFormSerializer
+    serializer_class = PaidSignupFormSerializer
     permission_classes = (AllowAny,)
     queryset = User.objects
 
