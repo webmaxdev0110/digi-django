@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
     'django.contrib.sites',
     'raven.contrib.django.raven_compat',
+    'billing',
     'storages',
     'feincms',
     'crawlers',
