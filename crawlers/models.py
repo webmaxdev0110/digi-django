@@ -45,9 +45,9 @@ class ASICJob(Job):
 
         registers_config = {
             'Australian Financial Services Licensee': {'start_index': 218580, 'end_index': 500000},
-            'Australian Financial Services Authorised Representative': {'start_index': 218580, 'end_index': 500000},
-            'Credit Representative': {'start_index': 218585, 'end_index': 500000},
-            'Credit Licensee': {'start_index': 219610, 'end_index': 500000}
+            # 'Australian Financial Services Authorised Representative': {'start_index': 218580, 'end_index': 500000},
+            # 'Credit Representative': {'start_index': 218585, 'end_index': 500000},
+            # 'Credit Licensee': {'start_index': 219610, 'end_index': 500000}
         }
         jobs = []
         for register_name, config in registers_config.items():
