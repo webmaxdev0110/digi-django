@@ -23,5 +23,4 @@ boto==2.40.0
 redis==2.10.5
 simplejson==3.8.2
 requests==2.10.0
-django-cors-headers==1.1.0
-
+-e git://github.com/lihan/django-cors-headers.git#egg=django-cors-headers
