@@ -81,7 +81,7 @@ class FormDocumentCompanyShare(TimeStampedModel):
         help_text='If company visible is not true, only the compnay admin can view the document')
 
     class Meta:
-        unique_together = (('form_document', 'company'),)
+        unique_together = (('form_document', 'to_company'),)
         verbose_name = 'FormCompanyShare'
         verbose_name_plural = 'FormCompanyShares'
 
@@ -100,7 +100,7 @@ class FormDocumentUserShare(TimeStampedModel):
     from_user = models.ForeignKey(User, null=True)
 
     class Meta:
-        unique_together = (('form_document', 'shared_to_user'),)
+        unique_together = (('form_document', 'to_user'),)
         verbose_name = 'FormUserShare'
         verbose_name_plural = 'FormUserShares'
 
