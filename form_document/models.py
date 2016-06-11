@@ -46,9 +46,8 @@ class FormDocument(TimeStampedModel):
         storage=documents_store,
         help_text='The document uploaded used for populating after a form is completed')
     processed_documents = ArrayField(
-        models.FileField(upload_to=document_path),
+        models.FileField(upload_to=document_path, storage=documents_store),
         help_text='List of images that can be viewed in browser',
-        storage=documents_store
     )
     form_data = JSONField()      # All the form data
 
