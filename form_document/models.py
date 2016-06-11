@@ -138,8 +138,16 @@ class FormDocumentResponse(TimeStampedModel):
     When form is published, users registered to platform or anonymous users can submit form
 
     """
-    receiver_user = models.ForeignKey(User, null=True, help_text='The user who submitted the form, optional')
-    sender_user = models.ForeignKey(User, null=True, help_text='The user who submitted the form, optional')
+    receiver_user = models.ForeignKey(
+        User, null=True,
+        help_text='The user who submitted the form, optional',
+        related_name='all_form_responses'
+    )
+    sender_user = models.ForeignKey(
+        User, null=True,
+        help_text='The user who submitted the form, optional',
+        related_name='all_forms_sent'
+    )
     last_interactive_timestamp = models.DateTimeField(auto_now=True)
     form_document = models.ForeignKey(FormDocument)
     form_response_data = JSONField()
