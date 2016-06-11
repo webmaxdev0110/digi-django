@@ -73,9 +73,9 @@ class FormDocumentCompanyShare(TimeStampedModel):
     within the user's company or to another company
 
     """
-    form_document = models.ForeignKey(FormDocument, related_name="shares_to_companies")
-    from_company = models.ForeignKey(Company, related_name="shares_from_companies")
-    to_company = models.ForeignKey(Company)
+    form_document = models.ForeignKey(FormDocument)
+    from_company = models.ForeignKey(Company, related_name='forms_shared_to_other_companies')
+    to_company = models.ForeignKey(Company, related_name='forms_received_from_other_companies')
     company_visible = models.BooleanField(
         default=False,
         help_text='If company visible is not true, only the compnay admin can view the document')
@@ -95,8 +95,8 @@ class FormDocumentUserShare(TimeStampedModel):
     And this model represents second case.
 
     """
-    form_document = models.ForeignKey(FormDocument, related_name="shares_to_users")
-    to_user = models.ForeignKey(User, related_name="shares_from_users")
+    form_document = models.ForeignKey(FormDocument, related_name='forms_shared_to_other_users')
+    to_user = models.ForeignKey(User, related_name='forms_received_from_other_users')
     from_user = models.ForeignKey(User, null=True)
 
     class Meta:
@@ -150,14 +150,14 @@ class FormDocumentResponse(TimeStampedModel):
 
 
 class FormDocumentResponseUserPermission(TimeStampedModel):
-    from_user = models.ForeignKey(User)
-    to_user = models.ForeignKey(User)
+    from_user = models.ForeignKey(User, related_name='forms_responses_shared_to_other_users')
+    to_user = models.ForeignKey(User, related_name='form_responses_received_from_other_users')
     response = models.ForeignKey(FormDocumentResponse)
 
 
 class FormDocumentResponseCompanyPermission(TimeStampedModel):
-    from_company = models.ForeignKey(Company)
-    to_company = models.ForeignKey(Company)
+    from_company = models.ForeignKey(Company, related_name='+')
+    to_company = models.ForeignKey(Company, related_name='+')
     response = models.ForeignKey(FormDocumentResponse)
 
 
