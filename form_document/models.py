@@ -36,7 +36,8 @@ class FormDocument(TimeStampedModel):
 
 class FormDocumentCompanyShare(TimeStampedModel):
     """
-    FormDocumentCompanyShare represents first case of sharing document.
+    FormDocumentCompanyShare represents a document to be shared
+    within the user's company or to another company
 
     """
     form_document = models.ForeignKey(FormDocument, related_name="shares_to_companies")
