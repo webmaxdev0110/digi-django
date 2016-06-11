@@ -101,13 +101,16 @@ FORM_COMPLETION_STATUS = (
     (SUBMITTED, _('Submitted')),
 )
 
-class FormDocumentResponse(TimeStampedModel, DocumentRecipient):
+class FormDocumentResponse(TimeStampedModel):
     """
     FormDocumentResponse represents Form submission per User
-    When form is published, users registered to platform or anonymose users can submit form
+    When form is published, users registered to platform or anonymous users can submit form
+
     """
-    user = models.ForeignKey(User, null=True, help_text='The user who submitted the form, optional')
-    form = models.ForeignKey(FormDocument)
+    receiver_user = models.ForeignKey(User, null=True, help_text='The user who submitted the form, optional')
+    sender_user = models.ForeignKey(User, null=True, help_text='The user who submitted the form, optional')
+    last_interactive_timestamp = models.DateTimeField(auto_now=True, auto_now_add=True)
+    form_document = models.ForeignKey(FormDocument)
     form_response_data = JSONField()
     status = models.SmallIntegerField(choices=FORM_COMPLETION_STATUS, default=UNOPENED)
 
@@ -115,3 +118,24 @@ class FormDocumentResponse(TimeStampedModel, DocumentRecipient):
         verbose_name = 'FormResponse'
         verbose_name_plural = 'FormResponses'
 
+
+class FormDocumentResponseUserPermission(TimeStampedModel):
+    from_user = models.ForeignKey(User)
+    to_user = models.ForeignKey(User)
+    response = models.ForeignKey(FormDocumentResponse)
+
+
+class FormDocumentResponseCompanyPermission(TimeStampedModel):
+    from_company = models.ForeignKey(Company)
+    to_company = models.ForeignKey(Company)
+    response = models.ForeignKey(FormDocumentResponse)
+
+
+class FormDocumentLink(TimeStampedModel, DocumentRecipient):
+    """
+    Model to track document recipient whether or not opened
+    the form or not
+    """
+    form_response = models.OneToOneField(FormDocumentResponse, null=True)
+    from_user = models.ForeignKey(User)
+    hash = models.CharField(max_length=128)
