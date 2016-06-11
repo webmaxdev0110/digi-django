@@ -70,10 +70,11 @@ class FormDocumentCompanyShare(TimeStampedModel):
 
     """
     form_document = models.ForeignKey(FormDocument, related_name="shares_to_companies")
-    company = models.ForeignKey(Company, related_name="shares_from_companies")
-
-    # field to share a "shared form for organisation" to organisation members
-    share_to_all_members = models.BooleanField(default=False)
+    from_company = models.ForeignKey(Company, related_name="shares_from_companies")
+    to_company = models.ForeignKey(Company)
+    company_visible = models.BooleanField(
+        default=False,
+        help_text='If company visible is not true, only the compnay admin can view the document')
 
     class Meta:
         unique_together = (('form_document', 'company'),)
