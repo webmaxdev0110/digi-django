@@ -139,7 +139,7 @@ class FormDocumentResponse(TimeStampedModel):
     """
     receiver_user = models.ForeignKey(User, null=True, help_text='The user who submitted the form, optional')
     sender_user = models.ForeignKey(User, null=True, help_text='The user who submitted the form, optional')
-    last_interactive_timestamp = models.DateTimeField(auto_now=True, auto_now_add=True)
+    last_interactive_timestamp = models.DateTimeField(auto_now=True)
     form_document = models.ForeignKey(FormDocument)
     form_response_data = JSONField()
     status = models.SmallIntegerField(choices=FORM_COMPLETION_STATUS, default=UNOPENED)
