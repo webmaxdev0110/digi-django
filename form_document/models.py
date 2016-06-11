@@ -63,6 +63,11 @@ class FormDocument(TimeStampedModel):
         verbose_name_plural = 'Forms'
 
 
+    def convert_document_to_image(self):
+        # todo: implement this
+        pass
+
+
 class FormDocumentCompanyShare(TimeStampedModel):
     """
     FormDocumentCompanyShare represents a document to be shared
