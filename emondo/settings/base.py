@@ -208,6 +208,7 @@ WHITENOISE_MAX_AGE = 3600 * 24 * 30
 
 CORS_ORIGIN_REGEX_WHITELIST = (
     r'^(https:\/\/)?(\w+\.)?emondo\.(com\.au|io)$',
+    r'^(http:\/\/)localdev\.emondo\.(com\.au|.io)$',
 )
 # Do not enable this in production
 CORS_ORIGIN_ALLOW_ALL = False
