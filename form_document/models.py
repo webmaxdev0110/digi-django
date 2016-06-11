@@ -82,6 +82,7 @@ class DocumentRecipient(models.Model):
     last_name = models.CharField(max_length=100, null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
     phone = models.CharField(max_length=30, null=True, blank=True)
+    access_code = models.CharField(max_length=12, null=True)
 
     class Meta:
         abstract = True
