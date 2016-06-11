@@ -6,7 +6,25 @@ from django.db import models
 
 from accounts.models import User, Company
 from core.models import TimeStampedModel
+import os
 
+
+def document_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+    file_name_no_extension = os.path.splitext(filename)
+    return 'documents/users/{0}/{1}/{2}'.format(
+        instance.owner.pk,
+        file_name_no_extension,
+        filename
+    )
+
+ProtectedStorage = lambda bucket: GSBotoStorage(
+    acl='private',    # https://cloud.google.com/storage/docs/access-control/lists#predefined-acl
+    bucket=bucket,
+    querystring_auth=True,
+    querystring_expire=600,
+)
+documents_store = ProtectedStorage('emondo-documents')
 
 class FormDocument(TimeStampedModel):
     """
@@ -19,8 +37,15 @@ class FormDocument(TimeStampedModel):
     slug = models.SlugField(null=True, help_text='Use for short URL sharing')
 
     uploaded_document = models.FileField(
-        null=True, 
+        null=True,
+        upload_to=document_path,
+        storage=documents_store,
         help_text='The document uploaded used for populating after a form is completed')
+    processed_documents = ArrayField(
+        models.FileField(upload_to=document_path),
+        help_text='List of images that can be viewed in browser',
+        storage=documents_store
+    )
     form_data = JSONField()      # All the form data
 
     owner = models.ForeignKey(User, help_text='The owner of this document')
