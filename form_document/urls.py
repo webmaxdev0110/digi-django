@@ -2,7 +2,10 @@ from django.conf.urls import include, url
 
 from rest_framework.routers import DefaultRouter
 
-from form_document.rest import FormDocumentViewSet
+from form_document.rest import (
+    FormDocumentViewSet,
+    FormDocumentResponseViewSet,
+)
 
 
 api_urlpatterns = [
@@ -10,6 +13,7 @@ api_urlpatterns = [
 
 router = DefaultRouter()
 router.register(r'form', FormDocumentViewSet)
+router.register(r'form_response', FormDocumentResponseViewSet)
 
 api_urlpatterns += router.urls
 

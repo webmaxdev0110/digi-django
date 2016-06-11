@@ -1,4 +1,8 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import (
+    ModelSerializer,
+    CurrentUserDefault,
+)
+from rest_framework import serializers
 
 from .models import FormDocument, FormDocumentResponse
 
@@ -27,4 +31,7 @@ class FormDocumentDetailSerializer(ModelSerializer):
 class FormDocumentResponseSerializer(ModelSerializer):
     class Meta:
         model = FormDocumentResponse
-        fields = '__all__'
+        fields = (
+            'form_response_data',
+        )
+

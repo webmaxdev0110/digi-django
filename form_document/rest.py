@@ -43,3 +43,11 @@ class FormDocumentViewSet(viewsets.ReadOnlyModelViewSet):
                 response.update({'form_response': form_response})
                 return Response(response)
         return Response(serializer.data)
+
+
+class FormDocumentResponseViewSet(viewsets.ModelViewSet):
+    queryset = FormDocumentResponse.objects
+    serializer_class = FormDocumentResponseSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
