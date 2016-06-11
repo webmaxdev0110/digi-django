@@ -54,23 +54,16 @@ class FormDocumentCompanyShare(TimeStampedModel):
 
 class FormDocumentUserShare(TimeStampedModel):
     """
-    FormDocumentUserShare represents sharings of form(document) with individual users
+    FormDocumentUserShare represents sharings of form(document) with individual users (must be within the same company)
     There're 2 cases for sharing of document.
-        - share with company
-        - share with individual users
+        - share with the entire company
+        - share with individual company user
     And this model represents second case.
 
     """
     form_document = models.ForeignKey(FormDocument, related_name="shares_to_users")
-    shared_to_user = models.ForeignKey(User, related_name="shares_from_users")
-
-    # if form is shared with company and "shared_to_user" is company member,
-    # shared_by would link to company
-    shared_by = models.ForeignKey(FormDocumentCompanyShare, null=True)
-
-    # Send form response result automatically to FormDocument Owner
-    send_response_to_owner_automatically = models.BooleanField(default=True,
-        help_text="Send form response result to Form owner automatically")
+    to_user = models.ForeignKey(User, related_name="shares_from_users")
+    from_user = models.ForeignKey(User, null=True)
 
     class Meta:
         unique_together = (('form_document', 'shared_to_user'),)
