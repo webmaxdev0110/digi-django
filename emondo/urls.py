@@ -46,6 +46,7 @@ urlpatterns = [
     # Temp URL until Telstra updates their record
     url(r'^notification/sms_callback/telstra/', telstra_sms_callback_handler),
     url(r'^admin/', admin.site.urls),
+    url(r'^testing/', include('testing.urls')),
     # url(r'^login/$',
     #     LoginView.as_view(),
     #     name='accounts_login'),

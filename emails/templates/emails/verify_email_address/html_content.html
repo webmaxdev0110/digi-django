@@ -1,0 +1,14 @@
+{% extends 'emails/base/base_email.html' %}
+{% block body_content %}
+    <table>
+        <tr>
+            <td>
+                <p>Hi {{ first_name }},</p>
+                <p>Testing verifying email address</p>
+                <h1>Really simple HTML email template</h1>
+            </td>
+        </tr>
+    </table>
+{% endblock %}
+{% block footer_content %}
+{% endblock %}
