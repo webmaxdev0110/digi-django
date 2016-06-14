@@ -458,3 +458,7 @@ footer {
     float: right;
   }
 }
+.cta-container {
+  padding: 59px 20px 46px;
+  background-color: #3893d0;
+}
