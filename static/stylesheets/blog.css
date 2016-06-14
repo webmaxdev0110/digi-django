@@ -192,6 +192,7 @@ a:hover, a:visited, a:focus, a:active {
 
 .container {
   padding: 0 60px;
+  margin: 0 auto;
 }
 
 .image-content {
