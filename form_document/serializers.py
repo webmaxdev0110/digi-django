@@ -31,7 +31,7 @@ class FormDocumentDetailSerializer(ModelSerializer):
 class FormDocumentResponseSerializer(ModelSerializer):
     response_id = serializers.ReadOnlyField(source='pk')
     form_id = serializers.ReadOnlyField(source='form_document.pk')
-    answers = serializers.CharField(write_only=True)
+    answers = serializers.CharField()
 
     class Meta:
         model = FormDocumentResponse
