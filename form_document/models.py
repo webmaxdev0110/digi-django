@@ -117,6 +117,7 @@ class DocumentRecipient(models.Model):
         abstract = True
 
 
+# todo: Move to constant file
 UNOPENED = 1
 OPENED = 2
 SAVED = 3
@@ -130,6 +131,7 @@ FORM_COMPLETION_STATUS = (
     (OPENED, _('Opened')),
     (SAVED, _('Saved')),
     (SUBMITTED, _('Submitted')),
+    (AUTO_SAVED, _('Auto Saved')),
 )
 
 class FormDocumentResponse(TimeStampedModel):
@@ -150,7 +152,7 @@ class FormDocumentResponse(TimeStampedModel):
     )
     last_interactive_timestamp = models.DateTimeField(auto_now=True)
     form_document = models.ForeignKey(FormDocument)
-    form_response_data = JSONField()
+    answers = JSONField()
     status = models.SmallIntegerField(choices=FORM_COMPLETION_STATUS, default=UNOPENED)
 
     class Meta:
