@@ -100,7 +100,11 @@ var isSmallDevice = function() {
 $(document).ready(function(){
 
     if (!userSignedUp) {
-        $(".fixed-header-wrapper").show();
+
+        setTimeout(function(){
+            $(".fixed-header-wrapper").slideDown(200);
+        }, 1000 * 60);
+
     }
 
     $('form').submit(function(e){
