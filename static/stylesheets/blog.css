@@ -103,6 +103,9 @@ a:hover, a:visited, a:focus, a:active {
 .cta-container {
   padding: 40px 20px 17px;
 }
+.cta-container h1 {
+  color: #FFFFFF;
+}
 .cta-container form.cta-form {
   margin: 0 0 15px 0;
 }

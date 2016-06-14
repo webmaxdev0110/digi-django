@@ -247,6 +247,9 @@ a:hover, a:visited, a:focus, a:active {
 .cta-container {
   padding: 40px 20px 17px;
 }
+.cta-container h1 {
+  color: #FFFFFF;
+}
 .cta-container form.cta-form {
   margin: 0 0 15px 0;
 }
@@ -1246,9 +1249,6 @@ u {
   padding-top: 59px;
   padding-bottom: 46px;
   background-color: #3893d0;
-}
-.row.cta-bottom h1 {
-  color: #FFFFFF;
 }
 .row.cta-bottom form.cta-form {
   margin: 70px 0 15px 0;
