@@ -50,13 +50,12 @@ class FormDocumentResponseViewSet(viewsets.ModelViewSet):
     queryset = FormDocumentResponse.objects
     serializer_class = FormDocumentResponseSerializer
 
-    def perform_create(self, serializer):
+    def get_object_kwarg(self):
         request_action = self.request.data['request_action']
         form_document = None
         form_id = self.request.data['form_id']
         if form_id:
             form_document = FormDocument.objects.get(pk=form_id)
-
         kwargs = {}
         if form_document:
             kwargs['form_document'] = form_document
@@ -64,9 +63,16 @@ class FormDocumentResponseViewSet(viewsets.ModelViewSet):
             kwargs['status'] = AUTO_SAVED
         if self.request.user.is_authenticated():
             kwargs['receiver_user'] = self.request.user
+
+        return kwargs
+
+    def perform_create(self, serializer):
+        kwargs = self.get_object_kwarg()
         inst = serializer.save(**kwargs)
         return inst
 
 
     def perform_update(self, serializer):
-        serializer.save(receiver_user=self.request.user)
+        kwargs = self.get_object_kwarg()
+        inst = serializer.save(**kwargs)
+        return inst
