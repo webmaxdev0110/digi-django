@@ -783,41 +783,7 @@
     </div>
     <div class="row cta-bottom">
         <div class="col-xs-12 col-sm-10 col-sm-push-1 col-md-8 col-md-push-2">
-            <div class="cta-container text-center">
-                <h1>Join the emondo revolution!</h1>
-                <form method="POST" class="cta-form" data-name="footer-cta">
-                    {% csrf_token %}
-                    <input type="hidden" name="tag_index" value="{{ tag_line_index }}"/>
-                    <fieldset>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div class="input-group email-group">
-                                    <span class="input-enter-prompt">
-                                        press<br/>
-                                        ENTER
-                                    </span>
-                                    <input name="email" type="email" placeholder="Enter email"
-                                           class="form-control visible-xs"/>
-                                    <input name="email" type="email" placeholder="Enter your email address"
-                                           class="form-control visible-sm visible-md visible-lg"/>
-                                        <span class="input-group-btn cta-submit">
-                                            <button name="submit" type="button"
-                                                    class="js-submit btn btn-primary btn-block">Get
-                                                your free account
-                                            </button>
-                                        </span>
-                                </div>
-                            </div>
-
-                        </div>
-                    </fieldset>
-                </form>
-                <ul class="dark-blue font7 list-inline text-center font8">
-                    <li>No credit card required</li>
-                    <li>•</li>
-                    <li>Spam is for cans not emails</li>
-                </ul>
-            </div>
+            {% include 'public/elements/block-cta.html' %}
         </div>
     </div>
 </div>
