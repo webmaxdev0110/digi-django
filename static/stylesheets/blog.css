@@ -245,6 +245,12 @@ article > div, article p {
   line-height: 1.8;
 }
 
+article .blog-title{
+
+  margin-top: 0px;
+
+}
+
 .blog-post .hero-image {
   margin-bottom: 33px;
 }
