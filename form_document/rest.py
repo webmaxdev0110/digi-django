@@ -11,6 +11,7 @@ from .serializers import (
     FormDocumentDetailSerializer,
     FormDocumentResponseSerializer,
 )
+from form_document.models import AUTO_SAVED
 
 
 class FormDocumentViewSet(viewsets.ReadOnlyModelViewSet):
@@ -50,7 +51,22 @@ class FormDocumentResponseViewSet(viewsets.ModelViewSet):
     serializer_class = FormDocumentResponseSerializer
 
     def perform_create(self, serializer):
-        serializer.save(receiver_user=self.request.user)
+        request_action = self.request.data['request_action']
+        form_document = None
+        form_id = self.request.data['form_id']
+        if form_id:
+            form_document = FormDocument.objects.get(pk=form_id)
+
+        kwargs = {}
+        if form_document:
+            kwargs['form_document'] = form_document
+        if 'FORM_AUTOSAVE' == request_action:
+            kwargs['status'] = AUTO_SAVED
+        if self.request.user.is_authenticated():
+            kwargs['receiver_user'] = self.request.user
+        inst = serializer.save(**kwargs)
+        return inst
+
 
     def perform_update(self, serializer):
         serializer.save(receiver_user=self.request.user)
