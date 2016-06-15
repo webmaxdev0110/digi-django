@@ -1,14 +1,47 @@
 {% extends 'emails/base/base_email.html' %}
+{% load static %}
+{% block extra_styles %}
+
+    <style type="text/css">
+
+    /* -------------------------------------
+            ELEMENTS
+        ------------------------------------- */
+
+    </style>
+
+{% endblock %}
+
 {% block body_content %}
+    <div class="site-heading-row">
+        <a href="{% url 'cms_blog_home' %}" class="logo nav-logo-wrapper">
+            <img class="logo-img" src="{% static 'images/logo_colour_tagline.svg' %}" width="175"/>
+        </a>
+    </div>
     <table>
         <tr>
             <td>
-                <p>Hi {{ first_name }},</p>
-                <p>Testing verifying email address</p>
-                <h1>Really simple HTML email template</h1>
+                <h3>{{ subject }}</h3>
+            </td>
+        </tr>
+        <tr>
+            <td class="separator-line" height="30">
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Hello {{ first_name }},</p>
+                <p>Welcome to emondo! You’re only one click away...</p>
+            </td>
+        </tr>
+        <tr><td height="15"></td></tr>
+        <tr>
+            <td>
+                <div class="btn-primary">
+                   <a href="{{ email_verification_link }}">Verify your email address</a>
+                </div>
             </td>
         </tr>
     </table>
-{% endblock %}
-{% block footer_content %}
 {% endblock %}
