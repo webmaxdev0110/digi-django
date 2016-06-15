@@ -20,3 +20,14 @@ ALLOWED_HOSTS = [
 ]
 
 COMPRESS_OFFLINE = False
+
+
+MAILGUN_PRIVATE_API_KEY = ''
+MAILGUN_PUBLIC_API_KEY = ''
+
+
+ANYMAIL = {
+    "MAILGUN_API_KEY": MAILGUN_PRIVATE_API_KEY,
+}
+EMAIL_BACKEND = "anymail.backends.mailgun.MailgunBackend"  # or sendgrid.SendGridBackend, or...
+DEFAULT_FROM_EMAIL = ""
