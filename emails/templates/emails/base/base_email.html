@@ -33,7 +33,7 @@
         }
 
         .btn-primary {
-            Margin-bottom: 10px;
+            margin-bottom: 30px;
             width: auto !important;
         }
 
@@ -44,6 +44,23 @@
             font-size: 14px;
             text-align: center;
             vertical-align: top;
+        }
+
+        .btn-primary  a {
+            background-color: #1f8ded;
+            border: solid #1f8ded;
+            border-radius: 5px;
+            border-width: 14px 24px;
+            display: inline-block;
+            color: #ffffff;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+            text-align: center;
+            vertical-align: top;
+            font-family: Helvetica Heue,Helvetica,Arial,sans-serif;
+            font-size: 16px;
+            line-height: 24px;
         }
 
         .btn-primary td a {
@@ -57,6 +74,19 @@
             font-weight: bold;
             line-height: 2;
             text-decoration: none;
+        }
+
+        .separator-line{
+            border-top-color: #dde5ed;
+            border-top-style: solid;
+            border-top-width: 1px;
+
+        }
+
+        .site-heading-row{
+            margin: 20px 0;
+            width: 100px;
+
         }
 
         .last {
@@ -77,6 +107,17 @@
         table.body-wrap {
             padding: 20px;
             width: 100%;
+
+        }
+
+        table.body-wrap p{
+
+            color: #637280;
+            font-size: 16px;
+            font-family: Helvetica Heue,Helvetica,Arial,sans-serif;
+            padding-bottom: 15px;
+            margin: 0;
+
         }
 
         table.body-wrap .container {
@@ -108,10 +149,11 @@
         h2,
         h3 {
             color: #111111;
-            font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-            font-weight: 200;
+            font-family: Helvetica Heue,Helvetica,Arial,sans-serif;
+            font-weight: 900;
             line-height: 1.2em;
-            margin: 40px 0 10px;
+            margin: 30px 0;
+            text-align: left;
         }
 
         h1 {
@@ -123,7 +165,7 @@
         }
 
         h3 {
-            font-size: 22px;
+            font-size: 18px;
         }
 
         p,
@@ -131,7 +173,6 @@
         ol {
             font-size: 14px;
             font-weight: normal;
-            margin-bottom: 10px;
         }
 
         ul li,
@@ -166,7 +207,12 @@
         /* Let's make sure tables in the content area are 100% wide */
         .content table {
             width: 100%;
+            padding: 0 25px;
+            border: solid 1px #d1dae0;
+            border-radius: 5px;
         }
+
+
     </style>
     {% block extra_styles %}
     {% endblock %}
@@ -189,7 +235,8 @@
         <td></td>
         <td class="container">
             <div class="content">
-                {% block footer_content %}{% endblock %}
+                {% block footer_content %}
+                {% endblock %}
             </div>
         </td>
         <td></td>
