@@ -1,0 +1,17 @@
+Hello {{ first_name }},
+
+Your completed {{ form_name }} has been received by {{ company_name }}.
+
+Please find a copy of your form attached or click the link below
+
+View completed form (button)
+
+One of our team will be in contact shortly.
+
+Variables:
+
+{{ first_name }}
+
+Attachment
+The PDF document
+The certificate for the PDF document

@@ -1,0 +1,52 @@
+{% extends 'emails/base/base_email.html' %}
+{% load static %}
+{% block extra_styles %}
+
+    <style type="text/css">
+
+    /* -------------------------------------
+            ELEMENTS
+        ------------------------------------- */
+
+    </style>
+
+{% endblock %}
+
+{% block body_content %}
+    <div class="site-heading-row">
+        <a href="{% url 'cms_blog_home' %}" class="logo nav-logo-wrapper">
+            <img class="logo-img" src="{% static 'images/logo_colour_tagline.svg' %}" width="175"/>
+        </a>
+    </div>
+    <table>
+        <tr>
+            <td>
+                <h3>{{ subject }}</h3>
+            </td>
+        </tr>
+        <tr>
+            <td class="separator-line" height="30">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Hello {{ first_name }},</p>
+                <p>Your <strong>completed</strong> {{ form_name }} has been received by {{ company_name }}.</p>
+                <p>Please find a copy of your form attached or click the link below</p>
+            </td>
+        </tr>
+        <tr><td height="15"></td></tr>
+        <tr>
+            <td>
+                <div class="btn-primary">
+                   <a href="">View completed form</a>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>One of our team will be in contact shortly.</p>
+            </td>
+        </tr>
+    </table>
+{% endblock %}

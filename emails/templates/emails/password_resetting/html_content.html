@@ -1,0 +1,51 @@
+{% extends 'emails/base/base_email.html' %}
+{% load static %}
+{% block extra_styles %}
+
+    <style type="text/css">
+
+    /* -------------------------------------
+            ELEMENTS
+        ------------------------------------- */
+
+    </style>
+
+{% endblock %}
+
+{% block body_content %}
+    <div class="site-heading-row">
+        <a href="{% url 'cms_blog_home' %}" class="logo nav-logo-wrapper">
+            <img class="logo-img" src="{% static 'images/logo_colour_tagline.svg' %}" width="175"/>
+        </a>
+    </div>
+    <table>
+        <tr>
+            <td>
+                <h3>{{ subject }}</h3>
+            </td>
+        </tr>
+        <tr>
+            <td class="separator-line" height="30">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Hello {{ first_name }},</p>
+                <p>Someone has requested as link to reset your password, just click below.</p>
+            </td>
+        </tr>
+        <tr><td height="15"></td></tr>
+        <tr>
+            <td>
+                <div class="btn-primary">
+                   <a href="{{ email_reset_link }}">Reset my password</a>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>If you didn’t request this, then please ignore this email and your password will stay the same.</p>
+            </td>
+        </tr>
+    </table>
+{% endblock %}

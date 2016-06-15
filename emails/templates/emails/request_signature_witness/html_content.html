@@ -1,0 +1,47 @@
+{% extends 'emails/base/base_email.html' %}
+{% load static %}
+{% block extra_styles %}
+
+    <style type="text/css">
+
+    /* -------------------------------------
+            ELEMENTS
+        ------------------------------------- */
+
+    </style>
+
+{% endblock %}
+
+{% block body_content %}
+    <div class="site-heading-row">
+        <a href="{% url 'cms_blog_home' %}" class="logo nav-logo-wrapper">
+            <img class="logo-img" src="{% static 'images/logo_colour_tagline.svg' %}" width="175"/>
+        </a>
+    </div>
+    <table>
+        <tr>
+            <td>
+                <h3>{{ subject }}</h3>
+            </td>
+        </tr>
+        <tr>
+            <td class="separator-line" height="30">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Hello {{ first_name }},</p>
+                <p>{{ first_name }}’s {{ form_name }} requires a signature witness by {{ todays_date }}.</p>
+                <p>Please <strong>witness</strong> in the next:</p>
+            </td>
+        </tr>
+        <tr><td height="15"></td></tr>
+        <tr>
+            <td>
+                <div class="btn-primary">
+                   <a href="{{ witness_signature_form_link }}">Witness now</a>
+                </div>
+            </td>
+        </tr>
+    </table>
+{% endblock %}

@@ -1,0 +1,1 @@
+An AFSL change was detected for {{ monitored company name }}.

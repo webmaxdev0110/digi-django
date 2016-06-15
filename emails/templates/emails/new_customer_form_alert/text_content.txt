@@ -1,0 +1,1 @@
+You have received {{ number_of_new_alerts }} new form alerts during the past {{  email_notification_period }}

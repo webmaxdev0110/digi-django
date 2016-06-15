@@ -1,0 +1,37 @@
+{% extends 'emails/base/base_email.html' %}
+{% load static %}
+{% block extra_styles %}
+
+    <style type="text/css">
+
+    /* -------------------------------------
+            ELEMENTS
+        ------------------------------------- */
+
+    </style>
+
+{% endblock %}
+
+{% block body_content %}
+    <div class="site-heading-row">
+        <a href="{% url 'cms_blog_home' %}" class="logo nav-logo-wrapper">
+            <img class="logo-img" src="{% static 'images/logo_colour_tagline.svg' %}" width="175"/>
+        </a>
+    </div>
+    <table>
+        <tr>
+            <td>
+                <h3>{{ subject }}</h3>
+            </td>
+        </tr>
+        <tr>
+            <td class="separator-line" height="30">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>You have received {{ number_of_new_submissions }} new form submissions during the past {{  email_notification_period }}</p>
+            </td>
+        </tr>
+    </table>
+{% endblock %}
