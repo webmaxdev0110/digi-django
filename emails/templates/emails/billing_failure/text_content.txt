@@ -1,0 +1,8 @@
+Hello {{ first_name }},
+Our attempt to bill {{ charge_amount }} to your current payment details, Visa ending in {{payment_last4digits}}, failed.
+
+Update your billing settings for emondo to continue your emondo {{ account_type }} plan.
+
+We will automatically retry to charge the amount above using your current payment details on the {{ todaysdate+5days }}
+
+Update billing settings (button)

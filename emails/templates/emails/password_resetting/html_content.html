@@ -26,21 +26,25 @@
         </tr>
         <tr>
             <td class="separator-line" height="30">
-
             </td>
         </tr>
         <tr>
             <td>
                 <p>Hello {{ first_name }},</p>
-                <p>Welcome to emondo! You’re only one click away...</p>
+                <p>Someone has requested as link to reset your password, just click below.</p>
             </td>
         </tr>
         <tr><td height="15"></td></tr>
         <tr>
             <td>
                 <div class="btn-primary">
-                   <a href="{{ email_verification_link }}">Verify your email address</a>
+                   <a href="{{ email_reset_link }}">Reset my password</a>
                 </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>If you didn’t request this, then please ignore this email and your password will stay the same.</p>
             </td>
         </tr>
     </table>

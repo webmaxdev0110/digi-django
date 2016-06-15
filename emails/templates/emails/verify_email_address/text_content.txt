@@ -1,1 +1,7 @@
 Hi {{ first_name }},
+
+Welcome to emondo! You’re only one click away...
+
+Verify your email address by clicking
+
+{{ email_verification_link }}

@@ -1,0 +1,7 @@
+Hello {{ first_name }},
+
+{{ first_name }}’s {{ form_name }} requires a signature witness by {{ todays_date }}.
+
+Please witness in the next:
+
+Witness now (button)

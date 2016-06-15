@@ -1,0 +1,1 @@
+You have received {{ number of new submissions }} new form submissions during the past {{  email_notification_period }}

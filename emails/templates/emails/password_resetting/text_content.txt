@@ -1,0 +1,7 @@
+Hello {{ first_name }},
+
+Someone has requested as link to reset your password, just click below.
+
+{{ email_reset_link }}
+
+If you didn’t request this, then please ignore this email and your password will stay the same.

@@ -26,20 +26,20 @@
         </tr>
         <tr>
             <td class="separator-line" height="30">
-
             </td>
         </tr>
         <tr>
             <td>
                 <p>Hello {{ first_name }},</p>
-                <p>Welcome to emondo! You’re only one click away...</p>
+                <p>{{ first_name }}’s {{ form_name }} requires a signature witness by {{ todays_date }}.</p>
+                <p>Please <strong>witness</strong> in the next:</p>
             </td>
         </tr>
         <tr><td height="15"></td></tr>
         <tr>
             <td>
                 <div class="btn-primary">
-                   <a href="{{ email_verification_link }}">Verify your email address</a>
+                   <a href="{{ witness_signature_form_link }}">Witness now</a>
                 </div>
             </td>
         </tr>

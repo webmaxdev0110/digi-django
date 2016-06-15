@@ -1,0 +1,1 @@
+Here is a summary of your new form activity during the past {{  email_notification_period }}
