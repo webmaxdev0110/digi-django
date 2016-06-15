@@ -103,7 +103,7 @@ $(document).ready(function(){
 
         setTimeout(function(){
             $(".fixed-header-wrapper").slideDown(200);
-        }, 1000 * 60);
+        }, 1000 * 60); //Display the signup section for unregistered users after 1 minute
 
     }
 
