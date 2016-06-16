@@ -50,7 +50,7 @@ class FormDocument(TimeStampedModel):
         help_text='List of images that can be viewed in browser',
         null=True
     )
-    form_data = JSONField()      # All the form data
+    form_data = JSONField(null=True)      # All the form data
     document_mapping = ArrayField(
         JSONField(),
         null=True
@@ -68,8 +68,7 @@ class FormDocument(TimeStampedModel):
         verbose_name_plural = 'Forms'
 
 
-    def convert_document_to_image(self):
-        # todo: implement this
+    def process_document(self):
         pass
 
 
