@@ -1,4 +1,9 @@
 from rest_framework import viewsets
+from rest_framework.parsers import (
+    MultiPartParser,
+    FormParser,
+    JSONParser,
+)
 from rest_framework.response import Response
 
 from core.rest_pagination import get_pagination_class
@@ -14,15 +19,30 @@ from .serializers import (
 from form_document.models import AUTO_SAVED
 
 
-class FormDocumentViewSet(viewsets.ReadOnlyModelViewSet):
+class FormDocumentViewSet(viewsets.ModelViewSet):
     queryset = FormDocument.objects.all()
     serializer_class = FormDocumentSerializer
     pagination_class = get_pagination_class(page_size=10)
+    parser_classes = (MultiPartParser, FormParser, JSONParser,)
+
+    def get_object_kwarg(self):
+        kwargs = {}
+        if self.request.user.is_authenticated():
+            kwargs['owner'] = self.request.user
+        return kwargs
+
+    def perform_create(self, serializer):
+        kwargs = self.get_object_kwarg()
+        return serializer.save(**kwargs)
+
+    def perform_update(self, serializer):
+        return serializer.save()
 
     def get_serializer_class(self):
-        if self.action == 'retrieve':
+        if self.action == 'list':
+            return self.serializer_class
+        else:
             return FormDocumentDetailSerializer
-        return self.serializer_class
 
     def get_form_response(self, response_id):
         # get FormDocumentResponse object
@@ -32,18 +52,6 @@ class FormDocumentViewSet(viewsets.ReadOnlyModelViewSet):
             return None
         serializer = FormDocumentResponseSerializer(form_response)
         return serializer.data
-
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-        serializer = self.get_serializer(instance)
-        if self.request.query_params.get('session_id', None):
-            form_response = self.get_form_response(int(self.request.query_params.get('session_id')))
-            # it's required to check if response is related with form
-            response = serializer.data
-            if form_response and form_response['form'] == response['id']:
-                response.update({'form_response': form_response})
-                return Response(response)
-        return Response(serializer.data)
 
 
 class FormDocumentResponseViewSet(viewsets.ModelViewSet):
@@ -70,7 +78,6 @@ class FormDocumentResponseViewSet(viewsets.ModelViewSet):
         kwargs = self.get_object_kwarg()
         inst = serializer.save(**kwargs)
         return inst
-
 
     def perform_update(self, serializer):
         kwargs = self.get_object_kwarg()
