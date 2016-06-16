@@ -351,5 +351,13 @@ FEINCMS_UPLOAD_PREFIX = 'cms'
 FEINCMS_MEDIALIBRARY_UPLOAD_TO = 'uploads'
 
 # Obtain your own key, and override in local_settings.py
+
 MAILGUN_PRIVATE_API_KEY = ''
 MAILGUN_PUBLIC_API_KEY = ''
+MAIL_SENDING_DOMAIN = ''
+DEFAULT_FROM_EMAIL = "postmaster@" + MAIL_SENDING_DOMAIN
+
+ANYMAIL = {
+    "MAILGUN_API_KEY": MAILGUN_PRIVATE_API_KEY,
+}
+EMAIL_BACKEND = "anymail.backends.mailgun.MailgunBackend"  # or sendgrid.SendGridBackend, or...
