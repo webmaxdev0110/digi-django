@@ -127,6 +127,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'core.context_processors.permanent_media_processor'
             ],
         },
     },
@@ -340,6 +341,8 @@ PLIVO_AUTH_ID = ''
 PLIVO_TOKEN = ''
 
 STATIC_URL = '/static/'
+
+PERMANENT_MEDIA_URL = 'https://storage.googleapis.com/permanent/'
 
 FEINCMS_RICHTEXT_INIT_TEMPLATE = 'admin/content/richtext/init_ckeditor.html'
 
