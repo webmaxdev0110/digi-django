@@ -6,7 +6,7 @@ import logging
 
 logger = logging.getLogger(__file__)
 
-DOMAIN = 'msg.emondo.com.au'
+DOMAIN = settings.MAIL_SENDING_DOMAIN
 BASE_URL = 'https://api.mailgun.net/v3'
 
 
