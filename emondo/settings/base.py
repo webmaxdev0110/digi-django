@@ -351,14 +351,13 @@ FEINCMS_USE_PAGE_ADMIN = False
 FEINCMS_UPLOAD_PREFIX = 'cms'
 FEINCMS_MEDIALIBRARY_UPLOAD_TO = 'uploads'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Obtain your own key, and override in local_settings.py
 
 MAILGUN_PRIVATE_API_KEY = ''
 MAILGUN_PUBLIC_API_KEY = ''
 MAIL_SENDING_DOMAIN = ''
-DEFAULT_FROM_EMAIL = "postmaster@" + MAIL_SENDING_DOMAIN
+DEFAULT_FROM_EMAIL = "team@" + MAIL_SENDING_DOMAIN
 
 ANYMAIL = {
     "MAILGUN_API_KEY": MAILGUN_PRIVATE_API_KEY,
