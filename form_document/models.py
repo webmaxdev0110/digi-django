@@ -1,12 +1,34 @@
 from __future__ import unicode_literals
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.postgres.fields import JSONField
+from django.contrib.postgres.fields import (
+    JSONField,
+    ArrayField,
+)
 from django.contrib.sites.models import Site
 from django.db import models
+from storages.backends.gs import GSBotoStorage
 
 from accounts.models import User, Company
 from core.models import TimeStampedModel
+import os
 
+
+def document_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+    file_name_no_extension = os.path.splitext(filename)
+    return 'documents/users/{0}/{1}/{2}'.format(
+        instance.owner.pk,
+        file_name_no_extension,
+        filename
+    )
+
+ProtectedStorage = lambda bucket: GSBotoStorage(
+    acl='private',    # https://cloud.google.com/storage/docs/access-control/lists#predefined-acl
+    bucket=bucket,
+    querystring_auth=True,
+    querystring_expire=600,
+)
+documents_store = ProtectedStorage('emondo-documents')
 
 class FormDocument(TimeStampedModel):
     """
@@ -19,8 +41,15 @@ class FormDocument(TimeStampedModel):
     slug = models.SlugField(null=True, help_text='Use for short URL sharing')
 
     uploaded_document = models.FileField(
-        null=True, 
+        null=True,
+        upload_to=document_path,
+        storage=documents_store,
         help_text='The document uploaded used for populating after a form is completed')
+    processed_documents = ArrayField(
+        models.FileField(upload_to=document_path, storage=documents_store),
+        help_text='List of images that can be viewed in browser',
+        null=True
+    )
     form_data = JSONField()      # All the form data
 
     owner = models.ForeignKey(User, help_text='The owner of this document')
@@ -34,45 +63,45 @@ class FormDocument(TimeStampedModel):
         verbose_name_plural = 'Forms'
 
 
+    def convert_document_to_image(self):
+        # todo: implement this
+        pass
+
+
 class FormDocumentCompanyShare(TimeStampedModel):
     """
-    FormDocumentCompanyShare represents first case of sharing document.
+    FormDocumentCompanyShare represents a document to be shared
+    within the user's company or to another company
 
     """
-    form_document = models.ForeignKey(FormDocument, related_name="shares_to_companies")
-    company = models.ForeignKey(Company, related_name="shares_from_companies")
-
-    # field to share a "shared form for organisation" to organisation members
-    share_to_all_members = models.BooleanField(default=False)
+    form_document = models.ForeignKey(FormDocument)
+    from_company = models.ForeignKey(Company, related_name='forms_shared_to_other_companies')
+    to_company = models.ForeignKey(Company, related_name='forms_received_from_other_companies')
+    company_visible = models.BooleanField(
+        default=False,
+        help_text='If company visible is not true, only the compnay admin can view the document')
 
     class Meta:
-        unique_together = (('form_document', 'company'),)
+        unique_together = (('form_document', 'to_company'),)
         verbose_name = 'FormCompanyShare'
         verbose_name_plural = 'FormCompanyShares'
 
 
 class FormDocumentUserShare(TimeStampedModel):
     """
-    FormDocumentUserShare represents sharings of form(document) with individual users
+    FormDocumentUserShare represents sharings of form(document) with individual users (must be within the same company)
     There're 2 cases for sharing of document.
-        - share with company
-        - share with individual users
+        - share with the entire company
+        - share with individual company user
     And this model represents second case.
 
     """
-    form_document = models.ForeignKey(FormDocument, related_name="shares_to_users")
-    shared_to_user = models.ForeignKey(User, related_name="shares_from_users")
-
-    # if form is shared with company and "shared_to_user" is company member,
-    # shared_by would link to company
-    shared_by = models.ForeignKey(FormDocumentCompanyShare, null=True)
-
-    # Send form response result automatically to FormDocument Owner
-    send_response_to_owner_automatically = models.BooleanField(default=True,
-        help_text="Send form response result to Form owner automatically")
+    form_document = models.ForeignKey(FormDocument, related_name='forms_shared_to_other_users')
+    to_user = models.ForeignKey(User, related_name='forms_received_from_other_users')
+    from_user = models.ForeignKey(User, null=True)
 
     class Meta:
-        unique_together = (('form_document', 'shared_to_user'),)
+        unique_together = (('form_document', 'to_user'),)
         verbose_name = 'FormUserShare'
         verbose_name_plural = 'FormUserShares'
 
@@ -82,16 +111,19 @@ class DocumentRecipient(models.Model):
     last_name = models.CharField(max_length=100, null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
     phone = models.CharField(max_length=30, null=True, blank=True)
+    access_code = models.CharField(max_length=12, null=True)
 
     class Meta:
         abstract = True
 
 
+# todo: Move to constant file
 UNOPENED = 1
 OPENED = 2
 SAVED = 3
 SUBMITTED = 4
 ABANDONED = 5
+AUTO_SAVED = 6
 
 FORM_COMPLETION_STATUS = (
     (UNOPENED, _('Unopen')),
@@ -99,19 +131,52 @@ FORM_COMPLETION_STATUS = (
     (OPENED, _('Opened')),
     (SAVED, _('Saved')),
     (SUBMITTED, _('Submitted')),
+    (AUTO_SAVED, _('Auto Saved')),
 )
 
-class FormDocumentResponse(TimeStampedModel, DocumentRecipient):
+class FormDocumentResponse(TimeStampedModel):
     """
     FormDocumentResponse represents Form submission per User
-    When form is published, users registered to platform or anonymose users can submit form
+    When form is published, users registered to platform or anonymous users can submit form
+
     """
-    user = models.ForeignKey(User, null=True, help_text='The user who submitted the form, optional')
-    form = models.ForeignKey(FormDocument)
-    form_response_data = JSONField()
+    receiver_user = models.ForeignKey(
+        User, null=True,
+        help_text='The user who submitted the form, optional',
+        related_name='all_form_responses'
+    )
+    sender_user = models.ForeignKey(
+        User, null=True,
+        help_text='The user who submitted the form, optional',
+        related_name='all_forms_sent'
+    )
+    last_interactive_timestamp = models.DateTimeField(auto_now=True)
+    form_document = models.ForeignKey(FormDocument)
+    answers = JSONField()
     status = models.SmallIntegerField(choices=FORM_COMPLETION_STATUS, default=UNOPENED)
 
     class Meta:
         verbose_name = 'FormResponse'
         verbose_name_plural = 'FormResponses'
 
+
+class FormDocumentResponseUserPermission(TimeStampedModel):
+    from_user = models.ForeignKey(User, related_name='forms_responses_shared_to_other_users')
+    to_user = models.ForeignKey(User, related_name='form_responses_received_from_other_users')
+    response = models.ForeignKey(FormDocumentResponse)
+
+
+class FormDocumentResponseCompanyPermission(TimeStampedModel):
+    from_company = models.ForeignKey(Company, related_name='+')
+    to_company = models.ForeignKey(Company, related_name='+')
+    response = models.ForeignKey(FormDocumentResponse)
+
+
+class FormDocumentLink(TimeStampedModel, DocumentRecipient):
+    """
+    Model to track document recipient whether or not opened
+    the form or not
+    """
+    form_response = models.OneToOneField(FormDocumentResponse, null=True)
+    from_user = models.ForeignKey(User)
+    hash = models.CharField(max_length=128)

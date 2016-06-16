@@ -1,4 +1,8 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import (
+    ModelSerializer,
+    CurrentUserDefault,
+)
+from rest_framework import serializers
 
 from .models import FormDocument, FormDocumentResponse
 
@@ -25,6 +29,14 @@ class FormDocumentDetailSerializer(ModelSerializer):
 
 
 class FormDocumentResponseSerializer(ModelSerializer):
+    response_id = serializers.ReadOnlyField(source='pk')
+    form_id = serializers.ReadOnlyField(source='form_document.pk')
+    answers = serializers.JSONField()
+
     class Meta:
         model = FormDocumentResponse
-        fields = '__all__'
+        fields = (
+            'response_id',
+            'form_id',
+            'answers',
+        )
