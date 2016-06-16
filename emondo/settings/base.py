@@ -351,7 +351,6 @@ FEINCMS_USE_PAGE_ADMIN = False
 FEINCMS_UPLOAD_PREFIX = 'cms'
 FEINCMS_MEDIALIBRARY_UPLOAD_TO = 'uploads'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Obtain your own key, and override in local_settings.py
 
