@@ -51,6 +51,11 @@ class FormDocument(TimeStampedModel):
         null=True
     )
     form_data = JSONField()      # All the form data
+    document_mapping = ArrayField(
+        JSONField(),
+        null=True
+    )
+    form_config = JSONField(null=True)
 
     owner = models.ForeignKey(User, help_text='The owner of this document')
     site = models.ForeignKey(Site)
