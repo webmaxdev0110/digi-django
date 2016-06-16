@@ -341,6 +341,8 @@ PLIVO_TOKEN = ''
 
 STATIC_URL = '/static/'
 
+PERMANENT_MEDIA_URL = 'https://storage.googleapis.com/permanent/'
+
 FEINCMS_RICHTEXT_INIT_TEMPLATE = 'admin/content/richtext/init_ckeditor.html'
 
 FEINCMS_RICHTEXT_INIT_CONTEXT = {
