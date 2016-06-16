@@ -3,6 +3,7 @@
 @import "global/helpers";
 @import "global/variables";
 @import "global/typography";
+@import "modules/public_cta";
 
 .site-heading-row {
   margin: 10px 0;
@@ -227,3 +228,9 @@ footer {
   }  
 }
 
+
+
+.cta-container {
+  padding: 59px 20px 46px;
+  background-color: $dark-blue-2;
+}

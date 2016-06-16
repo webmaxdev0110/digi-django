@@ -1,0 +1,27 @@
+<div class="header-inner-wrapper">
+
+                <form method="POST" class="cta-form" data-name="fixed-header">
+                    {% csrf_token %}
+                    <input type="hidden" name="tag_index" value="{{ tag_line_index }}"/>
+                    <fieldset>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="input-group email-group">
+                                    {% include "public/elements/input-enter-prompt.html" %}
+                                    <input name="email" type="email" placeholder="Enter your email address"
+                                           class="form-control"/>
+                                        <span class="input-group-btn cta-submit">
+                                            <button name="submit" type="button"
+                                                    class="js-submit btn btn-primary btn-block">Get
+                                                your free account
+                                            </button>
+                                        </span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </fieldset>
+                </form>
+
+
+            </div>
