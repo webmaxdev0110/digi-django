@@ -19,12 +19,22 @@ class FormDocumentSerializer(ModelSerializer):
 
 
 class FormDocumentDetailSerializer(ModelSerializer):
+    uploaded_document = serializers.FileField(write_only=True, required=False)
+
     """
     FormDocumentDetailSerializer used to get details of Form
     """
     class Meta:
         model = FormDocument
-        fields = '__all__'
+        fields = (
+            'title',
+            'slug',
+            'uploaded_document',
+            'form_data',
+            'form_config',
+            'document_mapping',
+        )
+
 
 
 
