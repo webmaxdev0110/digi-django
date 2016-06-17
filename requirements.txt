@@ -26,3 +26,6 @@ requests==2.10.0
 -e git://github.com/lihan/django-cors-headers.git#egg=django-cors-headers
 django-anymail==0.3.1
 premailer==3.0.0
+pyPdf==1.13
+numpy==1.11.0
+Wand==0.4.3

@@ -1,4 +1,6 @@
 from __future__ import unicode_literals
+
+from django.core.files.temp import NamedTemporaryFile
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.postgres.fields import (
     JSONField,
@@ -7,10 +9,14 @@ from django.contrib.postgres.fields import (
 from django.contrib.sites.models import Site
 from django.db import models
 from storages.backends.gs import GSBotoStorage
-
+from wand.image import Image
+from wand.color import Color
 from accounts.models import User, Company
 from core.models import TimeStampedModel
 import os
+import pyPdf
+from form_document.pdf import ConvertToImage
+from form_document.pdf2 import convert
 
 
 def document_path(instance, filename):
@@ -69,7 +75,22 @@ class FormDocument(TimeStampedModel):
 
 
     def process_document(self):
-        pass
+        if self.uploaded_document:
+            # f = NamedTemporaryFile(delete=False)
+            self.uploaded_document.seek(0)
+            # f.write()
+            # f.close()
+            # convert('/Users/lihanli/Downloads/tmpKQYlNs.pdf')
+            pdfimage = ConvertToImage()
+            images = pdfimage.generate_images(self.uploaded_document.read())
+            # print 'done'
+
+
+
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        super(FormDocument, self).save(force_insert, force_update, using, update_fields)
+        self.process_document()
 
 
 class FormDocumentCompanyShare(TimeStampedModel):
