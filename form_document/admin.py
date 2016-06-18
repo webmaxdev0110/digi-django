@@ -12,7 +12,6 @@ class FormDocumentAdminForm(ModelForm):
 class FormDocumentAdmin(admin.ModelAdmin):
     form = FormDocumentAdminForm
     readonly_fields = (
-        'processed_documents',
         'document_mapping',
         'form_config',
     )
