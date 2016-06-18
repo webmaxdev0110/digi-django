@@ -51,11 +51,6 @@ class FormDocument(TimeStampedModel):
         upload_to=document_path,
         storage=documents_store,
         help_text='The document uploaded used for populating after a form is completed')
-    processed_documents = ArrayField(
-        models.FileField(upload_to=document_path, storage=documents_store),
-        help_text='List of images that can be viewed in browser',
-        null=True
-    )
     form_data = JSONField(null=True)      # All the form data
     document_mapping = ArrayField(
         JSONField(),
@@ -91,6 +86,11 @@ class FormDocument(TimeStampedModel):
              update_fields=None):
         super(FormDocument, self).save(force_insert, force_update, using, update_fields)
         self.process_document()
+
+
+class FormDocumentAssets(models.Model):
+    form_document = models.ForeignKey(FormDocument)
+    image = models.ImageField(upload_to=document_path, storage=documents_store)
 
 
 class FormDocumentCompanyShare(TimeStampedModel):
