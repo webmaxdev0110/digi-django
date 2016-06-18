@@ -17,6 +17,7 @@ import os
 import pyPdf
 from form_document.pdf import ConvertToImage
 from form_document.pdf2 import convert
+from django.core.files import File
 
 def document_path_dir(instance, filename):
     file_name_no_extension = os.path.splitext(filename)[0]
@@ -40,6 +41,7 @@ ProtectedStorage = lambda bucket: GSBotoStorage(
     querystring_expire=600,
 )
 documents_store = ProtectedStorage('emondo-documents')
+
 
 class FormDocument(TimeStampedModel):
     """
@@ -73,18 +75,34 @@ class FormDocument(TimeStampedModel):
         verbose_name = 'Form'
         verbose_name_plural = 'Forms'
 
-
     def process_document(self):
         if self.uploaded_document:
-            # f = NamedTemporaryFile(delete=False)
+            original_document = NamedTemporaryFile(delete=False)
             self.uploaded_document.seek(0)
-            # f.write()
-            # f.close()
-            # convert('/Users/lihanli/Downloads/tmpKQYlNs.pdf')
-            pdfimage = ConvertToImage()
-            images = pdfimage.generate_images(self.uploaded_document.read())
-            # print 'done'
+            for chunk in self.uploaded_document.chunks():
+                original_document.write(chunk)
+            original_document.close()
 
+            number_of_pages = 0
+            with open(original_document.name, 'rb') as original_document_file
+                pdf = pyPdf.PdfFileReader(original_document_file)
+                number_of_pages = pdf.getNumPages()
+            # todo: Resolution can be decided depending on
+            # the size of the document
+
+            if number_of_pages > 0:
+                generated_image_paths = []
+                for page in range(number_of_pages):
+                    with Image(filename=original_document.name+'[{0}]'.format(page), resolution=75) as img:
+                        img_file = NamedTemporaryFile(delete=False, suffix='png')
+                        img.alpha_channel = False
+                        img.save(filename=img_file.name)
+                        generated_image_paths.append(img_file)
+
+                for image_path in generated_image_paths:
+                    with open(image_path, 'r') as image_file:
+                        form_asset = FormDocumentAssets(form_document=self, image=File(image_file))
+                        form_asset.save()
 
 
     def save(self, force_insert=False, force_update=False, using=None,
