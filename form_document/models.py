@@ -18,14 +18,19 @@ import pyPdf
 from form_document.pdf import ConvertToImage
 from form_document.pdf2 import convert
 
-
-def document_path(instance, filename):
-    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-    file_name_no_extension = os.path.splitext(filename)
-    return 'documents/users/{0}/{1}/{2}'.format(
+def document_path_dir(instance, filename):
+    file_name_no_extension = os.path.splitext(filename)[0]
+    return 'documents/users/{0}/{1}'.format(
         instance.owner.pk,
         file_name_no_extension,
-        filename
+    )
+
+def document_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename
+    dir_name = document_path_dir(instance, filename)
+    return '{0}/{1}'.format(
+        dir_name,
+        filename,
     )
 
 ProtectedStorage = lambda bucket: GSBotoStorage(
