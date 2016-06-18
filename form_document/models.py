@@ -84,7 +84,7 @@ class FormDocument(TimeStampedModel):
             original_document.close()
 
             number_of_pages = 0
-            with open(original_document.name, 'rb') as original_document_file
+            with open(original_document.name, 'rb') as original_document_file:
                 pdf = pyPdf.PdfFileReader(original_document_file)
                 number_of_pages = pdf.getNumPages()
             # todo: Resolution can be decided depending on
