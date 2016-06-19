@@ -111,6 +111,7 @@ class FormDocument(TimeStampedModel):
         self.process_document()
 
 
+# todo: rename this to singular
 class FormDocumentAssets(models.Model):
     form_document = models.ForeignKey(FormDocument)
     image = models.ImageField(upload_to=document_path, storage=documents_store)
