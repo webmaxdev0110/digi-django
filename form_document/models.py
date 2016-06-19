@@ -109,7 +109,7 @@ class FormDocument(TimeStampedModel):
 
 
 def original_document_path(instance, filename):
-    original_filename = instance.form_document.name
+    original_filename = instance.form_document.uploaded_document.name
     file_name_no_extension = os.path.splitext(ntpath.basename(original_filename))[0]
     return 'documents/users/{0}/{1}/{2}'.format(
         instance.owner.pk,
