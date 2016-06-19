@@ -1,4 +1,6 @@
 from __future__ import unicode_literals
+import ntpath
+from django.core.files.temp import NamedTemporaryFile
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.postgres.fields import (
     JSONField,
@@ -7,19 +9,26 @@ from django.contrib.postgres.fields import (
 from django.contrib.sites.models import Site
 from django.db import models
 from storages.backends.gs import GSBotoStorage
-
+from wand.image import Image
 from accounts.models import User, Company
 from core.models import TimeStampedModel
 import os
+import pyPdf
+from django.core.files import File
 
-
-def document_path(instance, filename):
-    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-    file_name_no_extension = os.path.splitext(filename)
-    return 'documents/users/{0}/{1}/{2}'.format(
+def document_path_dir(instance, filename):
+    file_name_no_extension = os.path.splitext(ntpath.basename(filename))[0]
+    return 'documents/users/{0}/{1}'.format(
         instance.owner.pk,
         file_name_no_extension,
-        filename
+    )
+
+def document_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/users/<id>/<filename_no_ext>/<filename.ext>
+    dir_name = document_path_dir(instance, filename)
+    return '{0}/{1}'.format(
+        dir_name,
+        filename,
     )
 
 ProtectedStorage = lambda bucket: GSBotoStorage(
@@ -29,6 +38,7 @@ ProtectedStorage = lambda bucket: GSBotoStorage(
     querystring_expire=600,
 )
 documents_store = ProtectedStorage('emondo-documents')
+
 
 class FormDocument(TimeStampedModel):
     """
@@ -45,12 +55,12 @@ class FormDocument(TimeStampedModel):
         upload_to=document_path,
         storage=documents_store,
         help_text='The document uploaded used for populating after a form is completed')
-    processed_documents = ArrayField(
-        models.FileField(upload_to=document_path, storage=documents_store),
-        help_text='List of images that can be viewed in browser',
+    form_data = JSONField(null=True)      # All the form data
+    document_mapping = ArrayField(
+        JSONField(),
         null=True
     )
-    form_data = JSONField()      # All the form data
+    form_config = JSONField(null=True)
 
     owner = models.ForeignKey(User, help_text='The owner of this document')
     site = models.ForeignKey(Site)
@@ -62,10 +72,66 @@ class FormDocument(TimeStampedModel):
         verbose_name = 'Form'
         verbose_name_plural = 'Forms'
 
+    def process_document(self):
+        if self.uploaded_document:
+            existing_linked_asset_ids = self.form_assets.all().delete()
+            original_document = NamedTemporaryFile(delete=False)
+            self.uploaded_document.seek(0)
+            for chunk in self.uploaded_document.chunks():
+                original_document.write(chunk)
+            original_document.close()
 
-    def convert_document_to_image(self):
-        # todo: implement this
-        pass
+            number_of_pages = 0
+            with open(original_document.name, 'rb') as original_document_file:
+                pdf = pyPdf.PdfFileReader(original_document_file)
+                number_of_pages = pdf.getNumPages()
+            # todo: Resolution can be decided depending on
+            # the size of the document
+
+            if number_of_pages > 0:
+                generated_image_paths = []
+                for page in range(number_of_pages):
+                    with Image(filename=original_document.name+'[{0}]'.format(page), resolution=75) as img:
+                        img_file = NamedTemporaryFile(delete=False, suffix='_{0}.png'.format(page))
+                        img.alpha_channel = False
+                        img.save(filename=img_file.name)
+                        generated_image_paths.append(img_file.name)
+                for i, image_path in enumerate(generated_image_paths):
+                    with open(image_path, 'r') as image_file:
+                        form_asset = FormDocumentAsset.objects.create(
+                            form_document=self,
+                            image=File(image_file),
+                            order=i
+                        )
+
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        super(FormDocument, self).save(force_insert, force_update, using, update_fields)
+        self.process_document()
+
+
+def original_document_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/users/<id>/<filename_no_ext>/<temp_file_name_<sequence>.ext
+    original_filename = instance.form_document.uploaded_document.name
+    original_name_no_extension = os.path.splitext(ntpath.basename(original_filename))[0]
+    new_file_name = os.path.splitext(ntpath.basename(filename))[0]
+    return 'documents/users/{0}/{1}/{2}'.format(
+        instance.owner.pk,
+        original_name_no_extension,
+        new_file_name
+    )
+
+class FormDocumentAsset(models.Model):
+    form_document = models.ForeignKey(FormDocument, related_name='form_assets')
+    image = models.ImageField(upload_to=original_document_path, storage=documents_store)
+    order = models.SmallIntegerField(default=0)
+
+    class Meta:
+        ordering = ["order"]
+
+    @property
+    def owner(self):
+        return self.form_document.owner
 
 
 class FormDocumentCompanyShare(TimeStampedModel):

@@ -22,9 +22,24 @@ class FormDocumentDetailSerializer(ModelSerializer):
     """
     FormDocumentDetailSerializer used to get details of Form
     """
+    uploaded_document = serializers.FileField(write_only=True, required=False)
+    assets_urls = serializers.SerializerMethodField()
+
+    def get_assets_urls(self, instance):
+        return map(lambda x: x.image.url, instance.form_assets.all())
+
     class Meta:
         model = FormDocument
-        fields = '__all__'
+        fields = (
+            'title',
+            'slug',
+            'uploaded_document',
+            'form_data',
+            'form_config',
+            'document_mapping',
+            'assets_urls',
+        )
+
 
 
 

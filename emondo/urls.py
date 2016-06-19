@@ -35,6 +35,7 @@ sitemaps = {
     'static': StaticViewSitemap,
 }
 
+handler500 = 'core.errorhandlers.handler500'
 
 urlpatterns = [
 
