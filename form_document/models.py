@@ -97,9 +97,13 @@ class FormDocument(TimeStampedModel):
                         img.save(filename=img_file.name)
                         generated_image_paths.append(img_file.name)
 
-                for image_path in generated_image_paths:
+                for i, image_path in enumerate(generated_image_paths):
                     with open(image_path, 'r') as image_file:
-                        form_asset = FormDocumentAsset(form_document=self, image=File(image_file))
+                        form_asset = FormDocumentAsset(
+                            form_document=self,
+                            image=File(image_file),
+                            order=i
+                        )
                         form_asset.save()
 
             # Removing existing linked files
