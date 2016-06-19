@@ -74,7 +74,7 @@ class FormDocument(TimeStampedModel):
 
     def process_document(self):
         if self.uploaded_document:
-            existing_linked_asset_ids = self.form_assets.all().values_list('id', flat=True)
+            existing_linked_asset_ids = self.form_assets.all().delete()
             original_document = NamedTemporaryFile(delete=False)
             self.uploaded_document.seek(0)
             for chunk in self.uploaded_document.chunks():
@@ -96,18 +96,13 @@ class FormDocument(TimeStampedModel):
                         img.alpha_channel = False
                         img.save(filename=img_file.name)
                         generated_image_paths.append(img_file.name)
-
                 for i, image_path in enumerate(generated_image_paths):
                     with open(image_path, 'r') as image_file:
-                        form_asset = FormDocumentAsset(
+                        form_asset = FormDocumentAsset.objects.create(
                             form_document=self,
                             image=File(image_file),
                             order=i
                         )
-                        form_asset.save()
-
-            # Removing existing linked files
-            FormDocumentAsset.objects.filter(pk__in=existing_linked_asset_ids).delete()
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
