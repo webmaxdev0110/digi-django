@@ -123,8 +123,12 @@ def original_document_path(instance, filename):
     )
 
 class FormDocumentAsset(models.Model):
-    form_document = models.ForeignKey(FormDocument)
+    form_document = models.ForeignKey(FormDocument, related_name='form_assets')
     image = models.ImageField(upload_to=original_document_path, storage=documents_store)
+    order = models.SmallIntegerField(default=0)
+
+    class Meta:
+        ordering = ["order"]
 
     @property
     def owner(self):
