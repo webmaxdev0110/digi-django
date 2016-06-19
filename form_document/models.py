@@ -94,7 +94,7 @@ class FormDocument(TimeStampedModel):
                 generated_image_paths = []
                 for page in range(number_of_pages):
                     with Image(filename=original_document.name+'[{0}]'.format(page), resolution=75) as img:
-                        img_file = NamedTemporaryFile(delete=False, suffix='png')
+                        img_file = NamedTemporaryFile(delete=False, suffix='.png')
                         img.alpha_channel = False
                         img.save(filename=img_file.name)
                         generated_image_paths.append(img_file.name)
