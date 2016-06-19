@@ -24,7 +24,7 @@ def document_path_dir(instance, filename):
     )
 
 def document_path(instance, filename):
-    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename
+    # file will be uploaded to MEDIA_ROOT/users/<id>/<filename_no_ext>/<filename.ext>
     dir_name = document_path_dir(instance, filename)
     return '{0}/{1}'.format(
         dir_name,
@@ -109,6 +109,7 @@ class FormDocument(TimeStampedModel):
 
 
 def original_document_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/users/<id>/<filename_no_ext>/<temp_file_name_<sequence>.ext
     original_filename = instance.form_document.uploaded_document.name
     original_name_no_extension = os.path.splitext(ntpath.basename(original_filename))[0]
     new_file_name = os.path.splitext(ntpath.basename(filename))[0]
