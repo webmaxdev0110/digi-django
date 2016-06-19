@@ -115,6 +115,10 @@ class FormDocumentAssets(models.Model):
     form_document = models.ForeignKey(FormDocument)
     image = models.ImageField(upload_to=document_path, storage=documents_store)
 
+    @property
+    def owner(self):
+        return self.form_document.owner
+
 
 class FormDocumentCompanyShare(TimeStampedModel):
     """
