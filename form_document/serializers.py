@@ -20,11 +20,10 @@ class FormDocumentSerializer(ModelSerializer):
 
 class FormDocumentDetailSerializer(ModelSerializer):
     uploaded_document = serializers.FileField(write_only=True, required=False)
-    form_assets = serializers.SlugRelatedField(
-        many=True,
-        read_only=True,
-        slug_field='image'
-    )
+    assets_urls = serializers.SerializerMethodField()
+
+    def get_assets_urls(self, instance):
+        return map(lambda x: x.image.url, instance.form_assets.all())
 
     """
     FormDocumentDetailSerializer used to get details of Form
@@ -38,7 +37,7 @@ class FormDocumentDetailSerializer(ModelSerializer):
             'form_data',
             'form_config',
             'document_mapping',
-            'form_assets',
+            'assets_urls',
         )
 
 
