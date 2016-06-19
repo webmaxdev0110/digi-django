@@ -10,13 +10,10 @@ from django.contrib.sites.models import Site
 from django.db import models
 from storages.backends.gs import GSBotoStorage
 from wand.image import Image
-from wand.color import Color
 from accounts.models import User, Company
 from core.models import TimeStampedModel
 import os
 import pyPdf
-from form_document.pdf import ConvertToImage
-from form_document.pdf2 import convert
 from django.core.files import File
 
 def document_path_dir(instance, filename):
