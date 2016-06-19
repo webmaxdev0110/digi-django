@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-
+import ntpath
 from django.core.files.temp import NamedTemporaryFile
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.postgres.fields import (
@@ -20,7 +20,7 @@ from form_document.pdf2 import convert
 from django.core.files import File
 
 def document_path_dir(instance, filename):
-    file_name_no_extension = os.path.splitext(filename)[0]
+    file_name_no_extension = ntpath.basename(filename)
     return 'documents/users/{0}/{1}'.format(
         instance.owner.pk,
         file_name_no_extension,
