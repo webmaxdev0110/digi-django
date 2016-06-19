@@ -97,7 +97,7 @@ class FormDocument(TimeStampedModel):
                         img_file = NamedTemporaryFile(delete=False, suffix='png')
                         img.alpha_channel = False
                         img.save(filename=img_file.name)
-                        generated_image_paths.append(img_file)
+                        generated_image_paths.append(img_file.name)
 
                 for image_path in generated_image_paths:
                     with open(image_path, 'r') as image_file:
