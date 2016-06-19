@@ -91,7 +91,7 @@ class FormDocument(TimeStampedModel):
                 generated_image_paths = []
                 for page in range(number_of_pages):
                     with Image(filename=original_document.name+'[{0}]'.format(page), resolution=75) as img:
-                        img_file = NamedTemporaryFile(delete=False, suffix='.png')
+                        img_file = NamedTemporaryFile(delete=False, suffix='_{0}.png'.format(page))
                         img.alpha_channel = False
                         img.save(filename=img_file.name)
                         generated_image_paths.append(img_file.name)
@@ -108,10 +108,18 @@ class FormDocument(TimeStampedModel):
         self.process_document()
 
 
+def original_document_path(instance, filename):
+    original_filename = instance.form_document.name
+    file_name_no_extension = os.path.splitext(ntpath.basename(original_filename))[0]
+    return 'documents/users/{0}/{1}/{2}'.format(
+        instance.owner.pk,
+        file_name_no_extension,
+        filename
+    )
 
 class FormDocumentAsset(models.Model):
     form_document = models.ForeignKey(FormDocument)
-    image = models.ImageField(upload_to=document_path, storage=documents_store)
+    image = models.ImageField(upload_to=original_document_path, storage=documents_store)
 
     @property
     def owner(self):
