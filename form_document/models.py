@@ -74,7 +74,7 @@ class FormDocument(TimeStampedModel):
 
     def process_document(self):
         if self.uploaded_document:
-            existing_linked_asset_ids = self.formdocumentasset_set.all().values_list('id', flat=True)
+            existing_linked_asset_ids = self.form_assets.all().values_list('id', flat=True)
             original_document = NamedTemporaryFile(delete=False)
             self.uploaded_document.seek(0)
             for chunk in self.uploaded_document.chunks():
