@@ -17,7 +17,7 @@ import pyPdf
 from django.core.files import File
 
 def document_path_dir(instance, filename):
-    file_name_no_extension = ntpath.basename(filename)
+    file_name_no_extension = os.path.splitext(ntpath.basename(filename))[0]
     return 'documents/users/{0}/{1}'.format(
         instance.owner.pk,
         file_name_no_extension,
