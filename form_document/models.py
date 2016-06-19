@@ -101,7 +101,7 @@ class FormDocument(TimeStampedModel):
 
                 for image_path in generated_image_paths:
                     with open(image_path, 'r') as image_file:
-                        form_asset = FormDocumentAssets(form_document=self, image=File(image_file))
+                        form_asset = FormDocumentAsset(form_document=self, image=File(image_file))
                         form_asset.save()
 
 
@@ -111,8 +111,8 @@ class FormDocument(TimeStampedModel):
         self.process_document()
 
 
-# todo: rename this to singular
-class FormDocumentAssets(models.Model):
+
+class FormDocumentAsset(models.Model):
     form_document = models.ForeignKey(FormDocument)
     image = models.ImageField(upload_to=document_path, storage=documents_store)
 

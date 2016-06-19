@@ -3,7 +3,7 @@ from django.contrib.admin.widgets import AdminFileWidget
 from django.forms import ModelForm, forms
 
 from .models import FormDocument, FormDocumentUserShare, FormDocumentCompanyShare, FormDocumentResponse, \
-    FormDocumentAssets
+    FormDocumentAsset
 
 
 class FormDocumentAdminForm(ModelForm):
@@ -13,7 +13,7 @@ class FormDocumentAdminForm(ModelForm):
 
 
 class FormDocumentAssetInline(admin.TabularInline):
-    model = FormDocumentAssets
+    model = FormDocumentAsset
     extra = 0
 
 
