@@ -72,6 +72,9 @@ class FormDocument(TimeStampedModel):
         verbose_name = 'Form'
         verbose_name_plural = 'Forms'
 
+    def is_access_code_protected(self):
+        return self.access_code is not None
+
     def process_document(self):
         if self.uploaded_document:
             self.form_assets.all().delete()
