@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.contrib.admin.widgets import AdminFileWidget
-from django.forms import ModelForm, forms
+from django.forms import ModelForm
+from django import forms
+
 
 from .models import FormDocument, FormDocumentUserShare, FormDocumentCompanyShare, FormDocumentResponse, \
     FormDocumentAsset
@@ -8,7 +10,7 @@ from .models import FormDocument, FormDocumentUserShare, FormDocumentCompanyShar
 
 class FormDocumentAdminForm(ModelForm):
     uploaded_document = forms.FileField(widget=AdminFileWidget, required=False)
-
+    access_code = forms.CharField(required=False)
 
 
 
