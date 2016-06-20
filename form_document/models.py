@@ -61,7 +61,7 @@ class FormDocument(TimeStampedModel):
         null=True
     )
     form_config = JSONField(null=True)
-
+    access_code = models.CharField(max_length=4, null=True)
     owner = models.ForeignKey(User, help_text='The owner of this document')
     site = models.ForeignKey(Site)
 
