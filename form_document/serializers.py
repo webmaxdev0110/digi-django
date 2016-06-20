@@ -24,9 +24,7 @@ class FormDocumentDetailSerializer(ModelSerializer):
     """
     uploaded_document = serializers.FileField(write_only=True, required=False)
     assets_urls = serializers.SerializerMethodField()
-
-    def get_assets_urls(self, instance):
-        return map(lambda x: x.image.url, instance.form_assets.all())
+    is_access_code_protected = serializers.BooleanField()
 
     class Meta:
         model = FormDocument
@@ -38,7 +36,11 @@ class FormDocumentDetailSerializer(ModelSerializer):
             'form_config',
             'document_mapping',
             'assets_urls',
+            'is_access_code_protected',
         )
+
+    def get_assets_urls(self, instance):
+        return map(lambda x: x.image.url, instance.form_assets.all())
 
 
 
