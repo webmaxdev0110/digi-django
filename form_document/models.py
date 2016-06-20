@@ -61,7 +61,7 @@ class FormDocument(TimeStampedModel):
         null=True
     )
     form_config = JSONField(null=True)
-
+    access_code = models.CharField(max_length=4, null=True)
     owner = models.ForeignKey(User, help_text='The owner of this document')
     site = models.ForeignKey(Site)
 
@@ -72,9 +72,12 @@ class FormDocument(TimeStampedModel):
         verbose_name = 'Form'
         verbose_name_plural = 'Forms'
 
+    def is_access_code_protected(self):
+        return self.access_code is not None
+
     def process_document(self):
         if self.uploaded_document:
-            existing_linked_asset_ids = self.form_assets.all().delete()
+            self.form_assets.all().delete()
             original_document = NamedTemporaryFile(delete=False)
             self.uploaded_document.seek(0)
             for chunk in self.uploaded_document.chunks():
