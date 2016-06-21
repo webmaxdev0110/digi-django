@@ -279,3 +279,12 @@ new Waypoint({
 
 
 });
+//The event handler for the navigation to selected section in homepage
+//http://stackoverflow.com/questions/18831970/jquery-smooth-scroll-to-div-using-id-value-from-link
+$(document).on('click','.in-page-nav a', function(event) {
+    event.preventDefault();
+    var target = this.getAttribute('href');
+    $('html, body').animate({
+        scrollTop: $(target).offset().top
+    }, 1000*0.5); //In 0.5 seconds
+});
