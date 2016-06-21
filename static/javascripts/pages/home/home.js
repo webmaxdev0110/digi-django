@@ -234,7 +234,7 @@ var isElementInViewport = function (el) {
     );
 };
 
-var eMondoEfficiencySection = $('.row.efficiency');
+var eMondoEfficiencySection = $('.js-number-count');
 if (isElementInViewport(eMondoEfficiencySection)) {
     initCountingNumber();
 } else {
@@ -243,7 +243,8 @@ if (isElementInViewport(eMondoEfficiencySection)) {
         handler: function () {
             initCountingNumber();
             this.destroy();
-        }
+        },
+        offset: 'bottom-in-view'
     });
 
 }
