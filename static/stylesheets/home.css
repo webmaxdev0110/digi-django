@@ -596,7 +596,27 @@ a.nav-logo-wrapper > img.logo-img {
 }
 
 .old-new-compare {
-  margin: 35px 0 180px;
+  margin: 35px 0 160px;
+}
+@media (min-width: 993px) {
+  .old-new-compare {
+    margin-bottom: 140px;
+  }
+}
+@media (min-width: 1201px) {
+  .old-new-compare {
+    margin-bottom: 130px;
+  }
+}
+@media (max-width: 991px) {
+  .old-new-compare {
+    margin-bottom: 100px;
+  }
+}
+@media (max-width: 767px) {
+  .old-new-compare {
+    margin-bottom: 60px;
+  }
 }
 @media (max-width: 479px) {
   .old-new-compare {
@@ -1271,7 +1291,7 @@ footer ul li {
 }
 
 .remodal {
-  background-image: url('../images/Emondo-Icon-Colour.svg?1457552297') !important;
+  background-image: url('../images/Emondo-Icon-Colour.svg?1465539396') !important;
   background-position: 140% 358% !important;
   background-size: 58% 88% !important;
   background-repeat: no-repeat !important;

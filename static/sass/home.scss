@@ -215,10 +215,24 @@ a.nav-logo-wrapper {
 
 // The old way new way section
 .old-new-compare {
-  margin: 35px 0 180px;
+  margin: 35px 0 160px;
+
+  @include media('>md') {
+    margin-bottom: 140px;
+  }
+  @include media('>lg'){
+    margin-bottom: 130px;
+  }
+  @include media('<md') {
+    margin-bottom: 100px;
+  }
+  @include media('<sm') {
+    margin-bottom: 60px;
+  }
   @include media('<xs') {
     margin-bottom: 23px;
   }
+
   h2 {
     margin-bottom: 4px;
   }
