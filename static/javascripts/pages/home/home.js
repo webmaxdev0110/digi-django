@@ -156,9 +156,11 @@ var getNextSlide = function() {
     return targetSlide;
 };
 var startsHowItWorksCarousel = function() {
-
+    var ele = $('.js-how-it-works');
     howItWorksInterval = setInterval(function(){
-        highLightSlide(getNextSlide());
+        if(isElementInViewport(ele)){
+            highLightSlide(getNextSlide());
+        }
     }, 8000);
 };
 
