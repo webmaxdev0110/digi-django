@@ -134,7 +134,7 @@ a.nav-logo-wrapper {
   > img.logo-img {
     width: 168px;
     position: absolute;
-    left: 14px;
+    left: 1px;
     @include media("<=xs") {
       width: 135px;
       left: 14px;
@@ -145,13 +145,16 @@ a.nav-logo-wrapper {
 }
 
 .in-page-nav{
-  position: absolute;
-  left: 200px;
-  top: 55%;
+  float: right;
+  margin-right: 125px;
+  margin-top: 46px;
+  font-size: large;
+  font-weight: bold;
+  @extend .font8;
   @include media("<=xs"){
-    top: 176%;
+    margin-top: 26px;
     z-index: 10000;
-    left: 176px;
+    margin-right: 10px;
   }
 }
 

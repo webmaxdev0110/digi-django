@@ -27,7 +27,7 @@
   font-weight: 400;
 }
 
-.font8, .row.history .text-wrapper {
+.font8, .in-page-nav, .row.history .text-wrapper {
   font-family: "Open Sans", sans-serif;
   font-weight: 300;
 }
@@ -509,7 +509,7 @@ a.nav-logo-wrapper a.logo {
 a.nav-logo-wrapper > img.logo-img {
   width: 168px;
   position: absolute;
-  left: 14px;
+  left: 1px;
 }
 @media (max-width: 480px) {
   a.nav-logo-wrapper > img.logo-img {
@@ -521,15 +521,17 @@ a.nav-logo-wrapper > img.logo-img {
 }
 
 .in-page-nav {
-  position: absolute;
-  left: 200px;
-  top: 55%;
+  float: right;
+  margin-right: 125px;
+  margin-top: 46px;
+  font-size: large;
+  font-weight: bold;
 }
 @media (max-width: 480px) {
   .in-page-nav {
-    top: 176%;
+    margin-top: 26px;
     z-index: 10000;
-    left: 176px;
+    margin-right: 10px;
   }
 }
 
