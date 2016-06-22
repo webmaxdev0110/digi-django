@@ -72,6 +72,23 @@ var submitEmailAddress = function(email, form) {
     });
 };
 
+var validateEmailAddress = function (email,callback){
+    $.post('/verifications/api/email/verify/',{
+        email: email
+    }, function(result){
+        if(result['result']){
+            if(callback != undefined){
+                callback();
+            }else{
+                alert('Registration successful');
+            }
+        }else{
+            alert('Registration failed, please check your email address');
+        }
+    });
+
+};
+
 $(document).on('opened', '.remodal', function () {
   $(document).on('keyup', function(e) {
       console.log('keyup');
