@@ -132,7 +132,9 @@ if(!isSmallDevice()) {
             $this.siblings('.input-enter-prompt').css({'left': leftDistance }).show();
             if (e.which === 13) {
                 // Enter key
-                submitEmailAddress(emailAddr, $this.parents('form'));
+                validateEmailAddress(emailAddr, function(){
+                    submitEmailAddress(emailAddr, $this.parents('form'))
+                });
             }
         } else {
             $this.siblings('.input-enter-prompt').hide();
@@ -159,7 +161,10 @@ $('.js-submit').click(function (e) {
         return false;
     }
 
-    submitEmailAddress(email, form);
+    validateEmailAddress(email, function () {
+        submitEmailAddress(email, form);
+    });
+
 });
 
 
