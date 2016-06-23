@@ -123,6 +123,7 @@
 a.nav-logo-wrapper {
   margin: 21px 0 59px 0;
   display: inline-block;
+  padding:0;
   @include media("<=xs") {
     margin: 10px 0 0 0;
   }
@@ -138,7 +139,22 @@ a.nav-logo-wrapper {
       width: 135px;
       left: 14px;
       top: 10px;
+      z-index: 10000;
     }
+  }
+}
+
+.in-page-nav{
+  float: right;
+  margin-right: 125px;
+  margin-top: 46px;
+  font-size: large;
+  font-weight: bold;
+  @extend .font8;
+  @include media("<=xs"){
+    margin-top: 26px;
+    z-index: 10000;
+    margin-right: 10px;
   }
 }
 
@@ -186,6 +202,7 @@ a.nav-logo-wrapper {
   .tag-line {
     font-size: 22px;
     line-height: 1.5;
+    font-weight:600;
     @include media('<=sm') {
       font-size: 16px;
       //line-height: 1.2;
@@ -215,10 +232,24 @@ a.nav-logo-wrapper {
 
 // The old way new way section
 .old-new-compare {
-  margin: 35px 0 180px;
+  margin: 35px 0 160px;
+
+  @include media('>md') {
+    margin-bottom: 140px;
+  }
+  @include media('>lg'){
+    margin-bottom: 130px;
+  }
+  @include media('<md') {
+    margin-bottom: 100px;
+  }
+  @include media('<sm') {
+    margin-bottom: 60px;
+  }
   @include media('<xs') {
     margin-bottom: 23px;
   }
+
   h2 {
     margin-bottom: 4px;
   }
@@ -827,4 +858,15 @@ footer {
     float: left;
     margin: 21px 0 0 12px;
   }
+}
+
+.homepage-nav{
+  background-color: #ffffff;
+  border-color: #ffffff;
+}
+
+.location-image{
+  background: transparent url(../images/Sydney_Opera_House.svg) no-repeat bottom;
+  background-size: 100%;
+
 }

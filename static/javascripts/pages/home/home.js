@@ -72,6 +72,23 @@ var submitEmailAddress = function(email, form) {
     });
 };
 
+var validateEmailAddress = function (email,callback){
+    $.post('/verifications/api/email/verify/',{
+        email: email
+    }, function(result){
+        if(result['result']){
+            if(callback != undefined){
+                callback();
+            }else{
+                alert('Registration successful');
+            }
+        }else{
+            alert('Registration failed, please check your email address');
+        }
+    });
+
+};
+
 $(document).on('opened', '.remodal', function () {
   $(document).on('keyup', function(e) {
       console.log('keyup');
@@ -115,7 +132,9 @@ if(!isSmallDevice()) {
             $this.siblings('.input-enter-prompt').css({'left': leftDistance }).show();
             if (e.which === 13) {
                 // Enter key
-                submitEmailAddress(emailAddr, $this.parents('form'));
+                validateEmailAddress(emailAddr, function(){
+                    submitEmailAddress(emailAddr, $this.parents('form'))
+                });
             }
         } else {
             $this.siblings('.input-enter-prompt').hide();
@@ -142,7 +161,10 @@ $('.js-submit').click(function (e) {
         return false;
     }
 
-    submitEmailAddress(email, form);
+    validateEmailAddress(email, function () {
+        submitEmailAddress(email, form);
+    });
+
 });
 
 
@@ -156,9 +178,11 @@ var getNextSlide = function() {
     return targetSlide;
 };
 var startsHowItWorksCarousel = function() {
-
+    var ele = $('.js-how-it-works');
     howItWorksInterval = setInterval(function(){
-        highLightSlide(getNextSlide());
+        if(isElementInViewport(ele)){
+            highLightSlide(getNextSlide());
+        }
     }, 8000);
 };
 
@@ -232,7 +256,7 @@ var isElementInViewport = function (el) {
     );
 };
 
-var eMondoEfficiencySection = $('.row.efficiency');
+var eMondoEfficiencySection = $('.js-number-count');
 if (isElementInViewport(eMondoEfficiencySection)) {
     initCountingNumber();
 } else {
@@ -241,7 +265,8 @@ if (isElementInViewport(eMondoEfficiencySection)) {
         handler: function () {
             initCountingNumber();
             this.destroy();
-        }
+        },
+        offset: 'bottom-in-view'
     });
 
 }
@@ -275,4 +300,13 @@ new Waypoint({
 });
 
 
+});
+//The event handler for the navigation to selected section in homepage
+//http://stackoverflow.com/questions/18831970/jquery-smooth-scroll-to-div-using-id-value-from-link
+$(document).on('click','.in-page-nav a', function(event) {
+    event.preventDefault();
+    var target = this.getAttribute('href');
+    $('html, body').animate({
+        scrollTop: $(target).offset().top
+    }, 1000*0.5); //In 0.5 seconds
 });

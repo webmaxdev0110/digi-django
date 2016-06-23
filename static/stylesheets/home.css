@@ -27,7 +27,7 @@
   font-weight: 400;
 }
 
-.font8, .row.history .text-wrapper {
+.font8, .in-page-nav, .row.history .text-wrapper {
   font-family: "Open Sans", sans-serif;
   font-weight: 300;
 }
@@ -220,11 +220,13 @@ a:hover, a:visited, a:focus, a:active {
   vertical-align: middle;
   text-align: left;
   font-size: 12px;
-  color: #bdd2e5;
+  font-weight: bold;
+  color: #073660;
+  opacity: 0.76;
   margin-left: 10px;
   line-height: 16px;
   padding-bottom: 15px;
-  background: transparent url(../images/arrows.svg) no-repeat left 33px;
+  background: transparent url(../images/arrows-dark-blue.svg) no-repeat left 33px;
   background-size: 19px 12px;
   right: 220px;
   top: 4px;
@@ -493,6 +495,7 @@ a:hover, a:visited, a:focus, a:active {
 a.nav-logo-wrapper {
   margin: 21px 0 59px 0;
   display: inline-block;
+  padding: 0;
 }
 @media (max-width: 480px) {
   a.nav-logo-wrapper {
@@ -513,6 +516,22 @@ a.nav-logo-wrapper > img.logo-img {
     width: 135px;
     left: 14px;
     top: 10px;
+    z-index: 10000;
+  }
+}
+
+.in-page-nav {
+  float: right;
+  margin-right: 125px;
+  margin-top: 46px;
+  font-size: large;
+  font-weight: bold;
+}
+@media (max-width: 480px) {
+  .in-page-nav {
+    margin-top: 26px;
+    z-index: 10000;
+    margin-right: 10px;
   }
 }
 
@@ -570,6 +589,7 @@ a.nav-logo-wrapper > img.logo-img {
 .sub-slogan-container .tag-line {
   font-size: 22px;
   line-height: 1.5;
+  font-weight: 600;
 }
 @media (max-width: 768px) {
   .sub-slogan-container .tag-line {
@@ -596,7 +616,27 @@ a.nav-logo-wrapper > img.logo-img {
 }
 
 .old-new-compare {
-  margin: 35px 0 180px;
+  margin: 35px 0 160px;
+}
+@media (min-width: 993px) {
+  .old-new-compare {
+    margin-bottom: 140px;
+  }
+}
+@media (min-width: 1201px) {
+  .old-new-compare {
+    margin-bottom: 130px;
+  }
+}
+@media (max-width: 991px) {
+  .old-new-compare {
+    margin-bottom: 100px;
+  }
+}
+@media (max-width: 767px) {
+  .old-new-compare {
+    margin-bottom: 60px;
+  }
 }
 @media (max-width: 479px) {
   .old-new-compare {
@@ -1271,7 +1311,7 @@ footer ul li {
 }
 
 .remodal {
-  background-image: url('../images/Emondo-Icon-Colour.svg?1457552297') !important;
+  background-image: url('../images/Emondo-Icon-Colour.svg?1465539396') !important;
   background-position: 140% 358% !important;
   background-size: 58% 88% !important;
   background-repeat: no-repeat !important;
@@ -1288,4 +1328,14 @@ footer ul li {
   z-index: 4;
   float: left;
   margin: 21px 0 0 12px;
+}
+
+.homepage-nav {
+  background-color: #ffffff;
+  border-color: #ffffff;
+}
+
+.location-image {
+  background: transparent url(../images/Sydney_Opera_House.svg) no-repeat bottom;
+  background-size: 100%;
 }
