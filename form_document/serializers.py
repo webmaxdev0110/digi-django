@@ -45,8 +45,8 @@ class FormDocumentDetailSerializer(ModelSerializer):
         if self._is_access_code_verified(instance):
             return map(lambda x: {
                 'url': x.image.url,
-                'width': x.image.width,
-                'height': x.image.height,
+                'width': x.cached_image_width,
+                'height': x.cached_image_height,
             }, instance.form_assets.all())
         else:
             return None
