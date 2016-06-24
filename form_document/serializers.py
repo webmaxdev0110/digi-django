@@ -54,7 +54,7 @@ class FormDocumentDetailSerializer(ModelSerializer):
     def _is_access_code_verified(self, instance):
         if self.instance.is_access_code_protected():
             user = CurrentUserDefault()
-            if user and user.id == instance.owner.id:
+            if getattr(user, 'id', None) == instance.owner.id:
                 return True
             if self.context['request'].query_params.get('access_code') == instance.access_code:
                 return True
