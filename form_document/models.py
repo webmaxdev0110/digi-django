@@ -54,6 +54,7 @@ class FormDocument(TimeStampedModel):
         null=True,
         upload_to=document_path,
         storage=documents_store,
+        max_length=255,
         help_text='The document uploaded used for populating after a form is completed')
     form_data = JSONField(null=True)      # All the form data
     document_mapping = ArrayField(
