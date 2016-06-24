@@ -54,6 +54,7 @@ class FormDocument(TimeStampedModel):
         null=True,
         upload_to=document_path,
         storage=documents_store,
+        max_length=255,
         help_text='The document uploaded used for populating after a form is completed')
     form_data = JSONField(null=True)      # All the form data
     document_mapping = ArrayField(
@@ -126,8 +127,14 @@ def original_document_path(instance, filename):
 
 class FormDocumentAsset(models.Model):
     form_document = models.ForeignKey(FormDocument, related_name='form_assets')
-    image = models.ImageField(upload_to=original_document_path, storage=documents_store)
+    image = models.ImageField(
+        upload_to=original_document_path, storage=documents_store,
+        height_field='cached_image_height',
+        width_field='cached_image_width'
+    )
     order = models.SmallIntegerField(default=0)
+    cached_image_width = models.IntegerField(blank=True, null=True)
+    cached_image_height = models.IntegerField(blank=True, null=True)
 
     class Meta:
         ordering = ["order"]
