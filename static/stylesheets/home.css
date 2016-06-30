@@ -589,7 +589,6 @@ a.nav-logo-wrapper > img.logo-img {
 .sub-slogan-container .tag-line {
   font-size: 22px;
   line-height: 1.5;
-  font-weight: 600;
 }
 @media (max-width: 768px) {
   .sub-slogan-container .tag-line {
