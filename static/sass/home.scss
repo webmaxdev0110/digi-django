@@ -202,7 +202,6 @@ a.nav-logo-wrapper {
   .tag-line {
     font-size: 22px;
     line-height: 1.5;
-    font-weight:600;
     @include media('<=sm') {
       font-size: 16px;
       //line-height: 1.2;
@@ -863,10 +862,4 @@ footer {
 .homepage-nav{
   background-color: #ffffff;
   border-color: #ffffff;
-}
-
-.location-image{
-  background: transparent url(../images/Sydney_Opera_House.svg) no-repeat bottom;
-  background-size: 100%;
-
 }

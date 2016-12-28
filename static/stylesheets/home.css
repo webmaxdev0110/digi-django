@@ -589,7 +589,6 @@ a.nav-logo-wrapper > img.logo-img {
 .sub-slogan-container .tag-line {
   font-size: 22px;
   line-height: 1.5;
-  font-weight: 600;
 }
 @media (max-width: 768px) {
   .sub-slogan-container .tag-line {
@@ -1333,9 +1332,4 @@ footer ul li {
 .homepage-nav {
   background-color: #ffffff;
   border-color: #ffffff;
-}
-
-.location-image {
-  background: transparent url(../images/Sydney_Opera_House.svg) no-repeat bottom;
-  background-size: 100%;
 }
