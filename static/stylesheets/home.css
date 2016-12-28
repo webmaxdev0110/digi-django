@@ -745,6 +745,70 @@ a.nav-logo-wrapper > img.logo-img {
   }
 }
 
+.row.sign-like-star {
+  background-color: #6bc7f5;
+  padding: 0 0 50px 0;
+}
+.row.sign-like-star .signature-input-wrapper {
+  margin: 0 0 30px 0;
+}
+.row.sign-like-star .signature-input-wrapper > .input {
+  background: #b1e1fa;
+  width: 100%;
+  outline: 0;
+  border: 0;
+  font-size: 110px;
+  text-align: center;
+  padding: 0 20%;
+}
+.row.sign-like-star .box-celebrity {
+  background: #f1f1f1;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  -moz-box-shadow: 0px 35px 18px 0px rgba(0, 0, 0, 0.13);
+  -webkit-box-shadow: 0px 35px 18px 0px rgba(0, 0, 0, 0.13);
+  box-shadow: 0px 35px 18px 0px rgba(0, 0, 0, 0.13);
+  height: 190px !important;
+  background-position: bottom left;
+}
+.row.sign-like-star .box-celebrity.abraham-lincoln {
+  background-image: url(../images/lincoln.png);
+  width: 280px;
+  height: 165px;
+  background-repeat: no-repeat;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (-moz-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+  .row.sign-like-star .box-celebrity.abraham-lincoln {
+    background-image: url(../images/lincoln@2x.png);
+    background-size: 280px 165px;
+  }
+}
+.row.sign-like-star .box-celebrity.taylor-swift {
+  background-image: url(../images/swift.png);
+  width: 262px;
+  height: 167px;
+  background-repeat: no-repeat;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (-moz-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+  .row.sign-like-star .box-celebrity.taylor-swift {
+    background-image: url(../images/swift@2x.png);
+    background-size: 262px 167px;
+  }
+}
+.row.sign-like-star .box-celebrity.steve-jobs {
+  background-image: url(../images/steve.png);
+  width: 268px;
+  height: 168px;
+  background-repeat: no-repeat;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (-moz-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+  .row.sign-like-star .box-celebrity.steve-jobs {
+    background-image: url(../images/steve@2x.png);
+    background-size: 268px 168px;
+  }
+}
+
 .row.js-how-it-works {
   color: #073660;
   background: #f3faff;
@@ -1310,7 +1374,7 @@ footer ul li {
 }
 
 .remodal {
-  background-image: url('../images/Emondo-Icon-Colour.svg?1465539396') !important;
+  background-image: url('../images/Emondo-Icon-Colour.svg?1457552297') !important;
   background-position: 140% 358% !important;
   background-size: 58% 88% !important;
   background-repeat: no-repeat !important;

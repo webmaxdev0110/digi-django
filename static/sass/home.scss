@@ -331,6 +331,40 @@ a.nav-logo-wrapper {
   }
 }
 
+.row.sign-like-star {
+  background-color: #6bc7f5;
+  padding: 0 0 50px 0;
+  .signature-input-wrapper {
+    margin: 0 0 30px 0;
+    > .input {
+      background: #b1e1fa;
+      width: 100%;
+      outline: 0;
+      border: 0;
+      font-size: 110px;
+      text-align: center;
+      padding: 0 20%;
+    }
+  }
+  .box-celebrity {
+    background: #f1f1f1;
+    @include border-radius(4px);
+    @include box-shadow(0px 35px 18px 0px rgba(0, 0, 0, 0.13));
+    height: 190px !important;
+    background-position: bottom left;
+    &.abraham-lincoln {
+      @include retina-image(lincoln, png);
+    }
+    &.taylor-swift {
+      @include retina-image(swift, png);
+    }
+    &.steve-jobs {
+      @include retina-image(steve, png);
+    }
+
+  }
+}
+
 .row.js-how-it-works {
   color: $dark-blue;
   background: $faint-blue-3;
