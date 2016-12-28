@@ -808,6 +808,9 @@ a.nav-logo-wrapper > img.logo-img {
     background-size: 268px 168px;
   }
 }
+.row.sign-like-star .box-celebrity.selected {
+  outline: 2px solid #ff8a00;
+}
 
 .row.js-how-it-works {
   color: #073660;

@@ -361,6 +361,11 @@ a.nav-logo-wrapper {
     &.steve-jobs {
       @include retina-image(steve, png);
     }
+    &.selected {
+      outline: 2px solid #ff8a00;
+      //todo: add other selected attributes
+
+    }
 
   }
 }
