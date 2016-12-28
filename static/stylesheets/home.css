@@ -747,19 +747,52 @@ a.nav-logo-wrapper > img.logo-img {
 
 .row.sign-like-star {
   background-color: #6bc7f5;
-  padding: 0 0 50px 0;
+  padding: 20px 0;
 }
 .row.sign-like-star .signature-input-wrapper {
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
   margin: 0 0 30px 0;
-}
-.row.sign-like-star .signature-input-wrapper > .input {
+  padding: 0 102px 0 102px;
   background: #b1e1fa;
-  width: 100%;
+}
+.row.sign-like-star .signature-input-wrapper > .line {
+  height: 142px;
+  background: transparent linear-gradient(to bottom, rgba(107, 199, 245, 0) 1px, rgba(107, 199, 245, 0) 103px, #6bc7f5 104px, rgba(107, 199, 245, 0) 105px);
+}
+.row.sign-like-star .signature-input-wrapper > .line > .input {
+  background: transparent;
   outline: 0;
   border: 0;
-  font-size: 110px;
+  padding: 0;
+  font-size: 60px;
   text-align: center;
-  padding: 0 20%;
+  width: 100%;
+  height: 100%;
+}
+.row.sign-like-star .signature-input-wrapper > .line > .input:focus {
+  text-align: left;
+}
+.row.sign-like-star .signature-input-wrapper .label {
+  position: absolute;
+  left: -180px;
+  width: 180px;
+  color: #fff;
+  font-size: 20px;
+}
+.row.sign-like-star .signature-input-wrapper .label .arrow {
+  background-image: url(../images/orange_line.png);
+  width: 112px;
+  height: 58px;
+  background-repeat: no-repeat;
+  float: right;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (-moz-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+  .row.sign-like-star .signature-input-wrapper .label .arrow {
+    background-image: url(../images/orange_line@2x.png);
+    background-size: 112px 58px;
+  }
 }
 .row.sign-like-star .box-celebrity {
   background: #f1f1f1;
@@ -769,43 +802,50 @@ a.nav-logo-wrapper > img.logo-img {
   -moz-box-shadow: 0px 35px 18px 0px rgba(0, 0, 0, 0.13);
   -webkit-box-shadow: 0px 35px 18px 0px rgba(0, 0, 0, 0.13);
   box-shadow: 0px 35px 18px 0px rgba(0, 0, 0, 0.13);
-  height: 190px !important;
-  background-position: bottom left;
+  overflow: hidden;
+  height: 165px;
+  margin: 0 0 30px;
 }
-.row.sign-like-star .box-celebrity.abraham-lincoln {
+.row.sign-like-star .box-celebrity .image {
+  background-position: bottom left;
+  background-size: contain !important;
+  height: 100% !important;
+  max-width: 100%;
+}
+.row.sign-like-star .box-celebrity.abraham-lincoln .image {
   background-image: url(../images/lincoln.png);
   width: 280px;
-  height: 165px;
+  height: 170px;
   background-repeat: no-repeat;
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (-moz-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
-  .row.sign-like-star .box-celebrity.abraham-lincoln {
+  .row.sign-like-star .box-celebrity.abraham-lincoln .image {
     background-image: url(../images/lincoln@2x.png);
-    background-size: 280px 165px;
+    background-size: 280px 170px;
   }
 }
-.row.sign-like-star .box-celebrity.taylor-swift {
+.row.sign-like-star .box-celebrity.taylor-swift .image {
   background-image: url(../images/swift.png);
-  width: 262px;
-  height: 167px;
+  width: 280px;
+  height: 170px;
   background-repeat: no-repeat;
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (-moz-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
-  .row.sign-like-star .box-celebrity.taylor-swift {
+  .row.sign-like-star .box-celebrity.taylor-swift .image {
     background-image: url(../images/swift@2x.png);
-    background-size: 262px 167px;
+    background-size: 280px 170px;
   }
 }
-.row.sign-like-star .box-celebrity.steve-jobs {
+.row.sign-like-star .box-celebrity.steve-jobs .image {
   background-image: url(../images/steve.png);
-  width: 268px;
-  height: 168px;
+  width: 280px;
+  height: 170px;
   background-repeat: no-repeat;
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (-moz-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
-  .row.sign-like-star .box-celebrity.steve-jobs {
+  .row.sign-like-star .box-celebrity.steve-jobs .image {
     background-image: url(../images/steve@2x.png);
-    background-size: 268px 168px;
+    background-size: 280px 170px;
   }
 }
 .row.sign-like-star .box-celebrity.selected {
@@ -1377,7 +1417,7 @@ footer ul li {
 }
 
 .remodal {
-  background-image: url('../images/Emondo-Icon-Colour.svg?1457552297') !important;
+  background-image: url('../images/Emondo-Icon-Colour.svg?1467286529') !important;
   background-position: 140% 358% !important;
   background-size: 58% 88% !important;
   background-repeat: no-repeat !important;
