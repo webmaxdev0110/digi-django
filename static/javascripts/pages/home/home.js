@@ -1,5 +1,6 @@
-// todo: Move to another file
-// using jQuery
+$(document).ready(function() {
+
+
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie != '') {
@@ -309,4 +310,5 @@ $(document).on('click','.in-page-nav a', function(event) {
     $('html, body').animate({
         scrollTop: $(target).offset().top
     }, 1000*0.5); //In 0.5 seconds
+});
 });
