@@ -176,6 +176,13 @@ $(document).ready(function () {
 
         });
 
+        $('.js-celebrity-box').click(function() {
+            var $this = $(this);
+            $('.js-celebrity-box').each(function() {
+                $(this).removeClass('selected');
+            });
+            $this.addClass('selected');
+        });
 
         var howItWorksInterval;
 
