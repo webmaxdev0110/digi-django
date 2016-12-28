@@ -76,11 +76,13 @@ a:hover, a:visited, a:focus, a:active {
   vertical-align: middle;
   text-align: left;
   font-size: 12px;
-  color: #bdd2e5;
+  font-weight: bold;
+  color: #073660;
+  opacity: 0.76;
   margin-left: 10px;
   line-height: 16px;
   padding-bottom: 15px;
-  background: transparent url(../images/arrows.svg) no-repeat left 33px;
+  background: transparent url(../images/arrows-dark-blue.svg) no-repeat left 33px;
   background-size: 19px 12px;
   right: 220px;
   top: 4px;
@@ -354,7 +356,6 @@ a:hover, a:visited, a:focus, a:active {
 
 .container {
   padding: 0 60px;
-  margin: 0 auto;
 }
 
 .image-content {
@@ -406,12 +407,6 @@ article > div, article p {
   color: #000000;
   font-size: 16px;
   line-height: 1.8;
-}
-
-article .blog-title{
-
-  margin-top: 0px;
-
 }
 
 .blog-post .hero-image {

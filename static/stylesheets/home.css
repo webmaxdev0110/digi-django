@@ -759,7 +759,7 @@ a.nav-logo-wrapper > img.logo-img {
 }
 .row.sign-like-star .signature-input-wrapper > .line {
   height: 142px;
-  background: transparent linear-gradient(to bottom, rgba(107, 199, 245, 0) 1px, rgba(107, 199, 245, 0) 103px, #6bc7f5 104px, rgba(107, 199, 245, 0) 105px);
+  /*background: transparent linear-gradient(to bottom, rgba(107,199,245,0) 1px,rgba(107,199,245,0) 103px,rgba(107,199,245,1) 104px,rgba(107,199,245,0) 105px);*/
 }
 .row.sign-like-star .signature-input-wrapper > .line > .input {
   background: transparent;
@@ -803,14 +803,17 @@ a.nav-logo-wrapper > img.logo-img {
   -webkit-box-shadow: 0px 35px 18px 0px rgba(0, 0, 0, 0.13);
   box-shadow: 0px 35px 18px 0px rgba(0, 0, 0, 0.13);
   overflow: hidden;
-  height: 165px;
-  margin: 0 0 30px;
+  margin: 0 auto 30px;
+  max-width: 300px;
 }
 .row.sign-like-star .box-celebrity .image {
   background-position: bottom left;
   background-size: contain !important;
-  height: 100% !important;
   max-width: 100%;
+  height: 0 !important;
+  width: 100%;
+  height: 0;
+  padding-bottom: 65.73426573%;
 }
 .row.sign-like-star .box-celebrity.abraham-lincoln .image {
   background-image: url(../images/lincoln.png);
@@ -849,7 +852,17 @@ a.nav-logo-wrapper > img.logo-img {
   }
 }
 .row.sign-like-star .box-celebrity.selected {
-  outline: 2px solid #ff8a00;
+  background-color: #fff;
+  border: 2px solid #ff8a00;
+  width: 110%;
+  margin-left: -5%;
+  margin-top: -3%;
+}
+@media (max-width: 767px) {
+  .row.sign-like-star .box-celebrity.selected {
+    margin-left: auto;
+    max-width: 320px;
+  }
 }
 
 .row.js-how-it-works {
