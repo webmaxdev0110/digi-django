@@ -389,11 +389,14 @@ a.nav-logo-wrapper {
     overflow: hidden;
     margin: 0 auto 30px;
     max-width: 300px;
+    -webkit-transition: -webkit-transform 0.5s;
+    transition: transform 0.5s;
     
     .image{
       background-position: bottom left;
       background-size:contain !important;
       max-width:100%;
+      width: 100% !important;
       height:0 !important;
       @include maintain-ratio(286 188);
     }
@@ -416,11 +419,9 @@ a.nav-logo-wrapper {
     &.selected {
       background-color: #fff;
       border: 2px solid #ff8a00;
-      width: 110%;
-      margin-left:-5%;
-      margin-top: -3%;
+      -webkit-transform: scale(1.1);
+      transform: scale(1.1);
       @include media('<sm') {
-        margin-left: auto;
         max-width: 320px;
       }
     }
