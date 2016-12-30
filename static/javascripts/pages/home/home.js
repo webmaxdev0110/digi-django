@@ -176,12 +176,31 @@ $(document).ready(function () {
 
         });
 
+        // 11-sign-like-a-star
+        $('.js-star-signature').focus(function() {
+            // move label to input
+            $('.js-star-label .js-text').html('Type your name');
+            $('.js-star-label').css('top', 0);
+            //todo: apply default input font to user signature
+            
+        });
+        $('.js-star-signature').blur(function() {
+            // move label to font selection if text was entered
+            if($('.js-star-signature').val() != '') {
+              $('.js-star-label .js-text').html('Select your<br />favourite celebrity');
+              $('.js-star-label').css('top', 173);
+            }
+            //todo: if a celeb font is already selected, apply it to user signature
+            
+        });
         $('.js-celebrity-box').click(function() {
             var $this = $(this);
             $('.js-celebrity-box').each(function() {
                 $(this).removeClass('selected');
             });
             $this.addClass('selected');
+            //todo: apply selected font to user signature
+            
         });
 
         var howItWorksInterval;
