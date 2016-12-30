@@ -29,3 +29,5 @@ premailer==3.0.0
 pyPdf==1.13
 numpy==1.11.0
 Wand==0.4.3
+Pillow==3.3.0
+
