@@ -18,6 +18,9 @@ class SignatureView(View):
     def get(self, request, *args, **kwargs):
         style=kwargs.get('style', 'swift')
         text=kwargs.get('text', 'Welcome to emondo.io')
+        # Prepend a space to deal with
+        # letter "J" to be drawn off canvas
+        text = ' ' + text
         style_to_font = {
             'swift': 'MsSwift6.ttf',
             'lincoln': 'Lincoln8.ttf',
