@@ -27,7 +27,10 @@ class SignatureView(View):
             'steve': 'SteveJobsFin6.ttf'
         }
         font_name = style_to_font.get(style, 'MsSwift6.ttf')
-        c_w, c_h = canvas_size = (800, 330,)
+        # Render the text 4 times larger and shrink down to original size
+        # to get antialias
+        rendering_multiply = 4
+        c_w, c_h = canvas_size = (800 * rendering_multiply, 330 * rendering_multiply,)
 
         image = Image.new('RGBA', canvas_size, (255, 255, 255, 0,))
         draw = ImageDraw.Draw(image)
@@ -69,5 +72,6 @@ class SignatureView(View):
         # Paste the watermark (with alpha layer) onto the original image and save it
         image.paste(watermark, None, watermark)
         response = HttpResponse(content_type="image/png")
+        image = image.resize((c_w / rendering_multiply, c_h / rendering_multiply,), resample=Image.ANTIALIAS)
         image.save(response, "png")
         return response
