@@ -7,6 +7,7 @@
 $price-label-border-color: #c9caca;
 $price-label-popular-border-color: #2865a6;
 $pricing-list-bg-color: #efefef;
+$grey-font-color: #e9e9e9;
 
 .fixed-header-wrapper {
   width: 100%;
@@ -14,13 +15,13 @@ $pricing-list-bg-color: #efefef;
 
   .header-logo {
     width: 100%;
-    height: 40px;
+    height: 60px;
     background-color: $dark-blue-2;
     align-items: center;
   }
 
   .logo-img {
-    height: 100%;
+    height: 90%;
     display: block;
     margin: 0 auto;
     padding: 5px 0;
@@ -61,6 +62,7 @@ $pricing-list-bg-color: #efefef;
 }
 
 .pricing-list {
+  font-family: "Open Sans";
   background-color: $pricing-list-bg-color;
   .row {
     margin: 10px 10px;
@@ -70,6 +72,23 @@ $pricing-list-bg-color: #efefef;
     width: 140px;
     height: 40px;
   }
+
+  .btn:hover {
+    background-color: $dark-blue-2;
+    color: $white;
+  }
+
+  .additional-info{
+    font-size: smaller;
+    margin:0;
+    color: grey;
+  }
+
+  .feature-info{
+    margin-top: 15px;
+    font-weight: bolder;
+    font-size: 15px;
+  }
 }
 
 .price-label {
@@ -77,7 +96,7 @@ $pricing-list-bg-color: #efefef;
   box-shadow: 5px 5px 30px 0 $price-label-border-color;
   border: 1px solid $price-label-border-color;
   margin: 40px 3px;
-  height: 800px;
+  height: 900px;
   padding: 20px 10px;
 }
 
@@ -86,21 +105,30 @@ $pricing-list-bg-color: #efefef;
     border: 1px solid $price-label-popular-border-color;
   }
 
+.most-popular-label {
+  position: relative;
+  left: -11px;
+  top: -51px;
+  width: 106.9%;
+  height: 30px;
+
+  p{
+    font-size: medium;
+    top: 4px;
+    position: relative;
+  }
+}
 
 .price-label-popular{
   text-align: center;
   box-shadow: 5px 5px 30px 0 $price-label-border-color;
   border: 1px solid $price-label-popular-border-color;
   margin: 40px 3px;
-  height: 800px;
+  height: 900px;
   padding: 20px 10px;
+
   .most-popular-label {
     background-color: $price-label-popular-border-color;
-    position: relative;
-    left: -11px;
-    top: -41px;
-    width: 130px;
-    height: 20px;
     color: $white;
   }
 }
@@ -122,6 +150,12 @@ $pricing-list-bg-color: #efefef;
   margin: 0px auto 40px auto;
   padding: 0px 0px 40px 0px;
   border-bottom: 1px solid $price-label-border-color;
+}
+
+.price-label-footer{
+  width: 80%;
+  margin: auto;
+
 }
 
 .free-account-label {

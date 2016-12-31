@@ -18,6 +18,25 @@
 {% endblock %}
 
 {% block head_scripts %}
+    <script type="text/javascript">
+        var load = function (filePath) {
+            var l = document.createElement('link');
+            l.rel = 'stylesheet';
+            l.href = filePath;
+            var head = document.getElementsByTagName('head')[0];
+            head.appendChild(l);
+        };
+        var asyncLoadCSSFiles = function () {
+            load("https://fonts.googleapis.com/css?family=Open+Sans:300,400");
+        };
+        var raf = requestAnimationFrame || mozRequestAnimationFrame ||
+                webkitRequestAnimationFrame || msRequestAnimationFrame;
+        if (raf) {
+            raf(asyncLoadCSSFiles);
+        } else {
+            window.addEventListener('load', asyncLoadCSSFiles);
+        }
+    </script>
 
 {% endblock %}
 
@@ -55,15 +74,18 @@
         <div class="row">
             <div class="col-xs-12 col-md-4 col-sm-6 col-lg-3">
                 <div class="price-label">
-                    <p class="most-popular-label">&nbsp;</p>
+                    <div class="most-popular-label">
+                        <p>&nbsp;</p>
+                    </div>
                     <div class="price-label-header">
                         <h3>ENTERPRISE</h3>
                         <h1>$149<span class="price-label-currency">AUD</span></h1>
-                        <p>Billed annually</p>
-                        <p>5 or more</p>
-                        <p><strong>Get all Business Pro features PLUS</strong></p>
+                        <p class="additional-info">Billed annually</p>
+                        <p class="additional-info">5 or more</p>
+                        <p class="feature-info">Get all Business Pro features PLUS</p>
                         <button type="button" class="btn btn-default">BUY NOW</button>
                     </div>
+                    <div class="price-label-footer">
                         <p>BCustom signature font</p>
                         <p>Custom OCR matching</p>
                         <p>AFSL monitoring & alerts</p>
@@ -73,79 +95,92 @@
                         <p>Dedicated account manager</p>
                         <p>Custom domains</p>
                         <p>International KYC/AML electronic identification verification</p>
+                    </div>
                 </div>
             </div>
             <div class="col-xs-12 col-md-4 col-sm-6 col-lg-3">
                 <div class="price-label-popular">
-                    <p class="most-popular-label">MOST POPULAR</p>
+                    <div class="most-popular-label">
+                        <p>MOST POPULAR</p>
+                    </div>
                     <div class="price-label-header">
                         <h3>BUSINESS PREMIUM</h3>
                         <h1>$79<span class="price-label-currency">AUD</span></h1>
-                        <p>Billed annually or</p>
-                        <p>$99 month-to-month</p>
-                        <p><strong>Get all Business features PLUS</strong></p>
-                        <button type="button" class="btn btn-primary">BUY NOW</button>
+                        <p class="additional-info">Billed annually or</p>
+                        <p class="additional-info">$99 month-to-month</p>
+                        <p class="feature-info">Get all Business features PLUS</p>
+                        <button type="button" class="btn btn-default">BUY NOW</button>
                     </div>
-                    <p>Bulk send</p>
-                    <p>Team analytics</p>
-                    <p>Domestic KYC/AML</p>
-                    <p>Custom form & document alerts</p>
-                    <p>Unlimited URLs per form & document</p>
-                    <p>Private online document certification</p>
-                    <p>Manually & automatically reassign forms</p>
-                    <p>$12 ASIC company extracts</p>
-                    <p>Stripe & PayPal payments</p>
-                    <p>Automatically convert documents into online forms</p>
-                    <p>Electronic document verification and match</p>
+                    <div class="price-label-footer">
+                        <p>Bulk send</p>
+                        <p>Team analytics</p>
+                        <p>Domestic KYC/AML</p>
+                        <p>Custom form & document alerts</p>
+                        <p>Unlimited URLs per form & document</p>
+                        <p>Private online document certification</p>
+                        <p>Manually & automatically reassign forms</p>
+                        <p>$12 ASIC company extracts</p>
+                        <p>Stripe & PayPal payments</p>
+                        <p>Automatically convert documents into online forms</p>
+                        <p>Electronic document verification and match</p>
+                    </div>
                 </div>
             </div>
             <div class="col-xs-12 col-md-4 col-sm-6 col-lg-3">
                 <div class="price-label">
-                    <p class="most-popular-label">&nbsp;</p>
+                    <div class="most-popular-label">
+                        <p>&nbsp;</p>
+                    </div>
                     <div class="price-label-header">
                         <h3>BUSINESS</h3>
                         <h1>$39<span class="price-label-currency">AUD</span></h1>
-                        <p>Billed annually or</p>
-                        <p>$49 month-to-month</p>
-                        <p><strong>Get all Personal features PLUS</strong></p>
+                        <p class="additional-info">Billed annually or</p>
+                        <p class="additional-info">$49 month-to-month</p>
+                        <p class="feature-info">Get all Personal features PLUS</p>
                         <button type="button" class="btn btn-default">BUY NOW</button>
                     </div>
-                    <p>In-person signing</p>
-                    <p>Roles & permissions</p>
-                    <p>Contract autocomplete</p>
-                    <p>Form builder and editor</p>
-                    <p>Custom security settings</p>
-                    <p>2-way CRM integration*</p>
-                    <p>3rd party form & document sharing</p>
-                    <p>Unlimited forms & submissions</p>
-                    <p>Lead capture from abandoned forms</p>
-                    <p>All events stamped on the Blockchain</p>
-                    <p>Pre-fill forms & documents</p>
-                    <p>International SMS*</p>
-                    <p>Custom branding</p>
-                    <p>Ream time email & data verification & validation</p>
-                    <p>Unlimited PKI digital signature & certificates</p>
+                    <div class="price-label-footer">
+                        <p>In-person signing</p>
+                        <p>Roles & permissions</p>
+                        <p>Contract autocomplete</p>
+                        <p>Form builder and editor</p>
+                        <p>Custom security settings</p>
+                        <p>2-way CRM integration*</p>
+                        <p>3rd party form & document sharing</p>
+                        <p>Unlimited forms & submissions</p>
+                        <p>Lead capture from abandoned forms</p>
+                        <p>All events stamped on the Blockchain</p>
+                        <p>Pre-fill forms & documents</p>
+                        <p>International SMS*</p>
+                        <p>Custom branding</p>
+                        <p>Ream time email & data verification & validation</p>
+                        <p>Unlimited PKI digital signature & certificates</p>
+                    </div>
                 </div>
             </div>
             <div class="col-xs-12 col-md-4 col-sm-6 col-lg-3">
                 <div class="price-label">
-                    <p class="most-popular-label">&nbsp;</p>
+                    <div class="most-popular-label">
+                        <p>&nbsp;</p>
+                    </div>
                     <div class="price-label-header">
                         <h3>PERSONAL</h3>
                         <h1>$9<span class="price-label-currency">AUD</span></h1>
-                        <p>Per month</p>
-                        <p>&nbsp;</p>
-                        <p><strong>Get all Free features PLUS</strong></p>
+                        <p class="additional-info">Per month</p>
+                        <p class="additional-info">&nbsp;</p>
+                        <p class="feature-info">Get all Free features PLUS</p>
                         <button type="button" class="btn btn-default">BUY NOW</button>
                     </div>
-                    <p>emondo manager</p>
-                    <p>Document encryption</p>
-                    <p>Unlimited documents</p>
-                    <p>Unlimited file storage</p>
-                    <p>Electronic signature witnessning</p>
-                    <p>Unlimited electronic signatures</p>
-                    <p>Electronic document verification</p>
-                    <p>Individual analytics</p>
+                    <div class="price-label-footer">
+                        <p>emondo manager</p>
+                        <p>Document encryption</p>
+                        <p>Unlimited documents</p>
+                        <p>Unlimited file storage</p>
+                        <p>Electronic signature witnessning</p>
+                        <p>Unlimited electronic signatures</p>
+                        <p>Electronic document verification</p>
+                        <p>Individual analytics</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -156,7 +191,7 @@
                         <div class="free-account-label-header ">
                             <h3>FREE</h3>
                             <h1>$0</h1>
-                            <p>Forever</p>
+                            <p class="additional-info">Forever</p>
                             <button type="button" class="btn btn-default">GET NOW</button>
                         </div>
                     </div>
