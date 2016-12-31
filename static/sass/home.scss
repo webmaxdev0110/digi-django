@@ -413,12 +413,12 @@ a.nav-logo-wrapper {
     }
     &.taylor-swift {
       .image {
-        @include retina-image(Swift, png);
+        @include retina-image(swift, png);
       }
     }
     &.steve-jobs {
       .image {
-        @include retina-image(Steve, png);
+        @include retina-image(steve, png);
       }
     }
     &.selected {
