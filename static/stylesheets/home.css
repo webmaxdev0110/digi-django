@@ -749,6 +749,35 @@ a.nav-logo-wrapper > img.logo-img {
   background-color: #6bc7f5;
   padding: 20px 0;
 }
+.row.sign-like-star .label {
+  position: absolute;
+  left: -180px;
+  top: 0px;
+  width: 170px;
+  color: #fff;
+  font-size: 18px;
+  z-index: 2;
+  -webkit-transition: top 1s;
+  transition: top 1s;
+}
+@media (max-width: 991px) {
+  .row.sign-like-star .label {
+    display: none;
+  }
+}
+.row.sign-like-star .label .arrow {
+  background-image: url(../images/orange_line.png);
+  width: 112px;
+  height: 58px;
+  background-repeat: no-repeat;
+  float: right;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (-moz-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+  .row.sign-like-star .label .arrow {
+    background-image: url(../images/orange_line@2x.png);
+    background-size: 112px 58px;
+  }
+}
 .row.sign-like-star .signature-input-wrapper {
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
@@ -780,43 +809,6 @@ a.nav-logo-wrapper > img.logo-img {
 .row.sign-like-star .signature-input-wrapper .img-wrapper img {
   max-height: 100%;
   max-width: 100%;
-}
-.row.sign-like-star .signature-input-wrapper .label {
-  position: absolute;
-  left: -190px;
-  top: 0px;
-  width: 180px;
-  color: #fff;
-  font-size: 20px;
-  z-index: 2;
-  -webkit-transition: top 1s;
-  transition: top 1s;
-}
-@media (max-width: 991px) {
-  .row.sign-like-star .signature-input-wrapper .label {
-    font-size: 16px;
-    left: -80px;
-    width: 130px;
-  }
-}
-@media (max-width: 767px) {
-  .row.sign-like-star .signature-input-wrapper .label {
-    left: 5px;
-    width: 120px;
-  }
-}
-.row.sign-like-star .signature-input-wrapper .label .arrow {
-  background-image: url(../images/orange_line.png);
-  width: 112px;
-  height: 58px;
-  background-repeat: no-repeat;
-  float: right;
-}
-@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (-moz-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
-  .row.sign-like-star .signature-input-wrapper .label .arrow {
-    background-image: url(../images/orange_line@2x.png);
-    background-size: 112px 58px;
-  }
 }
 .row.sign-like-star .box-celebrity {
   background: #f1f1f1;
@@ -888,6 +880,14 @@ a.nav-logo-wrapper > img.logo-img {
   .row.sign-like-star .box-celebrity.selected {
     max-width: 320px;
   }
+}
+.row.sign-like-star .addthis-wrapper {
+  visibility: hidden;
+  position: relative;
+}
+.row.sign-like-star .addthis-wrapper .label {
+  top: auto;
+  bottom: 10px;
 }
 
 .row.js-how-it-works {

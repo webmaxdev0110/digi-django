@@ -177,6 +177,7 @@ $(document).ready(function () {
         });
 
         // 11-sign-like-a-star
+        addthis.init();
         // ensure input is cleared on page load
         $('.js-star-signature').val('');
         $('.js-signature-img-wrapper').hide();
@@ -203,24 +204,45 @@ $(document).ready(function () {
               $('.js-star-label').css('top', 173);
               // if a font is already selected, apply it
               if(celebFont) {
-                $('.js-signature-img-wrapper img').attr('src','/signature/' + celebFont + '/' + $('.js-star-signature').val());
-                $('.js-signature-img-wrapper').show()
-                $('.js-star-signature').hide();
+                createSignature(celebFont, $('.js-star-signature').val());
+                // addthis
+                setSignatureShareURL(celebFont, $('.js-star-signature').val());
+                $('.js-addthis-wrapper').css('visibility','visible');
               }
+            }
+            else {
+              //hide sharing buttons
+              $('.js-addthis-wrapper').css('visibility','hidden');
             }
         });
         // celeb font selection
         $('.js-celebrity-box').click(function() {
-            var $this = $(this);
-            $('.js-celebrity-box').each(function() {
-                $(this).removeClass('selected');
-            });
-            $this.addClass('selected');
-            celebFont = $this.data('font');
-            $('.js-signature-img-wrapper img').attr('src','/signature/' + celebFont + '/' + $('.js-star-signature').val());
-            $('.js-signature-img-wrapper').show()
-            $('.js-star-signature').hide();
+            if($('.js-star-signature').val() != '') {
+              var $this = $(this);
+              $('.js-celebrity-box').each(function() {
+                  $(this).removeClass('selected');
+              });
+              $this.addClass('selected');
+              celebFont = $this.data('font');
+              createSignature(celebFont, $('.js-star-signature').val());
+              // addthis
+              setSignatureShareURL(celebFont, $('.js-star-signature').val());
+              $('.js-addthis-wrapper').css('visibility','visible');
+            }
         });
+        // function to add the signature image and swap visibility with the text input
+        function createSignature(style, name){
+          $('.js-signature-img-wrapper img').attr('src', '/signature/' + style + '/' + name);
+          $('.js-signature-img-wrapper').show()
+          $('.js-star-signature').hide();
+        }
+        // function to dynamically set the share URL
+        function setSignatureShareURL(style, name){
+          var shareURL = 'http://emondo.com.au/?signature_style=' + style + '&name=' + name;
+          addthis.update('share', 'url', shareURL); 
+          addthis.url = shareURL;                
+          addthis.toolbox(".addthis_toolbox", {}, {'url': shareURL});
+        }
 
         var howItWorksInterval;
 

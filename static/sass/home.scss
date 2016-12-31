@@ -335,6 +335,25 @@ a.nav-logo-wrapper {
   background-color: #6bc7f5;
   padding: 20px 0;
   
+  .label {
+      position: absolute;
+      left: -180px;
+      top: 0px;
+      width: 170px;
+      color: #fff;
+      font-size: 18px;
+      z-index: 2;
+      @include media('<md') {
+        display:none;
+      }
+      -webkit-transition: top 1s;
+      transition: top 1s;
+      .arrow {
+        @include retina-image(orange_line, png);
+        float:right;
+      }
+    }
+  
   .signature-input-wrapper {
     @include border-radius(3px);
     margin: 0 0 30px 0;
@@ -364,31 +383,6 @@ a.nav-logo-wrapper {
       img {
         max-height: 100%;
         max-width: 100%;
-      }
-    }
-    
-    .label {
-      position: absolute;
-      left: -190px;
-      top: 0px;
-      width: 180px;
-      color: #fff;
-      font-size: 20px;
-      z-index: 2;
-      @include media('<md') {
-        font-size: 16px;
-        left: -80px;
-        width: 130px;
-      }
-      @include media('<sm') {
-        left: 5px;
-        width: 120px;
-      }
-      -webkit-transition: top 1s;
-      transition: top 1s;
-      .arrow {
-        @include retina-image(orange_line, png);
-        float:right;
       }
     }
   }
@@ -435,6 +429,15 @@ a.nav-logo-wrapper {
       @include media('<sm') {
         max-width: 320px;
       }
+    }
+  }
+  
+  .addthis-wrapper {
+    visibility: hidden;
+    position: relative;
+    .label {
+      top: auto;
+      bottom: 10px;
     }
   }
 }
