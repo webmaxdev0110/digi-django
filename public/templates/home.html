@@ -7,6 +7,11 @@
 
 {% block seo_contents %}
     <meta name="description" content="emondo is the world's most secure platform for your clients to sign like Steve Jobs, witness, complete, and certify documents online. Instantly identify your clients in over 30 countries and stamp on the Blockchain.">
+    {% if signature_url %}
+        <meta property="og:image" content="{{ signature_url }}" />
+    {% else %}
+        <meta property="og:image" content="http://{{ request.get_host }}{% static 'images/facebook_sharing.jpg' %}" />
+    {% endif %}
 {% endblock %}
 
 {% block head_styles %}
@@ -157,6 +162,39 @@
             </div>
         </div>
     </div>
+
+
+    <div class="row sign-like-star">
+        <div class="col-xs-12 col-sm-10 col-sm-push-1 col-md-8 col-md-push-2">
+            <h1 class="dark-blue text-center">Sign like a star</h1>
+            <div class="signature-input-wrapper">
+                <div class="label js-star-label"><span class="js-text">Type your name</span> <div class="arrow"></div></div>
+                <input type="text" name="signature" class="input js-star-signature" />
+                <div class="img-wrapper js-signature-img-wrapper"><img src="" alt="signature" /></div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-4">
+                    <div class="js-celebrity-box box-celebrity abraham-lincoln" data-font="lincoln"><div class="image"></div></div>
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                    <div class="js-celebrity-box box-celebrity taylor-swift" data-font="swift"><div class="image"></div></div>
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                    <div class="js-celebrity-box box-celebrity steve-jobs" data-font="steve"><div class="image"></div></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="addthis-wrapper js-addthis-wrapper">
+                        <div class="label">Share your signature <div class="arrow"></div></div>
+                        <div class="addthis_sharing_toolbox"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div class="row electronic-signature">
         <div class="col-xs-12 col-sm-8 col-sm-push-2 col-md-6 col-md-push-3">
             <div class="what-is-electronic-signature-wrapper text-center">
@@ -805,8 +843,15 @@
         <script src="{% static 'javascripts/remodal/remodal.js' %}"></script>
     {% endcompress %}
     {% compress js %}
+        window.signature_url = "{{ signature_url|default_if_none:"" }}";
         <script src="{% static 'javascripts/pages/home/home.js' %}" async></script>
     {% endcompress %}
+    <!-- Go to www.addthis.com/dashboard to customize your tools -->
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#async=1"></script>
+    <script type="text/javascript">
+      var addthis_config = addthis_config||{};
+      addthis_config.pubid = 'ra-5775fddcf1c09efb';
+    </script>
 {% endblock %}
 {% block tracking_scripts %}
     {% include_intercom %}
