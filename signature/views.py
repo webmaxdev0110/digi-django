@@ -18,13 +18,19 @@ class SignatureView(View):
     def get(self, request, *args, **kwargs):
         style=kwargs.get('style', 'swift')
         text=kwargs.get('text', 'Welcome to emondo.io')
+        # Prepend a space to deal with
+        # letter "J" to be drawn off canvas
+        text = ' ' + text
         style_to_font = {
             'swift': 'MsSwift6.ttf',
             'lincoln': 'Lincoln8.ttf',
             'steve': 'SteveJobsFin6.ttf'
         }
         font_name = style_to_font.get(style, 'MsSwift6.ttf')
-        c_w, c_h = canvas_size = (800, 330,)
+        # Render the text 4 times larger and shrink down to original size
+        # to get antialias
+        rendering_multiply = 4
+        c_w, c_h = canvas_size = (800 * rendering_multiply, 330 * rendering_multiply,)
 
         image = Image.new('RGBA', canvas_size, (255, 255, 255, 0,))
         draw = ImageDraw.Draw(image)
@@ -46,25 +52,7 @@ class SignatureView(View):
         font = ImageFont.truetype(font_path, fontsize)
         draw.text(((c_w - f_w) / 2, (c_h - f_h) / 2), text, font=font, fill=(0,0,0,))
 
-        watermark = Image.new("RGBA", image.size)
-        # Get an ImageDraw object so we can draw on the image
-        waterdraw = ImageDraw.ImageDraw(watermark, "RGBA")
-        # Place the text at (10, 10) in the upper left corner. Text will be white.
-        waterdraw.text((10, 10), "The Image Project", fill=(0,0,0,0))
-
-        # Get the watermark image as grayscale and fade the image
-        # See <http://www.pythonware.com/library/pil/handbook/image.htm#Image.point>
-        #  for information on the point() function
-        # Note that the second parameter we give to the min function determines
-        #  how faded the image will be. That number is in the range [0, 256],
-        #  where 0 is black and 256 is white. A good value for fading our white
-        #  text is in the range [100, 200].
-        watermask = watermark.convert("L").point(lambda x: min(x, 100))
-        # Apply this mask to the watermark image, using the alpha filter to
-        #  make it transparent
-        watermark.putalpha(watermask)
-        # Paste the watermark (with alpha layer) onto the original image and save it
-        image.paste(watermark, None, watermark)
         response = HttpResponse(content_type="image/png")
+        image = image.resize((c_w / rendering_multiply, c_h / rendering_multiply,), resample=Image.ANTIALIAS)
         image.save(response, "png")
         return response
