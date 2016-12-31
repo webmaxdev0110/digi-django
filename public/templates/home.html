@@ -7,6 +7,11 @@
 
 {% block seo_contents %}
     <meta name="description" content="emondo is the world's most secure platform for your clients to sign like Steve Jobs, witness, complete, and certify documents online. Instantly identify your clients in over 30 countries and stamp on the Blockchain.">
+    {% if signature_url %}
+        <meta property="og:image" content="{{ signature_url }}" />
+    {% else %}
+        <meta property="og:image" content="http://{{ request.get_host }}{% static 'images/facebook_sharing.jpg' %}" />
+    {% endif %}
 {% endblock %}
 
 {% block head_styles %}
@@ -838,6 +843,7 @@
         <script src="{% static 'javascripts/remodal/remodal.js' %}"></script>
     {% endcompress %}
     {% compress js %}
+        window.signature_url = "{{ signature_url|default_if_none:"" }}";
         <script src="{% static 'javascripts/pages/home/home.js' %}" async></script>
     {% endcompress %}
     <!-- Go to www.addthis.com/dashboard to customize your tools -->
