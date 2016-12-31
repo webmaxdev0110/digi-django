@@ -846,11 +846,14 @@
         window.signature_url = "{{ signature_url|default_if_none:"" }}";
         <script src="{% static 'javascripts/pages/home/home.js' %}" async></script>
     {% endcompress %}
-    <!-- Go to www.addthis.com/dashboard to customize your tools -->
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#async=1"></script>
     <script type="text/javascript">
       var addthis_config = addthis_config||{};
       addthis_config.pubid = 'ra-5775fddcf1c09efb';
+      function loadAddThis() {
+        addthis.init();
+      }
+      loadAddThis();
     </script>
 {% endblock %}
 {% block tracking_scripts %}

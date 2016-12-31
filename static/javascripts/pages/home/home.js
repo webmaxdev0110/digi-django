@@ -177,7 +177,7 @@ $(document).ready(function () {
         });
 
         // 11-sign-like-a-star
-        addthis.init();
+        //addthis.init();
         var celebFont = false;
         // ensure input is cleared on page load
         $('.js-star-signature').val('');
