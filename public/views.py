@@ -26,7 +26,7 @@ from accounts.models import User
 
 
 class HomeView(TemplateView):
-    template_name = 'home.html'
+    template_name = 'public/home.html'
 
     def get_context_data(self, **kwargs):
         tag_lines = [
@@ -69,3 +69,7 @@ class HomeView(TemplateView):
         # slack = Slacker(os.environ['SLACK_TOKEN'])
         # slack.chat.post_message('landingpagesubs', '%s signed up for beta launch' % email, 'Notification')
         return HttpResponse('ok')
+
+
+class PublicPricingView(TemplateView):
+    template_name = 'public/pricing.html'

@@ -28,7 +28,7 @@ from letsencrypt.views import (
 from django.contrib.sitemaps.views import sitemap
 
 from notifications.views import telstra_sms_callback_handler
-from public.views import HomeView
+from public.views import HomeView, PublicPricingView
 from public_sitemaps.sitemaps import StaticViewSitemap
 
 sitemaps = {
@@ -40,6 +40,7 @@ handler500 = 'core.errorhandlers.handler500'
 urlpatterns = [
 
     url(r'^$', HomeView.as_view(), name='public_home'),
+    url(r'^pricing$', PublicPricingView.as_view(), name='public_pricing'),
     url(r'^docs/', include('docs.urls')),
     url(r'^accounts/', include('accounts.urls')),
     url(r'^form_document/', include('form_document.urls')),
