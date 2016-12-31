@@ -356,6 +356,17 @@ a.nav-logo-wrapper {
       text-align: left;
     }
     
+    .img-wrapper {
+      padding: 0 102px;
+      text-align:center;
+      display: none;
+      height:142px;
+      img {
+        max-height: 100%;
+        max-width: 100%;
+      }
+    }
+    
     .label {
       position: absolute;
       left: -190px;

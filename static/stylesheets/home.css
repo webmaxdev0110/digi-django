@@ -771,6 +771,16 @@ a.nav-logo-wrapper > img.logo-img {
 .row.sign-like-star .signature-input-wrapper > .input:focus {
   text-align: left;
 }
+.row.sign-like-star .signature-input-wrapper .img-wrapper {
+  padding: 0 102px;
+  text-align: center;
+  display: none;
+  height: 142px;
+}
+.row.sign-like-star .signature-input-wrapper .img-wrapper img {
+  max-height: 100%;
+  max-width: 100%;
+}
 .row.sign-like-star .signature-input-wrapper .label {
   position: absolute;
   left: -190px;

@@ -177,30 +177,49 @@ $(document).ready(function () {
         });
 
         // 11-sign-like-a-star
+        // ensure input is cleared on page load
+        $('.js-star-signature').val('');
+        $('.js-signature-img-wrapper').hide();
+        var celebFont = false;
+        // trigger focus on the input when the image is clicked
+        $('.js-signature-img-wrapper').click(function() {
+          $('.js-star-signature').show().focus();
+          $('.js-signature-img-wrapper').hide();
+        });
+        // input focus
         $('.js-star-signature').focus(function() {
             // move label to input
             $('.js-star-label .js-text').html('Type your name');
             $('.js-star-label').css('top', 0);
-            //todo: apply default input font to user signature
-            
+            $('js-star-signature').show();
+            $('js-signature-img-wrapper').hide();
         });
+        // input blur
         $('.js-star-signature').blur(function() {
-            // move label to font selection if text was entered
+            // if text was entered...
             if($('.js-star-signature').val() != '') {
+              // move label to font selection
               $('.js-star-label .js-text').html('Select your<br />favourite celebrity');
               $('.js-star-label').css('top', 173);
+              // if a font is already selected, apply it
+              if(celebFont) {
+                $('.js-signature-img-wrapper img').attr('src','/signature/' + celebFont + '/' + $('.js-star-signature').val());
+                $('.js-signature-img-wrapper').show()
+                $('.js-star-signature').hide();
+              }
             }
-            //todo: if a celeb font is already selected, apply it to user signature
-            
         });
+        // celeb font selection
         $('.js-celebrity-box').click(function() {
             var $this = $(this);
             $('.js-celebrity-box').each(function() {
                 $(this).removeClass('selected');
             });
             $this.addClass('selected');
-            //todo: apply selected font to user signature
-            
+            celebFont = $this.data('font');
+            $('.js-signature-img-wrapper img').attr('src','/signature/' + celebFont + '/' + $('.js-star-signature').val());
+            $('.js-signature-img-wrapper').show()
+            $('.js-star-signature').hide();
         });
 
         var howItWorksInterval;
