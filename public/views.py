@@ -26,7 +26,7 @@ from accounts.models import User
 
 
 class HomeView(TemplateView):
-    template_name = 'home.html'
+    template_name = 'public/home.html'
 
     def get_context_data(self, **kwargs):
         tag_lines = [
