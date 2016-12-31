@@ -20,3 +20,6 @@ settings/local_settings.py
 # Python compiled files
 *.pyc
 .env
+
+
+.DS_Store
