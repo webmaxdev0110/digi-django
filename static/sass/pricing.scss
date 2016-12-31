@@ -7,7 +7,7 @@
 $price-label-border-color: #c9caca;
 $price-label-popular-border-color: #2865a6;
 $pricing-list-bg-color: #efefef;
-$grey-font-color: #e9e9e9;
+$grey-font-color: #969696;
 
 .fixed-header-wrapper {
   width: 100%;
@@ -81,7 +81,7 @@ $grey-font-color: #e9e9e9;
   .additional-info{
     font-size: smaller;
     margin:0;
-    color: grey;
+    color: $grey-font-color;
   }
 
   .feature-info{
@@ -113,7 +113,7 @@ $grey-font-color: #e9e9e9;
   height: 30px;
 
   p{
-    font-size: medium;
+    font-size: 16px;
     top: 4px;
     position: relative;
   }

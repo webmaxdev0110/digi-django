@@ -127,7 +127,7 @@ a:hover, a:visited, a:focus, a:active {
 .pricing-list .additional-info {
   font-size: smaller;
   margin: 0;
-  color: grey;
+  color: #969696;
 }
 .pricing-list .feature-info {
   margin-top: 15px;
@@ -157,7 +157,7 @@ a:hover, a:visited, a:focus, a:active {
   height: 30px;
 }
 .most-popular-label p {
-  font-size: medium;
+  font-size: 16px;
   top: 4px;
   position: relative;
 }
