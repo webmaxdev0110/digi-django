@@ -211,7 +211,6 @@ $(document).ready(function () {
                 createSignature(celebFont, $('.js-star-signature').val());
                 // addthis
                 setSignatureShareURL(celebFont, $('.js-star-signature').val());
-                $('.js-addthis-wrapper').css('visibility','visible');
               }
             }
             else {
@@ -231,7 +230,6 @@ $(document).ready(function () {
               createSignature(celebFont, $('.js-star-signature').val());
               // addthis
               setSignatureShareURL(celebFont, $('.js-star-signature').val());
-              $('.js-addthis-wrapper').css('visibility','visible');
             }
         });
         // function to add the signature image and swap visibility with the text input
@@ -243,9 +241,12 @@ $(document).ready(function () {
         // function to dynamically set the share URL
         function setSignatureShareURL(style, name){
           var shareURL = 'http://emondo.com.au/?signature_style=' + style + '&name=' + name;
-          addthis.update('share', 'url', shareURL); 
-          addthis.url = shareURL;                
-          addthis.toolbox(".addthis_toolbox", {}, {'url': shareURL});
+          if(typeof addthis !== 'undefined') {
+            addthis.update('share', 'url', shareURL); 
+            addthis.url = shareURL;                
+            addthis.toolbox(".addthis_toolbox", {}, {'url': shareURL});
+            $('.js-addthis-wrapper').css('visibility','visible');
+          }
         }
         // css-tricks.com/snippets/javascript/get-url-variables/
         function getQueryVariable(variable) {
