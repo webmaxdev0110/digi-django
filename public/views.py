@@ -13,7 +13,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.views.generic import TemplateView
 import random
@@ -37,9 +37,21 @@ class HomeView(TemplateView):
              'Blockchain. Get your free account today!',),
         ]
         tagline_index = random.randint(0, len(tag_lines) - 1)
+
+        style = self.request.GET.get('signature_style', None)
+        name = self.request.GET.get('name', None)
+        available_styles = [
+            'swift', 'lincoln', 'steve'
+        ]
+        signature_url = None
+        if style in available_styles and name:
+            signature_url = reverse('draw_signature', args=(style, name,))
+            signature_url = self.request.build_absolute_uri(signature_url)
+
         return {
             'tag_line': tag_lines[tagline_index],
-            'tag_line_index': tagline_index
+            'tag_line_index': tagline_index,
+            'signature_url': signature_url
         }
 
     def post(self, request, *args, **kwargs):
