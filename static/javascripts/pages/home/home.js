@@ -178,10 +178,14 @@ $(document).ready(function () {
 
         // 11-sign-like-a-star
         addthis.init();
+        var celebFont = false;
         // ensure input is cleared on page load
         $('.js-star-signature').val('');
         $('.js-signature-img-wrapper').hide();
-        var celebFont = false;
+        if(getQueryVariable('signature_style') && getQueryVariable('name')) {
+          createSignature(getQueryVariable('signature_style'), getQueryVariable('name'));
+          celebFont = getQueryVariable('signature_style');
+        }
         // trigger focus on the input when the image is clicked
         $('.js-signature-img-wrapper').click(function() {
           $('.js-star-signature').show().focus();
@@ -242,6 +246,16 @@ $(document).ready(function () {
           addthis.update('share', 'url', shareURL); 
           addthis.url = shareURL;                
           addthis.toolbox(".addthis_toolbox", {}, {'url': shareURL});
+        }
+        // css-tricks.com/snippets/javascript/get-url-variables/
+        function getQueryVariable(variable) {
+          var query = window.location.search.substring(1);
+          var vars = query.split("&");
+          for (var i=0;i<vars.length;i++) {
+            var pair = vars[i].split("=");
+            if(pair[0] == variable){return pair[1];}
+          }
+          return(false);
         }
 
         var howItWorksInterval;
