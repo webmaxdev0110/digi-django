@@ -23,6 +23,15 @@ class User(AbstractUser):
     avatar = models.ImageField(blank=True, null=True, upload_to='users/avatars/')
     short_description = models.CharField(blank=True, max_length=256)
 
+    def is_company_user(self):
+        return CompanyMember.objects.filter(user=self).exists()
+
+    def company_user(self):
+        if self.is_company_user():
+            return CompanyMember.objects.get(user=self)
+        else:
+            return None
+
 
 ####################################
 # Todos:
