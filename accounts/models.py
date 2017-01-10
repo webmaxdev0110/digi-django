@@ -87,8 +87,8 @@ class CompanyMember(models.Model):
     """
     Represent company member(i.e team member) in our system
     """
-    company = models.ForeignKey(Company, related_name="members")
-    user = models.ForeignKey(User)
+    company = models.OneToOneField(Company, related_name="members")
+    user = models.OneToOneField(User)
     permission = models.ForeignKey(CompanyPermission)
     active = models.BooleanField(default=True)
 
