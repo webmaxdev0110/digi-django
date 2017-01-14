@@ -239,7 +239,7 @@ $(document).ready(function () {
         function moveLabel() {
           $('.js-star-label').removeClass('js-pos-input js-pos-font js-pos-share');
           if(!$('.js-signature-input').val() || $(document.activeElement).hasClass('js-signature-input')) {
-            $('.js-star-label').css('top', 50);
+            $('.js-star-label').css('top', 80);
             $('.js-star-label .js-text').html('Type your name');
           }
           else if(!celebFont || typeof addthis === 'undefined') {
