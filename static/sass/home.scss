@@ -337,15 +337,15 @@ a.nav-logo-wrapper {
 
   .label {
       position: absolute;
-      left: -180px;
-      top: 0px;
       width: 170px;
+      left: -170px;
+      top: 52px;
       color: #fff;
       font-size: 18px;
       z-index: 2;
       @include media('<lg') {
         width: 160px;
-        left: -170px;
+        left: -160px;
         font-size:16px;
       }
       @include media('<md') {
@@ -357,22 +357,13 @@ a.nav-logo-wrapper {
         @include retina-image(orange_line, png);
         float:right;
       }
-      &.js-pos-font {
-        top:173px;
-      }
-      &.js-pos-share {
-        top: 280px;
-      }
-      &.js-pos-input {
-        top:0px;
-      }
     }
 
   .signature-input-wrapper {
     @include border-radius(3px);
     margin: 0 0 30px 0;
     background: #b1e1fa;
-    position:relative;
+    /* position:relative; */
 
     > .input {
       outline: 0;

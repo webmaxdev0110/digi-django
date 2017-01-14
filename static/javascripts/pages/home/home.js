@@ -239,15 +239,17 @@ $(document).ready(function () {
         function moveLabel() {
           $('.js-star-label').removeClass('js-pos-input js-pos-font js-pos-share');
           if(!$('.js-signature-input').val() || $(document.activeElement).hasClass('js-signature-input')) {
-            $('.js-star-label').addClass('js-pos-input');
+            $('.js-star-label').css('top', 50);
             $('.js-star-label .js-text').html('Type your name');
           }
           else if(!celebFont || typeof addthis === 'undefined') {
-            $('.js-star-label').addClass('js-pos-font');
+            $('.js-star-label').css('top', 223);
             $('.js-star-label .js-text').html('Select your <br />favourite celebrity');
           }
           else if(typeof addthis !== 'undefined') {
-            $('.js-star-label').addClass('js-pos-share');
+            var p = $('.js-addthis-row').position();
+            var topPos = p.top - 52;
+            $('.js-star-label').css('top', topPos);
             $('.js-star-label .js-text').html('Share your signature');
           }
         }

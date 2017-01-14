@@ -751,9 +751,9 @@ a.nav-logo-wrapper > img.logo-img {
 }
 .row.sign-like-star .label {
   position: absolute;
-  left: -180px;
-  top: 0px;
   width: 170px;
+  left: -170px;
+  top: 52px;
   color: #fff;
   font-size: 18px;
   z-index: 2;
@@ -763,7 +763,7 @@ a.nav-logo-wrapper > img.logo-img {
 @media (max-width: 1199px) {
   .row.sign-like-star .label {
     width: 160px;
-    left: -170px;
+    left: -160px;
     font-size: 16px;
   }
 }
@@ -785,22 +785,13 @@ a.nav-logo-wrapper > img.logo-img {
     background-size: 112px 58px;
   }
 }
-.row.sign-like-star .label.js-pos-font {
-  top: 173px;
-}
-.row.sign-like-star .label.js-pos-share {
-  top: 280px;
-}
-.row.sign-like-star .label.js-pos-input {
-  top: 0px;
-}
 .row.sign-like-star .signature-input-wrapper {
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   border-radius: 3px;
   margin: 0 0 30px 0;
   background: #b1e1fa;
-  position: relative;
+  /* position:relative; */
 }
 .row.sign-like-star .signature-input-wrapper > .input {
   outline: 0;
