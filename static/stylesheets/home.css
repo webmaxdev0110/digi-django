@@ -760,6 +760,13 @@ a.nav-logo-wrapper > img.logo-img {
   -webkit-transition: top 1s;
   transition: top 1s;
 }
+@media (max-width: 1199px) {
+  .row.sign-like-star .label {
+    width: 160px;
+    left: -170px;
+    font-size: 16px;
+  }
+}
 @media (max-width: 991px) {
   .row.sign-like-star .label {
     display: none;
@@ -777,6 +784,15 @@ a.nav-logo-wrapper > img.logo-img {
     background-image: url(../images/orange_line@2x.png);
     background-size: 112px 58px;
   }
+}
+.row.sign-like-star .label.js-pos-font {
+  top: 173px;
+}
+.row.sign-like-star .label.js-pos-share {
+  top: 280px;
+}
+.row.sign-like-star .label.js-pos-input {
+  top: 0px;
 }
 .row.sign-like-star .signature-input-wrapper {
   -moz-border-radius: 3px;

@@ -343,6 +343,11 @@ a.nav-logo-wrapper {
       color: #fff;
       font-size: 18px;
       z-index: 2;
+      @include media('<lg') {
+        width: 160px;
+        left: -170px;
+        font-size:16px;
+      }
       @include media('<md') {
         display:none;
       }
@@ -351,6 +356,15 @@ a.nav-logo-wrapper {
       .arrow {
         @include retina-image(orange_line, png);
         float:right;
+      }
+      &.js-pos-font {
+        top:173px;
+      }
+      &.js-pos-share {
+        top: 280px;
+      }
+      &.js-pos-input {
+        top:0px;
       }
     }
 
