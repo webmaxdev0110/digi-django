@@ -852,26 +852,26 @@ a.nav-logo-wrapper > img.logo-img {
   }
 }
 .row.sign-like-star .box-celebrity.taylor-swift .image {
-  background-image: url(../images/swift.png);
+  background-image: url(../images/Swift.png);
   width: 280px;
   height: 170px;
   background-repeat: no-repeat;
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (-moz-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
   .row.sign-like-star .box-celebrity.taylor-swift .image {
-    background-image: url(../images/swift@2x.png);
+    background-image: url(../images/Swift@2x.png);
     background-size: 280px 170px;
   }
 }
 .row.sign-like-star .box-celebrity.steve-jobs .image {
-  background-image: url(../images/steve.png);
+  background-image: url(../images/Steve.png);
   width: 280px;
   height: 170px;
   background-repeat: no-repeat;
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (-moz-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
   .row.sign-like-star .box-celebrity.steve-jobs .image {
-    background-image: url(../images/steve@2x.png);
+    background-image: url(../images/Steve@2x.png);
     background-size: 280px 170px;
   }
 }
@@ -1460,7 +1460,7 @@ footer ul li {
 }
 
 .remodal {
-  background-image: url('../images/Emondo-Icon-Colour.svg?1467286529') !important;
+  background-image: url('../images/Emondo-Icon-Colour.svg?1457552297') !important;
   background-position: 140% 358% !important;
   background-size: 58% 88% !important;
   background-repeat: no-repeat !important;
