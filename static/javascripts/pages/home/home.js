@@ -180,72 +180,88 @@ $(document).ready(function () {
         //addthis.init();
         var celebFont = false;
         // ensure input is cleared on page load
-        $('.js-star-signature').val('');
+        $('.js-signature-input').val('');
         $('.js-signature-img-wrapper').hide();
+        // load from query string
         if(getQueryVariable('signature_style') && getQueryVariable('name')) {
           createSignature(getQueryVariable('signature_style'), getQueryVariable('name'));
           celebFont = getQueryVariable('signature_style');
         }
         // trigger focus on the input when the image is clicked
         $('.js-signature-img-wrapper').click(function() {
-          $('.js-star-signature').show().focus();
+          $('.js-signature-input').show().focus();
           $('.js-signature-img-wrapper').hide();
         });
         // input focus
-        $('.js-star-signature').focus(function() {
-            // move label to input
-            $('.js-star-label .js-text').html('Type your name');
-            $('.js-star-label').css('top', 0);
-            $('js-star-signature').show();
+        $('.js-signature-input').focus(function() {
+            moveLabel();
+            $('js-signature-input').show();
             $('js-signature-img-wrapper').hide();
         });
         // input blur
-        $('.js-star-signature').blur(function() {
-            // if text was entered...
-            if($('.js-star-signature').val() != '') {
-              // move label to font selection
-              $('.js-star-label .js-text').html('Select your<br />favourite celebrity');
-              $('.js-star-label').css('top', 173);
-              // if a font is already selected, apply it
-              if(celebFont) {
-                createSignature(celebFont, $('.js-star-signature').val());
-                // addthis
-                setSignatureShareURL(celebFont, $('.js-star-signature').val());
-                $('.js-addthis-wrapper').css('visibility','visible');
-              }
+        $('.js-signature-input').blur(function() {
+          // if text was entered...
+          if($('.js-signature-input').val() != '') {
+            // if a font is already selected, apply it
+            if(celebFont) {
+              createSignature(celebFont, $('.js-signature-input').val());
+              setSignatureShareURL(celebFont, $('.js-signature-input').val());
             }
-            else {
-              //hide sharing buttons
-              $('.js-addthis-wrapper').css('visibility','hidden');
-            }
+          }
+          else {
+            // input is empty, so hide sharing buttons
+            $('.js-addthis-wrapper').css('visibility','hidden');
+          }
+          moveLabel();
         });
         // celeb font selection
         $('.js-celebrity-box').click(function() {
-            if($('.js-star-signature').val() != '') {
+            if($('.js-signature-input').val() != '') {
               var $this = $(this);
               $('.js-celebrity-box').each(function() {
                   $(this).removeClass('selected');
               });
               $this.addClass('selected');
               celebFont = $this.data('font');
-              createSignature(celebFont, $('.js-star-signature').val());
+              createSignature(celebFont, $('.js-signature-input').val());
               // addthis
-              setSignatureShareURL(celebFont, $('.js-star-signature').val());
-              $('.js-addthis-wrapper').css('visibility','visible');
+              setSignatureShareURL(celebFont, $('.js-signature-input').val());
+              moveLabel();
             }
         });
         // function to add the signature image and swap visibility with the text input
         function createSignature(style, name){
           $('.js-signature-img-wrapper img').attr('src', '/signature/' + style + '/' + name);
           $('.js-signature-img-wrapper').show()
-          $('.js-star-signature').hide();
+          $('.js-signature-input').hide();
+        }
+        // function to move the label
+        function moveLabel() {
+          $('.js-star-label').removeClass('js-pos-input js-pos-font js-pos-share');
+          if(!$('.js-signature-input').val() || $(document.activeElement).hasClass('js-signature-input')) {
+            $('.js-star-label').css('top', 80);
+            $('.js-star-label .js-text').html('Type your name');
+          }
+          else if(!celebFont || typeof addthis === 'undefined') {
+            $('.js-star-label').css('top', 223);
+            $('.js-star-label .js-text').html('Select your <br />favourite celebrity');
+          }
+          else if(typeof addthis !== 'undefined') {
+            var p = $('.js-addthis-row').position();
+            var topPos = p.top - 52;
+            $('.js-star-label').css('top', topPos);
+            $('.js-star-label .js-text').html('Share your signature');
+          }
         }
         // function to dynamically set the share URL
         function setSignatureShareURL(style, name){
           var shareURL = 'http://emondo.com.au/?signature_style=' + style + '&name=' + name;
-          addthis.update('share', 'url', shareURL); 
-          addthis.url = shareURL;                
-          addthis.toolbox(".addthis_toolbox", {}, {'url': shareURL});
+          if(typeof addthis !== 'undefined') {
+            addthis.update('share', 'url', shareURL);
+            addthis.url = shareURL;
+            addthis.toolbox(".addthis_toolbox", {}, {'url': shareURL});
+            $('.js-addthis-wrapper').css('visibility','visible');
+          }
         }
         // css-tricks.com/snippets/javascript/get-url-variables/
         function getQueryVariable(variable) {

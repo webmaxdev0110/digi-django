@@ -334,15 +334,20 @@ a.nav-logo-wrapper {
 .row.sign-like-star {
   background-color: #6bc7f5;
   padding: 20px 0;
-  
+
   .label {
       position: absolute;
-      left: -180px;
-      top: 0px;
       width: 170px;
+      left: -170px;
+      top: 80px;
       color: #fff;
       font-size: 18px;
       z-index: 2;
+      @include media('<lg') {
+        width: 160px;
+        left: -160px;
+        font-size:16px;
+      }
       @include media('<md') {
         display:none;
       }
@@ -353,13 +358,13 @@ a.nav-logo-wrapper {
         float:right;
       }
     }
-  
+
   .signature-input-wrapper {
     @include border-radius(3px);
     margin: 0 0 30px 0;
     background: #b1e1fa;
-    position:relative;
-    
+    /* position:relative; */
+
     > .input {
       outline: 0;
       border: 0;
@@ -371,10 +376,7 @@ a.nav-logo-wrapper {
       background: transparent;
       /*background: transparent linear-gradient(to bottom, rgba(107,199,245,0) 1px,rgba(107,199,245,0) 103px,rgba(107,199,245,1) 104px,rgba(107,199,245,0) 105px);*/
     }
-    > .input:focus {
-      text-align: left;
-    }
-    
+
     .img-wrapper {
       padding: 0 102px;
       text-align:center;
@@ -386,8 +388,9 @@ a.nav-logo-wrapper {
       }
     }
   }
-  
+
   .box-celebrity {
+    cursor: pointer;
     background: #f1f1f1;
     @include border-radius(4px);
     @include box-shadow(0px 35px 18px 0px rgba(0, 0, 0, 0.13));
@@ -396,7 +399,7 @@ a.nav-logo-wrapper {
     max-width: 300px;
     -webkit-transition: -webkit-transform 0.5s;
     transition: transform 0.5s;
-    
+
     .image{
       background-position: bottom left;
       background-size:contain !important;
@@ -405,7 +408,7 @@ a.nav-logo-wrapper {
       height:0 !important;
       @include maintain-ratio(286 188);
     }
-    
+
     &.abraham-lincoln {
       .image {
         @include retina-image(lincoln, png);
@@ -431,7 +434,7 @@ a.nav-logo-wrapper {
       }
     }
   }
-  
+
   .addthis-wrapper {
     visibility: hidden;
     position: relative;
