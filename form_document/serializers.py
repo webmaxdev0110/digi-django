@@ -129,3 +129,44 @@ class FormDocumentResponseSerializer(ModelSerializer):
     def get_contact_phone(self, instance):
         pass
 
+
+class FormResponseListSerializer(ModelSerializer):
+    response_id = serializers.ReadOnlyField(source='pk')
+    form_title = serializers.ReadOnlyField(source='form_document.title')
+    completion_percent = serializers.SerializerMethodField()
+    completed_by_name = serializers.SerializerMethodField()
+    sent_channel = serializers.SerializerMethodField()
+    contact_email = serializers.SerializerMethodField()
+    contact_phone = serializers.SerializerMethodField()
+
+
+    class Meta:
+        model = FormDocumentResponse
+        fields = (
+            'response_id',
+            'form_title',
+            'created',
+            'completion_percent',
+            'completed_by_name',
+            'sent_channel',
+            'status',
+            'duration_seconds',
+            'contact_email',
+            'contact_phone',
+        )
+
+
+    def get_completion_percent(self, instance):
+        pass
+
+    def get_completed_by_name(self, instance):
+        pass
+
+    def get_sent_channel(self, instance):
+        pass
+
+    def get_contact_email(self, instance):
+        pass
+
+    def get_contact_phone(self, instance):
+        pass
