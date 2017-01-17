@@ -233,6 +233,7 @@ class FormDocumentResponse(TimeStampedModel):
         related_name='all_forms_sent'
     )
     last_interactive_timestamp = models.DateTimeField(auto_now=True)
+    duration_seconds = models.IntegerField(default=0)
     form_document = models.ForeignKey(FormDocument)
     answers = JSONField()
     status = models.SmallIntegerField(choices=FORM_COMPLETION_STATUS, default=UNOPENED)
