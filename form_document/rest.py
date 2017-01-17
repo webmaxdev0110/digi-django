@@ -1,5 +1,6 @@
 from rest_framework import viewsets
 from rest_framework.authentication import SessionAuthentication
+from rest_framework.filters import OrderingFilter
 from rest_framework.parsers import (
     MultiPartParser,
     FormParser,
@@ -62,6 +63,12 @@ class FormDocumentResponseViewSet(viewsets.ModelViewSet):
     # Below authentication_classes is necessary for Django browsable API view
     authentication_classes = (SessionAuthentication,)
     pagination_class = get_pagination_class(page_size=10)
+    filter_backends = (OrderingFilter,)
+    ordering_fields = (
+        'id',
+        'duration_seconds',
+        'status',
+    )
 
     def get_serializer_class(self):
         if self.action == 'list':
