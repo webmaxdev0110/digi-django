@@ -61,6 +61,7 @@ class FormDocumentResponseViewSet(viewsets.ModelViewSet):
     serializer_class = FormDocumentResponseSerializer
     # Below authentication_classes is necessary for Django browsable API view
     authentication_classes = (SessionAuthentication,)
+    pagination_class = get_pagination_class(page_size=10)
 
     def get_serializer_class(self):
         if self.action == 'list':
