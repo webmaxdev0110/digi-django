@@ -218,8 +218,7 @@ CORS_ORIGIN_REGEX_WHITELIST = (
 # Do not enable this in production
 CORS_ORIGIN_ALLOW_ALL = False
 
-if DEBUG:
-    CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
 
 LOGGING = {
     'version': 1,
