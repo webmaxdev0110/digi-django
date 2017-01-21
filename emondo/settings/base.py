@@ -75,7 +75,6 @@ INSTALLED_APPS = [
     'data_explorer',
     'notifications',
     'google_analytics',
-    'letsencrypt',
     'gunicorn',
     'accounts',
     'testing',
