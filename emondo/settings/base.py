@@ -81,7 +81,6 @@ INSTALLED_APPS = [
     'testing',
     'verifications',
     'public',
-    'docs',
 ]
 
 # todo: Remove later
