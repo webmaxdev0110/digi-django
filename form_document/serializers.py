@@ -132,6 +132,7 @@ class FormDocumentResponseSerializer(ModelSerializer):
 
 class FormResponseListSerializer(ModelSerializer):
     response_id = serializers.ReadOnlyField(source='pk')
+    form_id = serializers.ReadOnlyField(source='form_document.pk')
     form_title = serializers.ReadOnlyField(source='form_document.title')
     completion_percent = serializers.SerializerMethodField()
     completed_by_name = serializers.SerializerMethodField()
@@ -144,6 +145,7 @@ class FormResponseListSerializer(ModelSerializer):
         model = FormDocumentResponse
         fields = (
             'response_id',
+            'form_id',
             'form_title',
             'created',
             'completion_percent',
