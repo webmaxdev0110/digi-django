@@ -34,6 +34,9 @@ class SignatureView(View):
         fontsize = 10  # starting font canvas_size
         # portion of image width you want text width to be
         img_fraction = 0.7
+        # boost the steve jobs font
+        if font_name == 'SteveJobsFin6.ttf':
+            img_fraction = 0.98
         fonts_path = os.path.join(settings.BASE_DIR, 'static/fonts')
         font_path = os.path.join(fonts_path, font_name)
         font = ImageFont.truetype(font_path, fontsize)
@@ -53,7 +56,11 @@ class SignatureView(View):
         image = Image.new('RGBA', canvas_size, (255, 255, 255, 0,))
         draw = ImageDraw.Draw(image)
 
-        draw.text(((c_w - f_w) / 2, (c_h - f_h) / 2), text, font=font, fill=(0,0,0,))
+        pos_y = (c_h - f_h) / 2
+        # for jobs font, shift the text up a bit
+        if font_name == 'SteveJobsFin6.ttf':
+            pos_y = -pos_y * 8
+        draw.text(((c_w - f_w) / 2, pos_y), text, font=font, fill=(0,0,0,))
 
         response = HttpResponse(content_type="image/png")
         image = image.resize((c_w / rendering_multiply, c_h / rendering_multiply,), resample=Image.ANTIALIAS)
