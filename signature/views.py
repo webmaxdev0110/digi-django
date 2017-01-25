@@ -37,6 +37,9 @@ class SignatureView(View):
         # boost the steve jobs font
         if font_name == 'SteveJobsFin6.ttf':
             img_fraction = 0.98
+        # boost the lincoln font a bit
+        if font_name == 'Lincoln8.ttf':
+            img_fraction = 0.8
         fonts_path = os.path.join(settings.BASE_DIR, 'static/fonts')
         font_path = os.path.join(fonts_path, font_name)
         font = ImageFont.truetype(font_path, fontsize)
