@@ -802,7 +802,7 @@ a.nav-logo-wrapper > img.logo-img {
 .row.sign-like-star .signature-input-wrapper > .input {
   outline: 0;
   border: 0;
-  padding: 0 102px;
+  padding: 0 20px;
   font-size: 60px;
   text-align: center;
   width: 100%;
@@ -811,7 +811,7 @@ a.nav-logo-wrapper > img.logo-img {
   /*background: transparent linear-gradient(to bottom, rgba(107,199,245,0) 1px,rgba(107,199,245,0) 103px,rgba(107,199,245,1) 104px,rgba(107,199,245,0) 105px);*/
 }
 .row.sign-like-star .signature-input-wrapper .img-wrapper {
-  padding: 0 102px;
+  padding: 0;
   text-align: center;
   display: none;
   height: 142px;
