@@ -793,6 +793,12 @@ a.nav-logo-wrapper > img.logo-img {
   background: #b1e1fa;
   /* position:relative; */
 }
+.row.sign-like-star .signature-input-wrapper .v-align-helper {
+  vertical-align: middle;
+  width: 0;
+  height: 100%;
+  display: inline-block;
+}
 .row.sign-like-star .signature-input-wrapper > .input {
   outline: 0;
   border: 0;
@@ -1460,7 +1466,7 @@ footer ul li {
 }
 
 .remodal {
-  background-image: url('../images/Emondo-Icon-Colour.svg?1457552297') !important;
+  background-image: url('../images/Emondo-Icon-Colour.svg?1467286529') !important;
   background-position: 140% 358% !important;
   background-size: 58% 88% !important;
   background-repeat: no-repeat !important;

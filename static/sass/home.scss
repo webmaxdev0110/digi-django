@@ -365,6 +365,13 @@ a.nav-logo-wrapper {
     background: #b1e1fa;
     /* position:relative; */
 
+    .v-align-helper {
+      vertical-align: middle;
+      width: 0;
+      height: 100%;
+      display: inline-block;
+    }
+
     > .input {
       outline: 0;
       border: 0;
