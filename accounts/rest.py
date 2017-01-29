@@ -6,7 +6,10 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet
 from accounts.models import User
 from rest_framework import mixins
-from accounts.serializers import PaidSignupFormSerializer
+from accounts.serializers import (
+    PaidSignupFormSerializer,
+    UserProfileSerializer,
+)
 
 
 class OnboardingCreate(mixins.CreateModelMixin,
@@ -60,3 +63,14 @@ class LogoutAPIView(APIView):
         return Response({
             'authenticated': False
         })
+
+class UserAPIViewSet(ModelViewSet):
+    serializer_class = UserProfileSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        if getattr(user, 'id', None):
+            return User.objects.filter(id=user.id)
+        else:
+            return User.objects.none()
+
