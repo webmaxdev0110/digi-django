@@ -6,7 +6,6 @@ from rest_framework.parsers import (
     FormParser,
     JSONParser,
 )
-from rest_framework.response import Response
 
 from core.rest_pagination import get_pagination_class
 from .models import (
