@@ -6,10 +6,12 @@ from accounts.rest import (
     OnboardingCreate,
     AuthenticationAPIView,
     LogoutAPIView,
+    UserAPIViewSet,
 )
 
 router = DefaultRouter()
 router.register(r'onboarding-create', OnboardingCreate)
+router.register(r'user', UserAPIViewSet, base_name='current_user')
 
 
 api_urlpatterns = [
