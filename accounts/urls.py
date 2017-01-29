@@ -9,7 +9,7 @@ from accounts.rest import (
 )
 
 router = DefaultRouter()
-router.register(r'users', OnboardingCreate)
+router.register(r'onboarding-create', OnboardingCreate)
 
 
 api_urlpatterns = [
