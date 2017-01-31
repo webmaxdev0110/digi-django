@@ -70,13 +70,12 @@ class LogoutAPIView(APIView):
             'authenticated': False
         })
 
-class UserAPIViewSet(ModelViewSet):
-    serializer_class = UserProfileSerializer
 
-    def get_queryset(self):
+class UserAPIView(APIView):
+
+    def get(self, request, *args, **kwargs):
         user = self.request.user
-        if getattr(user, 'id', None):
-            return User.objects.filter(id=user.id)
-        else:
-            return User.objects.none()
-
+        if user.is_anonymous():
+            user = {}
+        serializer = UserProfileSerializer(user)
+        return Response(serializer.data)
