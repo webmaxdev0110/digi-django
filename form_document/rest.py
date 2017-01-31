@@ -1,10 +1,11 @@
 from rest_framework import viewsets
+from rest_framework.authentication import SessionAuthentication
+from rest_framework.filters import OrderingFilter
 from rest_framework.parsers import (
     MultiPartParser,
     FormParser,
     JSONParser,
 )
-from rest_framework.response import Response
 
 from core.rest_pagination import get_pagination_class
 from .models import (
@@ -15,6 +16,7 @@ from .serializers import (
     FormDocumentSerializer,
     FormDocumentDetailSerializer,
     FormDocumentResponseSerializer,
+    FormResponseListSerializer,
 )
 from form_document.models import AUTO_SAVED
 
@@ -57,6 +59,32 @@ class FormDocumentViewSet(viewsets.ModelViewSet):
 class FormDocumentResponseViewSet(viewsets.ModelViewSet):
     queryset = FormDocumentResponse.objects
     serializer_class = FormDocumentResponseSerializer
+    # Below authentication_classes is necessary for Django browsable API view
+    authentication_classes = (SessionAuthentication,)
+    pagination_class = get_pagination_class(page_size=10)
+    filter_backends = (OrderingFilter,)
+    ordering_fields = (
+        'id',
+        'duration_seconds',
+        'status',
+    )
+
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return FormResponseListSerializer
+        else:
+            return self.serializer_class
+
+    def get_queryset(self):
+        # All the forms owned by this user
+        owned_form_ids = FormDocument.objects.filter(
+            owner=self.request.user).values_list('id', flat=True)
+        # All the forms shared to this user
+        # todo: 1. FormDocument shared to entire company
+        # todo: 2. FormDocument shared by one user
+        return FormDocumentResponse.objects.filter(
+            form_document__id__in=owned_form_ids
+        )
 
     def get_object_kwarg(self):
         request_action = self.request.data['request_action']

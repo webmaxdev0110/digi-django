@@ -6,10 +6,11 @@ from accounts.rest import (
     OnboardingCreate,
     AuthenticationAPIView,
     LogoutAPIView,
+    UserAPIView,
 )
 
 router = DefaultRouter()
-router.register(r'users', OnboardingCreate)
+router.register(r'onboarding-create', OnboardingCreate)
 
 
 api_urlpatterns = [
@@ -19,6 +20,9 @@ api_urlpatterns = [
     url(r'^auth/logout/$',
         LogoutAPIView.as_view(),
         name='accounts_auth_logout'),
+    url(r'^user/$',
+        UserAPIView.as_view(),
+        name='accounts_user'),
 
 ]
 

@@ -1,4 +1,3 @@
-from django.db import transaction
 from rest_framework import serializers
 from accounts.models import User
 import uuid
@@ -44,9 +43,9 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email',)
+        fields = ('first_name', 'last_name', 'email', 'last_login',)
         write_only_fields = ('password',)
-        read_only_fields = ('date_joined',)
+        read_only_fields = ('date_joined', 'last_login',)
 
     def restore_object(self, attrs, instance=None):
         # call set_password on user object. Without this

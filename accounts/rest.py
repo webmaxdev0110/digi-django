@@ -1,12 +1,21 @@
-from rest_framework.generics import CreateAPIView, GenericAPIView
 from rest_framework.permissions import AllowAny
-from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth import (
+    login,
+    authenticate,
+    logout,
+)
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.viewsets import GenericViewSet
+from rest_framework.viewsets import (
+    GenericViewSet,
+    ModelViewSet,
+)
 from accounts.models import User
 from rest_framework import mixins
-from accounts.serializers import PaidSignupFormSerializer
+from accounts.serializers import (
+    PaidSignupFormSerializer,
+    UserProfileSerializer,
+)
 
 
 class OnboardingCreate(mixins.CreateModelMixin,
@@ -60,3 +69,13 @@ class LogoutAPIView(APIView):
         return Response({
             'authenticated': False
         })
+
+
+class UserAPIView(APIView):
+
+    def get(self, request, *args, **kwargs):
+        user = self.request.user
+        if user.is_anonymous():
+            user = {}
+        serializer = UserProfileSerializer(user)
+        return Response(serializer.data)

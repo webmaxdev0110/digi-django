@@ -16,6 +16,12 @@ import os
 import pyPdf
 from django.core.files import File
 
+from form_document.constants import (
+    FORM_SENDING_METHOD_CHOICES,
+    FormSendingMethod,
+)
+
+
 def document_path_dir(instance, filename):
     file_name_no_extension = os.path.splitext(ntpath.basename(filename))[0]
     return 'documents/users/{0}/{1}'.format(
@@ -227,6 +233,7 @@ class FormDocumentResponse(TimeStampedModel):
         related_name='all_forms_sent'
     )
     last_interactive_timestamp = models.DateTimeField(auto_now=True)
+    duration_seconds = models.IntegerField(default=0)
     form_document = models.ForeignKey(FormDocument)
     answers = JSONField()
     status = models.SmallIntegerField(choices=FORM_COMPLETION_STATUS, default=UNOPENED)
@@ -255,4 +262,7 @@ class FormDocumentLink(TimeStampedModel, DocumentRecipient):
     """
     form_response = models.OneToOneField(FormDocumentResponse, null=True)
     from_user = models.ForeignKey(User)
+    sending_method = models.IntegerField(
+        choices=FORM_SENDING_METHOD_CHOICES, default=FormSendingMethod.DIRECT
+    )
     hash = models.CharField(max_length=128)

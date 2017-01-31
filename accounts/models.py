@@ -23,6 +23,15 @@ class User(AbstractUser):
     avatar = models.ImageField(blank=True, null=True, upload_to='users/avatars/')
     short_description = models.CharField(blank=True, max_length=256)
 
+    def is_company_user(self):
+        return CompanyMember.objects.filter(user=self).exists()
+
+    def company_user(self):
+        if self.is_company_user():
+            return CompanyMember.objects.get(user=self)
+        else:
+            return None
+
 
 ####################################
 # Todos:
@@ -87,8 +96,8 @@ class CompanyMember(models.Model):
     """
     Represent company member(i.e team member) in our system
     """
-    company = models.ForeignKey(Company, related_name="members")
-    user = models.ForeignKey(User)
+    company = models.OneToOneField(Company, related_name="members")
+    user = models.OneToOneField(User)
     permission = models.ForeignKey(CompanyPermission)
     active = models.BooleanField(default=True)
 
