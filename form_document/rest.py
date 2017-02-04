@@ -17,7 +17,7 @@ from .serializers import (
     FormDocumentDetailSerializer,
     FormDocumentResponseSerializer,
     FormResponseListSerializer,
-)
+    FormDocumentCreateSerializer)
 from form_document.models import AUTO_SAVED
 
 
@@ -43,6 +43,8 @@ class FormDocumentViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.action == 'list':
             return self.serializer_class
+        elif self.action == 'create':
+            return FormDocumentCreateSerializer
         else:
             return FormDocumentDetailSerializer
 

@@ -14,9 +14,22 @@ class FormDocumentSerializer(ModelSerializer):
             'id',
             'title',
             'slug',
-            'created',
         )
 
+
+class FormDocumentCreateSerializer(ModelSerializer):
+    class Meta:
+        model = FormDocument
+        fields = (
+            'id',
+            'title',
+            'slug',
+            'uploaded_document',
+            'form_data',
+            'document_mapping',
+            'form_config',
+            'access_code',
+        )
 
 class FormDocumentDetailSerializer(ModelSerializer):
     """
