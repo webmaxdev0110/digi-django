@@ -365,10 +365,17 @@ a.nav-logo-wrapper {
     background: #b1e1fa;
     /* position:relative; */
 
+    .v-align-helper {
+      vertical-align: middle;
+      width: 0;
+      height: 100%;
+      display: inline-block;
+    }
+
     > .input {
       outline: 0;
       border: 0;
-      padding: 0 102px;
+      padding: 0 20px;
       font-size: 60px;
       text-align: center;
       width: 100%;
@@ -378,7 +385,7 @@ a.nav-logo-wrapper {
     }
 
     .img-wrapper {
-      padding: 0 102px;
+      padding: 0;
       text-align:center;
       display: none;
       height:142px;
