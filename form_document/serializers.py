@@ -14,9 +14,22 @@ class FormDocumentSerializer(ModelSerializer):
             'id',
             'title',
             'slug',
-            'created',
         )
 
+
+class FormDocumentCreateSerializer(ModelSerializer):
+    class Meta:
+        model = FormDocument
+        fields = (
+            'id',
+            'title',
+            'slug',
+            'uploaded_document',
+            'form_data',
+            'document_mapping',
+            'form_config',
+            'access_code',
+        )
 
 class FormDocumentDetailSerializer(ModelSerializer):
     """
@@ -24,7 +37,7 @@ class FormDocumentDetailSerializer(ModelSerializer):
     """
     uploaded_document = serializers.FileField(write_only=True, required=False)
     assets_urls = serializers.SerializerMethodField()
-    is_access_code_protected = serializers.BooleanField()
+    is_access_code_protected = serializers.BooleanField(read_only=True)
     form_data = serializers.SerializerMethodField()
     document_mapping = serializers.SerializerMethodField()
 
