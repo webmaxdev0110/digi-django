@@ -21,10 +21,7 @@ from accounts.views import (
     # LoginView,
     SignupView,
 )
-from letsencrypt.views import (
-    letsencrypt_auth_view_emondo_com_au,
-    letsencrypt_auth_view_www_emondo_com_au,
-)
+
 from django.contrib.sitemaps.views import sitemap
 
 from notifications.views import telstra_sms_callback_handler
@@ -41,7 +38,6 @@ urlpatterns = [
 
     url(r'^$', HomeView.as_view(), name='public_home'),
     url(r'^pricing$', PublicPricingView.as_view(), name='public_pricing'),
-    url(r'^docs/', include('docs.urls')),
     url(r'^accounts/', include('accounts.urls')),
     url(r'^form_document/', include('form_document.urls')),
     url(r'^notifications/', include('notifications.urls')),
@@ -58,11 +54,6 @@ urlpatterns = [
         SignupView.as_view(),
         name='accounts_signup'),
     url(r'^blog/', include('cms.blog.urls')),
-
-    # emondo.com.au
-    url(r'\.well-known/acme-challenge/TIZhUMHi5Z3bw6xV67n7DXRIAXeKI02pHTnN_ZJm1T4', letsencrypt_auth_view_emondo_com_au),
-    # www.emondo.com.au
-    url(r'\.well-known/acme-challenge/5iFdtTWY6NcPjDSCan4lKU0MepR3EF0Vu03rTMY-r74', letsencrypt_auth_view_www_emondo_com_au),
     url(r'^verifications/', include('verifications.urls')),
 
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps},
