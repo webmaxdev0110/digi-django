@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 from django.contrib.auth.models import AbstractUser
 from django_countries.fields import CountryField
 from django.db import models
+from timezone_field import TimeZoneField
 
 
 class User(AbstractUser):
@@ -22,6 +23,7 @@ class User(AbstractUser):
     signup_form_source = models.CharField(max_length=16, default='', blank=True)
     avatar = models.ImageField(blank=True, null=True, upload_to='users/avatars/')
     short_description = models.CharField(blank=True, max_length=256)
+    timezone1 = TimeZoneField(default='Australia/Sydney')
 
     def is_company_user(self):
         return CompanyMember.objects.filter(user=self).exists()
