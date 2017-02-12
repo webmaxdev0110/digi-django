@@ -37,9 +37,6 @@ class FormDocumentViewSet(viewsets.ModelViewSet):
         kwargs = self.get_object_kwarg()
         return serializer.save(**kwargs)
 
-    def perform_update(self, serializer):
-        return serializer.save()
-
     def get_serializer_class(self):
         if self.action == 'list':
             return self.serializer_class
