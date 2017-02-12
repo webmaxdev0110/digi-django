@@ -115,7 +115,6 @@ class FormDocument(TimeStampedModel):
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
         super(FormDocument, self).save(force_insert, force_update, using, update_fields)
-        self.process_document()
 
 
 def original_document_path(instance, filename):

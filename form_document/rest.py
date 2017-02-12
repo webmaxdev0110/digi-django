@@ -7,6 +7,7 @@ from rest_framework.parsers import (
     JSONParser,
 )
 
+from core.hash_utils import sha1_file
 from core.rest_pagination import get_pagination_class
 from .models import (
     FormDocument,
@@ -35,7 +36,13 @@ class FormDocumentViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         kwargs = self.get_object_kwarg()
-        return serializer.save(**kwargs)
+        document = serializer.validated_data.get('uploaded_document', None)
+        if document:
+            kwargs.update({
+                'cached_sha1': sha1_file(document)
+            })
+        inst = serializer.save(**kwargs)
+        inst.process_document()
 
     def get_serializer_class(self):
         if self.action == 'list':
