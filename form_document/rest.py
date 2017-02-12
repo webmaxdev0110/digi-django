@@ -40,7 +40,7 @@ class FormDocumentViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.action == 'list':
             return self.serializer_class
-        elif self.action == 'create':
+        elif self.action == 'create' or self.action == 'update':
             return FormDocumentCreateSerializer
         else:
             return FormDocumentDetailSerializer
