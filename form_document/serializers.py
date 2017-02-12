@@ -30,6 +30,15 @@ class FormDocumentCreateSerializer(ModelSerializer):
             'form_config',
             'access_code',
         )
+        extra_kwargs = {
+            'title': {'write_only': True},
+            'slug': {'write_only': True},
+            'uploaded_document': {'write_only': True},
+            'form_data': {'write_only': True},
+            'document_mapping': {'write_only': True},
+            'form_config': {'write_only': True},
+            'access_code': {'write_only': True}
+        }
 
 class FormDocumentDetailSerializer(ModelSerializer):
     """

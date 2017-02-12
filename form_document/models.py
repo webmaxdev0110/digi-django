@@ -63,10 +63,8 @@ class FormDocument(TimeStampedModel):
         max_length=255,
         help_text='The document uploaded used for populating after a form is completed')
     form_data = JSONField(null=True)      # All the form data
-    document_mapping = ArrayField(
-        JSONField(),
-        null=True
-    )
+    document_mapping = JSONField(default=list([]))
+
     form_config = JSONField(null=True)
     access_code = models.CharField(max_length=4, null=True)
     owner = models.ForeignKey(User, help_text='The owner of this document')
