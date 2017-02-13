@@ -9,190 +9,415 @@ $price-label-popular-border-color: #2865a6;
 $pricing-list-bg-color: #efefef;
 $grey-font-color: #969696;
 
+.row.no-gutter {
+  margin-left: 0;
+  margin-right: 0;
+}
+.row.no-gutter [class*='col-']:not(:first-child),
+.row.no-gutter [class*='col-']:not(:last-child) {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+/*
+fixed header
+*/
 .fixed-header-wrapper {
+  position: fixed;
+  display: none;
   width: 100%;
+  background: $white;
+  box-shadow: 0 25px 25px rgba(62, 123, 166, 0.1);
   z-index: 5;
-
-  .header-logo {
-    width: 100%;
-    height: 60px;
-    background-color: $dark-blue-2;
-    align-items: center;
+  .header-inner-wrapper {
+    padding: 12px 10px 2px;
   }
-
-  .logo-img {
-    height: 90%;
-    display: block;
-    margin: 0 auto;
-    padding: 5px 0;
+  form.cta-form {
+    margin: 0 0 15px 0;
   }
-
-  .header-help {
-    margin: 5px 20px 0;
-    .row{
-      margin: 0;
+  .form-group {
+    margin-top: 15px;
+  }
+  input, button {
+    height: 30px;
+    text-align: center;
+    font-size: 14px;
+    line-height: 14px;
+    outline: 0;
+    border: 0;
+    @extend .font1;
+    &:active, &:hover {
+      border: 0;
+      outline: none;
     }
   }
-
-  .help-tip1 {
-    display: inline-block;
-    margin-top: 10px;
-    margin-bottom: 0;
-
-  }
-  .help-tip2 {
-    display: inline-block;
-    float: left;
-  }
-
-  .start-free-button {
-    border: 4px solid $dark-blue-2;
-    color: $dark-blue-2;
-    height: 35px;
-    width: 125px;
+  .email-group {
+    width: 418px;
     float: right;
   }
-
-  .contact-info {
-    float: right;
-    padding-top: 2px;
-    margin-left: 5px;
-
+  .cta-submit {
+    @include media("<=xs") {
+      display: table;
+      width: 100%;
+      padding-top: 7px;
+    }
   }
-}
-
-.pricing-list {
-  font-family: "Open Sans";
-  background-color: $pricing-list-bg-color;
-  .row {
-    margin: 10px 10px;
-  }
-  .btn {
-    margin-top: 20px;
-    width: 140px;
-    height: 40px;
-  }
-
-  .btn:hover {
-    background-color: $dark-blue-2;
-    color: $white;
-  }
-
-  .additional-info{
-    font-size: smaller;
-    margin:0;
-    color: $grey-font-color;
-  }
-
-  .feature-info{
-    margin-top: 15px;
-    font-weight: bolder;
-    font-size: 15px;
-  }
-}
-
-.price-label {
-  text-align: center;
-  box-shadow: 5px 5px 30px 0 $price-label-border-color;
-  border: 1px solid $price-label-border-color;
-  margin: 40px 3px;
-  height: 900px;
-  padding: 20px 10px;
-}
-
-.price-label:hover{
-    background-color: $white;
-    border: 1px solid $price-label-popular-border-color;
-  }
-
-.most-popular-label {
-  position: relative;
-  left: -11px;
-  top: -51px;
-  width: 106.9%;
-  height: 30px;
-
-  p{
-    font-size: 16px;
+  span.input-enter-prompt {
+    width: 70px;
+    vertical-align: middle;
+    font-size: 12px;
+    color: #bdd2e5;
+    margin-left: 10px;
+    line-height: 14px;
+    padding-bottom: 15px;
+    background: transparent url(../images/arrows.svg) no-repeat 43px 8.2px;
+    background-size: 24px 20px;
+    right: 220px;
     top: 4px;
+    z-index: 4;
+    position: absolute;
+    display: none;
+  }
+  input[name="email"] {
+    color: $dark-blue;
+    float: right;
+    height: 38px;
+    text-align: left;
+    width: 252px;
+    line-height: 38px;
+    @include border-radius(4px 0 0 4px !important);
+    box-shadow: none;
+    @include media('>=sm') {
+      padding-right: 85px;
+    }
+    border: 1px solid #ecf2f7;
+    @include media('<=xs') {
+      display: none;
+    }
+  }
+  button[name="submit"] {
+    color: $white;
+    background-color: $orange;
+    padding: 7px 13px;
+    height: 38px;
+    @include media('>xs') {
+      @include border-radius(0 4px 4px 0);
+    }
+    @include media('<=xs') {
+      @include border-radius(4px !important);
+      float: right;
+      width: auto;
+    }
+  }
+  input::-webkit-input-placeholder {
+    color: $dark-blue;
+    font-size: 13px;
+  }
+  input:-moz-placeholder { /* Firefox 18- */
+    color: $dark-blue;
+    font-size: 13px;
+  }
+  input::-moz-placeholder { /* Firefox 19+ */
+    color: $dark-blue;
+    font-size: 13px;
+  }
+  input:-ms-input-placeholder {
+    color: $dark-blue;
+    font-size: 13px;
+  }
+}
+
+/*
+header
+*/
+a.nav-logo-wrapper {
+  margin: 21px 0 59px 0;
+  display: inline-block;
+  padding:0;
+  @include media("<=xs") {
+    margin: 10px 0 0 0;
+  }
+  a.logo {
+    height: 17px;
+    display: inline-block;
+  }
+  > img.logo-img {
+    width: 168px;
+    position: absolute;
+    left: 1px;
+    @include media("<=xs") {
+      width: 135px;
+      left: 14px;
+      top: 10px;
+      z-index: 10000;
+    }
+  }
+}
+.in-page-nav{
+  float: right;
+  margin-right: 125px;
+  margin-top: 46px;
+  font-size: large;
+  font-weight: bold;
+  @extend .font8;
+  @include media("<=xs") {
+    margin-top: 26px;
+    z-index: 10000;
+    margin-right: 10px;
+  }
+}
+
+.pricing-header {
+  text-align: center;
+  color: $dark-blue;
+  font-size: 18px;
+  padding: 20px;
+  .aud {
+    font-size: 10px;
+    text-transform: uppercase;
+    color: #849ab1;
+  }
+}
+.pricing-buttons {
+  margin: 30px 0 12px;
+  .btn {
+    background: #eff2f7;
+    color: #849ab1;
+    font-weight: bold;
     position: relative;
   }
-}
-
-.price-label-popular{
-  text-align: center;
-  box-shadow: 5px 5px 30px 0 $price-label-border-color;
-  border: 1px solid $price-label-popular-border-color;
-  margin: 40px 3px;
-  height: 900px;
-  padding: 20px 10px;
-
-  .most-popular-label {
-    background-color: $price-label-popular-border-color;
-    color: $white;
+  .btn.active {
+    background: $blue;
+    color: #fff;
+    box-shadow: none;
+  }
+  .btn.active:after {
+    // carat
+    content: ' ';
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 7px solid $blue;
+    border-bottom: none;
+    position: absolute;
+    bottom: -7px;
+    left: 50%;
   }
 }
 
-.price-label-popular:hover{
-  background-color: $white;
+.icon {
+  width: 12px;
+  height: 12px;
 }
 
-
-.price-label-currency {
-  font-size: 10px;
-  position: relative;
-  top: -12px;
-  left: 5px;
-}
-
-.price-label-header {
-  width: 80%;
-  margin: 0px auto 40px auto;
-  padding: 0px 0px 40px 0px;
-  border-bottom: 1px solid $price-label-border-color;
-}
-
-.price-label-footer{
-  width: 80%;
-  margin: auto;
-
-}
-
-.free-account-label {
-  box-shadow: 5px 5px 30px 0 $price-label-border-color;
-  border: 1px solid $price-label-border-color;
-  padding: 20px 10px;
-  width: 100%;
-  margin-bottom: 35px;
-}
-
-.free-account-label:hover{
-    background-color: $white;
-    border: 1px solid $price-label-popular-border-color;
-  }
-
-.free-account-label-header{
-  text-align: center;
-  border-right: 1px solid $price-label-border-color;
-  border-bottom: 0px solid $price-label-border-color;
-
-  @media (max-width: 768px){
-    display:block;
-    margin: 0px auto 40px auto;
-    padding: 0px 0px 40px 0px;
-    border-bottom: 1px solid $price-label-border-color;
-    border-right: 0px solid $price-label-border-color;
-    width: 80%;
+// pricing plans
+.plans-wrapper {
+  @include media('>sm') {
+    background: #fff;
+    border: 1px solid #e4ebf0;
+    @include border-radius(4px);
+    box-shadow: 0px 3px 5px 0px #e4ebf0;
+    margin-top: 30px;
   }
 }
-
-.free-account-label-footer{
-  display:inline-block;
-  margin: 15px 10px;
-
-  @media (max-width: 768px){
+.pricing-plan {
+  @include border-radius(4px);
+  @include media('<sm') {
+    border: 1px solid #e4ebf0;
+    box-shadow: 0px 3px 5px 0px #e4ebf0;
+    margin-bottom: 30px;
+  }
+  &.popular {
+    border: 1px solid $blue;
+    border-width: 28px 1px 1px;
+    box-shadow: 0px 3px 5px 0px #e4ebf0;
+    z-index: 10;
+    @include media('>sm') { margin-top: -28px; }
+    .pricing-plan-header:before {
+      content: 'Most Popular Choice';
+      color: #fff;
+      font-family: "roble_alt_boldbold";
+      letter-spacing: 1px;
+      text-transform: uppercase;;
+      text-align: center;
+      display: block;
+      width: 100%;
+      position: absolute;
+      top: -21px;
+      left: 0;
+    }
+  }
+  .pricing-plan-header, .pricing-plan-features {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .pricing-plan-header {
+    background: #eff2f7;
+    color: $dark-blue;
     text-align: center;
-    margin:0;
-    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    .btn {
+      background: #ff8a00;
+      color: #fff;
+      border: none;
+      margin: 0 auto 8px;
+      max-width: 200px;
+    }
+  }
+  h3 {
+    margin: 0 0 5px;
+  }
+  .pricetag {
+    .price {
+      font-size: 170%;
+      vertical-align: middle;
+    }
+  }
+  .cta {
+    margin: 0;
+  }
+  .pricing-plan-features {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background: #fff;
+    @include border-radius(0 0 4px 4px);
+    @include media('>sm') { min-height: 343px; }
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      li {
+        margin: 0 0 10px;
+        padding: 0 0 0 20px;
+        position: relative;
+      }
+      .font1{
+        color: $dark-blue;
+      }
+      .icon-tick, .icon-plus {
+        position: absolute;
+        top: 2px;
+        left: 0;
+      }
+    }
+  }
+}
+.pricing-trial-included {
+  text-align: center;
+  border-top: 1px solid #e4ebf0;
+  p {
+    padding: 20px;
+    margin: 0;
+  }
+  @include media('<sm') {
+    border: 1px solid #e4ebf0;
+    box-shadow: 0px 3px 5px 0px #e4ebf0;
+    @include border-radius(4px);
+  }
+}
+
+.pricing-info {
+  background: #eff2f7;
+  padding-top: 210px;
+  margin-top: -210px;
+  .info-inner {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid #e4ebf0;
+  }
+  color: $dark-blue;
+  text-align: center;
+  @include media('>sm') {
+    .left {text-align: left;}
+    .right {text-align: right;}
+  }
+  .info-link {
+    padding: 0 5px;
+  }
+}
+
+.pricing-all-features {
+  background: #eff2f7;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  h2 {
+    text-align: center;
+    color: $dark-blue;
+    margin: 0 0 40px;
+  }
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  li {
+    margin: 0 0 10px;
+    padding: 8px 0 0 40px;
+    min-height: 40px;
+    position: relative;
+    .icon-tick {
+      width: 30px;
+      height: 30px;
+      padding: 8px;
+      border: 1px solid #9cc9e8;
+      @include border-radius(50%);
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
+}
+
+.pricing-faq {
+  background: #fff;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  h2 {
+    text-align: center;
+    color: $dark-blue;
+    margin: 0 0 40px;
+  }
+  color: $dark-blue;
+  a {
+    color: $dark-blue;
+    font-weight: bold;
+    display: block;
+  }
+  .faq-section {
+    margin: 0 0 20px;
+    padding-left: 30px;
+    position: relative;
+    .question:before {
+      // carat
+      content: ' ';
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid #849ab1;
+      border-bottom: none;
+      position: absolute;
+      top: 6px;
+      left: 0;
+    }
+    .answer {
+      overflow: hidden;
+      -webkit-transition: height 1s;
+      transition: height 1s;
+    }
+    &.collapsed {
+      .question:before {
+        // carat
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-bottom: 5px solid #849ab1;
+        border-top: none;
+      }
+      .answer {
+        height: 0px;
+      }
+    }
   }
 }
