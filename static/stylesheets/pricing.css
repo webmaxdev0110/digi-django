@@ -264,11 +264,13 @@ a.nav-logo-wrapper > img.logo-img {
   color: #849ab1;
   font-weight: bold;
   position: relative;
+  outline: none;
 }
-.pricing-buttons .btn.active {
+.pricing-buttons .btn.active, .pricing-buttons .btn:focus {
   background: #3993d1;
   color: #fff;
   box-shadow: none;
+  outline: none;
 }
 .pricing-buttons .btn.active:after {
   content: ' ';

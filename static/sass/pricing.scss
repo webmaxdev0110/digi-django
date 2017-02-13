@@ -185,11 +185,13 @@ a.nav-logo-wrapper {
     color: #849ab1;
     font-weight: bold;
     position: relative;
+    outline: none;
   }
-  .btn.active {
+  .btn.active, .btn:focus {
     background: $blue;
     color: #fff;
     box-shadow: none;
+    outline: none;
   }
   .btn.active:after {
     // carat
