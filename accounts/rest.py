@@ -1,3 +1,4 @@
+from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import AllowAny
 from django.contrib.auth import (
     login,
@@ -71,11 +72,20 @@ class LogoutAPIView(APIView):
         })
 
 
-class UserAPIView(APIView):
+class UserAPIViewSet(
+    mixins.RetrieveModelMixin,
+    mixins.UpdateModelMixin,
+    GenericViewSet):
+    serializer_class = UserProfileSerializer
+    queryset = User.objects
 
-    def get(self, request, *args, **kwargs):
-        user = self.request.user
-        if user.is_anonymous():
-            user = {}
-        serializer = UserProfileSerializer(user)
-        return Response(serializer.data)
+    def get_queryset(self):
+        return User.objects.filter(pk=self.request.user.pk)
+
+    def get_object(self):
+        obj = get_object_or_404(User.objects, **{'id': self.request.user.pk})
+
+        # May raise a permission denied
+        self.check_object_permissions(self.request, obj)
+
+        return obj
