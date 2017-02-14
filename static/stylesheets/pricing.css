@@ -315,6 +315,7 @@ a.nav-logo-wrapper > img.logo-img {
 }
 .pricing-info .info-link {
   padding: 0 5px;
+  cursor: pointer;
 }
 .pricing-info .info-link .icon {
   width: 18px;

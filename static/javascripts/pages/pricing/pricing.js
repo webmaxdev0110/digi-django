@@ -42,4 +42,10 @@ $(document).ready(function () {
     return false;
   });
 
+  $('#intercom-custom-launcher').click(function() {
+    if(Intercom) {
+      Intercom('show');
+    }
+  });
+
 })
