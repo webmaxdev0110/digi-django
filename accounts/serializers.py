@@ -43,7 +43,6 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email', 'last_login',)
-        write_only_fields = ('password',)
+        fields = ('first_name', 'last_name', 'email', 'last_login', 'avatar',)
         read_only_fields = ('date_joined', 'last_login',)
 
