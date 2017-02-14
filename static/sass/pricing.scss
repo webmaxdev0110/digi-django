@@ -302,8 +302,6 @@ a.nav-logo-wrapper {
     }
     .answer {
       overflow: hidden;
-      -webkit-transition: height 1s;
-      transition: height 1s;
     }
     &.collapsed {
       .question:before {
@@ -312,9 +310,6 @@ a.nav-logo-wrapper {
         border-right: 5px solid transparent;
         border-bottom: 5px solid #849ab1;
         border-top: none;
-      }
-      .answer {
-        height: 0px;
       }
     }
   }

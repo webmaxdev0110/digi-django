@@ -1,5 +1,6 @@
 $(document).ready(function () {
 
+  // toggle display of monthly and annual prices
   $('.js-price-toggle').click(function() {
     $('.js-price-toggle').each(function() {
       $(this).removeClass('active');
@@ -21,6 +22,24 @@ $(document).ready(function () {
         }
       });
     }
-  })
+  });
+
+  // hide all faq's on page load
+  $('.js-faq').each(function() {
+    $(this).addClass('collapsed');
+    $(this).find('.js-faq-a').hide();
+  });
+  // faq toggle
+  $('.js-faq-q').click(function() {
+    var faq = $(this).parent('.js-faq');
+    if(faq.hasClass('collapsed')) {
+      faq.find('.js-faq-a').slideDown();
+    }
+    else {
+      faq.find('.js-faq-a').slideUp();
+    }
+    faq.toggleClass('collapsed');
+    return false;
+  });
 
 })
