@@ -4,7 +4,6 @@ from django.core.files.temp import NamedTemporaryFile
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.postgres.fields import (
     JSONField,
-    ArrayField,
 )
 from django.contrib.sites.models import Site
 from django.db import models
