@@ -63,6 +63,7 @@ class FormDocument(TimeStampedModel):
         max_length=255,
         help_text='The document uploaded used for populating after a form is completed')
     form_data = JSONField(null=True)      # All the form data
+    # example {1: {type:'standard', positions:[bbox:[0, 0, 10, 10], page:1]}}
     document_mapping = JSONField(default={})
 
     form_config = JSONField(null=True)
