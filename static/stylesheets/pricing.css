@@ -316,6 +316,10 @@ a.nav-logo-wrapper > img.logo-img {
 .pricing-info .info-link {
   padding: 0 5px;
 }
+.pricing-info .info-link .icon {
+  width: 18px;
+  height: 18px;
+}
 
 .pricing-all-features {
   background: #eff2f7;
