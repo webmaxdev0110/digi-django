@@ -7,6 +7,7 @@ from accounts.rest import (
     AuthenticationAPIView,
     LogoutAPIView,
     UserAPIView,
+    SubdomainVerifyAPIView,
 )
 
 router = DefaultRouter()
@@ -23,7 +24,9 @@ api_urlpatterns = [
     url(r'^user/$',
         UserAPIView.as_view(),
         name='accounts_user'),
-
+    url(r'^subdomain/verify/$',
+        SubdomainVerifyAPIView.as_view(),
+        name='subdomain_verify'),
 ]
 
 api_urlpatterns += router.urls
