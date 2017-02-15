@@ -355,3 +355,7 @@ ANYMAIL = {
     "MAILGUN_API_KEY": MAILGUN_PRIVATE_API_KEY,
 }
 EMAIL_BACKEND = "anymail.backends.mailgun.MailgunBackend"  # or sendgrid.SendGridBackend, or...
+
+
+# strip settings
+STRIPE_API_KEY = "sk_test_K0xA7NA4cNaG3PRephS9HWLR"
