@@ -18,7 +18,6 @@ _recurrence_unit_days = {
     }
 
 TIME_UNIT_CHOICES = (
-    ('0', _('No trial')),
     ('D', _('Day')),
     ('W', _('Week')),
     ('M', _('Month')),
@@ -28,13 +27,13 @@ TIME_UNIT_CHOICES = (
 
 class Plan(models.Model):
     name = models.CharField(max_length=24)
-    price_cents_monthly = models.IntegerField()
-    price_cents_yearly = models.IntegerField()
+    price_cents = models.IntegerField()
+    recurring_type = models.CharField(max_length=1, choices=TIME_UNIT_CHOICES, default='M')
     feature_flags = ArrayField(models.CharField(max_length=32), blank=True)
     is_live = models.BooleanField(default=False)
     min_required_user = models.SmallIntegerField(default=0)
-    max_required_user = models.SmallIntegerField(default=1)
-    trial_months_available = models.SmallIntegerField(default=1)
+    max_required_user = models.SmallIntegerField(default=1, null=True)
+    trial_days = models.SmallIntegerField(default=0, null=True)
 
     def __unicode__(self):
         return '<Plan: {0}>'.format(self.name)
