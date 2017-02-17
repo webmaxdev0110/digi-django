@@ -52,7 +52,7 @@ class Coupon(TimeStampedModel):
         _("Valid until"), blank=True, null=True,
         help_text=_("Leave empty for coupons that never expire"))
     single_user_reusable = models.BooleanField(models.BooleanField, default=False)
-    target_plans = models.ManyToManyField(Plan, null=True, help_text=_('Leaving empty will make this '
+    target_plans = models.ManyToManyField(Plan, blank=True, help_text=_('Leaving empty will make this '
                                                                        'coupon valid for all plans'))
     class Meta:
         ordering = ['created']
