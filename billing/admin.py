@@ -10,8 +10,8 @@ class PlanAdmin(ModelAdmin):
         'price_cents',
         'recurring_type',
         'is_live',
-        'min_required_user',
-        'max_required_user',
+        'min_required_num_user',
+        'max_num_user',
         'trial_days',
     )
     list_filter = ('is_live', 'recurring_type',)
