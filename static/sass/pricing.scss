@@ -124,7 +124,7 @@ a.nav-logo-wrapper {
   &.popular {
     border: 1px solid $blue;
     border-width: 28px 1px 1px;
-    box-shadow: 0px 3px 5px 0px #e4ebf0;
+    box-shadow: 0px 3px 8px 1px rgba(57, 147, 209, 0.25);
     z-index: 10;
     @include media('>sm') { margin-top: -28px; }
     .pricing-plan-header:before {
@@ -179,6 +179,7 @@ a.nav-logo-wrapper {
     .price {
       font-size: 24px;
       vertical-align: middle;
+      padding-left: 6px;
     }
     .price-permo {
       font-size: 14px;
@@ -187,6 +188,9 @@ a.nav-logo-wrapper {
   }
   .cta {
     margin: 0;
+    a {
+      color: $dark-blue;
+    }
   }
   .pricing-plan-features {
     padding-top: 30px;
@@ -247,19 +251,25 @@ a.nav-logo-wrapper {
     .right {text-align: right;}
   }
   .info-link {
-    padding: 0 5px;
+    padding: 0 10px;
     cursor: pointer;
+    color: $dark-blue;
     .icon {
       width: 18px;
       height: 18px;
     }
   }
+  .right a {
+    text-decoration: underline;
+    color: $dark-blue;
+  }
 }
 
 .pricing-all-features {
   background: #eff2f7;
-  padding-top: 40px;
-  padding-bottom: 40px;
+  color: $dark-blue;
+  padding-top: 70px;
+  padding-bottom: 70px;
   font-size: 14px;
   h2 {
     text-align: center;
@@ -274,7 +284,7 @@ a.nav-logo-wrapper {
   }
   li {
     margin: 0 0 10px;
-    padding: 8px 0 0 40px;
+    padding: 6px 0 0 40px;
     min-height: 40px;
     position: relative;
     .icon-tick {
@@ -292,8 +302,8 @@ a.nav-logo-wrapper {
 
 .pricing-faq {
   background: #fff;
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding-top: 70px;
+  padding-bottom: 70px;
   h2 {
     text-align: center;
     color: $dark-blue;
