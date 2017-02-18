@@ -174,8 +174,8 @@ a.nav-logo-wrapper > img.logo-img {
 }
 
 .icon {
-  width: 14px;
-  height: 14px;
+  width: 1em;
+  height: 1em;
 }
 
 @media (min-width: 769px) {
@@ -251,6 +251,10 @@ a.nav-logo-wrapper > img.logo-img {
 .pricing-plan h3 {
   margin: 0 0 4px;
   font-size: 30px;
+  white-space: nowrap;
+}
+.pricing-plan h3 .icon {
+  vertical-align: top;
 }
 .pricing-plan .users {
   margin: 0 0 15px;

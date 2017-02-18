@@ -112,8 +112,8 @@ a.nav-logo-wrapper {
 }
 
 .icon {
-  width: 14px;
-  height: 14px;
+  width: 1em;
+  height: 1em;
 }
 
 // pricing plans
@@ -178,6 +178,10 @@ a.nav-logo-wrapper {
   h3 {
     margin: 0 0 4px;
     font-size: 30px;
+    white-space: nowrap;
+    .icon {
+      vertical-align: top;
+    }
   }
   .users {
     margin: 0 0 15px;
