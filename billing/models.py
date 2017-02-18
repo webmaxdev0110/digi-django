@@ -31,8 +31,8 @@ class Plan(models.Model):
     recurring_type = models.CharField(max_length=1, choices=TIME_UNIT_CHOICES, default='M')
     feature_flags = ArrayField(models.CharField(max_length=32), blank=True)
     is_live = models.BooleanField(default=False)
-    min_required_user = models.SmallIntegerField(default=0)
-    max_required_user = models.SmallIntegerField(default=1, null=True)
+    min_required_num_user = models.SmallIntegerField(default=0)
+    max_num_user = models.SmallIntegerField(default=1, null=True)
     trial_days = models.SmallIntegerField(default=0, null=True)
 
     def __unicode__(self):
