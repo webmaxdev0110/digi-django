@@ -276,7 +276,7 @@ a.nav-logo-wrapper > img.logo-img {
 }
 @media (min-width: 769px) {
   .pricing-plan .pricing-plan-features {
-    min-height: 370px;
+    min-height: 390px;
   }
 }
 .pricing-plan .pricing-plan-features ul {

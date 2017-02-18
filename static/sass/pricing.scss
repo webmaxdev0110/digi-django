@@ -200,7 +200,7 @@ a.nav-logo-wrapper {
     font-family: "Open Sans", sans-serif;
     font-weight: 300;
     @include border-radius(0 0 4px 4px);
-    @include media('>sm') { min-height: 370px; }
+    @include media('>sm') { min-height: 390px; }
     ul {
       list-style-type: none;
       margin: 0;
