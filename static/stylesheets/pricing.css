@@ -27,7 +27,7 @@
   font-weight: 400;
 }
 
-.font8, .in-page-nav {
+.font8 {
   font-family: "Open Sans", sans-serif;
   font-weight: 300;
 }
@@ -103,21 +103,6 @@ a.nav-logo-wrapper > img.logo-img {
     left: 14px;
     top: 10px;
     z-index: 10000;
-  }
-}
-
-.in-page-nav {
-  float: right;
-  margin-right: 125px;
-  margin-top: 46px;
-  font-size: large;
-  font-weight: bold;
-}
-@media (max-width: 480px) {
-  .in-page-nav {
-    margin-top: 26px;
-    z-index: 10000;
-    margin-right: 10px;
   }
 }
 

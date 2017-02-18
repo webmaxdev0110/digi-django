@@ -45,19 +45,6 @@ a.nav-logo-wrapper {
     }
   }
 }
-.in-page-nav{
-  float: right;
-  margin-right: 125px;
-  margin-top: 46px;
-  font-size: large;
-  font-weight: bold;
-  @extend .font8;
-  @include media("<=xs") {
-    margin-top: 26px;
-    z-index: 10000;
-    margin-right: 10px;
-  }
-}
 
 .pricing-header {
   text-align: center;
