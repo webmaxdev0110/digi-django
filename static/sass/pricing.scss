@@ -62,7 +62,6 @@ a.nav-logo-wrapper {
 .pricing-header {
   text-align: center;
   color: $dark-blue;
-  font-size: 18px;
   padding: 20px;
   h1 {
     font-size: 48px;
@@ -113,8 +112,8 @@ a.nav-logo-wrapper {
 }
 
 .icon {
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
 }
 
 // pricing plans
@@ -128,6 +127,7 @@ a.nav-logo-wrapper {
   }
 }
 .pricing-plan {
+  font-size: 13px;
   @include border-radius(4px);
   @include media('<sm') {
     border: 1px solid #e4ebf0;
@@ -144,6 +144,7 @@ a.nav-logo-wrapper {
       content: 'Most Popular Choice';
       color: #fff;
       font-family: "roble_alt_boldbold";
+      font-size: 12px;
       letter-spacing: 1px;
       text-transform: uppercase;;
       text-align: center;
@@ -163,22 +164,27 @@ a.nav-logo-wrapper {
     color: $dark-blue;
     text-align: center;
     padding-top: 20px;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
     .btn {
       background: #ff8a00;
       color: #fff;
       border: none;
-      margin: 0 auto 8px;
+      margin: 0 auto 10px;
       max-width: 200px;
-      padding: 14px;
+      padding: 18px;
+      font-size: 16px;
     }
   }
   h3 {
-    margin: 0 0 2px;
-    font-size: 25px;
+    margin: 0 0 4px;
+    font-size: 30px;
+  }
+  .users {
+    margin: 0 0 15px;
   }
   .pricetag {
     font-size: 14px;
+    margin: 0 0 16px;
     .price {
       font-size: 24px;
       vertical-align: middle;
@@ -192,18 +198,21 @@ a.nav-logo-wrapper {
     margin: 0;
   }
   .pricing-plan-features {
-    padding-top: 20px;
+    padding-top: 30px;
     padding-bottom: 20px;
     background: #fff;
+    font-size: 14px;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 300;
     @include border-radius(0 0 4px 4px);
-    @include media('>sm') { min-height: 343px; }
+    @include media('>sm') { min-height: 370px; }
     ul {
       list-style-type: none;
       margin: 0;
       padding: 0;
       li {
-        margin: 0 0 9px;
-        padding: 0 0 0 20px;
+        margin: 0 0 10px;
+        padding: 0 0 0 34px;
         position: relative;
       }
       .font1{
@@ -260,10 +269,12 @@ a.nav-logo-wrapper {
   background: #eff2f7;
   padding-top: 40px;
   padding-bottom: 40px;
+  font-size: 14px;
   h2 {
     text-align: center;
     color: $dark-blue;
     margin: 0 0 40px;
+    font-size: 30px
   }
   ul {
     list-style-type: none;
@@ -276,8 +287,8 @@ a.nav-logo-wrapper {
     min-height: 40px;
     position: relative;
     .icon-tick {
-      width: 30px;
-      height: 30px;
+      width: 32px;
+      height: 32px;
       padding: 8px;
       border: 1px solid #9cc9e8;
       @include border-radius(50%);
@@ -296,6 +307,7 @@ a.nav-logo-wrapper {
     text-align: center;
     color: $dark-blue;
     margin: 0 0 40px;
+    font-size: 30px;
   }
   color: $dark-blue;
   a {
@@ -307,6 +319,7 @@ a.nav-logo-wrapper {
     margin: 0 0 20px;
     padding-left: 30px;
     position: relative;
+    font-size: 16px;
     .question:before {
       // carat
       content: ' ';

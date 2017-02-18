@@ -124,7 +124,6 @@ a.nav-logo-wrapper > img.logo-img {
 .pricing-header {
   text-align: center;
   color: #073660;
-  font-size: 18px;
   padding: 20px;
 }
 .pricing-header h1 {
@@ -175,8 +174,8 @@ a.nav-logo-wrapper > img.logo-img {
 }
 
 .icon {
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
 }
 
 @media (min-width: 769px) {
@@ -192,6 +191,7 @@ a.nav-logo-wrapper > img.logo-img {
 }
 
 .pricing-plan {
+  font-size: 13px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   border-radius: 4px;
@@ -218,6 +218,7 @@ a.nav-logo-wrapper > img.logo-img {
   content: 'Most Popular Choice';
   color: #fff;
   font-family: "roble_alt_boldbold";
+  font-size: 12px;
   letter-spacing: 1px;
   text-transform: uppercase;
   text-align: center;
@@ -236,22 +237,27 @@ a.nav-logo-wrapper > img.logo-img {
   color: #073660;
   text-align: center;
   padding-top: 20px;
-  padding-bottom: 10px;
+  padding-bottom: 20px;
 }
 .pricing-plan .pricing-plan-header .btn {
   background: #ff8a00;
   color: #fff;
   border: none;
-  margin: 0 auto 8px;
+  margin: 0 auto 10px;
   max-width: 200px;
-  padding: 14px;
+  padding: 18px;
+  font-size: 16px;
 }
 .pricing-plan h3 {
-  margin: 0 0 2px;
-  font-size: 25px;
+  margin: 0 0 4px;
+  font-size: 30px;
+}
+.pricing-plan .users {
+  margin: 0 0 15px;
 }
 .pricing-plan .pricetag {
   font-size: 14px;
+  margin: 0 0 16px;
 }
 .pricing-plan .pricetag .price {
   font-size: 24px;
@@ -265,16 +271,19 @@ a.nav-logo-wrapper > img.logo-img {
   margin: 0;
 }
 .pricing-plan .pricing-plan-features {
-  padding-top: 20px;
+  padding-top: 30px;
   padding-bottom: 20px;
   background: #fff;
+  font-size: 14px;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 300;
   -moz-border-radius: 0 0 4px 4px;
   -webkit-border-radius: 0;
   border-radius: 0 0 4px 4px;
 }
 @media (min-width: 769px) {
   .pricing-plan .pricing-plan-features {
-    min-height: 343px;
+    min-height: 370px;
   }
 }
 .pricing-plan .pricing-plan-features ul {
@@ -283,8 +292,8 @@ a.nav-logo-wrapper > img.logo-img {
   padding: 0;
 }
 .pricing-plan .pricing-plan-features ul li {
-  margin: 0 0 9px;
-  padding: 0 0 0 20px;
+  margin: 0 0 10px;
+  padding: 0 0 0 34px;
   position: relative;
 }
 .pricing-plan .pricing-plan-features ul .font1 {
@@ -347,11 +356,13 @@ a.nav-logo-wrapper > img.logo-img {
   background: #eff2f7;
   padding-top: 40px;
   padding-bottom: 40px;
+  font-size: 14px;
 }
 .pricing-all-features h2 {
   text-align: center;
   color: #073660;
   margin: 0 0 40px;
+  font-size: 30px;
 }
 .pricing-all-features ul {
   list-style-type: none;
@@ -365,8 +376,8 @@ a.nav-logo-wrapper > img.logo-img {
   position: relative;
 }
 .pricing-all-features li .icon-tick {
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   padding: 8px;
   border: 1px solid #9cc9e8;
   -moz-border-radius: 50%;
@@ -387,6 +398,7 @@ a.nav-logo-wrapper > img.logo-img {
   text-align: center;
   color: #073660;
   margin: 0 0 40px;
+  font-size: 30px;
 }
 .pricing-faq a {
   color: #073660;
@@ -397,6 +409,7 @@ a.nav-logo-wrapper > img.logo-img {
   margin: 0 0 20px;
   padding-left: 30px;
   position: relative;
+  font-size: 16px;
 }
 .pricing-faq .faq-section .question:before {
   content: ' ';
