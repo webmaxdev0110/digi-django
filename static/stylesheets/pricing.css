@@ -127,8 +127,19 @@ a.nav-logo-wrapper > img.logo-img {
   font-size: 18px;
   padding: 20px;
 }
+.pricing-header h1 {
+  font-size: 48px;
+  margin-bottom: 35px;
+}
+.pricing-header .tag-line {
+  font-size: 22px;
+  font-weight: 300;
+  line-height: 1.2;
+}
 .pricing-header .aud {
-  font-size: 10px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 11px;
+  font-weight: 600;
   text-transform: uppercase;
   color: #849ab1;
 }
@@ -139,7 +150,8 @@ a.nav-logo-wrapper > img.logo-img {
 .pricing-buttons .btn {
   background: #eff2f7;
   color: #849ab1;
-  font-weight: bold;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
   position: relative;
   outline: none;
 }
@@ -232,13 +244,22 @@ a.nav-logo-wrapper > img.logo-img {
   border: none;
   margin: 0 auto 8px;
   max-width: 200px;
+  padding: 14px;
 }
 .pricing-plan h3 {
-  margin: 0 0 5px;
+  margin: 0 0 2px;
+  font-size: 25px;
+}
+.pricing-plan .pricetag {
+  font-size: 14px;
 }
 .pricing-plan .pricetag .price {
-  font-size: 170%;
+  font-size: 24px;
   vertical-align: middle;
+}
+.pricing-plan .pricetag .price-permo {
+  font-size: 14px;
+  vertical-align: super;
 }
 .pricing-plan .cta {
   margin: 0;
@@ -262,7 +283,7 @@ a.nav-logo-wrapper > img.logo-img {
   padding: 0;
 }
 .pricing-plan .pricing-plan-features ul li {
-  margin: 0 0 10px;
+  margin: 0 0 9px;
   padding: 0 0 0 20px;
   position: relative;
 }

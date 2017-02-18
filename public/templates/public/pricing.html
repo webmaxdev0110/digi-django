@@ -27,7 +27,7 @@
             head.appendChild(l);
         };
         var asyncLoadCSSFiles = function () {
-            load("https://fonts.googleapis.com/css?family=Open+Sans:300,400");
+            load("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600");
             load("{% static 'stylesheets/vendor/animate.css' %}");
             load("{% static 'fonts/roblealt_light_macroman/stylesheet.css' %}");
             load("{% static 'fonts/roblealt_regular_macroman/stylesheet.css' %}");
@@ -68,8 +68,8 @@
     <div class="row">
       <div class="col-xs-12 col-sm-10 col-sm-push-1 col-md-8 col-md-push-2">
         <h1>Our Pricing Plans</h1>
-        <p>Start aquiring more clients, faster. Onboard them anywhere, anytime.</p>
-        <p>It's frictionless and secure. Paperwork and wet ink signatures are history.</p>
+        <p class="tag-line">Start aquiring more clients, faster. Onboard them anywhere, anytime.</p>
+        <p class="tag-line">It's frictionless and secure. Paperwork and wet ink signatures are history.</p>
         <p class="pricing-buttons">
           <button type="button" class="js-price-toggle js-price-annual btn btn-lg active">
             Annual Pricing (33% off)
@@ -95,7 +95,7 @@
                 <p class="users">Unlimited users</p>
                 <p class="pricetag js-pricetag font3">
                   $<span class="price js-price">99.83</span>
-                  per user / mo
+                  <span class="price-permo">per user / mo</span>
                 </p>
                 <p class="cta">
                   <button type="button" class="btn btn-default btn-lg btn-block font1">Buy Now</button>
@@ -140,7 +140,7 @@
                 <p class="users">Unlimited users</p>
                 <p class="pricetag js-pricetag font3">
                   $<span class="price js-price">52.93</span>
-                  per user / mo
+                  <span class="price-permo">per user / mo</span>
                 </p>
                 <p class="cta">
                   <button type="button" class="btn btn-default btn-lg btn-block font1">Buy Now</button>
@@ -181,7 +181,7 @@
                 <p class="users">Unlimited users</p>
                 <p class="pricetag js-pricetag font3">
                   $<span class="price js-price">26.13</span>
-                  per user / mo
+                  <span class="price-permo">per user / mo</span>
                 </p>
                 <p class="cta">
                   <button type="button" class="btn btn-default btn-lg btn-block font1">Buy Now</button>
