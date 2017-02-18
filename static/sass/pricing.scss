@@ -23,25 +23,16 @@ $grey-font-color: #969696;
 header
 */
 a.nav-logo-wrapper {
-  margin: 21px 0 59px 0;
+  margin: 21px 0 0;
   display: inline-block;
   padding:0;
   @include media("<=xs") {
-    margin: 10px 0 0 0;
-  }
-  a.logo {
-    height: 17px;
-    display: inline-block;
+    // margin: 10px 0 0 0;
   }
   > img.logo-img {
     width: 168px;
-    position: absolute;
-    left: 1px;
     @include media("<=xs") {
       width: 135px;
-      left: 14px;
-      top: 10px;
-      z-index: 10000;
     }
   }
 }
@@ -53,11 +44,13 @@ a.nav-logo-wrapper {
   h1 {
     font-size: 48px;
     margin-bottom: 35px;
+    @include media('<xs') { font-size: 40px; }
   }
   .tag-line {
     font-size: 22px;
     font-weight: 300;
     line-height: 1.2;
+    @include media('<=desktop') { font-size: 20px; }
   }
   .aud {
     font-family: "Open Sans", sans-serif;
@@ -76,6 +69,11 @@ a.nav-logo-wrapper {
     font-weight: 600;
     position: relative;
     outline: none;
+    @include media('<xs') {
+      font-size: 12px;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
   }
   .btn.active, .btn:focus {
     background: $blue;
@@ -105,7 +103,7 @@ a.nav-logo-wrapper {
 
 // pricing plans
 .plans-wrapper {
-  @include media('>sm') {
+  @include media('>=sm') {
     background: #fff;
     border: 1px solid #e4ebf0;
     @include border-radius(4px);
@@ -126,7 +124,7 @@ a.nav-logo-wrapper {
     border-width: 28px 1px 1px;
     box-shadow: 0px 3px 8px 1px rgba(57, 147, 209, 0.25);
     z-index: 10;
-    @include media('>sm') { margin-top: -28px; }
+    @include media('>=sm') { margin-top: -28px; }
     .pricing-plan-header:before {
       content: 'Most Popular Choice';
       color: #fff;
@@ -166,6 +164,7 @@ a.nav-logo-wrapper {
     margin: 0 0 4px;
     font-size: 30px;
     white-space: nowrap;
+    @include media('<=desktop') { font-size: 22px; }
     .icon {
       vertical-align: top;
     }
@@ -185,6 +184,16 @@ a.nav-logo-wrapper {
       font-size: 14px;
       vertical-align: super;
     }
+    @include media('<=desktop') {
+      font-size: 12px;
+      .price {
+        font-size: 20px;
+        padding-left: 4px;
+      }
+      .price-permo {
+        font-size: 12px;
+      }
+    }
   }
   .cta {
     margin: 0;
@@ -200,7 +209,9 @@ a.nav-logo-wrapper {
     font-family: "Open Sans", sans-serif;
     font-weight: 300;
     @include border-radius(0 0 4px 4px);
-    @include media('>sm') { min-height: 390px; }
+    @include media('>desktop') { min-height: 390px; }
+    @include media('<=desktop') { min-height: 450px; }
+    @include media('<sm') { min-height: 1px; } // mobile stacked layout
     ul {
       list-style-type: none;
       margin: 0;
@@ -231,6 +242,7 @@ a.nav-logo-wrapper {
   @include media('<sm') {
     border: 1px solid #e4ebf0;
     box-shadow: 0px 3px 5px 0px #e4ebf0;
+    background: #fff;
     @include border-radius(4px);
   }
 }
@@ -240,9 +252,13 @@ a.nav-logo-wrapper {
   padding-top: 210px;
   margin-top: -210px;
   .info-inner {
-    padding-top: 40px;
-    padding-bottom: 40px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     border-bottom: 1px solid #e4ebf0;
+  }
+  .left, .right {
+    padding-top: 20px;
+    padding-bottom: 20px;
   }
   color: $dark-blue;
   text-align: center;
@@ -258,6 +274,7 @@ a.nav-logo-wrapper {
       width: 18px;
       height: 18px;
     }
+    @include media('<=desktop') { padding: 0 5px; }
   }
   .right a {
     text-decoration: underline;
