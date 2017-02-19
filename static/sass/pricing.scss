@@ -107,7 +107,7 @@ a.nav-logo-wrapper {
     background: #fff;
     border: 1px solid #e4ebf0;
     @include border-radius(4px);
-    box-shadow: 0px 3px 5px 0px #e4ebf0;
+    box-shadow: 0 3px 5px 0 #e4ebf0;
     margin-top: 30px;
   }
 }
@@ -116,7 +116,7 @@ a.nav-logo-wrapper {
   @include border-radius(4px);
   @include media('<sm') {
     border: 1px solid #e4ebf0;
-    box-shadow: 0px 3px 5px 0px #e4ebf0;
+    box-shadow: 0 3px 5px 0 #e4ebf0;
     margin-bottom: 30px;
   }
   &.popular {
@@ -241,7 +241,7 @@ a.nav-logo-wrapper {
   }
   @include media('<sm') {
     border: 1px solid #e4ebf0;
-    box-shadow: 0px 3px 5px 0px #e4ebf0;
+    box-shadow: 0 3px 5px 0 #e4ebf0;
     background: #fff;
     @include border-radius(4px);
   }

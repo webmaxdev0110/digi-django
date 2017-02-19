@@ -173,7 +173,7 @@ a.nav-logo-wrapper > img.logo-img {
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
     border-radius: 4px;
-    box-shadow: 0px 3px 5px 0px #e4ebf0;
+    box-shadow: 0 3px 5px 0 #e4ebf0;
     margin-top: 30px;
   }
 }
@@ -187,7 +187,7 @@ a.nav-logo-wrapper > img.logo-img {
 @media (max-width: 767px) {
   .pricing-plan {
     border: 1px solid #e4ebf0;
-    box-shadow: 0px 3px 5px 0px #e4ebf0;
+    box-shadow: 0 3px 5px 0 #e4ebf0;
     margin-bottom: 30px;
   }
 }
@@ -341,7 +341,7 @@ a.nav-logo-wrapper > img.logo-img {
 @media (max-width: 767px) {
   .pricing-trial-included {
     border: 1px solid #e4ebf0;
-    box-shadow: 0px 3px 5px 0px #e4ebf0;
+    box-shadow: 0 3px 5px 0 #e4ebf0;
     background: #fff;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
