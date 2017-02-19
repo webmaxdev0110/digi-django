@@ -111,7 +111,7 @@ a.nav-logo-wrapper > img.logo-img {
   font-weight: 300;
   line-height: 1.2;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1199px) {
   .pricing-header .tag-line {
     font-size: 20px;
   }
@@ -243,7 +243,7 @@ a.nav-logo-wrapper > img.logo-img {
   font-size: 30px;
   white-space: nowrap;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1199px) {
   .pricing-plan h3 {
     font-size: 22px;
   }
@@ -267,7 +267,7 @@ a.nav-logo-wrapper > img.logo-img {
   font-size: 14px;
   vertical-align: super;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1199px) {
   .pricing-plan .pricetag {
     font-size: 12px;
   }
@@ -296,12 +296,12 @@ a.nav-logo-wrapper > img.logo-img {
   -webkit-border-radius: 0;
   border-radius: 0 0 4px 4px;
 }
-@media (min-width: 1025px) {
+@media (min-width: 1201px) {
   .pricing-plan .pricing-plan-features {
     min-height: 390px;
   }
 }
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
   .pricing-plan .pricing-plan-features {
     min-height: 450px;
   }
@@ -388,7 +388,7 @@ a.nav-logo-wrapper > img.logo-img {
   width: 18px;
   height: 18px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1199px) {
   .pricing-info .info-link {
     padding: 0 0 0 8px;
   }

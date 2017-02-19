@@ -4,11 +4,6 @@
 @import "global/typography";
 @import "global/helpers";
 
-$price-label-border-color: #c9caca;
-$price-label-popular-border-color: #2865a6;
-$pricing-list-bg-color: #efefef;
-$grey-font-color: #969696;
-
 .row.no-gutter {
   margin-left: 0;
   margin-right: 0;
@@ -26,9 +21,6 @@ a.nav-logo-wrapper {
   margin: 21px 0 0;
   display: inline-block;
   padding:0;
-  @include media("<=xs") {
-    // margin: 10px 0 0 0;
-  }
   > img.logo-img {
     width: 168px;
     @include media("<=xs") {
@@ -50,7 +42,7 @@ a.nav-logo-wrapper {
     font-size: 22px;
     font-weight: 300;
     line-height: 1.2;
-    @include media('<=desktop') { font-size: 20px; }
+    @include media('<lg') { font-size: 20px; }
   }
   .aud {
     font-family: "Open Sans", sans-serif;
@@ -164,7 +156,7 @@ a.nav-logo-wrapper {
     margin: 0 0 4px;
     font-size: 30px;
     white-space: nowrap;
-    @include media('<=desktop') { font-size: 22px; }
+    @include media('<lg') { font-size: 22px; }
     .icon {
       vertical-align: top;
     }
@@ -184,7 +176,7 @@ a.nav-logo-wrapper {
       font-size: 14px;
       vertical-align: super;
     }
-    @include media('<=desktop') {
+    @include media('<lg') {
       font-size: 12px;
       .price {
         font-size: 20px;
@@ -209,8 +201,8 @@ a.nav-logo-wrapper {
     font-family: "Open Sans", sans-serif;
     font-weight: 300;
     @include border-radius(0 0 4px 4px);
-    @include media('>desktop') { min-height: 390px; }
-    @include media('<=desktop') { min-height: 450px; }
+    @include media('>lg') { min-height: 390px; }
+    @include media('<=lg') { min-height: 450px; }
     @include media('<sm') { min-height: 1px; } // mobile stacked layout
     ul {
       list-style-type: none;
@@ -276,7 +268,7 @@ a.nav-logo-wrapper {
       width: 18px;
       height: 18px;
     }
-    @include media('<=desktop') { padding: 0 0 0 8px; }
+    @include media('<lg') { padding: 0 0 0 8px; }
     @include media('<sm') { padding: 0 0 0 20px; }
   }
   .right a {
