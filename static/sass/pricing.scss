@@ -122,7 +122,7 @@ a.nav-logo-wrapper {
   &.popular {
     border: 1px solid $blue;
     border-width: 28px 1px 1px;
-    box-shadow: 0px 3px 8px 1px rgba(57, 147, 209, 0.25);
+    @include box-shadow(0 3px 53px 1px rgba(57,147,209,0.35));
     z-index: 10;
     @include media('>=sm') { margin-top: -28px; }
     .pricing-plan-header:before {
