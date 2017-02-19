@@ -354,6 +354,11 @@ a.nav-logo-wrapper > img.logo-img {
   color: #073660;
   text-align: center;
 }
+@media (min-width: 768px) {
+  .pricing-info {
+    font-size: 11px;
+  }
+}
 .pricing-info .info-inner {
   padding-top: 20px;
   padding-bottom: 20px;
@@ -372,9 +377,10 @@ a.nav-logo-wrapper > img.logo-img {
   }
 }
 .pricing-info .info-link {
-  padding: 0 10px;
+  padding: 0 0 0 15px;
   cursor: pointer;
   color: #073660;
+  white-space: nowrap;
 }
 .pricing-info .info-link .icon {
   width: 18px;
@@ -382,7 +388,12 @@ a.nav-logo-wrapper > img.logo-img {
 }
 @media (max-width: 1024px) {
   .pricing-info .info-link {
-    padding: 0 5px;
+    padding: 0 0 0 8px;
+  }
+}
+@media (max-width: 767px) {
+  .pricing-info .info-link {
+    padding: 0 0 0 20px;
   }
 }
 .pricing-info .right a {

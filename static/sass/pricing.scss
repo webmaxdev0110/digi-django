@@ -251,6 +251,7 @@ a.nav-logo-wrapper {
   background: #eff2f7;
   padding-top: 210px;
   margin-top: -210px;
+  @include media('>=sm') { font-size: 11px; }
   .info-inner {
     padding-top: 20px;
     padding-bottom: 20px;
@@ -267,14 +268,16 @@ a.nav-logo-wrapper {
     .right {text-align: right;}
   }
   .info-link {
-    padding: 0 10px;
+    padding: 0 0 0 15px;
     cursor: pointer;
     color: $dark-blue;
+    white-space: nowrap;
     .icon {
       width: 18px;
       height: 18px;
     }
-    @include media('<=desktop') { padding: 0 5px; }
+    @include media('<=desktop') { padding: 0 0 0 8px; }
+    @include media('<sm') { padding: 0 0 0 20px; }
   }
   .right a {
     text-decoration: underline;
