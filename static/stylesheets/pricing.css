@@ -145,7 +145,7 @@ a.nav-logo-wrapper > img.logo-img {
 }
 .pricing-buttons .btn.active, .pricing-buttons .btn:focus {
   background: #3993d1;
-  color: #fff;
+  color: #FFFFFF;
   -moz-box-shadow: none;
   -webkit-box-shadow: none;
   box-shadow: none;
@@ -171,7 +171,7 @@ a.nav-logo-wrapper > img.logo-img {
 
 @media (min-width: 768px) {
   .plans-wrapper {
-    background: #fff;
+    background: #FFFFFF;
     border: 1px solid #e4ebf0;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
@@ -213,7 +213,7 @@ a.nav-logo-wrapper > img.logo-img {
 }
 .pricing-plan.popular .pricing-plan-header:before {
   content: 'Most Popular Choice';
-  color: #fff;
+  color: #FFFFFF;
   font-size: 12px;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -237,7 +237,7 @@ a.nav-logo-wrapper > img.logo-img {
 }
 .pricing-plan .pricing-plan-header .btn {
   background: #ff8a00;
-  color: #fff;
+  color: #FFFFFF;
   border: none;
   margin: 0 auto 10px;
   max-width: 200px;
@@ -294,7 +294,7 @@ a.nav-logo-wrapper > img.logo-img {
 .pricing-plan .pricing-plan-features {
   padding-top: 30px;
   padding-bottom: 20px;
-  background: #fff;
+  background: #FFFFFF;
   font-size: 14px;
   -moz-border-radius: 0 0 4px 4px;
   -webkit-border-radius: 0;
@@ -348,7 +348,7 @@ a.nav-logo-wrapper > img.logo-img {
     -moz-box-shadow: 0 3px 5px 0 #e4ebf0;
     -webkit-box-shadow: 0 3px 5px 0 #e4ebf0;
     box-shadow: 0 3px 5px 0 #e4ebf0;
-    background: #fff;
+    background: #FFFFFF;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
     border-radius: 4px;
@@ -437,7 +437,7 @@ a.nav-logo-wrapper > img.logo-img {
   width: 32px;
   height: 32px;
   padding: 8px;
-  border: 1px solid #9cc9e8;
+  border: 1px solid #a0cbe9;
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   border-radius: 50%;
@@ -447,7 +447,7 @@ a.nav-logo-wrapper > img.logo-img {
 }
 
 .pricing-faq {
-  background: #fff;
+  background: #FFFFFF;
   padding-top: 70px;
   padding-bottom: 70px;
   color: #073660;

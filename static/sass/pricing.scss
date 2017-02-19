@@ -48,15 +48,15 @@ a.nav-logo-wrapper {
     @extend .font9;
     font-size: 11px;
     text-transform: uppercase;
-    color: #849ab1;
+    color: $grey;
   }
 }
 .pricing-buttons {
   margin: 30px 0 12px;
   .btn {
     @extend .font9;
-    background: #eff2f7;
-    color: #849ab1;
+    background: $faint-grey;
+    color: $grey;
     position: relative;
     outline: none;
     @include media('<xs') {
@@ -67,7 +67,7 @@ a.nav-logo-wrapper {
   }
   .btn.active, .btn:focus {
     background: $blue;
-    color: #fff;
+    color: $white;
     @include box-shadow(none);
     outline: none;
   }
@@ -94,10 +94,10 @@ a.nav-logo-wrapper {
 // pricing plans
 .plans-wrapper {
   @include media('>=sm') {
-    background: #fff;
-    border: 1px solid #e4ebf0;
+    background: $white;
+    border: 1px solid $faint-grey-2;
     @include border-radius(4px);
-    @include box-shadow(0 3px 5px 0 #e4ebf0);
+    @include box-shadow(0 3px 5px 0 $faint-grey-2);
     margin-top: 30px;
   }
 }
@@ -105,8 +105,8 @@ a.nav-logo-wrapper {
   font-size: 13px;
   @include border-radius(4px);
   @include media('<sm') {
-    border: 1px solid #e4ebf0;
-    @include box-shadow(0 3px 5px 0 #e4ebf0);
+    border: 1px solid $faint-grey-2;
+    @include box-shadow(0 3px 5px 0 $faint-grey-2);
     margin-bottom: 30px;
   }
   &.popular {
@@ -118,7 +118,7 @@ a.nav-logo-wrapper {
     .pricing-plan-header:before {
       @extend .font1;
       content: 'Most Popular Choice';
-      color: #fff;
+      color: $white;
       font-size: 12px;
       letter-spacing: 1px;
       text-transform: uppercase;;
@@ -135,14 +135,14 @@ a.nav-logo-wrapper {
     padding-right: 14%;
   }
   .pricing-plan-header {
-    background: #eff2f7;
+    background: $faint-grey;
     color: $dark-blue;
     text-align: center;
     padding-top: 20px;
     padding-bottom: 20px;
     .btn {
       background: #ff8a00;
-      color: #fff;
+      color: $white;
       border: none;
       margin: 0 auto 10px;
       max-width: 200px;
@@ -195,7 +195,7 @@ a.nav-logo-wrapper {
     @extend .font8;
     padding-top: 30px;
     padding-bottom: 20px;
-    background: #fff;
+    background: $white;
     font-size: 14px;
     @include border-radius(0 0 4px 4px);
     @include media('>lg') { min-height: 390px; }
@@ -223,28 +223,28 @@ a.nav-logo-wrapper {
 }
 .pricing-trial-included {
   text-align: center;
-  border-top: 1px solid #e4ebf0;
+  border-top: 1px solid $faint-grey-2;
   p {
     padding: 20px;
     margin: 0;
   }
   @include media('<sm') {
-    border: 1px solid #e4ebf0;
-    @include box-shadow(0 3px 5px 0 #e4ebf0);
-    background: #fff;
+    border: 1px solid $faint-grey-2;
+    @include box-shadow(0 3px 5px 0 $faint-grey-2);
+    background: $white;
     @include border-radius(4px);
   }
 }
 
 .pricing-info {
-  background: #eff2f7;
+  background: $faint-grey;
   padding-top: 210px;
   margin-top: -210px;
   @include media('>=sm') { font-size: 11px; }
   .info-inner {
     padding-top: 20px;
     padding-bottom: 20px;
-    border-bottom: 1px solid #e4ebf0;
+    border-bottom: 1px solid $faint-grey-2;
   }
   .left, .right {
     padding-top: 20px;
@@ -275,7 +275,7 @@ a.nav-logo-wrapper {
 }
 
 .pricing-all-features {
-  background: #eff2f7;
+  background: $faint-grey;
   color: $dark-blue;
   padding-top: 70px;
   padding-bottom: 70px;
@@ -300,7 +300,7 @@ a.nav-logo-wrapper {
       width: 32px;
       height: 32px;
       padding: 8px;
-      border: 1px solid #9cc9e8;
+      border: 1px solid lighten($blue, 25%);
       @include border-radius(50%);
       position: absolute;
       top: 0;
@@ -310,7 +310,7 @@ a.nav-logo-wrapper {
 }
 
 .pricing-faq {
-  background: #fff;
+  background: $white;
   padding-top: 70px;
   padding-bottom: 70px;
   h2 {
@@ -337,7 +337,7 @@ a.nav-logo-wrapper {
       height: 0;
       border-left: 5px solid transparent;
       border-right: 5px solid transparent;
-      border-top: 5px solid #849ab1;
+      border-top: 5px solid $grey;
       border-bottom: none;
       position: absolute;
       top: 6px;
@@ -348,7 +348,7 @@ a.nav-logo-wrapper {
         // carat
         border-left: 5px solid transparent;
         border-right: 5px solid transparent;
-        border-bottom: 5px solid #849ab1;
+        border-bottom: 5px solid $grey;
         border-top: none;
       }
     }
