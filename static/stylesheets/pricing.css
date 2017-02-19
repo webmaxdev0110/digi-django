@@ -145,6 +145,8 @@ a.nav-logo-wrapper > img.logo-img {
 .pricing-buttons .btn.active, .pricing-buttons .btn:focus {
   background: #3993d1;
   color: #fff;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
   box-shadow: none;
   outline: none;
 }
@@ -173,6 +175,8 @@ a.nav-logo-wrapper > img.logo-img {
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
     border-radius: 4px;
+    -moz-box-shadow: 0 3px 5px 0 #e4ebf0;
+    -webkit-box-shadow: 0 3px 5px 0 #e4ebf0;
     box-shadow: 0 3px 5px 0 #e4ebf0;
     margin-top: 30px;
   }
@@ -187,6 +191,8 @@ a.nav-logo-wrapper > img.logo-img {
 @media (max-width: 767px) {
   .pricing-plan {
     border: 1px solid #e4ebf0;
+    -moz-box-shadow: 0 3px 5px 0 #e4ebf0;
+    -webkit-box-shadow: 0 3px 5px 0 #e4ebf0;
     box-shadow: 0 3px 5px 0 #e4ebf0;
     margin-bottom: 30px;
   }
@@ -194,9 +200,9 @@ a.nav-logo-wrapper > img.logo-img {
 .pricing-plan.popular {
   border: 1px solid #3993d1;
   border-width: 28px 1px 1px;
-  -moz-box-shadow: 0 3px 53px 1px rgba(57, 147, 209, 0.35);
-  -webkit-box-shadow: 0 3px 53px 1px rgba(57, 147, 209, 0.35);
-  box-shadow: 0 3px 53px 1px rgba(57, 147, 209, 0.35);
+  -moz-box-shadow: 0 5px 20px 1px rgba(57, 147, 209, 0.35);
+  -webkit-box-shadow: 0 5px 20px 1px rgba(57, 147, 209, 0.35);
+  box-shadow: 0 5px 20px 1px rgba(57, 147, 209, 0.35);
   z-index: 10;
 }
 @media (min-width: 768px) {
@@ -341,6 +347,8 @@ a.nav-logo-wrapper > img.logo-img {
 @media (max-width: 767px) {
   .pricing-trial-included {
     border: 1px solid #e4ebf0;
+    -moz-box-shadow: 0 3px 5px 0 #e4ebf0;
+    -webkit-box-shadow: 0 3px 5px 0 #e4ebf0;
     box-shadow: 0 3px 5px 0 #e4ebf0;
     background: #fff;
     -moz-border-radius: 4px;

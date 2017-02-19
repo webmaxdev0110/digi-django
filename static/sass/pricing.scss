@@ -70,7 +70,7 @@ a.nav-logo-wrapper {
   .btn.active, .btn:focus {
     background: $blue;
     color: #fff;
-    box-shadow: none;
+    @include box-shadow(none);
     outline: none;
   }
   .btn.active:after {
@@ -99,7 +99,7 @@ a.nav-logo-wrapper {
     background: #fff;
     border: 1px solid #e4ebf0;
     @include border-radius(4px);
-    box-shadow: 0 3px 5px 0 #e4ebf0;
+    @include box-shadow(0 3px 5px 0 #e4ebf0);
     margin-top: 30px;
   }
 }
@@ -108,13 +108,13 @@ a.nav-logo-wrapper {
   @include border-radius(4px);
   @include media('<sm') {
     border: 1px solid #e4ebf0;
-    box-shadow: 0 3px 5px 0 #e4ebf0;
+    @include box-shadow(0 3px 5px 0 #e4ebf0);
     margin-bottom: 30px;
   }
   &.popular {
     border: 1px solid $blue;
     border-width: 28px 1px 1px;
-    @include box-shadow(0 3px 53px 1px rgba(57,147,209,0.35));
+    @include box-shadow(0 5px 20px 1px rgba(57,147,209,0.35));
     z-index: 10;
     @include media('>=sm') { margin-top: -28px; }
     .pricing-plan-header:before {
@@ -233,7 +233,7 @@ a.nav-logo-wrapper {
   }
   @include media('<sm') {
     border: 1px solid #e4ebf0;
-    box-shadow: 0 3px 5px 0 #e4ebf0;
+    @include box-shadow(0 3px 5px 0 #e4ebf0);
     background: #fff;
     @include border-radius(4px);
   }
