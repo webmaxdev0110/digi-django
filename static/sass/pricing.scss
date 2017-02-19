@@ -45,9 +45,8 @@ a.nav-logo-wrapper {
     @include media('<lg') { font-size: 20px; }
   }
   .aud {
-    font-family: "Open Sans", sans-serif;
+    @extend .font9;
     font-size: 11px;
-    font-weight: 600;
     text-transform: uppercase;
     color: #849ab1;
   }
@@ -55,10 +54,9 @@ a.nav-logo-wrapper {
 .pricing-buttons {
   margin: 30px 0 12px;
   .btn {
+    @extend .font9;
     background: #eff2f7;
     color: #849ab1;
-    font-family: "Open Sans", sans-serif;
-    font-weight: 600;
     position: relative;
     outline: none;
     @include media('<xs') {
@@ -118,9 +116,9 @@ a.nav-logo-wrapper {
     z-index: 10;
     @include media('>=sm') { margin-top: -28px; }
     .pricing-plan-header:before {
+      @extend .font1;
       content: 'Most Popular Choice';
       color: #fff;
-      font-family: "roble_alt_boldbold";
       font-size: 12px;
       letter-spacing: 1px;
       text-transform: uppercase;;
@@ -194,12 +192,11 @@ a.nav-logo-wrapper {
     }
   }
   .pricing-plan-features {
+    @extend .font8;
     padding-top: 30px;
     padding-bottom: 20px;
     background: #fff;
     font-size: 14px;
-    font-family: "Open Sans", sans-serif;
-    font-weight: 300;
     @include border-radius(0 0 4px 4px);
     @include media('>lg') { min-height: 390px; }
     @include media('<=lg') { min-height: 450px; }
@@ -345,9 +342,6 @@ a.nav-logo-wrapper {
       position: absolute;
       top: 6px;
       left: 0;
-    }
-    .answer {
-      overflow: hidden;
     }
     &.collapsed {
       .question:before {

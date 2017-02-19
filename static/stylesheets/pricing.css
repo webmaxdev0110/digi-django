@@ -1,4 +1,4 @@
-.font1 {
+.font1, .pricing-plan.popular .pricing-plan-header:before {
   font-family: "roble_alt_boldbold";
 }
 
@@ -27,9 +27,14 @@
   font-weight: 400;
 }
 
-.font8 {
+.font8, .pricing-plan .pricing-plan-features {
   font-family: "Open Sans", sans-serif;
   font-weight: 300;
+}
+
+.font9, .pricing-header .aud, .pricing-buttons .btn {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
 }
 
 a:hover, a:visited, a:focus, a:active {
@@ -117,9 +122,7 @@ a.nav-logo-wrapper > img.logo-img {
   }
 }
 .pricing-header .aud {
-  font-family: "Open Sans", sans-serif;
   font-size: 11px;
-  font-weight: 600;
   text-transform: uppercase;
   color: #849ab1;
 }
@@ -130,8 +133,6 @@ a.nav-logo-wrapper > img.logo-img {
 .pricing-buttons .btn {
   background: #eff2f7;
   color: #849ab1;
-  font-family: "Open Sans", sans-serif;
-  font-weight: 600;
   position: relative;
   outline: none;
 }
@@ -213,7 +214,6 @@ a.nav-logo-wrapper > img.logo-img {
 .pricing-plan.popular .pricing-plan-header:before {
   content: 'Most Popular Choice';
   color: #fff;
-  font-family: "roble_alt_boldbold";
   font-size: 12px;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -296,8 +296,6 @@ a.nav-logo-wrapper > img.logo-img {
   padding-bottom: 20px;
   background: #fff;
   font-size: 14px;
-  font-family: "Open Sans", sans-serif;
-  font-weight: 300;
   -moz-border-radius: 0 0 4px 4px;
   -webkit-border-radius: 0;
   border-radius: 0 0 4px 4px;
@@ -327,7 +325,7 @@ a.nav-logo-wrapper > img.logo-img {
   padding: 0 0 0 34px;
   position: relative;
 }
-.pricing-plan .pricing-plan-features ul .font1 {
+.pricing-plan .pricing-plan-features ul .font1, .pricing-plan.popular .pricing-plan-features ul .pricing-plan-header:before {
   color: #073660;
 }
 .pricing-plan .pricing-plan-features ul .icon-tick, .pricing-plan .pricing-plan-features ul .icon-plus {
@@ -482,9 +480,6 @@ a.nav-logo-wrapper > img.logo-img {
   position: absolute;
   top: 6px;
   left: 0;
-}
-.pricing-faq .faq-section .answer {
-  overflow: hidden;
 }
 .pricing-faq .faq-section.collapsed .question:before {
   border-left: 5px solid transparent;

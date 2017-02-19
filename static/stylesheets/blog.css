@@ -64,6 +64,11 @@ a:hover, a:visited, a:focus, a:active {
   font-weight: 300;
 }
 
+.font9 {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+}
+
 .email-group {
   position: relative;
 }
