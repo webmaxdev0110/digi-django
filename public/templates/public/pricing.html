@@ -27,7 +27,13 @@
             head.appendChild(l);
         };
         var asyncLoadCSSFiles = function () {
-            load("https://fonts.googleapis.com/css?family=Open+Sans:300,400");
+            load("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600");
+            load("{% static 'stylesheets/vendor/animate.css' %}");
+            load("{% static 'fonts/roblealt_light_macroman/stylesheet.css' %}");
+            load("{% static 'fonts/roblealt_regular_macroman/stylesheet.css' %}");
+            load("{% static 'javascripts/remodal/remodal.css' %}");
+            load("{% static 'javascripts/remodal/remodal-default-theme.css' %}");
+            load("{% static 'javascripts/remodal/remodal-default-theme.css' %}");
         };
         var raf = requestAnimationFrame || mozRequestAnimationFrame ||
                 webkitRequestAnimationFrame || msRequestAnimationFrame;
@@ -41,186 +47,348 @@
 {% endblock %}
 
 {% block wrapper %}
-    <div class="fixed-header-wrapper">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="header-logo">
-                    <img class="logo-img" src="{% static 'images/logo_white.png' %}"/>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="header-help">
-                    <div class="row">
-                        <p class="help-tip1">You can upgrade or downgrade at any time</p>
-                    <button type="button"
-                                class="start-free-button btn btn-default">
-                            START FREE
-                    </button>
-                    </div>
-                    <div class="row">
-                        <p class="help-tip2">
-                            <strong>All plans Free 30 day unlimited trail. no credit card required</strong>
-                        </p>
-                    <p class="contact-info">Have a question? Phone 1800 emondo</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-sm-push-1 col-md-8 col-md-push-2">
+        <a href="/" class="logo nav-logo-wrapper">
+          <img class="logo-img" src="{% static 'images/logo_colour_tagline.svg' %}" width="175"/>
+        </a>
+      </div>
     </div>
+  </div>
 
-    <div class="container-fluid pricing-list">
-        <div class="row">
-            <div class="col-xs-12 col-md-4 col-sm-6 col-lg-3">
-                <div class="price-label">
-                    <div class="most-popular-label">
-                        <p>&nbsp;</p>
-                    </div>
-                    <div class="price-label-header">
-                        <h3>ENTERPRISE</h3>
-                        <h1>$149<span class="price-label-currency">AUD</span></h1>
-                        <p class="additional-info">Billed annually</p>
-                        <p class="additional-info">5 or more</p>
-                        <p class="feature-info">Get all Business Pro features PLUS</p>
-                        <button type="button" class="btn btn-default">BUY NOW</button>
-                    </div>
-                    <div class="price-label-footer">
-                        <p>BCustom signature font</p>
-                        <p>Custom OCR matching</p>
-                        <p>AFSL monitoring & alerts</p>
-                        <p>Embedded forms & documents</p>
-                        <p>3rd party form & document sponses</p>
-                        <p>Ongoing KYC for customer lifecycle</p>
-                        <p>Dedicated account manager</p>
-                        <p>Custom domains</p>
-                        <p>International KYC/AML electronic identification verification</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-md-4 col-sm-6 col-lg-3">
-                <div class="price-label-popular">
-                    <div class="most-popular-label">
-                        <p>MOST POPULAR</p>
-                    </div>
-                    <div class="price-label-header">
-                        <h3>BUSINESS PREMIUM</h3>
-                        <h1>$79<span class="price-label-currency">AUD</span></h1>
-                        <p class="additional-info">Billed annually or</p>
-                        <p class="additional-info">$99 month-to-month</p>
-                        <p class="feature-info">Get all Business features PLUS</p>
-                        <button type="button" class="btn btn-default">BUY NOW</button>
-                    </div>
-                    <div class="price-label-footer">
-                        <p>Bulk send</p>
-                        <p>Team analytics</p>
-                        <p>Domestic KYC/AML</p>
-                        <p>Custom form & document alerts</p>
-                        <p>Unlimited URLs per form & document</p>
-                        <p>Private online document certification</p>
-                        <p>Manually & automatically reassign forms</p>
-                        <p>$12 ASIC company extracts</p>
-                        <p>Stripe & PayPal payments</p>
-                        <p>Automatically convert documents into online forms</p>
-                        <p>Electronic document verification and match</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-md-4 col-sm-6 col-lg-3">
-                <div class="price-label">
-                    <div class="most-popular-label">
-                        <p>&nbsp;</p>
-                    </div>
-                    <div class="price-label-header">
-                        <h3>BUSINESS</h3>
-                        <h1>$39<span class="price-label-currency">AUD</span></h1>
-                        <p class="additional-info">Billed annually or</p>
-                        <p class="additional-info">$49 month-to-month</p>
-                        <p class="feature-info">Get all Personal features PLUS</p>
-                        <button type="button" class="btn btn-default">BUY NOW</button>
-                    </div>
-                    <div class="price-label-footer">
-                        <p>In-person signing</p>
-                        <p>Roles & permissions</p>
-                        <p>Contract autocomplete</p>
-                        <p>Form builder and editor</p>
-                        <p>Custom security settings</p>
-                        <p>2-way CRM integration*</p>
-                        <p>3rd party form & document sharing</p>
-                        <p>Unlimited forms & submissions</p>
-                        <p>Lead capture from abandoned forms</p>
-                        <p>All events stamped on the Blockchain</p>
-                        <p>Pre-fill forms & documents</p>
-                        <p>International SMS*</p>
-                        <p>Custom branding</p>
-                        <p>Ream time email & data verification & validation</p>
-                        <p>Unlimited PKI digital signature & certificates</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-md-4 col-sm-6 col-lg-3">
-                <div class="price-label">
-                    <div class="most-popular-label">
-                        <p>&nbsp;</p>
-                    </div>
-                    <div class="price-label-header">
-                        <h3>PERSONAL</h3>
-                        <h1>$9<span class="price-label-currency">AUD</span></h1>
-                        <p class="additional-info">Per month</p>
-                        <p class="additional-info">&nbsp;</p>
-                        <p class="feature-info">Get all Free features PLUS</p>
-                        <button type="button" class="btn btn-default">BUY NOW</button>
-                    </div>
-                    <div class="price-label-footer">
-                        <p>emondo manager</p>
-                        <p>Document encryption</p>
-                        <p>Unlimited documents</p>
-                        <p>Unlimited file storage</p>
-                        <p>Electronic signature witnessning</p>
-                        <p>Unlimited electronic signatures</p>
-                        <p>Electronic document verification</p>
-                        <p>Individual analytics</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
-                <div class="free-account-label">
-                    <div class="col-xs-12 col-md-4 col-sm-4 col-lg-3">
-                        <div class="free-account-label-header ">
-                            <h3>FREE</h3>
-                            <h1>$0</h1>
-                            <p class="additional-info">Forever</p>
-                            <button type="button" class="btn btn-default">GET NOW</button>
-                        </div>
-                    </div>
-                    <div class="free-account-label-footer">
-                        <p>emondo ID</p>
-                        <p>Audit log</p>
-                        <p>Send & sign 4 documents per month</p>
-                        <p>Document builder and editor</p>
-                        <p>Unlimited electronic signatures</p>
-                        <p>Access to online document certification</p>
-                        <p>Sign like a celebrity (if you share on FB)</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="container-fluid pricing-header">
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-sm-push-1 col-md-8 col-md-push-2">
+        <h1>Our Pricing Plans</h1>
+        <p class="tag-line">Start aquiring more clients, faster. Onboard them anywhere, anytime.</p>
+        <p class="tag-line">It's frictionless and secure. Paperwork and wet ink signatures are history.</p>
+        <p class="pricing-buttons">
+          <button type="button" class="js-price-toggle js-price-annual btn btn-lg active">
+            Annual Pricing (33% off)
+          </button>
+          <button type="button" class="js-price-toggle js-price-monthly btn btn-lg">
+            Month-to-month Pricing
+          </button>
+        </p>
+        <p class="aud">All prices in AUD</p>
+      </div>
     </div>
+  </div>
+
+  <div class="container-fluid pricing-plans">
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-sm-push-1 col-md-8 col-md-push-2">
+        <div class="plans-wrapper">
+          <div class="row no-gutter">
+            <div class="col-xs-12 col-sm-4 pricing-plan js-pricing-plan"
+              data-price-annual="99.83" data-price-monthly="149">
+              <div class="pricing-plan-header">
+                <h3><img src="{% static 'images/plan_global.svg' %}" class="icon icon-plan" alt="" /> Global</h3>
+                <p class="users">Unlimited users</p>
+                <p class="pricetag js-pricetag font3">
+                  $<span class="price js-price">99.83</span>
+                  <span class="price-permo">per user / mo</span>
+                </p>
+                <p class="cta">
+                  <button type="button" class="btn btn-default btn-lg btn-block font1">Buy Now</button>
+                  <a href="#">Try for FREE</a>
+                </p>
+              </div>
+              <div class="pricing-plan-features">
+                <ul>
+                  <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" /> Global KYC/AML</li>
+                  <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" /> Global SMS</li>
+                  <li>
+                    <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                    3rd party submission tracking
+                  </li>
+                  <li>
+                    <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                    Partial submissions
+                  </li>
+                  <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" /> Custom alerts</li>
+                  <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" /> Custom domains</li>
+                  <li>
+                    <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                    Bulk send (up to 5,000)
+                  </li>
+                  <li>
+                    <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                    Dedicated account manager
+                  </li>
+                  <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" /> 24/7 support</li>
+                  <li>
+                    <img src="{% static 'images/plus_blue.svg' %}" class="icon icon-plus" alt="plus" />
+                    <span class="font1">Teams Plan Features</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-4 pricing-plan js-pricing-plan popular"
+              data-price-annual="52.93" data-price-monthly="79">
+              <div class="pricing-plan-header">
+                <h3><img src="{% static 'images/plan_team.svg' %}" class="icon icon-plan" alt="" /> Teams</h3>
+                <p class="users">Unlimited users</p>
+                <p class="pricetag js-pricetag font3">
+                  $<span class="price js-price">52.93</span>
+                  <span class="price-permo">per user / mo</span>
+                </p>
+                <p class="cta">
+                  <button type="button" class="btn btn-default btn-lg btn-block font1">Buy Now</button>
+                  <a href="#">Try for FREE</a>
+                </p>
+              </div>
+              <div class="pricing-plan-features">
+                <ul>
+                  <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" /> Team analytics</li>
+                  <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" /> Domestic KYC/AML</li>
+                  <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" /> Domestic SMS</li>
+                  <li>
+                    <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                    Custom permissions
+                  </li>
+                  <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" /> Custom branding</li>
+                  <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" /> Embedded forms</li>
+                  <li>
+                    <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                    Online identification system (facial recognition &amp; match)
+                  </li>
+                  <li>
+                    <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                    Submission editing
+                  </li>
+                  <li>
+                    <img src="{% static 'images/plus_blue.svg' %}" class="icon icon-plus" alt="plus" />
+                    <span class="font1">Professional Plan Features</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-4 pricing-plan js-pricing-plan"
+              data-price-annual="26.13" data-price-monthly="39">
+              <div class="pricing-plan-header">
+                <h3><img src="{% static 'images/plan_professional.svg' %}" class="icon icon-plan" alt="" /> Professional</h3>
+                <p class="users">Unlimited users</p>
+                <p class="pricetag js-pricetag font3">
+                  $<span class="price js-price">26.13</span>
+                  <span class="price-permo">per user / mo</span>
+                </p>
+                <p class="cta">
+                  <button type="button" class="btn btn-default btn-lg btn-block font1">Buy Now</button>
+                  <a href="#">Try for FREE</a>
+                </p>
+              </div>
+              <div class="pricing-plan-features">
+                <ul>
+                  <li>
+                    <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                    Unlimited submissions
+                  </li>
+                  <li>
+                    <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                    Blockchain timestamp
+                  </li>
+                  <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" /> Autosave</li>
+                  <li>
+                    <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                    Propriatory electronic signature witnessing
+                  </li>
+                  <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" /> 3rd party apps</li>
+                  <li>
+                    <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                    Individual analytics
+                  </li>
+                  <li>
+                    <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                    Audit trail &amp; reporting
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="col-xs-12 pricing-trial-included">
+              <p>All plans include FREE 30 day unlimited feature trial.
+              No obligation, no credit card required.
+              You can change or cancel your plan anytime.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid pricing-info">
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-sm-push-1 col-md-8 col-md-push-2">
+        <div class="info-inner">
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 left">Questions?
+              <span class="info-link">
+                <img src="{% static 'images/phone_blue.svg' %}" class="icon icon-phone" alt="" />
+                1800 Emondo
+              </span>
+              <a class="info-link intercom-custom-launcher" id="intercom-custom-launcher">
+                <img src="{% static 'images/chat_blue.svg' %}" class="icon icon-chat" alt="" />
+                Live Chat
+              </a>
+              <a class="info-link" href="#faq">
+                <img src="{% static 'images/question_blue.svg' %}" class="icon icon-question" alt="" />
+                FAQ
+              </a>
+            </div>
+            <div class="col-xs-12 col-sm-6 right">
+              <b>Free Plan:</b> 1 user and 5 submissions per month - <a href="#">Sign up</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid pricing-all-features">
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-sm-push-1 col-md-8 col-md-push-2">
+        <h2>Every plan includes all these amazing features:</h2>
+        <div class="row">
+          <div class="col-xs-12 col-sm-4">
+            <ul>
+              <li>
+                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                Unlimited digital signatures
+              </li>
+              <li>
+                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                Verify email existence
+              </li>
+              <li>
+                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                Unlimited secure file storage
+              </li>
+              <li>
+                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                Online and offline authentication
+              </li>
+              <li>
+                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                Sign like a star
+              </li>
+              <li>
+                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                Form sharing
+              </li>
+              <li>
+                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                Hardware security module (HSM)
+              </li>
+              <li>
+                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                Custom security settings
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-xs-12 col-sm-4">
+            <ul>
+              <li>
+                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                Document encryption
+              </li>
+              <li>
+                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                Form prefill (manual and auto)
+              </li>
+              <li>
+                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                Lifetime file storage
+              </li>
+              <li>
+                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                Document Verification Service (DVS)
+              </li>
+              <li>
+                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                Signer authentication
+              </li>
+              <li>
+                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                Environmental savings
+              </li>
+              <li>
+                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                Private Key Infrastructure
+              </li>
+              <li>
+                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                Tamper proof documents
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-xs-12 col-sm-4">
+            <ul>
+              <li>
+                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                ID and company verification
+              </li>
+              <li>
+                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                Salary &amp; data verification
+              </li>
+              <li>
+                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                Address validation
+              </li>
+              <li>
+                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                Custom OCR matching
+              </li>
+              <li>
+                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                Document to form builder
+              </li>
+              <li>
+                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                256-bit SSL security
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid pricing-faq" name="faq" id="faq">
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-sm-push-1 col-md-8 col-md-push-2">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-section js-faq">
+          <a class="question js-faq-q" href="#question1">Question?</a>
+          <div class="answer js-faq-a" id="question1">Answer.</div>
+        </div>
+        <div class="faq-section js-faq">
+          <a class="question js-faq-q" href="#question2">Another question?</a>
+          <div class="answer js-faq-a" id="question2">Another answer.</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 {% endblock %}
 
 
 {% block after_wrapper %}
-    
+
 {% endblock %}
 {% block footer_scripts %}
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  {% compress js %}
+    <script src="{% static 'javascripts/pages/pricing/pricing.js' %}" async></script>
+  {% endcompress %}
 {% endblock %}
 {% block tracking_scripts %}
     {% include_intercom %}
     {% include_hotjar %}
 {% endblock %}
-
-

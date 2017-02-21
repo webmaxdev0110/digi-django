@@ -4,195 +4,353 @@
 @import "global/typography";
 @import "global/helpers";
 
-$price-label-border-color: #c9caca;
-$price-label-popular-border-color: #2865a6;
-$pricing-list-bg-color: #efefef;
-$grey-font-color: #969696;
+.row.no-gutter {
+  margin-left: 0;
+  margin-right: 0;
+}
+.row.no-gutter [class*='col-']:not(:first-child),
+.row.no-gutter [class*='col-']:not(:last-child) {
+  padding-right: 0;
+  padding-left: 0;
+}
 
-.fixed-header-wrapper {
-  width: 100%;
-  z-index: 5;
-
-  .header-logo {
-    width: 100%;
-    height: 60px;
-    background-color: $dark-blue-2;
-    align-items: center;
-  }
-
-  .logo-img {
-    height: 90%;
-    display: block;
-    margin: 0 auto;
-    padding: 5px 0;
-  }
-
-  .header-help {
-    margin: 5px 20px 0;
-    .row{
-      margin: 0;
+/*
+header
+*/
+a.nav-logo-wrapper {
+  margin: 21px 0 0;
+  display: inline-block;
+  padding:0;
+  > img.logo-img {
+    width: 168px;
+    @include media("<=xs") {
+      width: 135px;
     }
   }
-
-  .help-tip1 {
-    display: inline-block;
-    margin-top: 10px;
-    margin-bottom: 0;
-
-  }
-  .help-tip2 {
-    display: inline-block;
-    float: left;
-  }
-
-  .start-free-button {
-    border: 4px solid $dark-blue-2;
-    color: $dark-blue-2;
-    height: 35px;
-    width: 125px;
-    float: right;
-  }
-
-  .contact-info {
-    float: right;
-    padding-top: 2px;
-    margin-left: 5px;
-
-  }
 }
 
-.pricing-list {
-  font-family: "Open Sans";
-  background-color: $pricing-list-bg-color;
-  .row {
-    margin: 10px 10px;
+.pricing-header {
+  text-align: center;
+  color: $dark-blue;
+  padding: 20px;
+  h1 {
+    font-size: 48px;
+    margin-bottom: 35px;
+    @include media('<xs') { font-size: 40px; }
   }
+  .tag-line {
+    font-size: 22px;
+    font-weight: 300;
+    line-height: 1.2;
+    @include media('<lg') { font-size: 20px; }
+  }
+  .aud {
+    @extend .font9;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: $grey;
+  }
+}
+.pricing-buttons {
+  margin: 30px 0 12px;
   .btn {
-    margin-top: 20px;
-    width: 140px;
-    height: 40px;
-  }
-
-  .btn:hover {
-    background-color: $dark-blue-2;
-    color: $white;
-  }
-
-  .additional-info{
-    font-size: smaller;
-    margin:0;
-    color: $grey-font-color;
-  }
-
-  .feature-info{
-    margin-top: 15px;
-    font-weight: bolder;
-    font-size: 15px;
-  }
-}
-
-.price-label {
-  text-align: center;
-  box-shadow: 5px 5px 30px 0 $price-label-border-color;
-  border: 1px solid $price-label-border-color;
-  margin: 40px 3px;
-  height: 900px;
-  padding: 20px 10px;
-}
-
-.price-label:hover{
-    background-color: $white;
-    border: 1px solid $price-label-popular-border-color;
-  }
-
-.most-popular-label {
-  position: relative;
-  left: -11px;
-  top: -51px;
-  width: 106.9%;
-  height: 30px;
-
-  p{
-    font-size: 16px;
-    top: 4px;
+    @extend .font9;
+    background: $faint-grey;
+    color: $grey;
     position: relative;
+    outline: none;
+    @include media('<xs') {
+      font-size: 12px;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
   }
-}
-
-.price-label-popular{
-  text-align: center;
-  box-shadow: 5px 5px 30px 0 $price-label-border-color;
-  border: 1px solid $price-label-popular-border-color;
-  margin: 40px 3px;
-  height: 900px;
-  padding: 20px 10px;
-
-  .most-popular-label {
-    background-color: $price-label-popular-border-color;
+  .btn.active, .btn:focus {
+    background: $blue;
     color: $white;
+    @include box-shadow(none);
+    outline: none;
+  }
+  .btn.active:after {
+    // carat
+    content: ' ';
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 7px solid $blue;
+    border-bottom: none;
+    position: absolute;
+    bottom: -7px;
+    left: 50%;
   }
 }
 
-.price-label-popular:hover{
-  background-color: $white;
+.icon {
+  width: 1em;
+  height: 1em;
 }
 
-
-.price-label-currency {
-  font-size: 10px;
-  position: relative;
-  top: -12px;
-  left: 5px;
-}
-
-.price-label-header {
-  width: 80%;
-  margin: 0px auto 40px auto;
-  padding: 0px 0px 40px 0px;
-  border-bottom: 1px solid $price-label-border-color;
-}
-
-.price-label-footer{
-  width: 80%;
-  margin: auto;
-
-}
-
-.free-account-label {
-  box-shadow: 5px 5px 30px 0 $price-label-border-color;
-  border: 1px solid $price-label-border-color;
-  padding: 20px 10px;
-  width: 100%;
-  margin-bottom: 35px;
-}
-
-.free-account-label:hover{
-    background-color: $white;
-    border: 1px solid $price-label-popular-border-color;
-  }
-
-.free-account-label-header{
-  text-align: center;
-  border-right: 1px solid $price-label-border-color;
-  border-bottom: 0px solid $price-label-border-color;
-
-  @media (max-width: 768px){
-    display:block;
-    margin: 0px auto 40px auto;
-    padding: 0px 0px 40px 0px;
-    border-bottom: 1px solid $price-label-border-color;
-    border-right: 0px solid $price-label-border-color;
-    width: 80%;
+// pricing plans
+.plans-wrapper {
+  @include media('>=sm') {
+    background: $white;
+    border: 1px solid $faint-grey-2;
+    @include border-radius(4px);
+    @include box-shadow(0 3px 5px 0 $faint-grey-2);
+    margin-top: 30px;
   }
 }
-
-.free-account-label-footer{
-  display:inline-block;
-  margin: 15px 10px;
-
-  @media (max-width: 768px){
+.pricing-plan {
+  font-size: 13px;
+  @include border-radius(4px);
+  @include media('<sm') {
+    border: 1px solid $faint-grey-2;
+    @include box-shadow(0 3px 5px 0 $faint-grey-2);
+    margin-bottom: 30px;
+  }
+  &.popular {
+    border: 1px solid $blue;
+    border-width: 28px 1px 1px;
+    @include box-shadow(0 5px 20px 1px rgba(57,147,209,0.35));
+    z-index: 10;
+    @include media('>=sm') { margin-top: -28px; }
+    .pricing-plan-header:before {
+      @extend .font1;
+      content: 'Most Popular Choice';
+      color: $white;
+      font-size: 12px;
+      letter-spacing: 1px;
+      text-transform: uppercase;;
+      text-align: center;
+      display: block;
+      width: 100%;
+      position: absolute;
+      top: -21px;
+      left: 0;
+    }
+  }
+  .pricing-plan-header, .pricing-plan-features {
+    padding-left: 14%;
+    padding-right: 14%;
+  }
+  .pricing-plan-header {
+    background: $faint-grey;
+    color: $dark-blue;
     text-align: center;
-    margin:0;
-    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    .btn {
+      background: #ff8a00;
+      color: $white;
+      border: none;
+      margin: 0 auto 10px;
+      max-width: 200px;
+      padding: 18px;
+      font-size: 16px;
+    }
+  }
+  h3 {
+    margin: 0 0 4px;
+    font-size: 30px;
+    white-space: nowrap;
+    @include media('<lg') { font-size: 22px; }
+    .icon {
+      vertical-align: top;
+    }
+  }
+  .users {
+    margin: 0 0 15px;
+  }
+  .pricetag {
+    font-size: 14px;
+    margin: 0 0 16px;
+    .price {
+      font-size: 24px;
+      vertical-align: middle;
+      padding-left: 6px;
+    }
+    .price-permo {
+      font-size: 14px;
+      vertical-align: super;
+    }
+    @include media('<lg') {
+      font-size: 12px;
+      .price {
+        font-size: 20px;
+        padding-left: 4px;
+      }
+      .price-permo {
+        font-size: 12px;
+      }
+    }
+  }
+  .cta {
+    margin: 0;
+    a {
+      color: $dark-blue;
+    }
+  }
+  .pricing-plan-features {
+    @extend .font8;
+    padding-top: 30px;
+    padding-bottom: 20px;
+    background: $white;
+    font-size: 14px;
+    @include border-radius(0 0 4px 4px);
+    @include media('>lg') { min-height: 390px; }
+    @include media('<=lg') { min-height: 450px; }
+    @include media('<sm') { min-height: 1px; } // mobile stacked layout
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      li {
+        margin: 0 0 10px;
+        padding: 0 0 0 34px;
+        position: relative;
+      }
+      .font1{
+        color: $dark-blue;
+      }
+      .icon-tick, .icon-plus {
+        position: absolute;
+        top: 2px;
+        left: 0;
+      }
+    }
+  }
+}
+.pricing-trial-included {
+  text-align: center;
+  border-top: 1px solid $faint-grey-2;
+  p {
+    padding: 20px;
+    margin: 0;
+  }
+  @include media('<sm') {
+    border: 1px solid $faint-grey-2;
+    @include box-shadow(0 3px 5px 0 $faint-grey-2);
+    background: $white;
+    @include border-radius(4px);
+  }
+}
+
+.pricing-info {
+  background: $faint-grey;
+  padding-top: 210px;
+  margin-top: -210px;
+  @include media('>=sm') { font-size: 11px; }
+  .info-inner {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid $faint-grey-2;
+  }
+  .left, .right {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  color: $dark-blue;
+  text-align: center;
+  @include media('>sm') {
+    .left {text-align: left;}
+    .right {text-align: right;}
+  }
+  .info-link {
+    padding: 0 0 0 15px;
+    cursor: pointer;
+    color: $dark-blue;
+    white-space: nowrap;
+    .icon {
+      width: 18px;
+      height: 18px;
+    }
+    @include media('<lg') { padding: 0 0 0 8px; }
+    @include media('<sm') { padding: 0 0 0 20px; }
+  }
+  .right a {
+    text-decoration: underline;
+    color: $dark-blue;
+  }
+}
+
+.pricing-all-features {
+  background: $faint-grey;
+  color: $dark-blue;
+  padding-top: 70px;
+  padding-bottom: 70px;
+  font-size: 14px;
+  h2 {
+    text-align: center;
+    color: $dark-blue;
+    margin: 0 0 40px;
+    font-size: 30px
+  }
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  li {
+    margin: 0 0 10px;
+    padding: 6px 0 0 40px;
+    min-height: 40px;
+    position: relative;
+    .icon-tick {
+      width: 32px;
+      height: 32px;
+      padding: 8px;
+      border: 1px solid lighten($blue, 25%);
+      @include border-radius(50%);
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
+}
+
+.pricing-faq {
+  background: $white;
+  padding-top: 70px;
+  padding-bottom: 70px;
+  h2 {
+    text-align: center;
+    color: $dark-blue;
+    margin: 0 0 40px;
+    font-size: 30px;
+  }
+  color: $dark-blue;
+  a {
+    color: $dark-blue;
+    font-weight: bold;
+    display: block;
+  }
+  .faq-section {
+    margin: 0 0 20px;
+    padding-left: 30px;
+    position: relative;
+    font-size: 16px;
+    .question:before {
+      // carat
+      content: ' ';
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid $grey;
+      border-bottom: none;
+      position: absolute;
+      top: 6px;
+      left: 0;
+    }
+    &.collapsed {
+      .question:before {
+        // carat
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-bottom: 5px solid $grey;
+        border-top: none;
+      }
+    }
   }
 }
