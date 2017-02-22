@@ -1,3 +1,5 @@
+from django.contrib.sites.models import Site
+from rest_framework.generics import GenericAPIView
 from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import AllowAny
 from django.contrib.auth import (
@@ -89,3 +91,24 @@ class UserAPIViewSet(
         self.check_object_permissions(self.request, obj)
 
         return obj
+
+
+class SubdomainVerifyAPIView(APIView):
+
+    def post(self, request, format=None):
+        subdomain = request.data.get('subdomain', '')
+        if len(subdomain) < 4:
+            return Response({
+                'result': False,
+                'error': 'Subdomain must be longer than four characters'
+            })
+
+        if Site.objects.filter(domain=subdomain).exists():
+            return Response({
+                'result': False,
+                'error': 'Subdomain already registered'
+            })
+        else:
+            return Response({
+                'result': True
+            })

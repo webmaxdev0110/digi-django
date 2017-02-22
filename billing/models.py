@@ -18,7 +18,6 @@ _recurrence_unit_days = {
     }
 
 TIME_UNIT_CHOICES = (
-    ('0', _('No trial')),
     ('D', _('Day')),
     ('W', _('Week')),
     ('M', _('Month')),
@@ -28,13 +27,13 @@ TIME_UNIT_CHOICES = (
 
 class Plan(models.Model):
     name = models.CharField(max_length=24)
-    price_cents_monthly = models.IntegerField()
-    price_cents_yearly = models.IntegerField()
+    price_cents = models.IntegerField()
+    recurring_type = models.CharField(max_length=1, choices=TIME_UNIT_CHOICES, default='M')
     feature_flags = ArrayField(models.CharField(max_length=32), blank=True)
     is_live = models.BooleanField(default=False)
-    min_required_user = models.SmallIntegerField(default=0)
-    max_required_user = models.SmallIntegerField(default=1)
-    trial_months_available = models.SmallIntegerField(default=1)
+    min_required_num_user = models.SmallIntegerField(default=0)
+    max_num_user = models.SmallIntegerField(default=1, null=True)
+    trial_days = models.SmallIntegerField(default=0, null=True)
 
     def __unicode__(self):
         return '<Plan: {0}>'.format(self.name)
@@ -53,7 +52,7 @@ class Coupon(TimeStampedModel):
         _("Valid until"), blank=True, null=True,
         help_text=_("Leave empty for coupons that never expire"))
     single_user_reusable = models.BooleanField(models.BooleanField, default=False)
-    target_plans = models.ManyToManyField(Plan, null=True, help_text=_('Leaving empty will make this '
+    target_plans = models.ManyToManyField(Plan, blank=True, help_text=_('Leaving empty will make this '
                                                                        'coupon valid for all plans'))
     class Meta:
         ordering = ['created']

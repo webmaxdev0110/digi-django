@@ -39,6 +39,7 @@ urlpatterns = [
     url(r'^$', HomeView.as_view(), name='public_home'),
     url(r'^pricing$', PublicPricingView.as_view(), name='public_pricing'),
     url(r'^accounts/', include('accounts.urls')),
+    url(r'^billing/', include('billing.urls')),
     url(r'^form_document/', include('form_document.urls')),
     url(r'^notifications/', include('notifications.urls')),
     # Temp URL until Telstra updates their record

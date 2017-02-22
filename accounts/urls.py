@@ -6,6 +6,7 @@ from accounts.rest import (
     OnboardingCreate,
     AuthenticationAPIView,
     LogoutAPIView,
+    SubdomainVerifyAPIView,
     UserAPIViewSet,
 )
 
@@ -28,6 +29,10 @@ api_urlpatterns = [
     url(r'^user/$',
         user_detail,
         name='accounts_user'),
+
+    url(r'^subdomain/verify/$',
+        SubdomainVerifyAPIView.as_view(),
+        name='subdomain_verify'),
 ]
 
 api_urlpatterns += router.urls
