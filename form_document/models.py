@@ -4,7 +4,6 @@ from django.core.files.temp import NamedTemporaryFile
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.postgres.fields import (
     JSONField,
-    ArrayField,
 )
 from django.contrib.sites.models import Site
 from django.db import models
@@ -63,11 +62,13 @@ class FormDocument(TimeStampedModel):
         max_length=255,
         help_text='The document uploaded used for populating after a form is completed')
     form_data = JSONField(null=True)      # All the form data
-    document_mapping = JSONField(default=list([]))
+    # example {1: {type:'standard', positions:[bbox:[0, 0, 10, 10], page:1]}}
+    document_mapping = JSONField(default={})
 
     form_config = JSONField(null=True)
     access_code = models.CharField(max_length=4, null=True)
     owner = models.ForeignKey(User, help_text='The owner of this document')
+    cached_sha1 = models.CharField(max_length=40, null=True)
 
     def __unicode__(self):
         return '<FormDocument: {0}>'.format(self.title[:16])
@@ -98,7 +99,7 @@ class FormDocument(TimeStampedModel):
             if number_of_pages > 0:
                 generated_image_paths = []
                 for page in range(number_of_pages):
-                    with Image(filename=original_document.name+'[{0}]'.format(page), resolution=75) as img:
+                    with Image(filename=original_document.name+'[{0}]'.format(page), resolution=90) as img:
                         img_file = NamedTemporaryFile(delete=False, suffix='_{0}.png'.format(page))
                         img.alpha_channel = False
                         img.save(filename=img_file.name)
@@ -114,7 +115,6 @@ class FormDocument(TimeStampedModel):
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
         super(FormDocument, self).save(force_insert, force_update, using, update_fields)
-        self.process_document()
 
 
 def original_document_path(instance, filename):
