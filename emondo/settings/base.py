@@ -125,7 +125,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'core.context_processors.permanent_media_processor'
+                'core.context_processors.permanent_media_processor',
+                'core.context_processors.common_url_processor'
             ],
         },
     },
@@ -343,6 +344,8 @@ FEINCMS_USE_PAGE_ADMIN = False
 FEINCMS_UPLOAD_PREFIX = 'cms'
 FEINCMS_MEDIALIBRARY_UPLOAD_TO = 'uploads'
 
+# Change this in development
+SPA_ROOT_URL = 'https://app.emondo.co'
 
 # Obtain your own key, and override in local_settings.py
 
