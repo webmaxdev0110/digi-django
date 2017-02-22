@@ -1,5 +1,13 @@
 $(document).ready(function () {
-
+  // handle buy now button click
+  $('button.btn-purchase').click(function() {
+    var plan = $(this).data('plan');
+    var period = 'annually'
+    if($('.js-price-toggle.active').hasClass('js-price-monthly')){
+      period = 'monthly';
+    }
+    window.location.href = "http://localdev.emondo.com.au:3000/sign-up/business-plan?plan=" + plan + '&period=' + period;
+  });
   // toggle display of monthly and annual prices
   $('.js-price-toggle').click(function() {
     $('.js-price-toggle').each(function() {

@@ -91,7 +91,7 @@
                   <span class="price-permo">per user / mo</span>
                 </p>
                 <p class="cta">
-                  <button type="button" class="btn btn-default btn-lg btn-block font1">Buy Now</button>
+                  <button type="button" class="btn btn-default btn-lg btn-block font1 btn-purchase" data-plan="global">Buy Now</button>
                   <a href="#">Try for FREE</a>
                 </p>
               </div>
@@ -136,7 +136,7 @@
                   <span class="price-permo">per user / mo</span>
                 </p>
                 <p class="cta">
-                  <button type="button" class="btn btn-default btn-lg btn-block font1">Buy Now</button>
+                  <button type="button" class="btn btn-default btn-lg btn-block font1 btn-purchase" data-plan="teams">Buy Now</button>
                   <a href="#">Try for FREE</a>
                 </p>
               </div>
@@ -177,7 +177,7 @@
                   <span class="price-permo">per user / mo</span>
                 </p>
                 <p class="cta">
-                  <button type="button" class="btn btn-default btn-lg btn-block font1">Buy Now</button>
+                  <button type="button" class="btn btn-default btn-lg btn-block font1 btn-purchase" data-plan="professional">Buy Now</button>
                   <a href="#">Try for FREE</a>
                 </p>
               </div>
@@ -383,6 +383,7 @@
 
 {% endblock %}
 {% block footer_scripts %}
+  window.AppRootURL = "{{AppRootURL}}";
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   {% compress js %}
     <script src="{% static 'javascripts/pages/pricing/pricing.js' %}" async></script>
