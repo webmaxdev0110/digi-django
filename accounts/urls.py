@@ -5,6 +5,7 @@ from rest_framework.routers import DefaultRouter
 from accounts.rest import (
     OnboardingCreate,
     AuthenticationAPIView,
+    FreeAccountCreate,
     LogoutAPIView,
     UserAPIView,
 )
@@ -17,6 +18,9 @@ api_urlpatterns = [
     url(r'^auth/login/$',
         AuthenticationAPIView.as_view(),
         name='accounts_auth_login'),
+    url(r'^auth/signup/$',
+        FreeAccountCreate.as_view(),
+        name='accounts_auth_signup'),
     url(r'^auth/logout/$',
         LogoutAPIView.as_view(),
         name='accounts_auth_logout'),
