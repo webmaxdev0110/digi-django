@@ -5,6 +5,7 @@ from rest_framework.routers import DefaultRouter
 from accounts.rest import (
     OnboardingCreate,
     AuthenticationAPIView,
+    FreeAccountCreate,
     LogoutAPIView,
     SubdomainVerifyAPIView,
     UserAPIViewSet,
@@ -12,6 +13,7 @@ from accounts.rest import (
 
 router = DefaultRouter()
 router.register(r'onboarding-create', OnboardingCreate)
+router.register(r'onboarding-free-plan', FreeAccountCreate, base_name='onboarding-free')
 
 
 user_detail = UserAPIViewSet.as_view({

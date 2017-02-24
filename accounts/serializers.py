@@ -35,6 +35,32 @@ class PaidSignupFormSerializer(serializers.Serializer):
         return attrs
 
 
+class FreeAccountCreateUserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ('email', 'password')
+        write_only_fields = ('password',)
+        read_only_fields = ('date_joined', 'last_login',)
+
+    def validate_email(self, value):
+        """
+        checking the email address has not already been used by another account
+        """
+        if User.objects.filter(email=value).exists():
+            raise serializers.ValidationError("Email address already exists")
+        return value
+
+    def create(self, validated_data):
+        user = User.objects.create_user(
+            username='user_%s' % uuid.uuid4().hex[:12],
+            email=validated_data['email'],
+            password=validated_data['password'],
+            is_active=True  # todo: Set this to false once the account verification feature is done
+        )
+        return user
+
+
 
 class UserProfileSerializer(serializers.ModelSerializer):
     """
