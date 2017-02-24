@@ -15,7 +15,7 @@ from rest_framework import mixins
 from accounts.serializers import (
     PaidSignupFormSerializer,
     UserProfileSerializer,
-)
+    FreeAccountCreateUserSerializer)
 
 
 class OnboardingCreate(mixins.CreateModelMixin,
@@ -35,27 +35,15 @@ class OnboardingCreate(mixins.CreateModelMixin,
     def perform_create(self, serializer):
         super(OnboardingCreate, self).perform_create(serializer)
 
-class FreeAccountCreate(APIView):
+
+class FreeAccountCreate(mixins.CreateModelMixin,
+                       GenericViewSet):
 
     http_method_names = ['post']
     authentication_classes = []
     permission_classes = []
+    serializer_class = FreeAccountCreateUserSerializer
 
-    def post(self, request, *args, **kwargs):
-        email = request.data.get('email', '').strip()
-        password = request.data.get('password', '').strip()
-        emailSent = False
-
-        user = User.objects.create_user(email, email, password)
-        # TODO: set correct permissions
-        # TODO: return an error in the response if the email is already registered
-        if user:
-            emailSent = True
-            # TODO: send email
-
-        return Response({
-            'emailSent': emailSent
-        })
 
 class AuthenticationAPIView(APIView):
 
