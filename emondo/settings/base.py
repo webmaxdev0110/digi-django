@@ -210,8 +210,8 @@ STATICFILES_DIRS = (
 WHITENOISE_MAX_AGE = 3600 * 24 * 30
 
 CORS_ORIGIN_REGEX_WHITELIST = (
-    r'^(https:\/\/)?(\w+\.)?emondo\.(com\.au|io)$',
-    r'^(http:\/\/)?localdev\.emondo\.(com\.au|.io):(8000|3000)$',
+    r'^(https:\/\/)?(\w+\.)?emondo\.(com\.au|io|co)$',
+    r'^(http:\/\/)?localdev\.emondo\.(com\.au|io|co):(8000|3000)$',
     r'^(http:\/\/)?127.0.0.1:(8000|3000)$',
 )
 # Do not enable this in production
