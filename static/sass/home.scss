@@ -153,7 +153,6 @@ a.nav-logo-wrapper {
   @extend .font8;
   @include media("<=xs"){
     margin-top: 26px;
-    z-index: 10000;
     margin-right: 10px;
   }
 }
