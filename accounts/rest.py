@@ -104,6 +104,9 @@ class UserAPIViewSet(
 
 class SubdomainVerifyAPIView(APIView):
 
+    authentication_classes = []
+    permission_classes = []
+
     def post(self, request, format=None):
         subdomain = request.data.get('subdomain', '')
         if len(subdomain) < 4:
