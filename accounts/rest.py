@@ -106,6 +106,7 @@ class SubdomainVerifyAPIView(APIView):
 
     authentication_classes = []
     permission_classes = []
+    # todo: Evaluate security risks
 
     def post(self, request, format=None):
         subdomain = request.data.get('subdomain', '')
