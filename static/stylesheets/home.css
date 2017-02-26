@@ -535,8 +535,8 @@ a.nav-logo-wrapper > img.logo-img {
 @media (max-width: 480px) {
   .in-page-nav {
     margin-top: 26px;
-    z-index: 10000;
     margin-right: 10px;
+    font-size: 15px;
   }
 }
 
@@ -1471,7 +1471,7 @@ footer ul li {
 }
 
 .remodal {
-  background-image: url('../images/Emondo-Icon-Colour.svg?1467286529') !important;
+  background-image: url('../images/Emondo-Icon-Colour.svg?1457552297') !important;
   background-position: 140% 358% !important;
   background-size: 58% 88% !important;
   background-repeat: no-repeat !important;
