@@ -334,19 +334,52 @@ a.nav-logo-wrapper {
 
 .pricing-faq {
   background: $white;
+  color: $dark-blue;
   padding-top: 70px;
   padding-bottom: 70px;
   h2 {
     text-align: center;
     color: $dark-blue;
-    margin: 0 0 40px;
+    margin: 0 0 90px;
     font-size: 30px;
   }
-  color: $dark-blue;
   a {
     color: $dark-blue;
     font-weight: bold;
     display: block;
+    cursor: pointer;
+  }
+  .faq-sidebar {
+    @include box-shadow(0 3px 5px 0 $faint-grey-2);
+    .btn {
+      height: 64px;
+      font-size: 18px;
+      text-align: left;
+      padding: 0;
+      color: $faint-grey-3;
+      border-color: $faint-grey-2;
+      overflow: hidden;
+      @extend .font7;
+      span {
+        padding: 0 26px;
+        display: block;
+        height:100%;
+        line-height: 64px;
+      }
+      &:hover, &:focus {
+        background: $faint-grey;
+        outline: none;
+      }
+      &.js-active span{
+        color: $blue;
+        background: $faint-grey;
+        border-right: 5px solid $blue;
+      }
+    }
+  }
+  .faq-tabpanes {
+    border-top: 1px solid $faint-grey-2;
+    padding-top: 32px;
   }
   .faq-section {
     margin: 0 0 20px;
@@ -367,6 +400,7 @@ a.nav-logo-wrapper {
       left: 0;
     }
     &.collapsed {
+      a { color: $faint-grey-3; }
       .question:before {
         // carat
         border-left: 5px solid transparent;

@@ -50,6 +50,26 @@ $(document).ready(function () {
     return false;
   });
 
+  // faq tabs
+
+  $('.js-faq-tab').click(function(e) {
+    e.preventDefault();
+    // deactivate tabs
+    $('.js-faq-tab').each(function() {
+      $(this).removeClass('js-active');
+    });
+    // hide panes
+    $('.js-faq-tabpane').each(function() {
+      $(this).hide();
+    });
+    // activate tab
+    $(this).addClass('js-active');
+    // show pane
+    var tid = $(this).attr('href');
+    $('' + tid).show();
+  });
+
+  // custom intercom launcher
   $('#intercom-custom-launcher').click(function() {
     if(Intercom) {
       Intercom('show');

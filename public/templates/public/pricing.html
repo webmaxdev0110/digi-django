@@ -289,7 +289,7 @@
                 <p class="list-title icon-forms">Conversational Forms</p>
                 <ul>
                   <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
-                    AUtofills your documents</li>
+                    Autofills your documents</li>
                   <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
                     Save &amp; continue later</li>
                   <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
@@ -347,14 +347,38 @@
     <div class="row">
       <div class="col-xs-12 col-sm-10 col-sm-push-1 col-md-8 col-md-push-2">
         <h2>Frequently Asked Questions</h2>
-        <div class="faq-section js-faq">
-          <a class="question js-faq-q" href="#question1">Question?</a>
-          <div class="answer js-faq-a" id="question1">Answer.</div>
-        </div>
-        <div class="faq-section js-faq">
-          <a class="question js-faq-q" href="#question2">Another question?</a>
-          <div class="answer js-faq-a" id="question2">Another answer.</div>
-        </div>
+        <div class="row">
+          <div class="col-xs-12 col-sm-4">
+            <div class="btn-group-vertical btn-block faq-sidebar">
+              <a href="#faq-product" class="btn btn-default js-faq-tab"><span>Product</span></a>
+              <a href="#faq-signing" class="btn btn-default js-faq-tab"><span>Signing</span></a>
+              <a href="#faq-security" class="btn btn-default js-faq-tab"><span>Security</span></a>
+              <a href="#faq-billing" class="btn btn-default js-faq-tab"><span>Billing</span></a>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-8">
+            <div class="faq-tabpanes">
+              <div class="js-faq-tabpane" id="faq-product">
+                <div class="faq-section js-faq">
+                  <a class="question js-faq-q">Question?</a>
+                  <div class="answer js-faq-a">Answer.</div>
+                </div>
+                <div class="faq-section js-faq">
+                  <a class="question js-faq-q">Another question?</a>
+                  <div class="answer js-faq-a">Another answer.</div>
+                </div>
+              </div>
+              <div class="js-faq-tabpane" id="faq-signing">
+                signing
+              </div>
+              <div class="js-faq-tabpane" id="faq-security">
+                security
+              </div>
+              <div class="js-faq-tabpane" id="faq-billing">
+                billing
+              </div>
+            </div>
+          </div>
       </div>
     </div>
   </div>

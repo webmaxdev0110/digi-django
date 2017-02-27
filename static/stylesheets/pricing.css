@@ -22,7 +22,7 @@
   font-family: "roble_alt_thinthin";
 }
 
-.font7 {
+.font7, .pricing-faq .faq-sidebar .btn {
   font-family: "Open Sans", sans-serif;
   font-weight: 400;
 }
@@ -514,20 +514,54 @@ a.nav-logo-wrapper > img.logo-img {
 
 .pricing-faq {
   background: #FFFFFF;
+  color: #073660;
   padding-top: 70px;
   padding-bottom: 70px;
-  color: #073660;
 }
 .pricing-faq h2 {
   text-align: center;
   color: #073660;
-  margin: 0 0 40px;
+  margin: 0 0 90px;
   font-size: 30px;
 }
 .pricing-faq a {
   color: #073660;
   font-weight: bold;
   display: block;
+  cursor: pointer;
+}
+.pricing-faq .faq-sidebar {
+  -moz-box-shadow: 0 3px 5px 0 #e4ebf0;
+  -webkit-box-shadow: 0 3px 5px 0 #e4ebf0;
+  box-shadow: 0 3px 5px 0 #e4ebf0;
+}
+.pricing-faq .faq-sidebar .btn {
+  height: 64px;
+  font-size: 18px;
+  text-align: left;
+  padding: 0;
+  color: #b4bbc2;
+  border-color: #e4ebf0;
+  overflow: hidden;
+}
+.pricing-faq .faq-sidebar .btn span {
+  padding: 0 26px;
+  display: block;
+  height: 100%;
+  line-height: 64px;
+}
+.pricing-faq .faq-sidebar .btn:hover, .pricing-faq .faq-sidebar .btn:focus {
+  background: #eff2f7;
+  outline: none;
+}
+.pricing-faq .faq-sidebar .btn.js-active span {
+  color: #3993d1;
+  background: #eff2f7;
+  border-right: 5px solid #3993d1;
+}
+.pricing-faq .faq-tabpanes {
+  border-top: 1px solid #e4ebf0;
+  padding-top: 32px;
 }
 .pricing-faq .faq-section {
   margin: 0 0 20px;
@@ -546,6 +580,9 @@ a.nav-logo-wrapper > img.logo-img {
   position: absolute;
   top: 6px;
   left: 0;
+}
+.pricing-faq .faq-section.collapsed a {
+  color: #b4bbc2;
 }
 .pricing-faq .faq-section.collapsed .question:before {
   border-left: 5px solid transparent;
