@@ -41,6 +41,10 @@ class Plan(models.Model):
     def __unicode__(self):
         return '<Plan: {0}>'.format(self.name)
 
+    def is_num_user_valid(self, num_users):
+        return self.max_num_user >= num_users and self.min_required_num_user <= num_users
+
+
 COUPON_TYPES = (
     ('m', 'Money based coupon'),
     ('p', 'Percentage discount'),
