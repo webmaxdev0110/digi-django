@@ -286,24 +286,47 @@ a.nav-logo-wrapper {
     margin: 0 0 40px;
     font-size: 30px
   }
+  .list-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: $dark-blue;
+    padding: 20px 0;
+    margin: 0 0 20px;
+    text-align: center;
+    border-bottom: 1px solid $faint-grey-2;
+  }
+  .list-title:before {
+    content: ' ';
+    display: block;
+    margin: 0 auto 20px;
+  }
+  .icon-doc2builder:before {
+    @include retina-image(features_doc2builder, png);
+  }
+  .icon-esigs:before {
+    @include retina-image(features_esigs, png);
+  }
+  .icon-forms:before {
+    @include retina-image(features_forms, png);
+  }
+  .icon-data:before {
+    @include retina-image(features_data, png);
+  }
+  .icon-security:before {
+    @include retina-image(features_security, png);
+  }
   ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
   }
   li {
-    margin: 0 0 10px;
-    padding: 6px 0 0 40px;
-    min-height: 40px;
+    margin: 0 0 20px;
+    padding: 0 0 0 34px;
     position: relative;
     .icon-tick {
-      width: 32px;
-      height: 32px;
-      padding: 8px;
-      border: 1px solid lighten($blue, 25%);
-      @include border-radius(50%);
       position: absolute;
-      top: 0;
+      top: 2px;
       left: 0;
     }
   }

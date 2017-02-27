@@ -422,27 +422,93 @@ a.nav-logo-wrapper > img.logo-img {
   margin: 0 0 40px;
   font-size: 30px;
 }
+.pricing-all-features .list-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #073660;
+  padding: 20px 0;
+  margin: 0 0 20px;
+  text-align: center;
+  border-bottom: 1px solid #e4ebf0;
+}
+.pricing-all-features .list-title:before {
+  content: ' ';
+  display: block;
+  margin: 0 auto 20px;
+}
+.pricing-all-features .icon-doc2builder:before {
+  background-image: url(../images/features_doc2builder.png);
+  width: 85px;
+  height: 85px;
+  background-repeat: no-repeat;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (-moz-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+  .pricing-all-features .icon-doc2builder:before {
+    background-image: url(../images/features_doc2builder@2x.png);
+    background-size: 85px 85px;
+  }
+}
+.pricing-all-features .icon-esigs:before {
+  background-image: url(../images/features_esigs.png);
+  width: 85px;
+  height: 85px;
+  background-repeat: no-repeat;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (-moz-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+  .pricing-all-features .icon-esigs:before {
+    background-image: url(../images/features_esigs@2x.png);
+    background-size: 85px 85px;
+  }
+}
+.pricing-all-features .icon-forms:before {
+  background-image: url(../images/features_forms.png);
+  width: 85px;
+  height: 85px;
+  background-repeat: no-repeat;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (-moz-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+  .pricing-all-features .icon-forms:before {
+    background-image: url(../images/features_forms@2x.png);
+    background-size: 85px 85px;
+  }
+}
+.pricing-all-features .icon-data:before {
+  background-image: url(../images/features_data.png);
+  width: 85px;
+  height: 85px;
+  background-repeat: no-repeat;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (-moz-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+  .pricing-all-features .icon-data:before {
+    background-image: url(../images/features_data@2x.png);
+    background-size: 85px 85px;
+  }
+}
+.pricing-all-features .icon-security:before {
+  background-image: url(../images/features_security.png);
+  width: 85px;
+  height: 85px;
+  background-repeat: no-repeat;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (-moz-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+  .pricing-all-features .icon-security:before {
+    background-image: url(../images/features_security@2x.png);
+    background-size: 85px 85px;
+  }
+}
 .pricing-all-features ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
 .pricing-all-features li {
-  margin: 0 0 10px;
-  padding: 6px 0 0 40px;
-  min-height: 40px;
+  margin: 0 0 20px;
+  padding: 0 0 0 34px;
   position: relative;
 }
 .pricing-all-features li .icon-tick {
-  width: 32px;
-  height: 32px;
-  padding: 8px;
-  border: 1px solid #a0cbe9;
-  -moz-border-radius: 50%;
-  -webkit-border-radius: 50%;
-  border-radius: 50%;
   position: absolute;
-  top: 0;
+  top: 2px;
   left: 0;
 }
 
