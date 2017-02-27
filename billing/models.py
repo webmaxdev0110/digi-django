@@ -1,6 +1,9 @@
 from __future__ import unicode_literals
 import random
-from django.contrib.postgres.fields import ArrayField
+from django.contrib.postgres.fields import (
+    ArrayField,
+    JSONField,
+)
 from django.db import models
 # Create your models here.
 from django.utils.translation import ugettext_lazy as _
@@ -26,7 +29,7 @@ TIME_UNIT_CHOICES = (
 
 
 class Plan(models.Model):
-    name = models.CharField(max_length=24)
+    name = models.CharField(max_length=24, unique=True)
     price_cents = models.IntegerField()
     recurring_type = models.CharField(max_length=1, choices=TIME_UNIT_CHOICES, default='M')
     feature_flags = ArrayField(models.CharField(max_length=32), blank=True)
@@ -79,6 +82,21 @@ class Coupon(TimeStampedModel):
         return prefix + code
 
 
+class StripeCustomer(models.Model):
+    customer_id = models.CharField(primary_key=True, max_length=40)
+    user = models.ForeignKey(User)
+    raw_response = JSONField(null=True)
+
+
+class StripeCard(TimeStampedModel):
+    card_id = models.CharField(max_length=64, null=True)
+    token_id = models.CharField(max_length=40, null=True)
+    customer = models.ForeignKey(StripeCustomer, null=True)
+    card_brand = models.CharField(max_length=40, null=True)
+    card_country = models.CharField(max_length=40, null=True)
+    card_last4 = models.CharField(max_length=4, null=True)
+
+
 class PlanSubscription(models.Model):
     name = models.CharField(max_length=24)
     trial_days = models.SmallIntegerField(default=0)
@@ -92,7 +110,6 @@ class PlanSubscription(models.Model):
     coupon = models.ForeignKey(Coupon)
     number_of_users = models.SmallIntegerField(default=1)
     recurring_type = models.CharField(max_length=1, choices=TIME_UNIT_CHOICES)
-    recurrence_period = models.PositiveIntegerField(null=True, blank=True)
     next_payment_date = models.DateField(null=True)
 
     class Meta:
