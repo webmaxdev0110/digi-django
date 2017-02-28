@@ -51,6 +51,7 @@ class Plan(models.Model):
 class Pricing(models.Model):
     name = models.CharField(max_length=24, unique=True)
     recurring_type = models.CharField(max_length=1, choices=TIME_UNIT_CHOICES, default='M')
+    price_cents = models.IntegerField(default=1000)
 
     class Meta:
         ordering = ('name',)
@@ -64,7 +65,6 @@ class Pricing(models.Model):
 class PlanPricing(models.Model):
     plan = models.ForeignKey(Plan)
     pricing = models.ForeignKey(Pricing)
-    price_cents = models.IntegerField()
     trial_days = models.SmallIntegerField(default=0, null=True)
     objects = PlanPricingManager()
 
