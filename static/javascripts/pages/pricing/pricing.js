@@ -69,6 +69,14 @@ $(document).ready(function () {
     $('' + tid).show();
   });
 
+  // offcanvas
+  $('.js-toggle-offcanvas').each(function() {
+    $(this).click(function(e) {
+      e.preventDefault();
+      $(this).closest('.row-offcanvas').toggleClass('active');
+    });
+  });
+
   // custom intercom launcher
   $('#intercom-custom-launcher').click(function() {
     if(Intercom) {

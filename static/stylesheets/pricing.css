@@ -69,6 +69,46 @@ a:hover, a:visited, a:focus, a:active {
   clear: both;
 }
 
+/*
+from http://getbootstrap.com/examples/offcanvas/
+requires some js to toggle the active class
+*/
+@media (max-width: 767px) {
+  .row-offcanvas {
+    position: relative;
+    transition: all 0.25s ease-out 0s;
+  }
+
+  .row-offcanvas-right {
+    right: 0;
+  }
+
+  .row-offcanvas-left {
+    left: 0;
+  }
+
+  .row-offcanvas-right .sidebar-offcanvas {
+    right: -50%;
+  }
+
+  .row-offcanvas-left .sidebar-offcanvas {
+    left: -50%;
+  }
+
+  .row-offcanvas-right.active {
+    right: 50%;
+  }
+
+  .row-offcanvas-left.active {
+    left: 50%;
+  }
+
+  .sidebar-offcanvas {
+    position: absolute;
+    top: 0;
+    width: 50%;
+  }
+}
 .row.no-gutter {
   margin-left: 0;
   margin-right: 0;
@@ -562,6 +602,7 @@ a.nav-logo-wrapper > img.logo-img {
 .pricing-faq .faq-tabpanes {
   border-top: 1px solid #e4ebf0;
   padding-top: 32px;
+  min-height: 250px;
 }
 .pricing-faq .faq-section {
   margin: 0 0 20px;
@@ -589,4 +630,32 @@ a.nav-logo-wrapper > img.logo-img {
   border-right: 5px solid transparent;
   border-bottom: 5px solid #849ab1;
   border-top: none;
+}
+
+.faq-toggle-offcanvas {
+  position: absolute;
+  left: -5px;
+  top: -45px;
+  font-size: 20px;
+  color: #fff !important;
+  background: #3993d1;
+}
+.faq-toggle-offcanvas:hover {
+  background: #2978ae;
+}
+.faq-toggle-offcanvas:focus, .faq-toggle-offcanvas:active {
+  outline: none;
+}
+.faq-toggle-offcanvas .arrow-right {
+  display: inline;
+}
+.faq-toggle-offcanvas .arrow-left {
+  display: none;
+}
+
+.row-offcanvas.active .faq-toggle-offcanvas .arrow-right {
+  display: none;
+}
+.row-offcanvas.active .faq-toggle-offcanvas .arrow-left {
+  display: inline;
 }

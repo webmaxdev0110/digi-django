@@ -3,6 +3,7 @@
 @import "global/variables";
 @import "global/typography";
 @import "global/helpers";
+@import "offcanvas";
 
 .row.no-gutter {
   margin-left: 0;
@@ -380,6 +381,7 @@ a.nav-logo-wrapper {
   .faq-tabpanes {
     border-top: 1px solid $faint-grey-2;
     padding-top: 32px;
+    min-height: 250px;
   }
   .faq-section {
     margin: 0 0 20px;
@@ -410,4 +412,25 @@ a.nav-logo-wrapper {
       }
     }
   }
+}
+
+.faq-toggle-offcanvas {
+  position: absolute;
+  left: -5px;
+  top: -45px;
+  font-size: 20px;
+  color: #fff !important;
+  background: $blue;
+  &:hover {
+    background: darken($blue, 10%);
+  }
+  &:focus, &:active {
+    outline: none;
+  }
+  .arrow-right {display: inline;}
+  .arrow-left {display: none;}
+}
+.row-offcanvas.active .faq-toggle-offcanvas {
+  .arrow-right {display: none;}
+  .arrow-left {display: inline;}
 }
