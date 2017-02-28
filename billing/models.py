@@ -30,19 +30,49 @@ TIME_UNIT_CHOICES = (
 
 class Plan(models.Model):
     name = models.CharField(max_length=24, unique=True)
-    price_cents = models.IntegerField()
-    recurring_type = models.CharField(max_length=1, choices=TIME_UNIT_CHOICES, default='M')
     feature_flags = ArrayField(models.CharField(max_length=32), blank=True)
     is_live = models.BooleanField(default=False)
     min_required_num_user = models.SmallIntegerField(default=0)
     max_num_user = models.SmallIntegerField(default=1, null=True)
-    trial_days = models.SmallIntegerField(default=0, null=True)
+
+    class Meta:
+        ordering = ('name',)
+        verbose_name = _("Plan")
+        verbose_name_plural = _("Plans")
 
     def __unicode__(self):
         return '<Plan: {0}>'.format(self.name)
 
     def is_num_user_valid(self, num_users):
         return self.max_num_user >= num_users and self.min_required_num_user <= num_users
+
+
+class Pricing(models.Model):
+    name = models.CharField(max_length=24, unique=True)
+    recurring_type = models.CharField(max_length=1, choices=TIME_UNIT_CHOICES, default='M')
+
+    class Meta:
+        ordering = ('name',)
+        verbose_name = _("Pricing")
+        verbose_name_plural = _("Pricings")
+
+    def __unicode__(self):
+        return "%s (%d " % (self.name, self.period) + "%s)" % _("days")
+
+
+class PlanPricing(models.Model):
+    plan = models.ForeignKey(Plan)
+    pricing = models.ForeignKey(Pricing)
+    price_cents = models.IntegerField()
+    trial_days = models.SmallIntegerField(default=0, null=True)
+
+    class Meta:
+        ordering = ('pricing__name',)
+        verbose_name = _("Plan pricing")
+        verbose_name_plural = _("Plans pricings")
+
+    def __unicode__(self):
+        return "%s %s" % (self.plan.name, self.pricing)
 
 
 COUPON_TYPES = (
@@ -59,8 +89,10 @@ class Coupon(TimeStampedModel):
         _("Valid until"), blank=True, null=True,
         help_text=_("Leave empty for coupons that never expire"))
     single_user_reusable = models.BooleanField(models.BooleanField, default=False)
-    target_plans = models.ManyToManyField(Plan, blank=True, help_text=_('Leaving empty will make this '
-                                                                       'coupon valid for all plans'))
+    target_pricing_plan = models.ManyToManyField(
+        PlanPricing, blank=True,
+        help_text=_('Leaving empty will make this coupon valid for all plans'))
+
     class Meta:
         ordering = ['created']
         verbose_name = _("Coupon")
@@ -102,23 +134,23 @@ class StripeCard(TimeStampedModel):
 
 
 class PlanSubscription(models.Model):
-    name = models.CharField(max_length=24)
-    trial_days = models.SmallIntegerField(default=0)
+    """
+    It represents current user plan subscription
+    """
     user = models.ForeignKey(User)
-    price_cents = models.IntegerField()
+    amount_cents = models.IntegerField()
     start_date = models.DateTimeField(auto_now_add=True, auto_now=False)
-    end_date = models.DateTimeField(null=True)
     active = models.BooleanField(default=False)
     user_cancelled = models.BooleanField(default=False)
     system_cancelled = models.BooleanField(default=False)
     coupon = models.ForeignKey(Coupon)
     number_of_users = models.SmallIntegerField(default=1)
-    recurring_type = models.CharField(max_length=1, choices=TIME_UNIT_CHOICES)
     next_payment_date = models.DateField(null=True)
+    plan_pricing = models.ForeignKey(PlanPricing)
 
     class Meta:
         ordering = ['-start_date', 'user']
-        
+
 
 TRANSACTION_REASON_CHOICES = (
     ('S', _('Subscription charge')),
