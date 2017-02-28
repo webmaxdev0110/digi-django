@@ -9,6 +9,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from accounts.models import User
+from billing.managers import PlanPricingManager
 from core.models import TimeStampedModel
 import string
 
@@ -65,6 +66,7 @@ class PlanPricing(models.Model):
     pricing = models.ForeignKey(Pricing)
     price_cents = models.IntegerField()
     trial_days = models.SmallIntegerField(default=0, null=True)
+    objects = PlanPricingManager()
 
     class Meta:
         ordering = ('pricing__name',)
