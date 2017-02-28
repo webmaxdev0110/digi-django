@@ -6,7 +6,7 @@ $(document).ready(function () {
     if($('.js-price-toggle.active').hasClass('js-price-monthly')){
       period = 'monthly';
     }
-    window.location.href = window.SPA_ROOT_URL + "/sign-up/business-plan?plan=" + plan + '&period=' + period;
+    window.location.href = window.SPA_ROOT_URL + "/sign-up/business-plan?plan=" + plan + '-' + period;
   });
   // toggle display of monthly and annual prices
   $('.js-price-toggle').click(function() {
