@@ -31,7 +31,7 @@ TIME_UNIT_CHOICES = (
 
 class Plan(models.Model):
     name = models.CharField(max_length=24, unique=True)
-    feature_flags = ArrayField(models.CharField(max_length=32), blank=True)
+    feature_flags = ArrayField(models.CharField(max_length=32), blank=True, default=[])
     is_live = models.BooleanField(default=False)
     min_required_num_user = models.SmallIntegerField(default=0)
     max_num_user = models.SmallIntegerField(default=1, null=True)
