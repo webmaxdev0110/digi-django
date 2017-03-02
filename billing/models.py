@@ -21,11 +21,11 @@ _recurrence_unit_days = {
     'Y': 365.2425,                     # http://en.wikipedia.org/wiki/Year#Calendar_year
     }
 
-TIME_UNIT_CHOICES = (
-    ('D', _('Day')),
-    ('W', _('Week')),
-    ('M', _('Month')),
-    ('Y', _('Year')),
+RECURRING_UNIT_CHOICES = (
+    ('D', _('daily')),
+    ('W', _('weekly')),
+    ('M', _('monthly')),
+    ('Y', _('annually')),
 )
 
 
@@ -61,7 +61,7 @@ class Plan(models.Model):
 
 class Pricing(models.Model):
     name = models.CharField(max_length=24, unique=True)
-    recurring_type = models.CharField(max_length=1, choices=TIME_UNIT_CHOICES, default='M')
+    recurring_type = models.CharField(max_length=1, choices=RECURRING_UNIT_CHOICES, default='M')
     price_cents = models.IntegerField(default=1000)
 
     class Meta:
