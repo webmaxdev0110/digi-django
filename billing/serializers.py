@@ -66,7 +66,7 @@ class SubscriptionSerializer(ModelSerializer):
 
     def validate_plan_name(self, value):
         if not Plan.objects.filter(name=value, is_live=True).exists():
-            raise serializers.ValidationError('Plan is not available for purchase')
+            raise serializers.ValidationError('Plan is not available for new purchase')
         return value
 
     def validate_number_of_users(self, value):
