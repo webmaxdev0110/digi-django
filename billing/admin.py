@@ -19,6 +19,7 @@ class PricingAdmin(ModelAdmin):
     list_display = (
         'name',
         'recurring_type',
+        'price_cents',
     )
     list_filter = ('recurring_type',)
 

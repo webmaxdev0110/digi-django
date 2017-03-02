@@ -70,7 +70,7 @@ class Pricing(models.Model):
         verbose_name_plural = _("Pricings")
 
     def __unicode__(self):
-        return "%s (%d " % (self.name, self.period) + "%s)" % _("days")
+        return '{0}.{1}'.format(self.name, self.price_cents)
 
 
 class PlanPricing(models.Model):
@@ -85,7 +85,7 @@ class PlanPricing(models.Model):
         verbose_name_plural = _("Plans pricings")
 
     def __unicode__(self):
-        return "%s %s" % (self.plan.name, self.pricing)
+        return "%s %s %s" % (self.plan.name, self.pricing, self.pricing.get_recurring_type_display())
 
 
 COUPON_TYPES = (
