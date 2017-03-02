@@ -1,0 +1,3 @@
+
+class CardChargeFailedException(Exception):
+    pass
