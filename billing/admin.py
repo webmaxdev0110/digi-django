@@ -34,7 +34,6 @@ class PlanPricingAdmin(ModelAdmin):
 class PlanSubscriptionAdmin(ModelAdmin):
     list_display = (
         'user',
-        'amount_cents',
         'start_date',
         'active',
         'user_cancelled',
@@ -43,7 +42,7 @@ class PlanSubscriptionAdmin(ModelAdmin):
     )
 
     readonly_fields = (
-        'user', 'amount_cents', 'start_date',
+        'user', 'start_date',
     )
 
     list_filter = ('active', 'user_cancelled', 'system_cancelled',)
