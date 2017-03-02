@@ -44,6 +44,17 @@ class Plan(models.Model):
     def __unicode__(self):
         return '<Plan: {0}>'.format(self.name)
 
+    def get_purchase_options(self):
+        """
+        Return the purchase options for this plan,
+        could be monthly, yearly or even daily pricing options
+        """
+        return [{
+            'price_cents': plan_pricing.pricing.price_cents,
+            'recurring_type': plan_pricing.pricing.get_recurring_type_display(),
+            'trial_days': plan_pricing.trial_days
+        } for plan_pricing in self.planpricing_set.all()]
+
     def is_num_user_valid(self, num_users):
         return self.max_num_user >= num_users and self.min_required_num_user <= num_users
 

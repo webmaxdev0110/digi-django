@@ -10,25 +10,24 @@ class PlanSerializer(serializers.ModelSerializer):
     This serializer is for return the plan details
     """
     currency = serializers.SerializerMethodField()
-    recurring_type = serializers.SerializerMethodField()
+    purchase_options = serializers.SerializerMethodField()
 
     class Meta:
         model = Plan
         fields = (
             'name',
-            'price_cents',
-            'recurring_type',
             'min_required_num_user',
+            'purchase_options',
             'max_num_user',
-            'trial_days',
             'currency',
         )
 
     def get_currency(self, instance):
         return 'AUD'
 
-    def get_recurring_type(self, instance):
-        return instance.get_recurring_type_display()
+    def get_purchase_options(self, instance):
+        return instance.get_purchase_options()
+
 
 
 class SubscriptionSerializer(ModelSerializer):
