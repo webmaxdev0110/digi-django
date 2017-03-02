@@ -122,12 +122,13 @@ class Coupon(TimeStampedModel):
 
 class StripeCustomer(models.Model):
     customer_id = models.CharField(primary_key=True, max_length=40)
-    user = models.ForeignKey(User)
+    user = models.OneToOneField(User)
     raw_response = JSONField(null=True)
 
 
 class StripeCard(TimeStampedModel):
     card_id = models.CharField(max_length=64, null=True)
+    fingerprint = models.CharField(max_length=64, null=True)
     token_id = models.CharField(max_length=40, null=True)
     customer = models.ForeignKey(StripeCustomer, null=True)
     card_brand = models.CharField(max_length=40, null=True)
@@ -140,12 +141,11 @@ class PlanSubscription(models.Model):
     It represents current user plan subscription
     """
     user = models.ForeignKey(User)
-    amount_cents = models.IntegerField()
     start_date = models.DateTimeField(auto_now_add=True, auto_now=False)
     active = models.BooleanField(default=False)
     user_cancelled = models.BooleanField(default=False)
     system_cancelled = models.BooleanField(default=False)
-    coupon = models.ForeignKey(Coupon)
+    coupon = models.ForeignKey(Coupon, null=True)
     number_of_users = models.SmallIntegerField(default=1)
     next_payment_date = models.DateField(null=True)
     plan_pricing = models.ForeignKey(PlanPricing)
