@@ -344,11 +344,12 @@ a.nav-logo-wrapper {
     margin: 0 0 90px;
     font-size: 30px;
   }
-  a {
+  a.question {
     color: $dark-blue;
     font-weight: bold;
     display: block;
     cursor: pointer;
+    margin: 0 0 12px;
   }
   .faq-sidebar {
     @include box-shadow(0 3px 5px 0 $faint-grey-2);
@@ -384,7 +385,7 @@ a.nav-logo-wrapper {
     min-height: 250px;
   }
   .faq-section {
-    margin: 0 0 20px;
+    margin: 0 0 32px;
     padding-left: 30px;
     position: relative;
     font-size: 16px;

@@ -564,11 +564,12 @@ a.nav-logo-wrapper > img.logo-img {
   margin: 0 0 90px;
   font-size: 30px;
 }
-.pricing-faq a {
+.pricing-faq a.question {
   color: #073660;
   font-weight: bold;
   display: block;
   cursor: pointer;
+  margin: 0 0 12px;
 }
 .pricing-faq .faq-sidebar {
   -moz-box-shadow: 0 3px 5px 0 #e4ebf0;
@@ -605,7 +606,7 @@ a.nav-logo-wrapper > img.logo-img {
   min-height: 250px;
 }
 .pricing-faq .faq-section {
-  margin: 0 0 20px;
+  margin: 0 0 32px;
   padding-left: 30px;
   position: relative;
   font-size: 16px;
