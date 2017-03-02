@@ -2,11 +2,11 @@ $(document).ready(function () {
   // handle buy now button click
   $('button.btn-purchase').click(function() {
     var plan = $(this).data('plan');
-    var period = 'annually'
+    var period = 'annually';
     if($('.js-price-toggle.active').hasClass('js-price-monthly')){
       period = 'monthly';
     }
-    window.location.href = window.SPA_ROOT_URL + "/sign-up/business-plan?plan=" + plan + '-' + period;
+    window.location.href = window.SPA_ROOT_URL + "/sign-up/business-plan?plan=" + plan + '&' + 'period=' + period;
   });
   // toggle display of monthly and annual prices
   $('.js-price-toggle').click(function() {
