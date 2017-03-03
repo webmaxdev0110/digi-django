@@ -1,5 +1,7 @@
 from __future__ import unicode_literals
 import ntpath
+
+from django.core.files.storage import FileSystemStorage
 from django.core.files.temp import NamedTemporaryFile
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.postgres.fields import (
@@ -7,19 +9,21 @@ from django.contrib.postgres.fields import (
 )
 from django.contrib.sites.models import Site
 from django.db import models
-from storages.backends.gs import GSBotoStorage
 from wand.image import Image
 from accounts.models import User, Company
 from core.models import TimeStampedModel
 import os
 import pyPdf
 from django.core.files import File
+from django.conf import settings
 
+from core.core_storages import ProtectedDocumentStorage
 from form_document.constants import (
     FORM_SENDING_METHOD_CHOICES,
     FormSendingMethod,
 )
 
+get_document_storage = lambda: ProtectedDocumentStorage() if settings.UPLOAD_DOC_TO_S3 else FileSystemStorage()
 
 def document_path_dir(instance, filename):
     file_name_no_extension = os.path.splitext(ntpath.basename(filename))[0]
@@ -36,13 +40,7 @@ def document_path(instance, filename):
         filename,
     )
 
-ProtectedStorage = lambda bucket: GSBotoStorage(
-    acl='private',    # https://cloud.google.com/storage/docs/access-control/lists#predefined-acl
-    bucket=bucket,
-    querystring_auth=True,
-    querystring_expire=600,
-)
-documents_store = ProtectedStorage('emondo-documents')
+
 
 
 class FormDocument(TimeStampedModel):
@@ -58,7 +56,7 @@ class FormDocument(TimeStampedModel):
     uploaded_document = models.FileField(
         null=True,
         upload_to=document_path,
-        storage=documents_store,
+        storage=get_document_storage(),
         max_length=255,
         help_text='The document uploaded used for populating after a form is completed')
     form_data = JSONField(null=True)      # All the form data
@@ -131,7 +129,7 @@ def original_document_path(instance, filename):
 class FormDocumentAsset(models.Model):
     form_document = models.ForeignKey(FormDocument, related_name='form_assets')
     image = models.ImageField(
-        upload_to=original_document_path, storage=documents_store,
+        upload_to=original_document_path, storage=get_document_storage(),
         height_field='cached_image_height',
         width_field='cached_image_width'
     )
