@@ -23,7 +23,8 @@ class User(AbstractUser):
     signup_form_source = models.CharField(max_length=16, default='', blank=True)
     avatar = models.ImageField(blank=True, null=True, upload_to='users/avatars/')
     short_description = models.CharField(blank=True, max_length=256)
-    timezone1 = TimeZoneField(default='Australia/Sydney')
+    timezone = TimeZoneField(default='Australia/Sydney')
+
 
     def has_active_subscription(self):
         return self.plansubscription_set.all().has_active_subscription()
