@@ -16,10 +16,10 @@ scrapinghub==1.7.0
 sqlalchemy
 plivo==0.11.0
 FeinCMS==1.11.4
-django-storages==1.4.1
+django-storages==1.5.0
 django-taggit==0.18.2
 apache-libcloud==0.20.1
-boto==2.40.0
+boto==2.42.0
 redis==2.10.5
 simplejson==3.8.2
 requests==2.10.0

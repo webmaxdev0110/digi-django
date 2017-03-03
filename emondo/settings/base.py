@@ -83,21 +83,10 @@ INSTALLED_APPS = [
     'public',
 ]
 
-# todo: Remove later
-LIBCLOUD_PROVIDERS = {
-    'google': {
-        'type': 'libcloud.storage.types.Provider.GOOGLE_STORAGE',
-        'user': '<your_key>',
-        'key': '<secret>',
-        'bucket': 'emondo-media',
-    },
-}
-
-DEFAULT_LIBCLOUD_PROVIDER = 'google'
 
 
-DEFAULT_FILE_STORAGE = 'storages.backends.gs.GSBotoStorage'
-GS_BUCKET_NAME = 'emondo-media'
+DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+
 
 MIDDLEWARE_CLASSES = [
     'corsheaders.middleware.CorsMiddleware',
@@ -203,7 +192,13 @@ COMPRESS_CSS_FILTERS = [
 
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'dist')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIAFILES_LOCATION = 'uploads'
 MEDIA_URL = '/media/'
+UPLOAD_DOC_TO_S3 = False
+# Overrides in local_settings.py
+AWS_ACCESS_KEY_ID = ''
+AWS_SECRET_ACCESS_KEY = ''
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
