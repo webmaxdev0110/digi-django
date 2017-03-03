@@ -181,6 +181,16 @@ class Transaction(TimeStampedModel):
     description = models.CharField(max_length=128, blank=True)
     amount_cents = models.DecimalField(_('Amount'), default=0, max_digits=18, decimal_places=6)
 
+    @classmethod
+    def create(cls, user, amount_cents, description):
+
+        return cls.objects.create(
+            user=user,
+            description=description,
+            reason=TRANSACTION_REASON_CHOICES[0][0],
+            amount_cents=amount_cents
+        )
+
     class Meta:
         ordering = ['-created', '-amount_cents']
         verbose_name = _("Transaction")
