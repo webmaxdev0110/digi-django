@@ -53,6 +53,7 @@ class Plan(models.Model):
         could be monthly, yearly or even daily pricing options
         """
         return [{
+            'plan_pricing_id': plan_pricing.id,
             'price_cents': plan_pricing.pricing.price_cents,
             'recurring_type': plan_pricing.pricing.get_recurring_type_display(),
             'trial_days': plan_pricing.trial_days
