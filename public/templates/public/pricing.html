@@ -91,7 +91,7 @@
                   <span class="price-permo">per user / mo</span>
                 </p>
                 <p class="cta">
-                  <button type="button" class="btn btn-default btn-lg btn-block font1">Buy Now</button>
+                  <button type="button" class="btn btn-default btn-lg btn-block font1 btn-purchase" data-plan="global">Buy Now</button>
                   <a href="#">Try for FREE</a>
                 </p>
               </div>
@@ -136,7 +136,7 @@
                   <span class="price-permo">per user / mo</span>
                 </p>
                 <p class="cta">
-                  <button type="button" class="btn btn-default btn-lg btn-block font1">Buy Now</button>
+                  <button type="button" class="btn btn-default btn-lg btn-block font1 btn-purchase" data-plan="teams">Buy Now</button>
                   <a href="#">Try for FREE</a>
                 </p>
               </div>
@@ -177,7 +177,7 @@
                   <span class="price-permo">per user / mo</span>
                 </p>
                 <p class="cta">
-                  <button type="button" class="btn btn-default btn-lg btn-block font1">Buy Now</button>
+                  <button type="button" class="btn btn-default btn-lg btn-block font1 btn-purchase" data-plan="professional">Buy Now</button>
                   <a href="#">Try for FREE</a>
                 </p>
               </div>
@@ -253,106 +253,89 @@
       <div class="col-xs-12 col-sm-10 col-sm-push-1 col-md-8 col-md-push-2">
         <h2>Every plan includes all these amazing features:</h2>
         <div class="row">
-          <div class="col-xs-12 col-sm-4">
-            <ul>
-              <li>
-                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
-                Unlimited digital signatures
-              </li>
-              <li>
-                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
-                Verify email existence
-              </li>
-              <li>
-                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
-                Unlimited secure file storage
-              </li>
-              <li>
-                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
-                Online and offline authentication
-              </li>
-              <li>
-                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
-                Sign like a star
-              </li>
-              <li>
-                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
-                Form sharing
-              </li>
-              <li>
-                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
-                Hardware security module (HSM)
-              </li>
-              <li>
-                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
-                Custom security settings
-              </li>
-            </ul>
+          <div class="col-xs-12 col-sm-8">
+            <div class="row">
+              <div class="col-xs-12 col-sm-6">
+                <p class="list-title icon-doc2builder">Document to Form Builder</p>
+                <ul>
+                  <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                    Supports 20+ document types</li>
+                  <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                    Standard &amp; block field output</li>
+                  <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                    Advanced logics</li>
+                  <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                    Split forms</li>
+                  <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                    Form sharing</li>
+                </ul>
+              </div>
+              <div class="col-xs-12 col-sm-6">
+                <p class="list-title icon-esigs">Electronic Signatures</p>
+                <ul>
+                  <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                    Sign like a celebrity</li>
+                  <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                    Unlimited digital signatures</li>
+                  <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                    Online &amp; offline signer authentication</li>
+                  <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                    Signer email authentication</li>
+                </ul>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-sm-6">
+                <p class="list-title icon-forms">Conversational Forms</p>
+                <ul>
+                  <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                    Autofills your documents</li>
+                  <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                    Save &amp; continue later</li>
+                  <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                    Environmental savings</li>
+                  <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                    Prefill answers (auto &amp; manual)</li>
+                </ul>
+              </div>
+              <div class="col-xs-12 col-sm-6">
+                <p class="list-title icon-data">Form Data</p>
+                <ul>
+                  <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                    Custom OCR matching</li>
+                  <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                    Address autofill</li>
+                  <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                    ID &amp; company verification</li>
+                  <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                    Document Verification Service</li>
+                  <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                    Verify email existence</li>
+                </ul>
+              </div>
+            </div>
           </div>
-
           <div class="col-xs-12 col-sm-4">
+            <p class="list-title icon-security">Security</p>
             <ul>
-              <li>
-                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
-                Document encryption
-              </li>
-              <li>
-                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
-                Form prefill (manual and auto)
-              </li>
-              <li>
-                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
-                Lifetime file storage
-              </li>
-              <li>
-                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
-                Document Verification Service (DVS)
-              </li>
-              <li>
-                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
-                Signer authentication
-              </li>
-              <li>
-                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
-                Environmental savings
-              </li>
-              <li>
-                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
-                Private Key Infrastructure
-              </li>
-              <li>
-                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
-                Tamper proof documents
-              </li>
-            </ul>
-          </div>
-
-          <div class="col-xs-12 col-sm-4">
-            <ul>
-              <li>
-                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
-                ID and company verification
-              </li>
-              <li>
-                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
-                Salary &amp; data verification
-              </li>
-              <li>
-                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
-                Address validation
-              </li>
-              <li>
-                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
-                Custom OCR matching
-              </li>
-              <li>
-                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
-                Document to form builder
-              </li>
-              <li>
-                <img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
-                256-bit SSL security
-              </li>
+              <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                256-bit SSL</li>
+              <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                Tamper-proof submissions</li>
+              <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                Private Key Infrastructure (PKI)</li>
+              <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                Custom security settings</li>
+              <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                Email completion code</li>
+              <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                Document SMS code</li>
+              <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                Two factor authentication</li>
+              <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                Full document encryption</li>
+              <li><img src="{% static 'images/tick_blue.svg' %}" class="icon icon-tick" alt="" />
+                Amazon AWS</li>
             </ul>
           </div>
         </div>
@@ -364,14 +347,150 @@
     <div class="row">
       <div class="col-xs-12 col-sm-10 col-sm-push-1 col-md-8 col-md-push-2">
         <h2>Frequently Asked Questions</h2>
-        <div class="faq-section js-faq">
-          <a class="question js-faq-q" href="#question1">Question?</a>
-          <div class="answer js-faq-a" id="question1">Answer.</div>
-        </div>
-        <div class="faq-section js-faq">
-          <a class="question js-faq-q" href="#question2">Another question?</a>
-          <div class="answer js-faq-a" id="question2">Another answer.</div>
-        </div>
+        <div class="row row-offcanvas row-offcanvas-left">
+          <button class="visible-xs btn js-toggle-offcanvas faq-toggle-offcanvas" type="button">
+            <span class="sr-only">Toggle FAQ navigation</span>
+            <span class="arrow-right">&raquo;</span><span class="arrow-left">&laquo;</span></button>
+          <div class="col-xs-12 col-sm-4 sidebar-offcanvas">
+            <div class="btn-group-vertical btn-block faq-sidebar">
+              <a href="#faq-product" class="btn btn-default js-faq-tab"><span>Product</span></a>
+              <a href="#faq-signing" class="btn btn-default js-faq-tab"><span>Signing</span></a>
+              <a href="#faq-security" class="btn btn-default js-faq-tab"><span>Security</span></a>
+              <a href="#faq-billing" class="btn btn-default js-faq-tab"><span>Billing</span></a>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-8">
+            <div class="faq-tabpanes">
+              <div class="js-faq-tabpane" id="faq-product">
+                <div class="faq-section js-faq">
+                  <a class="question js-faq-q">What is the Blockchain Timestamp?</a>
+                  <div class="answer js-faq-a">When emondo digitally signs a completed document a hash code is produced.
+                    This hash code is then published to the Ethereum (Blockchain) network where it is acknowledged by 1000’s of computers, timestamped and becomes part of a block in the Blockchain.
+                    This provides independent proof of a document's creation at a certain point of time.</div>
+                </div>
+                <div class="faq-section js-faq">
+                  <a class="question js-faq-q">What if I reach my form submission limit?</a>
+                  <div class="answer js-faq-a">You’ll never miss a submission. You will continue to receive all submission notifications and attachments through email.
+                    However, you won’t be able to view these submissions in the dashboard. You can always delete old submissions in the dashboard to make room for the new.</div>
+                </div>
+                <div class="faq-section js-faq">
+                  <a class="question js-faq-q">How do partial submissions work?</a>
+                  <div class="answer js-faq-a">We all know most online forms aren’t completed. Now you can still capture all the data from abandoned forms.
+                    As a form user types information into any of your forms fields this is captured in real time so you can communicate with otherwise lost leads.</div>
+                </div>
+                <div class="faq-section js-faq">
+                  <a class="question js-faq-q">How many countries do you provide AML/CTF for individuals?</a>
+                  <div class="answer js-faq-a">We currently provide online identity verification in over 40 countries including Mainland China, India and Japan.</div>
+                </div>
+                <div class="faq-section js-faq">
+                  <a class="question js-faq-q">Do you store files associated with my submissions?</a>
+                  <div class="answer js-faq-a">Yes, in addition to storing a PDF, CSV and JSON copy of your submissions, we all store attachments associated with that submission (copy of identification, entity documents etc.).</div>
+                </div>
+                <div class="faq-section js-faq">
+                  <a class="question js-faq-q">If I’m on the Teams or Professional plan what support is provided?</a>
+                  <div class="answer js-faq-a">We offer full email support for all users on any plan. We aim to resolve all email queries within four hours.</div>
+                </div>
+                <div class="faq-section js-faq">
+                  <a class="question js-faq-q">How much coding knowledge is required to use emondo?</a>
+                  <div class="answer js-faq-a">None, nada, zip, zero, zilch! Creating, signing and sending is done through our beautiful, simplistic and most importantly user friendly interface.
+                    You can also easily customise and brand your entire emondo experience.</div>
+                </div>
+              </div>
+              <div class="js-faq-tabpane" id="faq-signing">
+                <div class="faq-section js-faq">
+                  <a class="question js-faq-q">Are electronic signatures legally binding?</a>
+                  <div class="answer js-faq-a">Yes, for almost every business and personal situation an electronic signature is legally valid.
+                    Through emondo’s fully customisable signing security levels we can accommodate more than most.
+                    Therefore, our signing solution goes way above and beyond the United States ESIGN act and global equivalents.</div>
+                </div>
+                <div class="faq-section js-faq">
+                  <a class="question js-faq-q">What is “Sign like a celebrity” and is it legally binding?</a>
+                  <div class="answer js-faq-a">When you are prompted to electronically sign through emondo you can choose to type your name and the select a font which represents a celebrity's signature.
+                    The method in which you choose to sign electronically does not affect it’s legally validity.
+                    Have you ever wondered what your signature would look like if Steve Jobs signed your name?</div>
+                </div>
+                <div class="faq-section js-faq">
+                  <a class="question js-faq-q">What is the difference between an electronic signature and a digital signature?</a>
+                  <div class="answer js-faq-a">The term electronic signature is a general meaning including all types of legally recognisable (not necessarily tangibly recognisable) signatures.
+                    Therefore, electronic signatures include digital signatures. In practice electronic signatures are manifested symbol(s) (e.g. your name typed, drawn or uploaded).
+                    The distinct characteristic of a digital signature is they require the use of asymmetric cryptography such as RSA or Elliptic Curve and Public Key Infrastructure (PKI) technology.
+                    Through these technologies a signatory digitally signs their name using a private key which provides additional security via the secrecy of the signatories unique private key.</div>
+                </div>
+                <div class="faq-section js-faq">
+                  <a class="question js-faq-q">What types of documents are electronic signatures not legally valid?</a>
+                  <div class="answer js-faq-a">As a common rule of thumb wills, trust deeds and enduring POA’s (ex. LPOA’s) may not allow the use of electronic signatures.</div>
+                </div>
+              </div>
+              <div class="js-faq-tabpane" id="faq-security">
+                <div class="faq-section js-faq">
+                  <a class="question js-faq-q">Will my forms be secure?</a>
+                  <div class="answer js-faq-a">We take cloud security very seriously. All hosted forms are secured with 256-bit SSL and we use full encryption to protect your data.
+                    Through our fully customisable security settings you can include additional security measures such as form access codes and signing passwords.
+                    In addition we conduct daily backups of all your data, just as a precaution.</div>
+                </div>
+                <div class="faq-section js-faq">
+                  <a class="question js-faq-q">Where are your servers located?</a>
+                  <div class="answer js-faq-a">
+                    <p>We use Amazon Web Services (AWS), located in Sydney, Australian to run the emondo web application.
+                    AWS is one of the most secure cloud computing environments available in the world.</p>
+                    <p>You can read more here: <a target="_blank" href="https://aws.amazon.com/compliance/">aws.amazon.com/compliance</a></p>
+                  </div>
+                </div>
+                <div class="faq-section js-faq">
+                  <a class="question js-faq-q">What security settings are available?</a>
+                  <div class="answer js-faq-a">
+                    <p>We offer singular or combined use of the following:</p>
+                    <ul>
+                      <li>Email completion code</li>
+                      <li>Document access code</li>
+                      <li>Private key usage (with or without passphrase)</li>
+                      <li>Two factor authentication (2FA)</li>
+                      <li>Electronic identification verification</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="js-faq-tabpane" id="faq-billing">
+                <div class="faq-section js-faq">
+                  <a class="question js-faq-q">Can I try before I buy?</a>
+                  <div class="answer js-faq-a">Of course! We offer a free 30 day unlimited feature trial on all our plans (no credit card required).</div>
+                </div>
+                <div class="faq-section js-faq">
+                  <a class="question js-faq-q">What if I want to cancel my plan?</a>
+                  <div class="answer js-faq-a">You simply go to “My plan &amp; billing” and select cancel my plan.
+                    You’ll plan will simply expire when your billing cycle lapses and you won’t incur any future charges.</div>
+                </div>
+                <div class="faq-section js-faq">
+                  <a class="question js-faq-q">Can I upgrade or downgrade my plan?</a>
+                  <div class="answer js-faq-a">We understand that circumstances change.
+                    So at any point we offer the flexibility to move between any our our plans.
+                    This may result in either a credit or further charge to your account.</div>
+                </div>
+                <div class="faq-section js-faq">
+                  <a class="question js-faq-q">Do you charge per submission?</a>
+                  <div class="answer js-faq-a">Absolutely not! Our plans are a fixed cost per user and even if you exceed your submission quota we will not charge for additional submissions.
+                    We don’t believe we should benefit from your hard work. If fact, you should benefit from our hard work.</div>
+                </div>
+                <div class="faq-section js-faq">
+                  <a class="question js-faq-q">What currency will I be billed in?</a>
+                  <div class="answer js-faq-a">Our plans are priced in USD and are converted into you local currency on payment through either Stripe or PayPal.</div>
+                </div>
+                <div class="faq-section js-faq">
+                  <a class="question js-faq-q">Will my subscription be renewed automatically?</a>
+                  <div class="answer js-faq-a">Yes, you don’t have to worry about missing a payment.
+                    At the end of either your annual or monthly billing cycle your payment details on file will be charged for your next billing cycle.</div>
+                </div>
+                <div class="faq-section js-faq">
+                  <a class="question js-faq-q">Do you offer discounts for students, teachers or NGO’s?</a>
+                  <div class="answer js-faq-a">We sure do! Please contact us and we would be happy to help to take care of you.</div>
+                </div>
+                <div class="faq-section js-faq">
+                  <a class="question js-faq-q">Are there any additional charges?</a>
+                  <div class="answer js-faq-a">The only additional charges relate to your SMS usage and Entity verification.</div>
+                </div>
+              </div>
+            </div>
+          </div>
       </div>
     </div>
   </div>
@@ -383,6 +502,9 @@
 
 {% endblock %}
 {% block footer_scripts %}
+  <script>
+    window.SPA_ROOT_URL = "{{SPA_ROOT_URL}}";
+  </script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   {% compress js %}
     <script src="{% static 'javascripts/pages/pricing/pricing.js' %}" async></script>

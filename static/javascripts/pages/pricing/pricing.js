@@ -1,5 +1,13 @@
 $(document).ready(function () {
-
+  // handle buy now button click
+  $('button.btn-purchase').click(function() {
+    var plan = $(this).data('plan');
+    var period = 'annually';
+    if($('.js-price-toggle.active').hasClass('js-price-monthly')){
+      period = 'monthly';
+    }
+    window.location.href = window.SPA_ROOT_URL + "/sign-up/business-plan?plan=" + plan + '&' + 'period=' + period;
+  });
   // toggle display of monthly and annual prices
   $('.js-price-toggle').click(function() {
     $('.js-price-toggle').each(function() {
@@ -42,6 +50,34 @@ $(document).ready(function () {
     return false;
   });
 
+  // faq tabs
+
+  $('.js-faq-tab').click(function(e) {
+    e.preventDefault();
+    // deactivate tabs
+    $('.js-faq-tab').each(function() {
+      $(this).removeClass('js-active');
+    });
+    // hide panes
+    $('.js-faq-tabpane').each(function() {
+      $(this).hide();
+    });
+    // activate tab
+    $(this).addClass('js-active');
+    // show pane
+    var tid = $(this).attr('href');
+    $('' + tid).show();
+  });
+
+  // offcanvas
+  $('.js-toggle-offcanvas').each(function() {
+    $(this).click(function(e) {
+      e.preventDefault();
+      $(this).closest('.row-offcanvas').toggleClass('active');
+    });
+  });
+
+  // custom intercom launcher
   $('#intercom-custom-launcher').click(function() {
     if(Intercom) {
       Intercom('show');
