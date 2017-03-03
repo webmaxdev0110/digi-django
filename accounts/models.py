@@ -25,6 +25,9 @@ class User(AbstractUser):
     short_description = models.CharField(blank=True, max_length=256)
     timezone1 = TimeZoneField(default='Australia/Sydney')
 
+    def has_active_subscription(self):
+        return self.plansubscription_set.all().has_active_subscription()
+
     def is_company_user(self):
         return CompanyMember.objects.filter(user=self).exists()
 

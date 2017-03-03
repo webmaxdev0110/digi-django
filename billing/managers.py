@@ -29,3 +29,15 @@ class CouponManager(models.Manager):
 class PlanPricingManager(models.Manager):
     def get_query_set(self):
         return super(PlanPricingManager, self).get_query_set().select_related('plan', 'pricing')
+
+
+class PlanSubscriptionQueryset(models.QuerySet):
+
+    def is_active(self):
+        """
+        Return the active Plan subscription
+        """
+        return self.filter(active=True)
+
+    def has_active_subscription(self):
+        return any(self.is_active().values_list('active', flat=True))

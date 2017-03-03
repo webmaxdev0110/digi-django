@@ -9,7 +9,10 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from accounts.models import User
-from billing.managers import PlanPricingManager
+from billing.managers import (
+    PlanPricingManager,
+    PlanSubscriptionQueryset,
+)
 from core.models import TimeStampedModel
 import string
 
@@ -160,6 +163,7 @@ class PlanSubscription(models.Model):
     number_of_users = models.SmallIntegerField(default=1)
     next_payment_date = models.DateField(null=True)
     plan_pricing = models.ForeignKey(PlanPricing)
+    objects = PlanSubscriptionQueryset.as_manager()
 
     class Meta:
         ordering = ['-start_date', 'user']
