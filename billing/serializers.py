@@ -1,8 +1,12 @@
+from datetime import timedelta
 from django.contrib.sites.models import Site
+from django.utils.timezone import now
 from rest_framework import serializers
-from rest_framework.serializers import Serializer, ModelSerializer
+from rest_framework.serializers import ModelSerializer
 
-from billing.models import Plan, PlanSubscription
+from accounts.models import User
+from billing.apis import create_stripe_customer, subscribe_user_to_plan
+from billing.models import Plan, PlanSubscription, StripeCustomer, StripeCard, PlanPricing
 
 
 class PlanSerializer(serializers.ModelSerializer):
@@ -48,11 +52,12 @@ class SubscriptionSerializer(ModelSerializer):
         fields = (
             'email',
             'subdomain',
-            'plan_name',
+            'plan_pricing_id',
             'number_of_users',
-            'billing_cycle',
             'client_ip',
             'stripe_card_id',
+            'stripe_card_fingerprint',
+            'stripe_card_token',
             'card_brand',
             'card_country',
             'card_last4',
@@ -79,12 +84,23 @@ class SubscriptionSerializer(ModelSerializer):
             raise serializers.ValidationError('Number of user is invalid')
 
 
-
     def save(self, **kwargs):
-        # 1. Create token
-        # 2. Create customer
-        # 3. Create subscription
-        # 4. Create transaction (and Charge the card)
-        # 4.
-        # todo: to be implemented
-        pass
+        # todo: Handle duplicated new subscription
+        user, created = User.objects.get_or_create(email=kwargs['email'])
+        stripe_customer = create_stripe_customer(kwargs['stripe_card_token'])
+        django_customer, _ = StripeCustomer.objects.get_or_create(user=user)
+        django_customer.customer_id = stripe_customer['id']
+        django_customer.save()
+        card = StripeCard.objects.create(
+            customer=stripe_customer,
+            card_id=kwargs['stripe_card_id'],
+            token_id=kwargs['stripe_card_token'],
+            fingerprint=kwargs['stripe_card_fingerprint'],
+            card_brand=kwargs['card_brand'],
+            card_country=kwargs['card_country'],
+            card_last4=kwargs['card_last4'],
+        )
+        plan_pricing = PlanPricing.objects.get(pk=kwargs['plan_pricing_id'])
+
+        inst = subscribe_user_to_plan(user, plan_pricing, kwargs['number_of_users'])
+        return inst
