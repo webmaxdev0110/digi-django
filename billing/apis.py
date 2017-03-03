@@ -2,8 +2,6 @@ import stripe
 from django.conf import settings
 
 
-def create_stripe_card_token(cc_number, exp_month, exp_year, cvc):
-    stripe.api_key = settings.STRIPE_API_KEY
 
 
 def create_stripe_customer(card_token, description=''):
