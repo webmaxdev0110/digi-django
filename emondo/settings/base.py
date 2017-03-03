@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'raven.contrib.django.raven_compat',
     'timezone_field',
+    'preventconcurrentlogins',
     'billing',
     'anymail',
     'storages',
@@ -96,6 +97,7 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    'preventconcurrentlogins.middleware.PreventConcurrentLoginsMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
