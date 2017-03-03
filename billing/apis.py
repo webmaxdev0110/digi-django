@@ -12,13 +12,16 @@ def create_stripe_customer(card_token, description=''):
     )
     return customer
 
+def charge_strip_customer(customer, amount_cents, currency='aud', description=''):
     stripe.api_key = settings.STRIPE_API_KEY
     stripe.Charge.create(
-      amount=99999999,
+      amount=amount_cents,
       currency="aud",
-      customer='cus_96GD5UWPEo94pK',
-      description="Charge for emondo business plan"
+      customer=customer.customer_id,
+      description=description
     )
+
+
 def charge_stripe_customer(user, amount_cents, description):
     stripe.api_key = settings.STRIPE_API_KEY
     stripe_customer = None
