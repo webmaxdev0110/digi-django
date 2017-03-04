@@ -217,6 +217,8 @@ CORS_ORIGIN_ALLOW_ALL = False
 
 CORS_ALLOW_CREDENTIALS = True
 
+CSRF_COOKIE_DOMAIN = '.emondo.co'
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,
