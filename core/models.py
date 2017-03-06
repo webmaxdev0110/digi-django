@@ -34,15 +34,17 @@ class StatusModel(models.Model):
         abstract = True
 
 
-UNKNOWN = 0
-PASSED = 1
-REJECTED = 2
+
+class YesNoStatusChoice(object):
+    UNKNOWN = 0
+    PASSED = 1
+    REJECTED = 2
 
 
 YES_NO_CHOICES = (
-    (PASSED, _('Pass')),
-    (REJECTED, _('Rejected')),
-    (UNKNOWN, _('Unknown')),
+    (YesNoStatusChoice.PASSED, _('Pass')),
+    (YesNoStatusChoice.REJECTED, _('Rejected')),
+    (YesNoStatusChoice.UNKNOWN, _('Unknown')),
 )
 
 class YesNoStatusField(models.Model):
