@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django_countries.fields import Country
 from rest_framework import serializers
 from contacts.models import Person
@@ -17,14 +19,15 @@ class PassportSerializer(serializers.ModelSerializer):
             'number',
             'expiry_date',
             'place_of_birth',
-            'country'
+            'country',
         )
+
 
 
 class IdentityVerificationSerializer(serializers.ModelSerializer):
     type = serializers.IntegerField()
     verification_data = serializers.JSONField()
-    person = PersonSerializer
+    person = serializers.JSONField()
 
     class Meta:
         model = PersonVerification
@@ -36,7 +39,8 @@ class IdentityVerificationSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         submitted_person = validated_data['person']
-        person = PersonSerializer(**submitted_person)
+        person = PersonSerializer(data=submitted_person)
+        person.is_valid()
         person = person.save()
 
         verification_data = validated_data['verification_data']
@@ -47,13 +51,20 @@ class IdentityVerificationSerializer(serializers.ModelSerializer):
 
         if validated_data['type'] == VerificationSource.MANUAL_FILE_UPLOAD:
             # todo: handle file save, save it to PersonVerificationAttachment model
-            pass
 
-
+            person_verification.status = YesNoStatusChoice.PASSED
         if validated_data['type'] == VerificationSource.DVSPASSPORT:
-            passport = PassportSerializer(**verification_data['pasport'])
-            passport.person = person
+            submitted_passport = validated_data['verification_data']['passport']
+            # todo: Refactor this into serializer
+            passport = Passport(
+                person=person,
+                number=submitted_passport['number'],
+                expiry_date=datetime.strptime(submitted_passport['expiry_date'], '%Y-%m-%d'),
+                place_of_birth=submitted_passport['place_of_birth'],
+                country=Country(code=submitted_passport['country'])
+            )
             passport.save()
+
             request_builder = TruliooRequestBuilder()
             request_builder.passport = passport
             request_builder.person = person
@@ -64,7 +75,7 @@ class IdentityVerificationSerializer(serializers.ModelSerializer):
             else:
                 person_verification.status = YesNoStatusChoice.REJECTED
             person_verification.raw_response = raw_response
-            person_verification.save()
+        person_verification.save()
 
         return person_verification
 
