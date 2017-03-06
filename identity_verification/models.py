@@ -5,6 +5,7 @@ from django.db import models
 from django_countries.fields import CountryField
 
 from contacts.models import Person
+from core.core_storages import get_document_storage
 from core.models import (
     TimeStampedModel,
     YesNoStatusField,
@@ -37,3 +38,11 @@ class PersonVerification(TimeStampedModel, YesNoStatusField):
     source = models.PositiveSmallIntegerField(choices=VERIFICATION_SOURCES)
     raw_response = JSONField()
     country = CountryField()
+
+
+class PersonVerificationAttachment(models.Model):
+    file = models.FileField(
+        upload_to='verification-attachments',
+        storage=get_document_storage()
+    )
+    verification = models.ForeignKey(PersonVerification)
