@@ -1,5 +1,7 @@
 from __future__ import unicode_literals
 
+import uuid
+
 from django.db import models
 
 # Create your models here.
@@ -14,6 +16,7 @@ GENDER_CHOICES = (
 
 # Create your models here.
 class Person(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     first_name = models.CharField(max_length=90)
     last_name = models.CharField(max_length=90)
     middle_name = models.CharField(max_length=90, null=True)
