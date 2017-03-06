@@ -5,10 +5,11 @@ from django.db import models
 # Create your models here.
 from django_countries.fields import CountryField
 
+from contacts.constants import GenderSource
+
 GENDER_CHOICES = (
-    (0, 'Male',),
-    (1, 'Female',),
-    (2, 'Other',),
+    (GenderSource.Male, 'M',),
+    (GenderSource.Female, 'F',),
 )
 
 # Create your models here.
