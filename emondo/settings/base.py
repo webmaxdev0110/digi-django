@@ -363,3 +363,16 @@ EMAIL_BACKEND = "anymail.backends.mailgun.MailgunBackend"  # or sendgrid.SendGri
 
 # strip settings
 STRIPE_API_KEY = "sk_test_K0xA7NA4cNaG3PRephS9HWLR"
+
+# Trulioo credential
+TRULIOO_KEY = {
+    'DVS': {
+        'USERNAME': None,
+        'PASSWORD': None
+    },
+    'BACKGROUND': {
+        # For any other source
+        'USERNAME': None,
+        'PASSWORD': None
+    },
+}
