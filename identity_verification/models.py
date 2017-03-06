@@ -17,8 +17,8 @@ from identity_verification.constants import VERIFICATION_SOURCES
 class DriverLicense(models.Model):
     person = models.ForeignKey(Person)
     number = models.CharField(max_length=64)
-    state = models.CharField(max_length=64, null=True)
-    card_number = models.CharField(max_length=64, null=True)
+    state = models.CharField(max_length=64, blank=True)
+    card_number = models.CharField(max_length=64, blank=True)
     expiry_date = models.DateField(null=True)
 
 
@@ -27,8 +27,8 @@ class Passport(models.Model):
     number = models.CharField(max_length=32)
     expiry_date = models.DateField()
     place_of_birth = models.CharField(max_length=128)
-    mrz1 = models.CharField(max_length=64, null=True)
-    mrz2 = models.CharField(max_length=64, null=True)
+    mrz1 = models.CharField(max_length=64, blank=True)
+    mrz2 = models.CharField(max_length=64, blank=True)
     country = CountryField()
 
 
