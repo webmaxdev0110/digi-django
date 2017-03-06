@@ -37,6 +37,7 @@ handler500 = 'core.errorhandlers.handler500'
 urlpatterns = [
 
     url(r'^$', HomeView.as_view(), name='public_home'),
+    url(r'^contacts/', include('contacts.urls')),
     url(r'^pricing$', PublicPricingView.as_view(), name='public_pricing'),
     url(r'^accounts/', include('accounts.urls')),
     url(r'^billing/', include('billing.urls')),
@@ -55,6 +56,7 @@ urlpatterns = [
         SignupView.as_view(),
         name='accounts_signup'),
     url(r'^blog/', include('cms.blog.urls')),
+    url(r'^identity-verification/', include('identity_verification.urls')),
     url(r'^verifications/', include('verifications.urls')),
 
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps},

@@ -60,6 +60,8 @@ INSTALLED_APPS = [
     'feincms',
     'crawlers',
     'corsheaders',
+    'contacts',
+    'identity_verification',
     'mptt',
     'emails',
     'feincms.module.page',
@@ -361,3 +363,16 @@ EMAIL_BACKEND = "anymail.backends.mailgun.MailgunBackend"  # or sendgrid.SendGri
 
 # strip settings
 STRIPE_API_KEY = "sk_test_K0xA7NA4cNaG3PRephS9HWLR"
+
+# Trulioo credential
+TRULIOO_KEY = {
+    'DVS': {
+        'USERNAME': 'emondo_demo_api',
+        'PASSWORD': 'TTTtrulI00!'
+    },
+    'BACKGROUND': {
+        # For any other source
+        'USERNAME': 'emondo_demo_api2',
+        'PASSWORD': 'Z6\'$GERgT>T-='
+    },
+}

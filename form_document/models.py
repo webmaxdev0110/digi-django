@@ -1,7 +1,6 @@
 from __future__ import unicode_literals
 import ntpath
 
-from django.core.files.storage import FileSystemStorage
 from django.core.files.temp import NamedTemporaryFile
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.postgres.fields import (
@@ -15,26 +14,20 @@ from core.models import TimeStampedModel
 import os
 import pyPdf
 from django.core.files import File
-from django.conf import settings
 
-from core.core_storages import ProtectedDocumentStorage
+from core.core_storages import (
+    owner_document_path,
+    get_document_storage,
+)
 from form_document.constants import (
     FORM_SENDING_METHOD_CHOICES,
     FormSendingMethod,
 )
 
-get_document_storage = lambda: ProtectedDocumentStorage() if settings.UPLOAD_DOC_TO_S3 else FileSystemStorage()
-
-def document_path_dir(instance, filename):
-    file_name_no_extension = os.path.splitext(ntpath.basename(filename))[0]
-    return 'documents/users/{0}/{1}'.format(
-        instance.owner.pk,
-        file_name_no_extension,
-    )
 
 def document_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/users/<id>/<filename_no_ext>/<filename.ext>
-    dir_name = document_path_dir(instance, filename)
+    dir_name = owner_document_path(instance, filename)
     return '{0}/{1}'.format(
         dir_name,
         filename,
