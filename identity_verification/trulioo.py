@@ -149,7 +149,7 @@ class TruliooRequestBuilder(object):
         if is_dvs_request:
             credential_set = settings.TRULIOO_KEY['DVS']
         else:
-            credential_set = settings.TRULIOO_KEY['OTHER']
+            credential_set = settings.TRULIOO_KEY['BACKGROUND']
         return credential_set['USERNAME'], credential_set['PASSWORD'],
 
     def request_verification(self, source_list):
