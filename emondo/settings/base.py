@@ -367,12 +367,12 @@ STRIPE_API_KEY = "sk_test_K0xA7NA4cNaG3PRephS9HWLR"
 # Trulioo credential
 TRULIOO_KEY = {
     'DVS': {
-        'USERNAME': None,
-        'PASSWORD': None
+        'USERNAME': 'emondo_demo_api',
+        'PASSWORD': 'TTTtrulI00!'
     },
     'BACKGROUND': {
         # For any other source
-        'USERNAME': None,
-        'PASSWORD': None
+        'USERNAME': 'emondo_demo_api2',
+        'PASSWORD': 'Z6\'$GERgT>T-='
     },
 }
