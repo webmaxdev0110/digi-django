@@ -36,7 +36,7 @@ class Passport(models.Model):
 class PersonVerification(TimeStampedModel, YesNoStatusField):
     person = models.ForeignKey(Person)
     source = models.PositiveSmallIntegerField(choices=VERIFICATION_SOURCES)
-    raw_response = JSONField()
+    raw_response = JSONField(blank=True, default=dict)
     country = CountryField()
 
 

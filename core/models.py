@@ -48,7 +48,7 @@ YES_NO_CHOICES = (
 )
 
 class YesNoStatusField(models.Model):
-    status = models.PositiveSmallIntegerField(choices=YES_NO_CHOICES)
+    status = models.PositiveSmallIntegerField(choices=YES_NO_CHOICES, default=YesNoStatusChoice.UNKNOWN)
 
     class Meta:
         abstract = True
