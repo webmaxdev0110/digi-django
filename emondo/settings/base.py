@@ -60,6 +60,8 @@ INSTALLED_APPS = [
     'feincms',
     'crawlers',
     'corsheaders',
+    'contacts',
+    'identity_verification',
     'mptt',
     'emails',
     'feincms.module.page',
