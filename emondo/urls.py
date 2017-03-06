@@ -56,6 +56,7 @@ urlpatterns = [
         SignupView.as_view(),
         name='accounts_signup'),
     url(r'^blog/', include('cms.blog.urls')),
+    url(r'^identity-verification/', include('identity_verification.urls')),
     url(r'^verifications/', include('verifications.urls')),
 
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps},
