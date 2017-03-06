@@ -166,7 +166,7 @@ class TruliooRequestBuilder(object):
 
         from pprint import pprint
         pprint(data.json())
-        return data
+        return data.json()
 
     def test_connection(self):
         results = requests.get(self.base_url + '/connection/v1/sayhello/Connection_Succeed')
