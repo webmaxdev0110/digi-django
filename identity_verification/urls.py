@@ -13,7 +13,7 @@ router = DefaultRouter()
 
 
 
-router.register(r'identity', IdentityVerificationViewSet, base_name='api_identify_verification')
+router.register(r'identity', IdentityVerificationViewSet, base_name='identify')
 
 
 api_urlpatterns = [
