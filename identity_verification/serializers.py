@@ -2,9 +2,11 @@ from django_countries.fields import Country
 from rest_framework import serializers
 from contacts.models import Person
 from contacts.serializers import PersonSerializer
+from core.models import YesNoStatusChoice
 from identity_verification.constants import VerificationSource
 from identity_verification.models import PersonVerification, Passport
 from identity_verification.trulioo import TruliooRequestBuilder
+from identity_verification.utils import is_passport_match
 
 
 class PassportSerializer(serializers.ModelSerializer):
@@ -52,11 +54,17 @@ class IdentityVerificationSerializer(serializers.ModelSerializer):
             passport = PassportSerializer(**verification_data['pasport'])
             passport.person = person
             passport.save()
-
             request_builder = TruliooRequestBuilder()
             request_builder.passport = passport
-            result = request_builder.request_verification([VerificationSource.DVSPASSPORT])
-            # todo: test whether the result is success or not and update the PersonVerification object
+            request_builder.person = person
 
-            person_verification.raw_response = result
+            raw_response = request_builder.request_verification([VerificationSource.DVSPASSPORT])
+            if is_passport_match(raw_response):
+                person_verification.status = YesNoStatusChoice.PASSED
+            else:
+                person_verification.status = YesNoStatusChoice.REJECTED
+            person_verification.raw_response = raw_response
+            person_verification.save()
+
+        return person_verification
 
