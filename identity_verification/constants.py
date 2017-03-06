@@ -15,3 +15,9 @@ VERIFICATION_SOURCES = (
     (VerificationSource.AUSTRALIAN_CREDIT_AGENCY, 'Australian Credit Agency',),
 )
 
+
+DVS_SOURCE_SET = {
+    VerificationSource.DVSDRIVERLICENSE,
+    VerificationSource.DVSPASSPORT,
+    VerificationSource.DVSMEDICARECARD
+}
