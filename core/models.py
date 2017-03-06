@@ -32,3 +32,21 @@ class StatusModel(models.Model):
 
     class Meta:
         abstract = True
+
+
+UNKNOWN = 0
+PASSED = 1
+REJECTED = 2
+
+
+YES_NO_CHOICES = (
+    (PASSED, _('Pass')),
+    (REJECTED, _('Rejected')),
+    (UNKNOWN, _('Unknown')),
+)
+
+class YesNoStatusField(models.Model):
+    status = models.PositiveSmallIntegerField(choices=YES_NO_CHOICES)
+
+    class Meta:
+        abstract = True
