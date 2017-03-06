@@ -5,6 +5,7 @@ class VerificationSource(object):
     DVSMEDICARECARD = 2
     AUSTRALIAN_ELECTORAL_ROLL = 3
     AUSTRALIAN_CREDIT_AGENCY = 4
+    MANUAL_FILE_UPLOAD = 5
 
 
 VERIFICATION_SOURCES = (
@@ -13,6 +14,7 @@ VERIFICATION_SOURCES = (
     (VerificationSource.DVSMEDICARECARD, 'DVSDriverLicense',),
     (VerificationSource.AUSTRALIAN_ELECTORAL_ROLL, 'Australian Electoral Roll',),
     (VerificationSource.AUSTRALIAN_CREDIT_AGENCY, 'Australian Credit Agency',),
+    (VerificationSource.MANUAL_FILE_UPLOAD, 'Manual File Upload',),
 )
 
 
