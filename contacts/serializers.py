@@ -2,7 +2,7 @@ from rest_framework import serializers
 from contacts.models import Person
 
 
-class PersonSeralizer(serializers.ModelSerializer):
+class PersonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Person
         fields = (
