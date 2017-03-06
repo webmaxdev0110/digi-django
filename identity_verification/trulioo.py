@@ -164,8 +164,6 @@ class TruliooRequestBuilder(object):
             json=self._raw_request,
             auth=credential_tuple)
 
-        from pprint import pprint
-        pprint(data.json())
         return data.json()
 
     def test_connection(self):
