@@ -21,7 +21,7 @@ class Person(models.Model):
     last_name = models.CharField(max_length=90)
     middle_name = models.CharField(max_length=90, blank=True)
     date_of_birth = models.DateField(null=True)
-    gender = models.PositiveSmallIntegerField(choices=GENDER_CHOICES, blank=True)
+    gender = models.PositiveSmallIntegerField(choices=GENDER_CHOICES, blank=True, null=True)
     mobile_number = models.CharField(max_length=32, blank=True)
     email = models.CharField(max_length=128, blank=True)
 
