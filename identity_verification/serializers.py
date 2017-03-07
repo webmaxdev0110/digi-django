@@ -6,7 +6,11 @@ from contacts.models import Person
 from contacts.serializers import PersonSerializer
 from core.models import YesNoStatusChoice
 from identity_verification.constants import VerificationSource
-from identity_verification.models import PersonVerification, Passport
+from identity_verification.models import (
+    PersonVerification,
+    Passport,
+    PersonVerificationAttachment,
+)
 from identity_verification.trulioo import TruliooRequestBuilder
 from identity_verification.utils import is_passport_match
 
@@ -26,8 +30,9 @@ class PassportSerializer(serializers.ModelSerializer):
 
 class IdentityVerificationSerializer(serializers.ModelSerializer):
     type = serializers.IntegerField()
-    verification_data = serializers.JSONField()
+    verification_data = serializers.JSONField(required=False)
     person = serializers.JSONField()
+    attachment_ids = serializers.ListField(required=False)
 
     class Meta:
         model = PersonVerification
@@ -35,15 +40,18 @@ class IdentityVerificationSerializer(serializers.ModelSerializer):
             'type',
             'verification_data',
             'person',
+            'attachment_ids'
         )
 
     def create(self, validated_data):
         submitted_person = validated_data['person']
-        person = PersonSerializer(data=submitted_person)
-        person.is_valid()
-        person = person.save()
+        if submitted_person.get('id', None):
+            person = Person.objects.get(pk=submitted_person['id'])
+        else:
+            person = PersonSerializer(data=submitted_person)
+            person.is_valid()
+            person = person.save()
 
-        verification_data = validated_data['verification_data']
         verification_type = validated_data['type']
         person_verification = PersonVerification.objects.create(
             person=person, source=verification_type, country=Country(code='AU')
@@ -51,8 +59,12 @@ class IdentityVerificationSerializer(serializers.ModelSerializer):
 
         if validated_data['type'] == VerificationSource.MANUAL_FILE_UPLOAD:
             # todo: handle file save, save it to PersonVerificationAttachment model
-
             person_verification.status = YesNoStatusChoice.PASSED
+            for attachment_id in validated_data['attachment_ids']:
+                pa = PersonVerificationAttachment.objects.get(pk=attachment_id)
+                pa.verification=person_verification
+                pa.save()
+
         if validated_data['type'] == VerificationSource.DVSPASSPORT:
             submitted_passport = validated_data['verification_data']['passport']
             # todo: Refactor this into serializer
@@ -79,3 +91,17 @@ class IdentityVerificationSerializer(serializers.ModelSerializer):
 
         return person_verification
 
+
+class PersonVerificationAttachmentSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = PersonVerificationAttachment
+        fields = (
+            'id',
+            'file',
+            'verification',
+        )
+        extra_kwargs = {
+            'file': {'write_only': True},
+            'verification': {'write_only': True}
+        }

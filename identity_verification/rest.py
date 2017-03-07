@@ -4,8 +4,15 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from core.models import YesNoStatusChoice
-from identity_verification.models import PersonVerification
-from identity_verification.serializers import IdentityVerificationSerializer
+from identity_verification.models import (
+    PersonVerification,
+    PersonVerificationAttachment,
+)
+from identity_verification.serializers import (
+    IdentityVerificationSerializer,
+    PersonVerificationAttachmentSerializer,
+)
+
 
 
 class IdentityVerificationViewSet(mixins.CreateModelMixin, GenericViewSet):
@@ -22,3 +29,8 @@ class IdentityVerificationViewSet(mixins.CreateModelMixin, GenericViewSet):
         return Response({'result': inst.status == YesNoStatusChoice.PASSED})
 
 
+class IdentityAttachmentUploadViewSet(mixins.CreateModelMixin, GenericViewSet):
+    serializer_class = PersonVerificationAttachmentSerializer
+    queryset = PersonVerificationAttachment.objects
+    authentication_classes = []
+    permission_classes = [AllowAny]
