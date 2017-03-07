@@ -19,7 +19,7 @@ class PassportSerializer(serializers.ModelSerializer):
     class Meta:
         model = Passport
         fields = (
-            'person'
+            'person',
             'number',
             'expiry_date',
             'place_of_birth',
