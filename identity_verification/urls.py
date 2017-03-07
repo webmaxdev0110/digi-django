@@ -6,7 +6,7 @@ from billing.rest import (
     PlanViewSet,
     SubscriptionViewSet,
 )
-from identity_verification.rest import IdentityVerificationViewSet
+from identity_verification.rest import IdentityVerificationViewSet, IdentityAttachmentUploadViewSet
 
 router = DefaultRouter()
 
@@ -14,6 +14,7 @@ router = DefaultRouter()
 
 
 router.register(r'identity', IdentityVerificationViewSet, base_name='identify')
+router.register(r'identity-attachment', IdentityAttachmentUploadViewSet, base_name='identify-attachment')
 
 
 api_urlpatterns = [

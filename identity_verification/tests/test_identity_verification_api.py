@@ -6,8 +6,8 @@ from rest_framework.test import (
 from contacts.constants import GenderSource
 from contacts.models import Person
 from identity_verification.constants import VerificationSource
-from identity_verification.models import Passport
-
+from identity_verification.models import Passport, PersonVerificationAttachment
+from django.core.files.uploadedfile import SimpleUploadedFile
 
 class IdentityVerificationRestAPITestCase(APITestCase):
 
@@ -44,3 +44,45 @@ class IdentityVerificationRestAPITestCase(APITestCase):
         self.assertEqual(Passport.objects.count(), 1)
         self.assertEqual(Person.objects.count(), 1)
         self.assertDictContainsSubset(excepted, actual.json())
+
+    def test_upload_identification_document(self):
+        num_of_identification_document = PersonVerificationAttachment.objects.count()
+        url = reverse('api_identity_verification:identify-attachment-list')
+        pdf_file = SimpleUploadedFile("file.pdf", "file_content", content_type='application/pdf')
+        response = self.client.post(url, {
+            'file': pdf_file
+        }, format='multipart')
+        self.assertEqual(response.status_code, 201)
+        expected_key = 'id'
+        self.assertIn(expected_key, response.json())
+        self.assertEqual(num_of_identification_document+1, PersonVerificationAttachment.objects.count())
+
+    def test_linking_identification_document(self):
+        """
+        Given one PersonVerificationAttachment object,
+        link it to a person
+        """
+        url = reverse('api_identity_verification:identify-list')
+        person = Person.objects.create(first_name='John', last_name='smith')
+        pdf_file = SimpleUploadedFile("file.pdf", "file_content", content_type='application/pdf')
+        attachment1 = PersonVerificationAttachment.objects.create(file=pdf_file)
+        attachment2 = PersonVerificationAttachment.objects.create(file=pdf_file)
+
+        response = self.client.post(
+            url,
+            {
+                'type': VerificationSource.MANUAL_FILE_UPLOAD,
+                'person': {
+                    'id': person.id
+                },
+                'attachment_ids': [attachment1.id, attachment2.id]
+            },
+            format='json')
+
+        self.assertIsNotNone(PersonVerificationAttachment.objects.get(pk=attachment1.id).verification)
+        self.assertIsNotNone(PersonVerificationAttachment.objects.get(pk=attachment2.id).verification)
+
+        excepted = {
+            'result': True
+        }
+        self.assertDictContainsSubset(excepted, response.json())

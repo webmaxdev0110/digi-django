@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+from datetime import date
 from django.contrib.postgres.fields import JSONField
 from django.db import models
 from django_countries.fields import CountryField
@@ -40,9 +41,16 @@ class PersonVerification(TimeStampedModel, YesNoStatusField):
     country = CountryField()
 
 
-class PersonVerificationAttachment(models.Model):
+def year_month_day_path(instance, filename):
+    today = date.today()
+    return 'verification-attachments/{0}/{1}/{2}/'.format(
+        today.year, today.month, today.day
+    )
+
+
+class PersonVerificationAttachment(TimeStampedModel):
     file = models.FileField(
-        upload_to='verification-attachments',
+        upload_to=year_month_day_path,
         storage=get_document_storage()
     )
-    verification = models.ForeignKey(PersonVerification)
+    verification = models.ForeignKey(PersonVerification, null=True)
