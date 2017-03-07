@@ -20,7 +20,12 @@ def is_passport_match(trulioo_response):
         'DayOfBirth',
         'PassportNumber'
     ]
-    match_result = True
+
+    if len(result_data_source_fields) < len(match_keys):
+        # Trulioo may return invalid response that not all keys present
+        return False
+
+    field_results = []
     for field_obj in result_data_source_fields:
         if field_obj['FieldName'] in match_keys and field_obj['Status'] != 'match':
             match_result = False
