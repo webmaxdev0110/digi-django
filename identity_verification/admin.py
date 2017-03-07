@@ -4,10 +4,14 @@ from identity_verification.models import PersonVerification
 
 
 class PersonVerificationAdmin(ModelAdmin):
+    search_fields = ['person__last_name',  'person__first_name']
+    date_hierarchy = 'created'
     list_display = [
         'get_person_first_name',
         'get_person_last_name',
         'country',
+        'status',
+        'created',
     ]
     list_filter = (
         'country',
