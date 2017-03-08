@@ -10,6 +10,7 @@ from identity_verification.models import (
     PersonVerification,
     Passport,
     PersonVerificationAttachment,
+    DriverLicense,
 )
 from identity_verification.trulioo import TruliooRequestBuilder
 from identity_verification.utils import is_passport_match
@@ -26,6 +27,18 @@ class PassportSerializer(serializers.ModelSerializer):
             'country',
         )
 
+
+class DriverLicenseSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = DriverLicense
+        fields = (
+            'person',
+            'number',
+            'state',
+            'card_number',
+            'expiry_date',
+        )
 
 
 class IdentityVerificationSerializer(serializers.ModelSerializer):
