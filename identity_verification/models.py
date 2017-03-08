@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 from datetime import date
 from django.contrib.postgres.fields import JSONField
 from django.db import models
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
 from django_countries.fields import CountryField
 
 from contacts.models import Person
@@ -54,3 +56,8 @@ class PersonVerificationAttachment(TimeStampedModel):
         storage=get_document_storage()
     )
     verification = models.ForeignKey(PersonVerification, null=True)
+
+@receiver(pre_delete, sender=PersonVerificationAttachment)
+def person_verification_pre_delete(sender, instance, **kwargs):
+    # Pass false so FileField doesn't save the model.
+    instance.file.delete(False)
