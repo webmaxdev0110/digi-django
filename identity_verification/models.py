@@ -43,8 +43,8 @@ class PersonVerification(TimeStampedModel, YesNoStatusField):
 
 def year_month_day_path(instance, filename):
     today = date.today()
-    return 'verification-attachments/{0}/{1}/{2}/'.format(
-        today.year, today.month, today.day
+    return 'verification-attachments/{0}/{1}/{2}/{3}'.format(
+        today.year, today.month, today.day, filename
     )
 
 
