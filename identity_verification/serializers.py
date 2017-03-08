@@ -83,14 +83,12 @@ class IdentityVerificationSerializer(serializers.ModelSerializer):
 
         if validated_data['type'] == VerificationSource.DVSPASSPORT:
             submitted_passport = validated_data['verification_data']['passport']
-            # todo: Refactor this into serializer
-            passport = Passport(
-                person=person,
-                number=submitted_passport['number'],
-                expiry_date=datetime.strptime(submitted_passport['expiry_date'], '%Y-%m-%d'),
-                place_of_birth=submitted_passport['place_of_birth'],
-                country=Country(code=submitted_passport['country'])
-            )
+            submitted_passport.update({
+                'person': person.pk,
+                'country': Country(code=submitted_passport['country'])
+            })
+            passport = PassportSerializer(data=submitted_passport)
+            passport.is_valid()
             passport.save()
 
             request_builder = TruliooRequestBuilder()
