@@ -3,7 +3,10 @@ from contacts.models import (
     Person,
     Location,
 )
-from identity_verification.constants import VerificationSource, DVS_SOURCE_SET
+from identity_verification.constants import (
+    VerificationSource,
+    DVS_SOURCE_SET,
+)
 from identity_verification.models import (
     DriverLicense,
     Passport,
@@ -12,7 +15,7 @@ from django.conf import settings
 
 CONSENT_MAP = {
     VerificationSource.DVSPASSPORT : 'DVS Passport Search',
-    VerificationSource.DVSDRIVERLICENSE: 'DVS Driver License',
+    VerificationSource.DVSDRIVERLICENSE: 'DVS Driver License Search',
     VerificationSource.DVSMEDICARECARD: 'DVS Medicare Card'
 }
 
@@ -86,10 +89,13 @@ class TruliooRequestBuilder(object):
             data = {
                 'Number': license.number,
                 'State': license.state,
-                'DayOfExpiry': license.expiry_date.day,
-                'MonthOfExpiry': license.expiry_date.month,
-                'YearOfExpiry': license.expiry_date.year
             }
+            if license.expiry_date:
+                data.update({
+                    'DayOfExpiry': license.expiry_date.day,
+                    'MonthOfExpiry': license.expiry_date.month,
+                    'YearOfExpiry': license.expiry_date.year
+                })
         self._raw_request['DataFields']['DriverLicence'] = data
 
     @property
