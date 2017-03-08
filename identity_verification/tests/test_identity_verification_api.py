@@ -6,7 +6,11 @@ from rest_framework.test import (
 from contacts.constants import GenderSource
 from contacts.models import Person
 from identity_verification.constants import VerificationSource
-from identity_verification.models import Passport, PersonVerificationAttachment
+from identity_verification.models import (
+    Passport,
+    PersonVerificationAttachment,
+    DriverLicense,
+)
 from django.core.files.uploadedfile import SimpleUploadedFile
 
 class IdentityVerificationRestAPITestCase(APITestCase):
@@ -42,6 +46,35 @@ class IdentityVerificationRestAPITestCase(APITestCase):
             'result': False
         }
         self.assertEqual(Passport.objects.count(), 1)
+        self.assertEqual(Person.objects.count(), 1)
+        self.assertDictContainsSubset(excepted, actual.json())
+
+    def test_verify_dvs_driver_license(self):
+        url = reverse('api_identity_verification:identify-list')
+        self.assertEqual(DriverLicense.objects.count(), 0)
+        self.assertEqual(Person.objects.count(), 0)
+
+        actual = self.client.post(
+            url,
+            {
+                'type': VerificationSource.DVSDRIVERLICENSE,
+                'verification_data': {
+                    'driver_license': {
+                        'number': '076310691',
+                        'state': 'VIC',
+                    }
+                },
+                'person': {
+                    'first_name': 'John',
+                    'last_name': 'Smith',
+                    'date_of_birth': '1983-03-05'
+                }
+            },
+            format='json')
+        excepted = {
+            'result': True
+        }
+        self.assertEqual(DriverLicense.objects.count(), 1)
         self.assertEqual(Person.objects.count(), 1)
         self.assertDictContainsSubset(excepted, actual.json())
 

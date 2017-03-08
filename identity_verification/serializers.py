@@ -13,7 +13,10 @@ from identity_verification.models import (
     DriverLicense,
 )
 from identity_verification.trulioo import TruliooRequestBuilder
-from identity_verification.utils import is_passport_match
+from identity_verification.utils import (
+    is_passport_match,
+    is_dvs_driver_license_match,
+)
 
 
 class PassportSerializer(serializers.ModelSerializer):
@@ -100,8 +103,22 @@ class IdentityVerificationSerializer(serializers.ModelSerializer):
             else:
                 person_verification.status = YesNoStatusChoice.REJECTED
             person_verification.raw_response = raw_response
-        person_verification.save()
+        elif validated_data['type'] == VerificationSource.DVSDRIVERLICENSE:
+            submitted_driver_license = validated_data['verification_data']['driver_license']
+            submitted_driver_license.update({'person': person.pk})
+            serializer = DriverLicenseSerializer(data=submitted_driver_license)
+            serializer.is_valid(raise_exception=True)
+            driver_license = serializer.save()
 
+            request_builder = TruliooRequestBuilder()
+            request_builder.driver_license = driver_license
+            request_builder.person = person
+            raw_response = request_builder.request_verification([VerificationSource.DVSDRIVERLICENSE])
+            if is_dvs_driver_license_match(raw_response):
+                person_verification.status = YesNoStatusChoice.PASSED
+            else:
+                person_verification.status = YesNoStatusChoice.REJECTED
+        person_verification.save()
         return person_verification
 
 
