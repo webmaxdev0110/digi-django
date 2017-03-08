@@ -35,6 +35,13 @@ class Passport(models.Model):
     country = CountryField()
 
 
+class MedicareCard(models.Model):
+    number = models.CharField(max_length=32)
+    reference_number = models.CharField(max_length=16, blank=True)
+    expiry_date = models.DateField(null=True)
+    colour = models.CharField(max_length=16)
+
+
 
 class PersonVerification(TimeStampedModel, YesNoStatusField):
     person = models.ForeignKey(Person)
