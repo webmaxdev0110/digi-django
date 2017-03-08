@@ -16,7 +16,7 @@ from django.conf import settings
 CONSENT_MAP = {
     VerificationSource.DVSPASSPORT : 'DVS Passport Search',
     VerificationSource.DVSDRIVERLICENSE: 'DVS Driver License Search',
-    VerificationSource.DVSMEDICARECARD: 'DVS Medicare Card'
+    VerificationSource.DVSMEDICARECARD: 'DVS Medicare Search'
 }
 
 
