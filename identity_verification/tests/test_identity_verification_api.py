@@ -15,6 +15,9 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 
 class IdentityVerificationRestAPITestCase(APITestCase):
 
+    def tearDown(self):
+        PersonVerificationAttachment.objects.all().delete()
+
     def test_verify_dvs_passport(self):
         url = reverse('api_identity_verification:identify-list')
         self.assertEqual(Passport.objects.count(), 0)
