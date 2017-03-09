@@ -39,7 +39,8 @@ class MedicareCard(models.Model):
     person = models.ForeignKey(Person)
     number = models.CharField(max_length=32)
     reference_number = models.CharField(max_length=16, blank=True)
-    expiry_date = models.DateField(null=True)
+    expiry_date_year = models.CharField(max_length=4, blank=True)
+    expiry_date_month = models.CharField(max_length=2, blank=True)
     colour = models.CharField(max_length=16)
 
 
