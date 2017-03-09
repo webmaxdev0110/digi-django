@@ -99,7 +99,17 @@ class TruliooRequestBuilder(object):
                     'MonthOfExpiry': license.expiry_date.month,
                     'YearOfExpiry': license.expiry_date.year
                 })
+
+            if license.card_number:
+                self._raw_request['DataFields']['CountrySpecific'] = {
+                    'AU': {
+                        'RTACardNumber': license.card_number
+                    }
+                }
+
         self._raw_request['DataFields']['DriverLicence'] = data
+
+
 
     @property
     def passport(self):
