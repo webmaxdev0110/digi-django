@@ -3,17 +3,21 @@ from contacts.models import (
     Person,
     Location,
 )
-from identity_verification.constants import VerificationSource, DVS_SOURCE_SET
+from identity_verification.constants import (
+    VerificationSource,
+    DVS_SOURCE_SET,
+)
 from identity_verification.models import (
     DriverLicense,
     Passport,
+    MedicareCard,
 )
 from django.conf import settings
 
 CONSENT_MAP = {
     VerificationSource.DVSPASSPORT : 'DVS Passport Search',
-    VerificationSource.DVSDRIVERLICENSE: 'DVS Driver License',
-    VerificationSource.DVSMEDICARECARD: 'DVS Medicare Card'
+    VerificationSource.DVSDRIVERLICENSE: 'DVS Driver License Search',
+    VerificationSource.DVSMEDICARECARD: 'DVS Medicare Search'
 }
 
 
@@ -23,6 +27,7 @@ class TruliooRequestBuilder(object):
     """
     def __init__(self, person=None, passport=None,
                  driver_license=None, location=None,
+                 medicare_card=None,
                  country_code='AU'):
         self._raw_result = {}
         self._raw_request = {
@@ -40,6 +45,7 @@ class TruliooRequestBuilder(object):
         self.driver_license = driver_license
         self.passport = passport
         self.location = location
+        self.medicare_card = medicare_card
 
     @property
     def person(self):
@@ -86,11 +92,24 @@ class TruliooRequestBuilder(object):
             data = {
                 'Number': license.number,
                 'State': license.state,
-                'DayOfExpiry': license.expiry_date.day,
-                'MonthOfExpiry': license.expiry_date.month,
-                'YearOfExpiry': license.expiry_date.year
             }
+            if license.expiry_date:
+                data.update({
+                    'DayOfExpiry': license.expiry_date.day,
+                    'MonthOfExpiry': license.expiry_date.month,
+                    'YearOfExpiry': license.expiry_date.year
+                })
+
+            if license.card_number:
+                self._raw_request['DataFields']['CountrySpecific'] = {
+                    'AU': {
+                        'RTACardNumber': license.card_number
+                    }
+                }
+
         self._raw_request['DataFields']['DriverLicence'] = data
+
+
 
     @property
     def passport(self):
@@ -132,6 +151,24 @@ class TruliooRequestBuilder(object):
             data = {k: v for k, v in data.items() if v}
 
         self._raw_request['DataFields']['Location'] = data
+
+    @property
+    def medicare_card(self):
+        return self._raw_request['DataFields'].get('CountrySpecific', {}).get('AU', {})
+
+    @medicare_card.setter
+    def medicare_card(self, medicare):
+        if isinstance(medicare, MedicareCard):
+            data = {
+                'AU': {
+                    "MedicareNumber": medicare.number,
+                    "MedicareReference": medicare.reference_number,
+                    "MedicareMonthOfExpiry": medicare.expiry_date_month,
+                    "MedicareYearOfExpiry": medicare.expiry_date_year,
+                    "MedicareColor": medicare.colour,
+                }
+            }
+            self._raw_request['DataFields']['CountrySpecific'] = data
 
     def add_consent(self, consent_name=None):
         if consent_name:

@@ -10,9 +10,13 @@ from identity_verification.models import (
     PersonVerification,
     Passport,
     PersonVerificationAttachment,
-)
+    DriverLicense,
+    MedicareCard)
 from identity_verification.trulioo import TruliooRequestBuilder
-from identity_verification.utils import is_passport_match
+from identity_verification.utils import (
+    is_passport_match,
+    is_dvs_driver_license_match,
+    is_dvs_medicare_card_match)
 
 
 class PassportSerializer(serializers.ModelSerializer):
@@ -26,6 +30,32 @@ class PassportSerializer(serializers.ModelSerializer):
             'country',
         )
 
+
+class DriverLicenseSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = DriverLicense
+        fields = (
+            'person',
+            'number',
+            'state',
+            'card_number',
+            'expiry_date',
+        )
+
+
+class MedicareCardSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = MedicareCard
+        fields = (
+            'person',
+            'number',
+            'reference_number',
+            'expiry_date_year',
+            'expiry_date_month',
+            'colour',
+        )
 
 
 class IdentityVerificationSerializer(serializers.ModelSerializer):
@@ -67,14 +97,12 @@ class IdentityVerificationSerializer(serializers.ModelSerializer):
 
         if validated_data['type'] == VerificationSource.DVSPASSPORT:
             submitted_passport = validated_data['verification_data']['passport']
-            # todo: Refactor this into serializer
-            passport = Passport(
-                person=person,
-                number=submitted_passport['number'],
-                expiry_date=datetime.strptime(submitted_passport['expiry_date'], '%Y-%m-%d'),
-                place_of_birth=submitted_passport['place_of_birth'],
-                country=Country(code=submitted_passport['country'])
-            )
+            submitted_passport.update({
+                'person': person.pk,
+                'country': Country(code=submitted_passport['country'])
+            })
+            passport = PassportSerializer(data=submitted_passport)
+            passport.is_valid()
             passport.save()
 
             request_builder = TruliooRequestBuilder()
@@ -87,8 +115,39 @@ class IdentityVerificationSerializer(serializers.ModelSerializer):
             else:
                 person_verification.status = YesNoStatusChoice.REJECTED
             person_verification.raw_response = raw_response
-        person_verification.save()
+        elif validated_data['type'] == VerificationSource.DVSDRIVERLICENSE:
+            submitted_driver_license = validated_data['verification_data']['driver_license']
+            submitted_driver_license.update({'person': person.pk})
+            serializer = DriverLicenseSerializer(data=submitted_driver_license)
+            serializer.is_valid(raise_exception=True)
+            driver_license = serializer.save()
 
+            request_builder = TruliooRequestBuilder()
+            request_builder.driver_license = driver_license
+            request_builder.person = person
+            raw_response = request_builder.request_verification([VerificationSource.DVSDRIVERLICENSE])
+            if is_dvs_driver_license_match(raw_response):
+                person_verification.status = YesNoStatusChoice.PASSED
+            else:
+                person_verification.status = YesNoStatusChoice.REJECTED
+        elif validated_data['type'] == VerificationSource.DVSMEDICARECARD:
+            submitted_medicare_card = validated_data['verification_data']['medicare_card']
+            submitted_medicare_card.update({'person': person.pk})
+            serializer = MedicareCardSerializer(data=submitted_medicare_card)
+            serializer.is_valid(raise_exception=True)
+            medicare_card = serializer.save()
+
+            request_builder = TruliooRequestBuilder()
+            request_builder.medicare_card = medicare_card
+            request_builder.person = person
+            raw_response = request_builder.request_verification([VerificationSource.DVSMEDICARECARD])
+            from pprint import pprint
+            pprint(raw_response)
+            if is_dvs_medicare_card_match(raw_response):
+                person_verification.status = YesNoStatusChoice.PASSED
+            else:
+                person_verification.status = YesNoStatusChoice.REJECTED
+        person_verification.save()
         return person_verification
 
 

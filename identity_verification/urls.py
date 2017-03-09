@@ -2,11 +2,10 @@ from django.conf.urls import url, include
 
 from rest_framework.routers import DefaultRouter
 
-from billing.rest import (
-    PlanViewSet,
-    SubscriptionViewSet,
+from identity_verification.rest import (
+    IdentityVerificationViewSet,
+    IdentityAttachmentUploadViewSet,
 )
-from identity_verification.rest import IdentityVerificationViewSet, IdentityAttachmentUploadViewSet
 
 router = DefaultRouter()
 
