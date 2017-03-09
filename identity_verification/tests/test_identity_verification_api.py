@@ -10,6 +10,7 @@ from identity_verification.models import (
     Passport,
     PersonVerificationAttachment,
     DriverLicense,
+    MedicareCard,
 )
 from django.core.files.uploadedfile import SimpleUploadedFile
 
@@ -52,32 +53,35 @@ class IdentityVerificationRestAPITestCase(APITestCase):
         self.assertEqual(Person.objects.count(), 1)
         self.assertDictContainsSubset(excepted, actual.json())
 
-    def test_verify_dvs_driver_license(self):
+    def test_verify_dvs_medicare_card(self):
         url = reverse('api_identity_verification:identify-list')
-        self.assertEqual(DriverLicense.objects.count(), 0)
+        self.assertEqual(MedicareCard.objects.count(), 0)
         self.assertEqual(Person.objects.count(), 0)
 
         actual = self.client.post(
             url,
             {
-                'type': VerificationSource.DVSDRIVERLICENSE,
+                'type': VerificationSource.DVSMEDICARECARD,
                 'verification_data': {
-                    'driver_license': {
-                        'number': '076310691',
-                        'state': 'VIC',
+                    'medicare_card': {
+                        'number': '5643513953',
+                        'reference_number': '2',
+                        'expiry_date_month': '12',
+                        'expiry_date_year': '2017',
+                        'colour': 'Blue'
                     }
                 },
                 'person': {
                     'first_name': 'John',
                     'last_name': 'Smith',
-                    'date_of_birth': '1983-03-05'
+                    'date_of_birth': '1980-3-29'
                 }
             },
             format='json')
         excepted = {
-            'result': True
+            'result': False
         }
-        self.assertEqual(DriverLicense.objects.count(), 1)
+        self.assertEqual(MedicareCard.objects.count(), 1)
         self.assertEqual(Person.objects.count(), 1)
         self.assertDictContainsSubset(excepted, actual.json())
 
