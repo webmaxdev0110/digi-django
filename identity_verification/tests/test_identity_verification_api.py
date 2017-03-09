@@ -53,6 +53,38 @@ class IdentityVerificationRestAPITestCase(APITestCase):
         self.assertEqual(Person.objects.count(), 1)
         self.assertDictContainsSubset(excepted, actual.json())
 
+    def test_verify_dvs_driver_license(self):
+        self.skipTest('Waiting for Trulioo to fix api')
+        url = reverse('api_identity_verification:identify-list')
+        self.assertEqual(DriverLicense.objects.count(), 0)
+        self.assertEqual(Person.objects.count(), 0)
+
+        actual = self.client.post(
+            url,
+            {
+                'type': VerificationSource.DVSDRIVERLICENSE,
+                'verification_data': {
+                    'driver_license': {
+                        'number': '076310691',
+                        'state': 'VIC',
+                        'expiry_date': '2018-04-03',
+                        'rta_card_number': '12'
+                    }
+                },
+                'person': {
+                    'first_name': 'John',
+                    'last_name': 'Smith',
+                    'date_of_birth': '1983-03-05'
+                },
+            },
+            format='json')
+        excepted = {
+            'result': True
+        }
+        self.assertEqual(DriverLicense.objects.count(), 1)
+        self.assertEqual(Person.objects.count(), 1)
+        self.assertDictContainsSubset(excepted, actual.json())
+
     def test_verify_dvs_medicare_card(self):
         url = reverse('api_identity_verification:identify-list')
         self.assertEqual(MedicareCard.objects.count(), 0)
