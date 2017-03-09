@@ -10,6 +10,7 @@ from identity_verification.constants import (
 from identity_verification.models import (
     DriverLicense,
     Passport,
+    MedicareCard,
 )
 from django.conf import settings
 
@@ -26,6 +27,7 @@ class TruliooRequestBuilder(object):
     """
     def __init__(self, person=None, passport=None,
                  driver_license=None, location=None,
+                 medicare_card=None,
                  country_code='AU'):
         self._raw_result = {}
         self._raw_request = {
@@ -43,6 +45,7 @@ class TruliooRequestBuilder(object):
         self.driver_license = driver_license
         self.passport = passport
         self.location = location
+        self.medicare_card = medicare_card
 
     @property
     def person(self):
@@ -138,6 +141,26 @@ class TruliooRequestBuilder(object):
             data = {k: v for k, v in data.items() if v}
 
         self._raw_request['DataFields']['Location'] = data
+
+    @property
+    def medicare_card(self):
+        return self._raw_request['DataFields'].get('CountrySpecific', {}).get('AU', {})
+
+    @medicare_card.setter
+    def medicare_card(self, medicare):
+
+        if isinstance(medicare, MedicareCard):
+            data = {
+                'AU': {
+                    "MedicareNumber": medicare.number,
+                    "MedicareReference": medicare.reference_number,
+                    "MedicareDayOfExpiry": medicare.expiry_date.day,
+                    "MedicareMonthOfExpiry": medicare.expiry_date.month,
+                    "MedicareYearOfExpiry": medicare.expiry_date.year,
+                    "MedicareColor": medicare.colour,
+                }
+            }
+            self._raw_request['DataFields']['CountrySpecific'] = data
 
     def add_consent(self, consent_name=None):
         if consent_name:
