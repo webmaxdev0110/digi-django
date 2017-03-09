@@ -158,15 +158,13 @@ class TruliooRequestBuilder(object):
 
     @medicare_card.setter
     def medicare_card(self, medicare):
-
         if isinstance(medicare, MedicareCard):
             data = {
                 'AU': {
                     "MedicareNumber": medicare.number,
                     "MedicareReference": medicare.reference_number,
-                    "MedicareDayOfExpiry": medicare.expiry_date.day,
-                    "MedicareMonthOfExpiry": medicare.expiry_date.month,
-                    "MedicareYearOfExpiry": medicare.expiry_date.year,
+                    "MedicareMonthOfExpiry": medicare.expiry_date_month,
+                    "MedicareYearOfExpiry": medicare.expiry_date_year,
                     "MedicareColor": medicare.colour,
                 }
             }
