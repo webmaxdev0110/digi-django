@@ -50,3 +50,20 @@ def is_passport_match(trulioo_response):
         'PassportNumber'
     ]
     return test_trulioo_fields_match(passport_result, required_fields)
+
+
+def is_dvs_medicare_card_match(trulioo_response):
+    medicare_responses = extract_trulioo_response(trulioo_response, 'DVS Medicare Search')
+    required_fields = [
+        'FirstGivenName',
+        'FirstSurName',
+        'YearOfBirth',
+        'MonthOfBirth',
+        'DayOfBirth',
+        'MedicareColor',
+        'health',
+        'MedicareReference',
+        'MedicareYearOfExpiry'
+        'MedicareMonthOfExpiry',
+    ]
+    return test_trulioo_fields_match(medicare_responses, required_fields)
