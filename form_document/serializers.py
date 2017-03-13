@@ -161,6 +161,7 @@ class FormResponseListSerializer(ModelSerializer):
     sent_channel = serializers.SerializerMethodField()
     contact_email = serializers.SerializerMethodField()
     contact_phone = serializers.SerializerMethodField()
+    status = serializers.SerializerMethodField()
 
 
     class Meta:
@@ -194,3 +195,6 @@ class FormResponseListSerializer(ModelSerializer):
 
     def get_contact_phone(self, instance):
         pass
+
+    def get_status(self, instance):
+        return instance.get_status_display()
