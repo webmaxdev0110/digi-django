@@ -36,8 +36,6 @@ def document_path(instance, filename):
     )
 
 
-
-
 class FormDocumentTemplate(TimeStampedModel):
     """
     Represents a form document created by an user
@@ -165,7 +163,7 @@ class FormDocumentCompanyShare(TimeStampedModel):
     within the user's company or to another company
 
     """
-    form_document = models.ForeignKey(FormDocumentTemplate)
+    form_template = models.ForeignKey(FormDocumentTemplate)
     from_company = models.ForeignKey(Company, related_name='forms_shared_to_other_companies')
     to_company = models.ForeignKey(Company, related_name='forms_received_from_other_companies')
     company_visible = models.BooleanField(
@@ -173,7 +171,7 @@ class FormDocumentCompanyShare(TimeStampedModel):
         help_text='If company visible is not true, only the compnay admin can view the document')
 
     class Meta:
-        unique_together = (('form_document', 'to_company'),)
+        unique_together = (('form_template', 'to_company'),)
         verbose_name = 'FormCompanyShare'
         verbose_name_plural = 'FormCompanyShares'
 
@@ -187,12 +185,12 @@ class FormDocumentUserShare(TimeStampedModel):
     And this model represents second case.
 
     """
-    form_document = models.ForeignKey(FormDocumentTemplate, related_name='forms_shared_to_other_users')
+    form_template = models.ForeignKey(FormDocumentTemplate, related_name='forms_shared_to_other_users')
     to_user = models.ForeignKey(User, related_name='forms_received_from_other_users')
     from_user = models.ForeignKey(User, null=True)
 
     class Meta:
-        unique_together = (('form_document', 'to_user'),)
+        unique_together = (('form_template', 'to_user'),)
         verbose_name = 'FormUserShare'
         verbose_name_plural = 'FormUserShares'
 
