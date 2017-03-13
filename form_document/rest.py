@@ -53,15 +53,6 @@ class FormDocumentViewSet(viewsets.ModelViewSet):
         else:
             return FormDocumentDetailSerializer
 
-    def get_form_response(self, response_id):
-        # get FormDocumentResponse object
-        try:
-            form_response = FormDocumentResponse.objects.get(id=response_id)
-        except FormDocumentResponse.DoesNotExist:
-            return None
-        serializer = FormDocumentResponseSerializer(form_response)
-        return serializer.data
-
 
 class FormDocumentResponseViewSet(viewsets.ModelViewSet):
     queryset = FormDocumentResponse.objects
