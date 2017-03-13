@@ -65,6 +65,16 @@ class FormDocumentTemplate(TimeStampedModel, StatusModel):
         verbose_name = 'FormTemplate'
         verbose_name_plural = 'FormTemplates'
 
+    def compile_form(self):
+        return FixedFormDocument.objects.create(
+            title=self.title,
+            uploaded_document=self.uploaded_document,
+            form_data=self.form_data,
+            document_mapping=self.document_mapping,
+            form_config=self.form_config,
+            template=self
+        )
+
     def is_access_code_protected(self):
         return self.access_code is not None
 
