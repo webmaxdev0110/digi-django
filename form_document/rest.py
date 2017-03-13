@@ -23,11 +23,19 @@ from .serializers import (
 
 
 
-class FormDocumentViewSet(viewsets.ModelViewSet):
+class FormDocumentRetrieveViewSet(mixins.RetrieveModelMixin, GenericViewSet):
     queryset = FormDocumentTemplate.objects.all()
-    serializer_class = FormDocumentSerializer
+    serializer_class = FormDocumentDetailSerializer
+    pagination_class = get_pagination_class(page_size=10)
+    authentication_classes = []
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+
+class FormDocumentCreateUpdateViewSet(viewsets.ModelViewSet):
+    queryset = FormDocumentTemplate.objects.all()
     pagination_class = get_pagination_class(page_size=10)
     parser_classes = (MultiPartParser, FormParser, JSONParser,)
+    serializer_class = FormDocumentSerializer
 
     def get_object_kwarg(self):
         kwargs = {}
