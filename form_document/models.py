@@ -22,6 +22,8 @@ from core.core_storages import (
 from form_document.constants import (
     FORM_SENDING_METHOD_CHOICES,
     FormSendingMethod,
+    FORM_COMPLETION_STATUS,
+    FormCompletionStatus,
 )
 
 
