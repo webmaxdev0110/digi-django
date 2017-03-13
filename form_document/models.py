@@ -136,11 +136,8 @@ class FixedFormDocument(TimeStampedModel):
     form_data = JSONField(null=True)  # All the form data
     # example {1: {type:'standard', positions:[bbox:[0, 0, 10, 10], page:1]}}
     document_mapping = JSONField(default={})
-
     form_config = JSONField(null=True)
-    access_code = models.CharField(max_length=4, blank=True)
-    owner = models.ForeignKey(User, help_text='The owner of this document')
-    cached_sha1 = models.CharField(max_length=40, blank=True)
+    template = models.ForeignKey(FormDocumentTemplate)
 
 
 class FormDocumentAsset(models.Model):
