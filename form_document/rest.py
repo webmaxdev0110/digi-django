@@ -10,7 +10,7 @@ from rest_framework.parsers import (
 from core.hash_utils import sha1_file
 from core.rest_pagination import get_pagination_class
 from .models import (
-    FormDocument,
+    FormDocumentTemplate,
     FormDocumentResponse,
 )
 from .serializers import (
@@ -23,7 +23,7 @@ from form_document.models import AUTO_SAVED
 
 
 class FormDocumentViewSet(viewsets.ModelViewSet):
-    queryset = FormDocument.objects.all()
+    queryset = FormDocumentTemplate.objects.all()
     serializer_class = FormDocumentSerializer
     pagination_class = get_pagination_class(page_size=10)
     parser_classes = (MultiPartParser, FormParser, JSONParser,)
@@ -83,11 +83,11 @@ class FormDocumentResponseViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         # All the forms owned by this user
-        owned_form_ids = FormDocument.objects.filter(
+        owned_form_ids = FormDocumentTemplate.objects.filter(
             owner=self.request.user).values_list('id', flat=True)
         # All the forms shared to this user
-        # todo: 1. FormDocument shared to entire company
-        # todo: 2. FormDocument shared by one user
+        # todo: 1. FormDocumentTemplate shared to entire company
+        # todo: 2. FormDocumentTemplate shared by one user
         return FormDocumentResponse.objects.filter(
             form_document__id__in=owned_form_ids
         )
@@ -97,7 +97,7 @@ class FormDocumentResponseViewSet(viewsets.ModelViewSet):
         form_document = None
         form_id = self.request.data['form_id']
         if form_id:
-            form_document = FormDocument.objects.get(pk=form_id)
+            form_document = FormDocumentTemplate.objects.get(pk=form_id)
         kwargs = {}
         if form_document:
             kwargs['form_document'] = form_document

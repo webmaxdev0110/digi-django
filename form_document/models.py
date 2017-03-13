@@ -36,7 +36,7 @@ def document_path(instance, filename):
 
 
 
-class FormDocument(TimeStampedModel):
+class FormDocumentTemplate(TimeStampedModel):
     """
     Represents a form document created by an user
     The form should be accessible by document owner,
@@ -62,11 +62,11 @@ class FormDocument(TimeStampedModel):
     cached_sha1 = models.CharField(max_length=40, null=True)
 
     def __unicode__(self):
-        return '<FormDocument: {0}>'.format(self.title[:16])
+        return '<FormDocumentTemplate: {0}>'.format(self.title[:16])
 
     class Meta:
-        verbose_name = 'Form'
-        verbose_name_plural = 'Forms'
+        verbose_name = 'FormTemplate'
+        verbose_name_plural = 'FormTemplates'
 
     def is_access_code_protected(self):
         return self.access_code is not None
@@ -105,7 +105,7 @@ class FormDocument(TimeStampedModel):
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
-        super(FormDocument, self).save(force_insert, force_update, using, update_fields)
+        super(FormDocumentTemplate, self).save(force_insert, force_update, using, update_fields)
 
 
 def original_document_path(instance, filename):
@@ -120,7 +120,7 @@ def original_document_path(instance, filename):
     )
 
 class FormDocumentAsset(models.Model):
-    form_document = models.ForeignKey(FormDocument, related_name='form_assets')
+    form_document = models.ForeignKey(FixedFormDocument, related_name='form_assets')
     image = models.ImageField(
         upload_to=original_document_path, storage=get_document_storage(),
         height_field='cached_image_height',
@@ -144,7 +144,7 @@ class FormDocumentCompanyShare(TimeStampedModel):
     within the user's company or to another company
 
     """
-    form_document = models.ForeignKey(FormDocument)
+    form_document = models.ForeignKey(FormDocumentTemplate)
     from_company = models.ForeignKey(Company, related_name='forms_shared_to_other_companies')
     to_company = models.ForeignKey(Company, related_name='forms_received_from_other_companies')
     company_visible = models.BooleanField(
@@ -166,7 +166,7 @@ class FormDocumentUserShare(TimeStampedModel):
     And this model represents second case.
 
     """
-    form_document = models.ForeignKey(FormDocument, related_name='forms_shared_to_other_users')
+    form_document = models.ForeignKey(FormDocumentTemplate, related_name='forms_shared_to_other_users')
     to_user = models.ForeignKey(User, related_name='forms_received_from_other_users')
     from_user = models.ForeignKey(User, null=True)
 
@@ -222,7 +222,7 @@ class FormDocumentResponse(TimeStampedModel):
     )
     last_interactive_timestamp = models.DateTimeField(auto_now=True)
     duration_seconds = models.IntegerField(default=0)
-    form_document = models.ForeignKey(FormDocument)
+    form_document = models.ForeignKey(FormDocumentTemplate)
     answers = JSONField()
     status = models.SmallIntegerField(choices=FORM_COMPLETION_STATUS, default=UNOPENED)
 

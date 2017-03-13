@@ -4,12 +4,12 @@ from rest_framework.serializers import (
 )
 from rest_framework import serializers
 
-from .models import FormDocument, FormDocumentResponse
+from .models import FormDocumentResponse, FormDocumentTemplate
 
 
 class FormDocumentSerializer(ModelSerializer):
     class Meta:
-        model = FormDocument
+        model = FormDocumentTemplate
         fields = (
             'id',
             'title',
@@ -19,7 +19,7 @@ class FormDocumentSerializer(ModelSerializer):
 
 class FormDocumentCreateSerializer(ModelSerializer):
     class Meta:
-        model = FormDocument
+        model = FormDocumentTemplate
         fields = (
             'id',
             'title',
@@ -51,7 +51,7 @@ class FormDocumentDetailSerializer(ModelSerializer):
     document_mapping = serializers.SerializerMethodField()
 
     class Meta:
-        model = FormDocument
+        model = FormDocumentTemplate
         fields = (
             'title',
             'slug',
