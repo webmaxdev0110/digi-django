@@ -119,6 +119,29 @@ def original_document_path(instance, filename):
         new_file_name
     )
 
+class FixedFormDocument(TimeStampedModel):
+    """
+    This model represents a copy form used for populate document
+    It allows user to update existing Form without breaking
+    already published form
+    """
+    title = models.CharField(max_length=256, default='Untitled Form')
+    uploaded_document = models.FileField(
+        null=True,
+        upload_to=document_path,
+        storage=get_document_storage(),
+        max_length=255,
+        help_text='The document uploaded used for populating after a form is completed')
+    form_data = JSONField(null=True)  # All the form data
+    # example {1: {type:'standard', positions:[bbox:[0, 0, 10, 10], page:1]}}
+    document_mapping = JSONField(default={})
+
+    form_config = JSONField(null=True)
+    access_code = models.CharField(max_length=4, blank=True)
+    owner = models.ForeignKey(User, help_text='The owner of this document')
+    cached_sha1 = models.CharField(max_length=40, blank=True)
+
+
 class FormDocumentAsset(models.Model):
     form_document = models.ForeignKey(FixedFormDocument, related_name='form_assets')
     image = models.ImageField(
