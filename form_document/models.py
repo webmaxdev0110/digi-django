@@ -210,23 +210,6 @@ class DocumentRecipient(models.Model):
         abstract = True
 
 
-# todo: Move to constant file
-UNOPENED = 1
-OPENED = 2
-SAVED = 3
-SUBMITTED = 4
-ABANDONED = 5
-AUTO_SAVED = 6
-
-FORM_COMPLETION_STATUS = (
-    (UNOPENED, _('Unopen')),
-    (ABANDONED, _('Abandoned')),
-    (OPENED, _('Opened')),
-    (SAVED, _('Saved')),
-    (SUBMITTED, _('Submitted')),
-    (AUTO_SAVED, _('Auto Saved')),
-)
-
 class FormDocumentResponse(TimeStampedModel):
     """
     FormDocumentResponse represents Form submission per User
@@ -247,7 +230,7 @@ class FormDocumentResponse(TimeStampedModel):
     duration_seconds = models.IntegerField(default=0)
     form_document = models.ForeignKey(FormDocumentTemplate)
     answers = JSONField()
-    status = models.SmallIntegerField(choices=FORM_COMPLETION_STATUS, default=UNOPENED)
+    status = models.SmallIntegerField(choices=FORM_COMPLETION_STATUS, default=FormCompletionStatus.UNOPENED)
 
     class Meta:
         verbose_name = 'FormResponse'

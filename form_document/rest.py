@@ -9,6 +9,7 @@ from rest_framework.parsers import (
 
 from core.hash_utils import sha1_file
 from core.rest_pagination import get_pagination_class
+from form_document.constants import FormCompletionStatus
 from .models import (
     FormDocumentTemplate,
     FormDocumentResponse,
@@ -19,7 +20,7 @@ from .serializers import (
     FormDocumentResponseSerializer,
     FormResponseListSerializer,
     FormDocumentCreateSerializer)
-from form_document.models import AUTO_SAVED
+
 
 
 class FormDocumentViewSet(viewsets.ModelViewSet):
@@ -102,7 +103,7 @@ class FormDocumentResponseViewSet(viewsets.ModelViewSet):
         if form_document:
             kwargs['form_document'] = form_document
         if 'FORM_AUTOSAVE' == request_action:
-            kwargs['status'] = AUTO_SAVED
+            kwargs['status'] = FormCompletionStatus.AUTO_SAVED
         if self.request.user.is_authenticated():
             kwargs['receiver_user'] = self.request.user
 
