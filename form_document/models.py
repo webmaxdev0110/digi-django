@@ -8,7 +8,7 @@ from django.contrib.postgres.fields import (
 from django.db import models
 from wand.image import Image
 from accounts.models import User, Company
-from core.models import TimeStampedModel
+from core.models import TimeStampedModel, StatusModel
 import os
 import pyPdf
 from django.core.files import File
@@ -34,7 +34,7 @@ def document_path(instance, filename):
     )
 
 
-class FormDocumentTemplate(TimeStampedModel):
+class FormDocumentTemplate(TimeStampedModel, StatusModel):
     """
     Represents a form document created by an user
     The form should be accessible by document owner,
