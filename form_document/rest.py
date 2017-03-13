@@ -53,6 +53,12 @@ class FormDocumentCreateUpdateViewSet(viewsets.ModelViewSet):
         inst = serializer.save(**kwargs)
         inst.process_document()
 
+    def perform_update(self, serializer):
+        inst = serializer.save()
+        if inst.status == StatusChoices.LIVE:
+            inst.compile_form()
+        return inst
+
     def get_serializer_class(self):
         if self.action == 'list':
             return self.serializer_class
