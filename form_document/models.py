@@ -46,8 +46,7 @@ class FormDocumentTemplate(TimeStampedModel):
     """
 
     title = models.CharField(max_length=256, default='Untitled Form')
-    slug = models.SlugField(null=True, help_text='Use for short URL sharing')
-
+    slug = models.SlugField(blank=True, help_text='Use for short URL sharing')
     uploaded_document = models.FileField(
         null=True,
         upload_to=document_path,
@@ -61,7 +60,7 @@ class FormDocumentTemplate(TimeStampedModel):
     form_config = JSONField(null=True)
     access_code = models.CharField(max_length=4, null=True)
     owner = models.ForeignKey(User, help_text='The owner of this document')
-    cached_sha1 = models.CharField(max_length=40, null=True)
+    cached_sha1 = models.CharField(max_length=40, blank=True)
 
     def __unicode__(self):
         return '<FormDocumentTemplate: {0}>'.format(self.title[:16])
@@ -152,8 +151,8 @@ class FormDocumentAsset(models.Model):
         width_field='cached_image_width'
     )
     order = models.SmallIntegerField(default=0)
-    cached_image_width = models.IntegerField(blank=True, null=True)
-    cached_image_height = models.IntegerField(blank=True, null=True)
+    cached_image_width = models.IntegerField(null=True)
+    cached_image_height = models.IntegerField(null=True)
 
     class Meta:
         ordering = ["order"]
