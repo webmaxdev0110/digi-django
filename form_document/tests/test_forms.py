@@ -14,6 +14,9 @@ class FormDocumentRestAPITestCase(APITestCase):
         self.template_no_pass = FormDocumentTemplateFactory.create()
         self.template = FormDocumentTemplateFactory.create(access_code='1234')
 
+    def tearDown(self):
+        FormDocumentTemplate.objects.all().delete()
+
     def test_anonymous_user_can_retrieve_form(self):
         url = reverse('api_form:form_retrieval-detail', args=(self.template_no_pass.pk,))
         site = self.template.owner.site
