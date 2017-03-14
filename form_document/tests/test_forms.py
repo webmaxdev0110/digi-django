@@ -86,6 +86,27 @@ class FormDocumentRestAPITestCase(APITestCase):
         form = FormDocumentTemplate.objects.get(pk=form_id)
         self.assertEqual(form.owner.pk, user.pk)
 
+    def test_save_owner_cannot_have_duplicated_form_urls(self):
+        user = UserFactory()
+        self.client.force_login(user)
+        url = reverse('api_form:formdocumenttemplate-list')
+
+        actual = self.client.post(url, {
+            'title': 'my-form-title',
+            'slug': 'slug',
+            'form_data': {},
+        }, format='json')
+        self.assertEqual(actual.status_code, 201)
+        self.assertIn('id', actual.json().keys())
+
+        actual = self.client.post(url, {
+            'title': 'my-form-title',
+            'slug': 'slug',
+            'form_data': {},
+        }, format='json')
+        self.assertEqual(actual.status_code, 400)
+        self.assertIn('slug', actual.json().keys())
+
     def test_form_creation_should_give_company_wide_access(self):
         pass
 
