@@ -22,6 +22,25 @@ class UserFactory(factory.DjangoModelFactory):
 
     username = factory.sequence(lambda n: 'User <%d>' % n)
     is_active = True
+    site = factory.SubFactory(SiteFactory)
+
+    @factory.post_generation
+    def site(self, create, extracted, **kwargs):
+        if not create:
+            # Simple build, do nothing.
+            return
+
+        if extracted:
+            self.site = extracted
+        else:
+            if not Site.objects.all().exists():
+                site = SiteFactory()
+            else:
+                site = Site.objects.all()[0]
+            self.site = site
+
+
+
 class CompanyFactory(factory.DjangoModelFactory):
     class Meta:
         model = Company
