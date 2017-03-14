@@ -87,8 +87,6 @@ class FormDocumentCreateUpdateViewSet(viewsets.ModelViewSet):
             return self.serializer_class
         elif self.action == 'create' or self.action == 'update':
             return FormDocumentCreateSerializer
-        else:
-            return FormDocumentDetailSerializer
 
 
 class FormDocumentResponseViewSet(viewsets.ModelViewSet):
