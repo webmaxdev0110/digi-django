@@ -1,3 +1,4 @@
+from django.utils.text import slugify
 from rest_framework.serializers import (
     ModelSerializer,
     CurrentUserDefault,
@@ -33,7 +34,6 @@ class FormDocumentCreateSerializer(ModelSerializer):
         )
         extra_kwargs = {
             'title': {'write_only': True},
-            'slug': {'write_only': True},
             'uploaded_document': {'write_only': True},
             'status': {'write_only': True},
             'form_data': {'write_only': True},
@@ -41,6 +41,13 @@ class FormDocumentCreateSerializer(ModelSerializer):
             'form_config': {'write_only': True},
             'access_code': {'write_only': True}
         }
+
+    def validate_slug(self, value):
+        value = slugify(value)
+        if FormDocumentTemplate.objects.filter(slug=value, owner=self.context['request'].user).exists():
+            raise serializers.ValidationError('Same URL exists')
+        return value
+
 
 class FormDocumentDetailSerializer(ModelSerializer):
     """
