@@ -57,7 +57,7 @@ class FormDocumentRestAPITestCase(APITestCase):
 
         actual = self.client.put(url, {
             'title': 'new-title2'
-        })
+        }, HTTP_HOST=self.template.owner.site.domain)
         self.assertEqual(FixedFormDocument.objects.count(), 1)
 
 
