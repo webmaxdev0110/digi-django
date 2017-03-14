@@ -60,6 +60,30 @@ class FormDocumentRestAPITestCase(APITestCase):
         }, HTTP_HOST=self.template.owner.site.domain)
         self.assertEqual(FixedFormDocument.objects.count(), 1)
 
+    def test_retrieve_form_by_slug(self):
+        self.template_no_pass.slug = 'test2'
+        self.template_no_pass.save()
+        url = reverse('api_form:form_retrieval-detail', args=(self.template_no_pass.slug,))
+        actual = self.client.get(url, HTTP_HOST=self.template.owner.site.domain)
+        self.assertEqual(actual.status_code, 200)
+        form_data = actual.json()['form_data']
+        self.assertIsNotNone(form_data)
+
+    def test_form_create_should_have_correct_owner(self):
+        user = UserFactory()
+        self.client.force_login(user)
+        url = reverse('api_form:formdocumenttemplate-list')
+
+        actual = self.client.post(url, {
+            'title': 'my-form-title',
+            'slug': 'slug',
+            'form_data': {},
+        }, format='json')
+
+        self.assertIn('id', actual.json().keys())
+        form_id = actual.json()['id']
+        form = FormDocumentTemplate.objects.get(pk=form_id)
+        self.assertEqual(form.owner.pk, user.pk)
 
     def test_form_creation_should_give_company_wide_access(self):
         pass
