@@ -1,7 +1,9 @@
+from django.contrib.sites.models import Site
 from rest_framework import mixins
 from rest_framework import viewsets
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.filters import OrderingFilter
+from rest_framework.generics import get_object_or_404
 from rest_framework.parsers import (
     MultiPartParser,
     FormParser,
@@ -33,6 +35,23 @@ class FormDocumentRetrieveViewSet(mixins.RetrieveModelMixin, GenericViewSet):
     pagination_class = get_pagination_class(page_size=10)
     authentication_classes = []
     permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def get_queryset(self):
+        site = Site.objects.filter(domain=self.request.META.get('HTTP_HOST', '')).get()
+        return FormDocumentTemplate.objects.filter(owner__site=site)
+
+    def get_object(self):
+        queryset = self.filter_queryset(self.get_queryset())
+        try:
+            val = int(self.kwargs['pk'])
+            filter_kwargs = {'pk': self.kwargs['pk']}
+        except ValueError:
+            filter_kwargs = {'slug': self.kwargs['pk']}
+        obj = get_object_or_404(queryset, **filter_kwargs)
+        # May raise a permission denied
+        self.check_object_permissions(self.request, obj)
+
+        return obj
 
 
 class FormDocumentCreateUpdateViewSet(viewsets.ModelViewSet):
