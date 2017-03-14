@@ -50,7 +50,9 @@ class FormDocumentRestAPITestCase(APITestCase):
         actual = self.client.put(url, {
             'title': 'new-title'
         }, HTTP_HOST=self.template.owner.site.domain)
-        self.assertDictContainsSubset(actual.json(), {'id': self.template_no_pass.pk})
+        self.assertDictContainsSubset({
+            'id': self.template_no_pass.pk
+        }, actual.json())
         self.assertEqual(FixedFormDocument.objects.count(), 0)
 
         self.template_no_pass.status = StatusChoices.LIVE
