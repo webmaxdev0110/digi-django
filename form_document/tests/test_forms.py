@@ -119,6 +119,18 @@ class FormDocumentRestAPITestCase(APITestCase):
         pass
 
     def test_save_duplicated_slug_field(self):
+
+    def test_form_document_partial_update(self):
+        site = self.template_no_pass.owner.site
+        owner = self.template_no_pass.owner
+        self.client.force_login(owner)
+        url = reverse('api_form:formdocumenttemplate-detail', args=(self.template_no_pass.pk,))
+        updated_data = {'form_data': {'empty': True}}
+        actual = self.client.put(url, updated_data, format='json', HTTP_HOST=site.domain)
+        self.assertEqual(actual.status_code, 200)
+        updated_form_document = FormDocumentTemplate.objects.get(pk=self.template_no_pass.pk)
+        self.assertDictContainsSubset(updated_form_document.form_data, {'empty': True})
+
         pass
 
 
