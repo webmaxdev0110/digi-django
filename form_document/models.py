@@ -104,7 +104,7 @@ class FormDocumentTemplate(TimeStampedModel, StatusModel):
                         generated_image_paths.append(img_file.name)
                 for i, image_path in enumerate(generated_image_paths):
                     with open(image_path, 'r') as image_file:
-                        form_asset = FormDocumentAsset.objects.create(
+                        form_asset = FormDocumentTemplateAsset.objects.create(
                             form_document=self,
                             image=File(image_file),
                             order=i
@@ -146,8 +146,8 @@ class FixedFormDocument(TimeStampedModel):
     template = models.ForeignKey(FormDocumentTemplate)
 
 
-class FormDocumentAsset(models.Model):
-    form_document = models.ForeignKey(FixedFormDocument, related_name='form_assets')
+class FormDocumentTemplateDocumentPreview(models.Model):
+    form_document = models.ForeignKey(FormDocumentTemplate, related_name='form_assets')
     image = models.ImageField(
         upload_to=original_document_path, storage=get_document_storage(),
         height_field='cached_image_height',
