@@ -4,8 +4,7 @@ from django.forms import ModelForm
 from django import forms
 
 
-from .models import FormDocumentTemplate, FormDocumentUserShare, FormDocumentCompanyShare, FormDocumentResponse, \
-    FormDocumentAsset
+from .models import FormDocumentTemplate, FormDocumentUserShare, FormDocumentCompanyShare, FormDocumentResponse
 
 
 class FormDocumentTemplateAdminForm(ModelForm):
