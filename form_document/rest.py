@@ -139,10 +139,7 @@ class FormDocumentResponseViewSet(viewsets.ModelViewSet):
         kwargs = self.get_object_kwarg()
         # Check if the cached_form points to null, create a copy
         form_document_template = kwargs.get('form_document')
-        if not form_document_template.cached_form:
-            form_document_template.compile_form()
-
-        # Otherwise link the latest copy to this object
+        form_document_template.get_or_create_compiled_form()
         inst = serializer.save(**kwargs)
         return inst
 

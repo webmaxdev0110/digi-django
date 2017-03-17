@@ -132,11 +132,8 @@ class FormDocumentRestAPITestCase(APITestCase):
             'request_action': 'FORM_AUTOSAVE',
             'form_id': form_id
         })
-        self.assertEqual(FixedFormDocument.objects.count(), 1)
-
-        from pprint import pprint
-        pprint(answer_response)
         self.assertIn('response_id', answer_response.json().keys())
+        self.assertEqual(FixedFormDocument.objects.count(), 1)
 
         # Change the form template again
         url = reverse('api_form:formdocumenttemplate-detail', args=(form_id,))
@@ -144,21 +141,21 @@ class FormDocumentRestAPITestCase(APITestCase):
         updated_data = {'form_data': {'empty': True}}
         actual = self.client.put(url, updated_data, format='json', HTTP_HOST=form.owner.site.domain)
         self.assertEqual(actual.status_code, 200)
+        # cached_form should be invalidated
+        form = FormDocumentTemplate.objects.get(pk=form_id)
+        self.assertIsNone(form.cached_form)
 
-        # Assert a history version should be created
+        # Assert a history version should not be created,
+        # because it is not accessed by a visitor
         self.assertEqual(form.fixedformdocument_set.count(), 1)
 
-
-        # Submit a new reaponse should create the second copy of the form
+        # Submit a new reaponse should create the first copy of the form
         answer_response = self.client.post(reverse('api_form:formdocumentresponse-list'), {
             'answers': [{1: {}}],
             'request_action': 'FORM_AUTOSAVE',
             'form_id': form_id
         })
         self.assertEqual(form.fixedformdocument_set.count(), 2)
-
-
-        pass
 
     def test_company_member_can_access_form(self):
         pass
