@@ -13,7 +13,7 @@ def render_html_email(template_name, context=None):
     """
     email_template_path = 'emails/{0}/html_content.html'.format(template_name)
     context = context or {}
-    t = get_template(email_template_path)
+    t = get_template(template_name)
     # todo: baseurl?
     return transform(t.render(context))
 
