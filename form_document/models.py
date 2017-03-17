@@ -25,13 +25,11 @@ from form_document.constants import (
 )
 
 
-def document_path(instance, filename):
-    # file will be uploaded to MEDIA_ROOT/users/<id>/<filename_no_ext>/<filename.ext>
-    dir_name = owner_document_path(instance, filename)
-    return '{0}/{1}'.format(
-        dir_name,
-        filename,
-    )
+def form_document_template_uploaded_document_path(instance, filename):
+    # documents/users/<user_pk>/<template_id>/uploaded_document/file_name.ext
+    dir_name = owner_document_path('documents', instance.owner.pk)
+    relative_path = os.path.join('uploaded_document', filename)
+    return os.path.join(dir_name, relative_path)
 
 
 class FormDocumentTemplate(TimeStampedModel, StatusModel):
@@ -45,7 +43,7 @@ class FormDocumentTemplate(TimeStampedModel, StatusModel):
     slug = models.SlugField(blank=True, help_text='Use for short URL sharing')
     uploaded_document = models.FileField(
         null=True,
-        upload_to=document_path,
+        upload_to=form_document_template_uploaded_document_path,
         storage=get_document_storage(),
         max_length=255,
         help_text='The document uploaded used for populating after a form is completed')
@@ -115,16 +113,13 @@ class FormDocumentTemplate(TimeStampedModel, StatusModel):
         super(FormDocumentTemplate, self).save(force_insert, force_update, using, update_fields)
 
 
-def original_document_path(instance, filename):
-    # file will be uploaded to MEDIA_ROOT/users/<id>/<filename_no_ext>/<temp_file_name_<sequence>.ext
-    original_filename = instance.form_document.uploaded_document.name
-    original_name_no_extension = os.path.splitext(ntpath.basename(original_filename))[0]
-    new_file_name = os.path.splitext(ntpath.basename(filename))[0]
-    return 'documents/users/{0}/{1}/{2}'.format(
-        instance.owner.pk,
-        original_name_no_extension,
-        new_file_name
-    )
+def form_document_cached_document_path(instance, filename):
+    # documents/users/<user_pk>/<template_id>/history/<FixedFormDocument_id>/file_name.ext
+    user = instance.template.owner
+    dir_name = owner_document_path('documents', user.pk)
+    relative_path = os.path.join(str(instance.template.pk), 'history', str(instance.pk), filename)
+    return os.path.join(dir_name, relative_path)
+
 
 class FixedFormDocument(TimeStampedModel):
     """
@@ -135,7 +130,7 @@ class FixedFormDocument(TimeStampedModel):
     title = models.CharField(max_length=256, default='Untitled Form')
     uploaded_document = models.FileField(
         null=True,
-        upload_to=document_path,
+        upload_to=form_document_cached_document_path,
         storage=get_document_storage(),
         max_length=255,
         help_text='The document uploaded used for populating after a form is completed')
@@ -146,10 +141,17 @@ class FixedFormDocument(TimeStampedModel):
     template = models.ForeignKey(FormDocumentTemplate)
 
 
+def form_document_template_uploaded_document_preview_path(instance, filename):
+    # documents/users/<user_pk>/<template_id>/previews/file_name.ext
+    form_document = instance.form_document
+    dir_name = owner_document_path('documents', form_document.owner.pk)
+    relative_path = os.path.join(str(form_document.pk), 'previews', filename)
+    return os.path.join(dir_name, relative_path)
+
 class FormDocumentTemplateDocumentPreview(models.Model):
     form_document = models.ForeignKey(FormDocumentTemplate, related_name='form_assets')
     image = models.ImageField(
-        upload_to=original_document_path, storage=get_document_storage(),
+        upload_to=form_document_template_uploaded_document_preview_path, storage=get_document_storage(),
         height_field='cached_image_height',
         width_field='cached_image_width'
     )
