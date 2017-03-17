@@ -17,6 +17,7 @@ class FormDocumentTemplateAdmin(admin.ModelAdmin):
     readonly_fields = (
         'document_mapping',
         'form_config',
+        'cached_form',
     )
 
 
