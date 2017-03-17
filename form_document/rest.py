@@ -77,9 +77,8 @@ class FormDocumentCreateUpdateViewSet(viewsets.ModelViewSet):
         inst.process_document()
 
     def perform_update(self, serializer):
-        inst = serializer.save()
-        if inst.status == StatusChoices.LIVE:
-            inst.compile_form()
+        # Invalidate the cached_form
+        inst = serializer.save(**{'cached_form': None})
         return inst
 
     def get_serializer_class(self):

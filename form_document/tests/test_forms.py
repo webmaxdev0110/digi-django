@@ -46,25 +46,6 @@ class FormDocumentRestAPITestCase(APITestCase):
         actual = self.client.get(url, HTTP_HOST=self.template.owner.site.domain)
         self.assertIsNone(actual.json()['form_data'])
 
-    def test_update_form_should_create_compiled_form(self):
-        self.client.force_login(self.template_no_pass.owner)
-        url = reverse('api_form:formdocumenttemplate-detail', args=(self.template_no_pass.pk,))
-
-        actual = self.client.put(url, {
-            'title': 'new-title'
-        }, HTTP_HOST=self.template.owner.site.domain)
-        self.assertDictContainsSubset({
-            'id': self.template_no_pass.pk
-        }, actual.json())
-        self.assertEqual(FixedFormDocument.objects.count(), 0)
-
-        self.template_no_pass.status = StatusChoices.LIVE
-        self.template_no_pass.save()
-
-        actual = self.client.put(url, {
-            'title': 'new-title2'
-        }, HTTP_HOST=self.template.owner.site.domain)
-        self.assertEqual(FixedFormDocument.objects.count(), 1)
 
     def test_retrieve_form_by_slug(self):
         self.template_no_pass.slug = 'test2'
@@ -74,6 +55,26 @@ class FormDocumentRestAPITestCase(APITestCase):
         self.assertEqual(actual.status_code, 200)
         form_data = actual.json()['form_data']
         self.assertIsNotNone(form_data)
+
+    def test_form_retrieve_will_use_compiled_form(self):
+        self.assertEqual(FixedFormDocument.objects.all().count(), 0)
+        # Create first copy of Fixedformdocument
+        url = reverse('api_form:form_retrieval-detail', args=(self.template_no_pass.slug,))
+        result = self.client.get(url, HTTP_HOST=self.template_no_pass.owner.site.domain)
+        self.assertEqual(FixedFormDocument.objects.all().count(), 1)
+        form = FormDocumentTemplate.objects.get(pk=self.template_no_pass.pk)
+        self.assertIsInstance(form.cached_form, FixedFormDocument)
+
+        # Change the form
+        self.client.force_login(self.template_no_pass.owner)
+        url = reverse('api_form:formdocumenttemplate-detail', args=(self.template_no_pass.pk,))
+        actual = self.client.put(url, {
+            'title': 'new-title2'
+        }, HTTP_HOST=self.template.owner.site.domain)
+        form = FormDocumentTemplate.objects.get(pk=self.template_no_pass.pk)
+
+        self.assertIsNone(form.cached_form, None)
+
 
     def test_form_create_should_have_correct_owner(self):
         user = UserFactory()
