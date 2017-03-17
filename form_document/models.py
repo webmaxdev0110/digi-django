@@ -50,6 +50,7 @@ class FormDocumentTemplate(TimeStampedModel, StatusModel):
     form_data = JSONField(null=True)      # All the form data
     # example {1: {type:'standard', positions:[bbox:[0, 0, 10, 10], page:1]}}
     document_mapping = JSONField(default={})
+    cached_form = models.ForeignKey('FixedFormDocument', null=True)
 
     form_config = JSONField(null=True)
     access_code = models.CharField(max_length=4, null=True)
