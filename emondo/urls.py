@@ -64,9 +64,7 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
 ]
-urlpatterns += patterns('',
-    url(r'', include('feincms.urls')),
-)
+
 if settings.DEBUG:
     urlpatterns += [
         url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
