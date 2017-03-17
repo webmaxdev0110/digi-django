@@ -64,6 +64,15 @@ class FormDocumentTemplate(TimeStampedModel, StatusModel):
         verbose_name = 'FormTemplate'
         verbose_name_plural = 'FormTemplates'
 
+    def get_or_create_compiled_form(self):
+        if not self.cached_form:
+            fixed_form = self.compile_form()
+            self.cached_form = fixed_form
+            self.save()
+
+        return self.cached_form
+
+
     def compile_form(self):
         return FixedFormDocument.objects.create(
             title=self.title,

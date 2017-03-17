@@ -48,6 +48,7 @@ class FormDocumentRetrieveViewSet(mixins.RetrieveModelMixin, GenericViewSet):
         except ValueError:
             filter_kwargs = {'slug': self.kwargs['pk']}
         obj = get_object_or_404(queryset, **filter_kwargs)
+        obj.get_or_create_compiled_form()
         # May raise a permission denied
         self.check_object_permissions(self.request, obj)
 
