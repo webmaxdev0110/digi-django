@@ -160,8 +160,6 @@ class FormDocumentRestAPITestCase(APITestCase):
     def test_company_member_can_access_form(self):
         pass
 
-    def test_save_duplicated_slug_field(self):
-
     def test_form_document_partial_update(self):
         site = self.template_no_pass.owner.site
         owner = self.template_no_pass.owner
@@ -172,8 +170,6 @@ class FormDocumentRestAPITestCase(APITestCase):
         self.assertEqual(actual.status_code, 200)
         updated_form_document = FormDocumentTemplate.objects.get(pk=self.template_no_pass.pk)
         self.assertDictContainsSubset(updated_form_document.form_data, {'empty': True})
-
-        pass
 
 
 class FormResponseRestAPITestCase(APITestCase):
