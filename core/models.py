@@ -4,6 +4,11 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
+from core.constants import (
+    STATUS_CHOICES,
+    StatusChoices,
+)
+
 
 class TimeStampedModel(models.Model):
     """
@@ -17,18 +22,8 @@ class TimeStampedModel(models.Model):
         abstract = True
 
 
-PENDING = 0
-ADMIN_LIVE = 1
-LIVE = 2
-
-STATUS_CHOICES = (
-    (PENDING, _('Pending')),
-    (ADMIN_LIVE, _('Admin Visible')),
-    (LIVE, _('Live')),
-)
-
 class StatusModel(models.Model):
-    status = models.PositiveSmallIntegerField(choices=STATUS_CHOICES)
+    status = models.PositiveSmallIntegerField(choices=STATUS_CHOICES, default=StatusChoices.DRAFT)
 
     class Meta:
         abstract = True

@@ -2,15 +2,13 @@ from __future__ import unicode_literals
 import ntpath
 
 from django.core.files.temp import NamedTemporaryFile
-from django.utils.translation import ugettext_lazy as _
 from django.contrib.postgres.fields import (
     JSONField,
 )
-from django.contrib.sites.models import Site
 from django.db import models
 from wand.image import Image
 from accounts.models import User, Company
-from core.models import TimeStampedModel
+from core.models import TimeStampedModel, StatusModel
 import os
 import pyPdf
 from django.core.files import File
@@ -22,21 +20,19 @@ from core.core_storages import (
 from form_document.constants import (
     FORM_SENDING_METHOD_CHOICES,
     FormSendingMethod,
+    FORM_COMPLETION_STATUS,
+    FormCompletionStatus,
 )
 
 
-def document_path(instance, filename):
-    # file will be uploaded to MEDIA_ROOT/users/<id>/<filename_no_ext>/<filename.ext>
-    dir_name = owner_document_path(instance, filename)
-    return '{0}/{1}'.format(
-        dir_name,
-        filename,
-    )
+def form_document_template_uploaded_document_path(instance, filename):
+    # documents/users/<user_pk>/<template_id>/uploaded_document/file_name.ext
+    dir_name = owner_document_path('documents', instance.owner.pk)
+    relative_path = os.path.join('uploaded_document', filename)
+    return os.path.join(dir_name, relative_path)
 
 
-
-
-class FormDocument(TimeStampedModel):
+class FormDocumentTemplate(TimeStampedModel, StatusModel):
     """
     Represents a form document created by an user
     The form should be accessible by document owner,
@@ -44,29 +40,48 @@ class FormDocument(TimeStampedModel):
     """
 
     title = models.CharField(max_length=256, default='Untitled Form')
-    slug = models.SlugField(null=True, help_text='Use for short URL sharing')
-
+    slug = models.SlugField(blank=True, help_text='Use for short URL sharing')
     uploaded_document = models.FileField(
         null=True,
-        upload_to=document_path,
+        upload_to=form_document_template_uploaded_document_path,
         storage=get_document_storage(),
         max_length=255,
         help_text='The document uploaded used for populating after a form is completed')
     form_data = JSONField(null=True)      # All the form data
     # example {1: {type:'standard', positions:[bbox:[0, 0, 10, 10], page:1]}}
     document_mapping = JSONField(default={})
+    cached_form = models.ForeignKey('FixedFormDocument', null=True)
 
     form_config = JSONField(null=True)
     access_code = models.CharField(max_length=4, null=True)
     owner = models.ForeignKey(User, help_text='The owner of this document')
-    cached_sha1 = models.CharField(max_length=40, null=True)
+    cached_sha1 = models.CharField(max_length=40, blank=True)
 
     def __unicode__(self):
-        return '<FormDocument: {0}>'.format(self.title[:16])
+        return '<FormDocumentTemplate: {0}>'.format(self.title[:16])
 
     class Meta:
-        verbose_name = 'Form'
-        verbose_name_plural = 'Forms'
+        verbose_name = 'FormTemplate'
+        verbose_name_plural = 'FormTemplates'
+
+    def get_or_create_compiled_form(self):
+        if not self.cached_form:
+            fixed_form = self.compile_form()
+            self.cached_form = fixed_form
+            self.save()
+
+        return self.cached_form
+
+
+    def compile_form(self):
+        return FixedFormDocument.objects.create(
+            title=self.title,
+            uploaded_document=self.uploaded_document,
+            form_data=self.form_data,
+            document_mapping=self.document_mapping,
+            form_config=self.form_config,
+            template=self
+        )
 
     def is_access_code_protected(self):
         return self.access_code is not None
@@ -97,7 +112,7 @@ class FormDocument(TimeStampedModel):
                         generated_image_paths.append(img_file.name)
                 for i, image_path in enumerate(generated_image_paths):
                     with open(image_path, 'r') as image_file:
-                        form_asset = FormDocumentAsset.objects.create(
+                        form_asset = FormDocumentTemplateDocumentPreview.objects.create(
                             form_document=self,
                             image=File(image_file),
                             order=i
@@ -105,30 +120,54 @@ class FormDocument(TimeStampedModel):
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
-        super(FormDocument, self).save(force_insert, force_update, using, update_fields)
+        super(FormDocumentTemplate, self).save(force_insert, force_update, using, update_fields)
 
 
-def original_document_path(instance, filename):
-    # file will be uploaded to MEDIA_ROOT/users/<id>/<filename_no_ext>/<temp_file_name_<sequence>.ext
-    original_filename = instance.form_document.uploaded_document.name
-    original_name_no_extension = os.path.splitext(ntpath.basename(original_filename))[0]
-    new_file_name = os.path.splitext(ntpath.basename(filename))[0]
-    return 'documents/users/{0}/{1}/{2}'.format(
-        instance.owner.pk,
-        original_name_no_extension,
-        new_file_name
-    )
+def form_document_cached_document_path(instance, filename):
+    # documents/users/<user_pk>/<template_id>/history/<FixedFormDocument_id>/file_name.ext
+    user = instance.template.owner
+    dir_name = owner_document_path('documents', user.pk)
+    relative_path = os.path.join(str(instance.template.pk), 'history', str(instance.pk), filename)
+    return os.path.join(dir_name, relative_path)
 
-class FormDocumentAsset(models.Model):
-    form_document = models.ForeignKey(FormDocument, related_name='form_assets')
+
+class FixedFormDocument(TimeStampedModel):
+    """
+    This model represents a copy form used for populate document
+    It allows user to update existing Form without breaking
+    already published form
+    """
+    title = models.CharField(max_length=256, default='Untitled Form')
+    uploaded_document = models.FileField(
+        null=True,
+        upload_to=form_document_cached_document_path,
+        storage=get_document_storage(),
+        max_length=255,
+        help_text='The document uploaded used for populating after a form is completed')
+    form_data = JSONField(null=True)  # All the form data
+    # example {1: {type:'standard', positions:[bbox:[0, 0, 10, 10], page:1]}}
+    document_mapping = JSONField(default={})
+    form_config = JSONField(null=True)
+    template = models.ForeignKey(FormDocumentTemplate)
+
+
+def form_document_template_uploaded_document_preview_path(instance, filename):
+    # documents/users/<user_pk>/<template_id>/previews/file_name.ext
+    form_document = instance.form_document
+    dir_name = owner_document_path('documents', form_document.owner.pk)
+    relative_path = os.path.join(str(form_document.pk), 'previews', filename)
+    return os.path.join(dir_name, relative_path)
+
+class FormDocumentTemplateDocumentPreview(models.Model):
+    form_document = models.ForeignKey(FormDocumentTemplate, related_name='form_assets')
     image = models.ImageField(
-        upload_to=original_document_path, storage=get_document_storage(),
+        upload_to=form_document_template_uploaded_document_preview_path, storage=get_document_storage(),
         height_field='cached_image_height',
         width_field='cached_image_width'
     )
     order = models.SmallIntegerField(default=0)
-    cached_image_width = models.IntegerField(blank=True, null=True)
-    cached_image_height = models.IntegerField(blank=True, null=True)
+    cached_image_width = models.IntegerField(null=True)
+    cached_image_height = models.IntegerField(null=True)
 
     class Meta:
         ordering = ["order"]
@@ -144,7 +183,7 @@ class FormDocumentCompanyShare(TimeStampedModel):
     within the user's company or to another company
 
     """
-    form_document = models.ForeignKey(FormDocument)
+    form_template = models.ForeignKey(FormDocumentTemplate)
     from_company = models.ForeignKey(Company, related_name='forms_shared_to_other_companies')
     to_company = models.ForeignKey(Company, related_name='forms_received_from_other_companies')
     company_visible = models.BooleanField(
@@ -152,7 +191,7 @@ class FormDocumentCompanyShare(TimeStampedModel):
         help_text='If company visible is not true, only the compnay admin can view the document')
 
     class Meta:
-        unique_together = (('form_document', 'to_company'),)
+        unique_together = (('form_template', 'to_company'),)
         verbose_name = 'FormCompanyShare'
         verbose_name_plural = 'FormCompanyShares'
 
@@ -166,43 +205,26 @@ class FormDocumentUserShare(TimeStampedModel):
     And this model represents second case.
 
     """
-    form_document = models.ForeignKey(FormDocument, related_name='forms_shared_to_other_users')
+    form_template = models.ForeignKey(FormDocumentTemplate, related_name='forms_shared_to_other_users')
     to_user = models.ForeignKey(User, related_name='forms_received_from_other_users')
     from_user = models.ForeignKey(User, null=True)
 
     class Meta:
-        unique_together = (('form_document', 'to_user'),)
+        unique_together = (('form_template', 'to_user'),)
         verbose_name = 'FormUserShare'
         verbose_name_plural = 'FormUserShares'
 
 
 class DocumentRecipient(models.Model):
-    first_name = models.CharField(max_length=100, null=True, blank=True)
-    last_name = models.CharField(max_length=100, null=True, blank=True)
-    email = models.EmailField(null=True, blank=True)
-    phone = models.CharField(max_length=30, null=True, blank=True)
-    access_code = models.CharField(max_length=12, null=True)
+    first_name = models.CharField(max_length=100, blank=True)
+    last_name = models.CharField(max_length=100, blank=True)
+    email = models.EmailField(blank=True)
+    phone = models.CharField(max_length=30, blank=True)
+    access_code = models.CharField(max_length=12)
 
     class Meta:
         abstract = True
 
-
-# todo: Move to constant file
-UNOPENED = 1
-OPENED = 2
-SAVED = 3
-SUBMITTED = 4
-ABANDONED = 5
-AUTO_SAVED = 6
-
-FORM_COMPLETION_STATUS = (
-    (UNOPENED, _('Unopen')),
-    (ABANDONED, _('Abandoned')),
-    (OPENED, _('Opened')),
-    (SAVED, _('Saved')),
-    (SUBMITTED, _('Submitted')),
-    (AUTO_SAVED, _('Auto Saved')),
-)
 
 class FormDocumentResponse(TimeStampedModel):
     """
@@ -222,9 +244,9 @@ class FormDocumentResponse(TimeStampedModel):
     )
     last_interactive_timestamp = models.DateTimeField(auto_now=True)
     duration_seconds = models.IntegerField(default=0)
-    form_document = models.ForeignKey(FormDocument)
+    form_document = models.ForeignKey(FormDocumentTemplate)
     answers = JSONField()
-    status = models.SmallIntegerField(choices=FORM_COMPLETION_STATUS, default=UNOPENED)
+    status = models.SmallIntegerField(choices=FORM_COMPLETION_STATUS, default=FormCompletionStatus.UNOPENED)
 
     class Meta:
         verbose_name = 'FormResponse'

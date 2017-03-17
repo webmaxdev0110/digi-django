@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 from django.contrib.auth.models import AbstractUser
+from django.contrib.sites.models import Site
 from django_countries.fields import CountryField
 from django.db import models
 from timezone_field import TimeZoneField
@@ -24,6 +25,8 @@ class User(AbstractUser):
     avatar = models.ImageField(blank=True, null=True, upload_to='users/avatars/')
     short_description = models.CharField(blank=True, max_length=256)
     timezone = TimeZoneField(default='Australia/Sydney')
+    company = models.ForeignKey('Company', null=True)
+    site = models.ForeignKey(Site, null=True)
 
 
     def has_active_subscription(self):
@@ -56,7 +59,6 @@ class Company(models.Model):
 
     # company owner would have every permissions
     owner = models.ForeignKey(User, related_name="companies")
-
     # if company is valid or invalid.
     # when company is registered, it should be reviewed first before it goes public on system.
     active = models.BooleanField(default=False)

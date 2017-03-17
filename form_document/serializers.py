@@ -1,15 +1,16 @@
+from django.utils.text import slugify
 from rest_framework.serializers import (
     ModelSerializer,
     CurrentUserDefault,
 )
 from rest_framework import serializers
 
-from .models import FormDocument, FormDocumentResponse
+from .models import FormDocumentResponse, FormDocumentTemplate
 
 
 class FormDocumentSerializer(ModelSerializer):
     class Meta:
-        model = FormDocument
+        model = FormDocumentTemplate
         fields = (
             'id',
             'title',
@@ -19,11 +20,12 @@ class FormDocumentSerializer(ModelSerializer):
 
 class FormDocumentCreateSerializer(ModelSerializer):
     class Meta:
-        model = FormDocument
+        model = FormDocumentTemplate
         fields = (
             'id',
             'title',
             'slug',
+            'status',
             'uploaded_document',
             'form_data',
             'document_mapping',
@@ -32,13 +34,20 @@ class FormDocumentCreateSerializer(ModelSerializer):
         )
         extra_kwargs = {
             'title': {'write_only': True},
-            'slug': {'write_only': True},
             'uploaded_document': {'write_only': True},
+            'status': {'write_only': True},
             'form_data': {'write_only': True},
             'document_mapping': {'write_only': True},
             'form_config': {'write_only': True},
             'access_code': {'write_only': True}
         }
+
+    def validate_slug(self, value):
+        value = slugify(value)
+        if FormDocumentTemplate.objects.filter(slug=value, owner=self.context['request'].user).exists():
+            raise serializers.ValidationError('Same URL exists')
+        return value
+
 
 class FormDocumentDetailSerializer(ModelSerializer):
     """
@@ -51,7 +60,7 @@ class FormDocumentDetailSerializer(ModelSerializer):
     document_mapping = serializers.SerializerMethodField()
 
     class Meta:
-        model = FormDocument
+        model = FormDocumentTemplate
         fields = (
             'title',
             'slug',
@@ -161,6 +170,7 @@ class FormResponseListSerializer(ModelSerializer):
     sent_channel = serializers.SerializerMethodField()
     contact_email = serializers.SerializerMethodField()
     contact_phone = serializers.SerializerMethodField()
+    status = serializers.SerializerMethodField()
 
 
     class Meta:
@@ -194,3 +204,6 @@ class FormResponseListSerializer(ModelSerializer):
 
     def get_contact_phone(self, instance):
         pass
+
+    def get_status(self, instance):
+        return instance.get_status_display()

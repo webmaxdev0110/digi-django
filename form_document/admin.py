@@ -4,24 +4,16 @@ from django.forms import ModelForm
 from django import forms
 
 
-from .models import FormDocument, FormDocumentUserShare, FormDocumentCompanyShare, FormDocumentResponse, \
-    FormDocumentAsset
+from .models import FormDocumentTemplate, FormDocumentUserShare, FormDocumentCompanyShare, FormDocumentResponse
 
 
-class FormDocumentAdminForm(ModelForm):
+class FormDocumentTemplateAdminForm(ModelForm):
     uploaded_document = forms.FileField(widget=AdminFileWidget, required=False)
     access_code = forms.CharField(required=False)
 
 
-
-class FormDocumentAssetInline(admin.TabularInline):
-    model = FormDocumentAsset
-    extra = 0
-
-
-class FormDocumentAdmin(admin.ModelAdmin):
-    form = FormDocumentAdminForm
-    inlines = [FormDocumentAssetInline]
+class FormDocumentTemplateAdmin(admin.ModelAdmin):
+    form = FormDocumentTemplateAdminForm
     readonly_fields = (
         'document_mapping',
         'form_config',
@@ -29,7 +21,7 @@ class FormDocumentAdmin(admin.ModelAdmin):
 
 
 
-admin.site.register(FormDocument, FormDocumentAdmin)
+admin.site.register(FormDocumentTemplate, FormDocumentTemplateAdmin)
 admin.site.register(FormDocumentUserShare)
 admin.site.register(FormDocumentCompanyShare)
 admin.site.register(FormDocumentResponse)

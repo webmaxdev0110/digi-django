@@ -25,9 +25,8 @@ class ProtectedDocumentStorage(S3BotoStorage):
 get_document_storage = lambda: ProtectedDocumentStorage() if settings.UPLOAD_DOC_TO_S3 else FileSystemStorage()
 
 
-def owner_document_path(instance, filename):
-    file_name_no_extension = os.path.splitext(ntpath.basename(filename))[0]
-    return 'documents/users/{0}/{1}'.format(
-        instance.owner.pk,
-        file_name_no_extension,
+def owner_document_path(prefix, user_pk):
+    return '{0}/users/{1}/'.format(
+        prefix,
+        user_pk,
     )
