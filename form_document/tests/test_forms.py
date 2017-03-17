@@ -112,7 +112,51 @@ class FormDocumentRestAPITestCase(APITestCase):
         self.assertEqual(actual.status_code, 400)
         self.assertIn('slug', actual.json().keys())
 
-    def test_form_creation_should_give_company_wide_access(self):
+    def test_modify_template_after_changes_will_create_new_copy(self):
+
+        # Create new document
+        user = UserFactory()
+        self.client.force_login(user)
+        url = reverse('api_form:formdocumenttemplate-list',)
+        actual = self.client.post(url, {
+            'title': 'new-title'
+        }, HTTP_HOST=user.site.domain)
+        form_id = actual.json()['id']
+        form = FormDocumentTemplate.objects.get(pk=form_id)
+        self.assertIn('id', actual.json().keys())
+
+        # Submit answer to this
+        answer_response = self.client.post(reverse('api_form:formdocumentresponse-list'), {
+            'answers': [{1:{}}],
+            'request_action': 'FORM_AUTOSAVE',
+            'form_id': form_id
+        })
+        self.assertEqual(FixedFormDocument.objects.count(), 1)
+
+        from pprint import pprint
+        pprint(answer_response)
+        self.assertIn('response_id', answer_response.json().keys())
+
+        # Change the form template again
+        url = reverse('api_form:formdocumenttemplate-detail', args=(form_id,))
+
+        updated_data = {'form_data': {'empty': True}}
+        actual = self.client.put(url, updated_data, format='json', HTTP_HOST=form.owner.site.domain)
+        self.assertEqual(actual.status_code, 200)
+
+        # Assert a history version should be created
+        self.assertEqual(form.fixedformdocument_set.count(), 1)
+
+
+        # Submit a new reaponse should create the second copy of the form
+        answer_response = self.client.post(reverse('api_form:formdocumentresponse-list'), {
+            'answers': [{1: {}}],
+            'request_action': 'FORM_AUTOSAVE',
+            'form_id': form_id
+        })
+        self.assertEqual(form.fixedformdocument_set.count(), 2)
+
+
         pass
 
     def test_company_member_can_access_form(self):
