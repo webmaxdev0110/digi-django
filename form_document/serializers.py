@@ -8,7 +8,7 @@ from rest_framework import serializers
 from .models import FormDocumentResponse, FormDocumentTemplate
 
 
-class FormDocumentSerializer(ModelSerializer):
+class FormDocumentListSerializer(ModelSerializer):
     class Meta:
         model = FormDocumentTemplate
         fields = (
