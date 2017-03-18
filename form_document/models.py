@@ -151,11 +151,11 @@ class FixedFormDocument(TimeStampedModel):
     template = models.ForeignKey(FormDocumentTemplate)
 
 
-def form_document_template_uploaded_document_preview_path(instance, filename):
+def form_document_template_uploaded_document_preview_path(instance, file_path):
     # documents/users/<user_pk>/<template_id>/previews/file_name.ext
     form_document = instance.form_document
     dir_name = owner_document_path('documents', form_document.owner.pk)
-    relative_path = os.path.join(str(form_document.pk), 'previews', filename)
+    relative_path = os.path.join(str(form_document.pk), 'previews', ntpath.basename(file_path))
     return os.path.join(dir_name, relative_path)
 
 class FormDocumentTemplateDocumentPreview(models.Model):
