@@ -62,6 +62,7 @@ class FormDocumentDetailSerializer(ModelSerializer):
     class Meta:
         model = FormDocumentTemplate
         fields = (
+            'id',
             'title',
             'slug',
             'uploaded_document',
