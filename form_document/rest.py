@@ -1,4 +1,5 @@
 from django.contrib.sites.models import Site
+from django.contrib.sites.shortcuts import get_current_site
 from rest_framework import mixins
 from rest_framework import viewsets
 from rest_framework.authentication import SessionAuthentication
@@ -37,7 +38,8 @@ class FormDocumentRetrieveViewSet(mixins.RetrieveModelMixin, GenericViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get_queryset(self):
-        site = Site.objects.filter(domain=self.request.META.get('HTTP_HOST', '')).get()
+        # get_current_site checks includes both port and non-port included search against Site table
+        site = get_current_site(self.request)
         return FormDocumentTemplate.objects.filter(owner__site=site)
 
     def get_object(self):
