@@ -118,9 +118,6 @@ class FormDocumentTemplate(TimeStampedModel, StatusModel):
                             order=i
                         )
 
-    def save(self, force_insert=False, force_update=False, using=None,
-             update_fields=None):
-        super(FormDocumentTemplate, self).save(force_insert, force_update, using, update_fields)
 
 
 def form_document_cached_document_path(instance, filename):
