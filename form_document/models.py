@@ -112,7 +112,7 @@ class FormDocumentTemplate(TimeStampedModel, StatusModel):
                         generated_image_paths.append(img_file.name)
                 for i, image_path in enumerate(generated_image_paths):
                     with open(image_path, 'r') as image_file:
-                        form_asset = FormDocumentTemplateDocumentPreview.objects.create(
+                        FormDocumentTemplateDocumentPreview.objects.create(
                             form_document=self,
                             image=File(image_file),
                             order=i
