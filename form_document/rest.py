@@ -22,7 +22,7 @@ from .models import (
     FormDocumentResponse,
 )
 from .serializers import (
-    FormDocumentSerializer,
+    FormDocumentTemplateListSerializer,
     FormDocumentDetailSerializer,
     FormDocumentResponseSerializer,
     FormResponseListSerializer,
@@ -61,7 +61,7 @@ class FormDocumentCreateUpdateViewSet(viewsets.ModelViewSet):
     queryset = FormDocumentTemplate.objects.all()
     pagination_class = get_pagination_class(page_size=10)
     parser_classes = (MultiPartParser, FormParser, JSONParser,)
-    serializer_class = FormDocumentSerializer
+    serializer_class = FormDocumentTemplateListSerializer
 
     def get_object_kwarg(self):
         kwargs = {}
@@ -89,6 +89,8 @@ class FormDocumentCreateUpdateViewSet(viewsets.ModelViewSet):
             return self.serializer_class
         elif self.action == 'create' or self.action == 'update':
             return FormDocumentCreateSerializer
+        else:
+            return FormDocumentDetailSerializer
 
 
 class FormDocumentResponseViewSet(viewsets.ModelViewSet):

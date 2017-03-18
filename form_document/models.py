@@ -112,15 +112,12 @@ class FormDocumentTemplate(TimeStampedModel, StatusModel):
                         generated_image_paths.append(img_file.name)
                 for i, image_path in enumerate(generated_image_paths):
                     with open(image_path, 'r') as image_file:
-                        form_asset = FormDocumentTemplateDocumentPreview.objects.create(
+                        FormDocumentTemplateDocumentPreview.objects.create(
                             form_document=self,
                             image=File(image_file),
                             order=i
                         )
 
-    def save(self, force_insert=False, force_update=False, using=None,
-             update_fields=None):
-        super(FormDocumentTemplate, self).save(force_insert, force_update, using, update_fields)
 
 
 def form_document_cached_document_path(instance, filename):
@@ -151,11 +148,11 @@ class FixedFormDocument(TimeStampedModel):
     template = models.ForeignKey(FormDocumentTemplate)
 
 
-def form_document_template_uploaded_document_preview_path(instance, filename):
+def form_document_template_uploaded_document_preview_path(instance, file_path):
     # documents/users/<user_pk>/<template_id>/previews/file_name.ext
     form_document = instance.form_document
     dir_name = owner_document_path('documents', form_document.owner.pk)
-    relative_path = os.path.join(str(form_document.pk), 'previews', filename)
+    relative_path = os.path.join(str(form_document.pk), 'previews', ntpath.basename(file_path))
     return os.path.join(dir_name, relative_path)
 
 class FormDocumentTemplateDocumentPreview(models.Model):
