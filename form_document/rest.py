@@ -168,8 +168,10 @@ class FormDocumentResponseViewSet(viewsets.ModelViewSet):
             attachment=attachment,
             response=form_response
         )
-
-        return Response({'attachment_id': attachment_obj.pk})
+        return Response({
+            'attachment_id': attachment_obj.pk,
+            'file_name': attachment.name
+        })
 
     def perform_create(self, serializer):
         kwargs = self.get_object_kwarg()
