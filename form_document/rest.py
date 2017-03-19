@@ -10,7 +10,10 @@ from rest_framework.parsers import (
     FormParser,
     JSONParser,
 )
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import (
+    IsAuthenticatedOrReadOnly,
+    AllowAny,
+)
 from rest_framework.viewsets import GenericViewSet
 
 from core.constants import StatusChoices
@@ -139,6 +142,11 @@ class FormDocumentResponseViewSet(viewsets.ModelViewSet):
 
         return kwargs
 
+    def get_permissions(self):
+        if self.action == 'create':
+            return (AllowAny(),)
+        else:
+            return super(FormDocumentResponseViewSet, self).get_permissions()
     def perform_create(self, serializer):
         kwargs = self.get_object_kwarg()
         # Check if the cached_form points to null, create a copy

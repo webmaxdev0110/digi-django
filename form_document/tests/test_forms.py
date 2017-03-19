@@ -174,7 +174,17 @@ class FormDocumentRestAPITestCase(APITestCase):
 
 class FormResponseRestAPITestCase(APITestCase):
 
+    def setUp(self):
+        self.template_no_pass = FormDocumentTemplateFactory.create()
+
     def test_anonymous_user_can_submit_form(self):
+        answer_response = self.client.post(reverse('api_form:formdocumentresponse-list'), {
+            'answers': [{1: {}}],
+            'request_action': 'FORM_AUTOSAVE',
+            'form_id': self.template_no_pass.pk
+        }, HTTP_HOST=self.template_no_pass.owner.site.domain, format='json')
+        self.assertIn('response_id', answer_response.json().keys())
+
         pass
 
     def test_form_submission_can_be_seen_by_form_owner(self):
