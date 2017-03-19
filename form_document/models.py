@@ -147,6 +147,15 @@ class FixedFormDocument(TimeStampedModel):
     form_config = JSONField(null=True)
     template = models.ForeignKey(FormDocumentTemplate)
 
+    def create_empty_response(self, sender=None, receiver=None):
+        return FormDocumentResponse.objects.create(
+            receiver_user=receiver,
+            sender_user=sender,
+            form_document=self.template,
+            cached_form=self,
+            answers={}
+        )
+
 
 def form_document_template_uploaded_document_preview_path(instance, file_path):
     # documents/users/<user_pk>/<template_id>/previews/file_name.ext
