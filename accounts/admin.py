@@ -11,7 +11,7 @@ class EmondoUserAdmin(UserAdmin):
 
         fieldset += (
             ('Others', {
-                'fields': ('avatar', 'short_description',),
+                'fields': ('avatar', 'short_description', 'site',),
             }),
         )
         return fieldset
