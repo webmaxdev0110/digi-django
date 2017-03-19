@@ -200,7 +200,7 @@ class FormResponseRestAPITestCase(APITestCase):
         cached_form = self.template_no_pass.compile_form()
         empty_response = cached_form.create_empty_response()
         answer_response = self.client.post(upload_url, {
-            'attachment': attachment,
+            'file': attachment,
             'response_id': empty_response.pk
         }, HTTP_HOST=self.template_no_pass.owner.site.domain, format='multipart')
         self.assertEqual(FixedFormDocument.objects.count(), 1)
@@ -221,7 +221,7 @@ class FormResponseRestAPITestCase(APITestCase):
             "file_content", content_type="application/pdf")
         upload_url = reverse('api_form:formdocumentresponse-upload-attachment')
         answer_response = self.client.post(upload_url, {
-            'attachment': attachment,
+            'file': attachment,
             'form_id': self.template_no_pass.pk
         }, HTTP_HOST=self.template_no_pass.owner.site.domain, format='multipart')
         self.assertEqual(FixedFormDocument.objects.count(), 1)
