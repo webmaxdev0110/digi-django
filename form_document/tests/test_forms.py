@@ -235,6 +235,7 @@ class FormResponseRestAPITestCase(APITestCase):
         # Should save the file
         # file should linked back to the response object
         self.assertEqual(attachment.response.pk, response_obj.pk)
+        self.assertIn('file_name', answer_response.json().keys())
 
     def test_form_submission_can_be_seen_by_form_owner(self):
         pass
