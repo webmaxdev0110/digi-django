@@ -190,6 +190,11 @@ class FormResponseRestAPITestCase(APITestCase):
             'form_id': self.template_no_pass.pk
         }, HTTP_HOST=self.template_no_pass.owner.site.domain, format='json')
         self.assertIn('response_id', answer_response.json().keys())
+        # Test that response has cached_form attribute and form_document
+        response_id = answer_response.json()['response_id']
+        response = FormDocumentResponse.objects.get(pk=response_id)
+        self.assertIsNotNone(response.cached_form)
+        self.assertIsNotNone(response.form_document)
 
     def test_anonymouse_user_can_update_form_reponse_object(self):
         attachment = SimpleUploadedFile(
