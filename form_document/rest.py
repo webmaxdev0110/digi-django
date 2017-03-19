@@ -153,7 +153,7 @@ class FormDocumentResponseViewSet(viewsets.ModelViewSet):
 
     @list_route(methods=['post'], permission_classes=(AllowAny,))
     def upload_attachment(self, request, *args, **kwargs):
-        attachment = request.data['attachment']
+        attachment = request.data['file']
         form_response = None
         if 'response_id' in request.data:
             form_response = FormDocumentResponse.objects.get(
