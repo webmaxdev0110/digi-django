@@ -5,6 +5,8 @@ from django_countries.fields import CountryField
 from django.db import models
 from timezone_field import TimeZoneField
 
+from accounts.apis import gen_email_activation_code
+
 
 class User(AbstractUser):
     """
@@ -41,6 +43,10 @@ class User(AbstractUser):
             return CompanyMember.objects.get(user=self)
         else:
             return None
+
+    def generate_activation_code(self):
+        self.activation_code = gen_email_activation_code(self.email)
+        self.save()
 
 
 ####################################
