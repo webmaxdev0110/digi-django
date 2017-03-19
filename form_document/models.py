@@ -242,12 +242,32 @@ class FormDocumentResponse(TimeStampedModel):
     last_interactive_timestamp = models.DateTimeField(auto_now=True)
     duration_seconds = models.IntegerField(default=0)
     form_document = models.ForeignKey(FormDocumentTemplate)
+    cached_form = models.ForeignKey(FixedFormDocument, null=True)
     answers = JSONField()
     status = models.SmallIntegerField(choices=FORM_COMPLETION_STATUS, default=FormCompletionStatus.UNOPENED)
 
     class Meta:
         verbose_name = 'FormResponse'
         verbose_name_plural = 'FormResponses'
+
+
+def form_document_attachment_path(instance, filename):
+    # documents/users/<user_pk>/<template_id>/history/<FixedFormDocument_id>/attachments/file_name.ext
+    form_owner = instance.response.form_document.owner
+    dir_name = owner_document_path('documents', form_owner.pk)
+    template = instance.response.form_document
+    cached_form = instance.response.cached_form
+    relative_path = os.path.join(str(template.pk), 'history', str(cached_form.pk), 'attachments', filename)
+    return os.path.join(dir_name, relative_path)
+
+
+class FormDocumentResponseAttachment(models.Model):
+    attachment = models.FileField(upload_to=form_document_attachment_path)
+    response = models.ForeignKey(FormDocumentResponse)
+
+    class Meta:
+        verbose_name = 'FormDocumentResponseAttachment'
+        verbose_name_plural = 'FormDocumentResponseAttachments'
 
 
 class FormDocumentResponseUserPermission(TimeStampedModel):
