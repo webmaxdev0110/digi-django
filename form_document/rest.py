@@ -3,6 +3,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from rest_framework import mixins
 from rest_framework import viewsets
 from rest_framework.authentication import SessionAuthentication
+from rest_framework.decorators import list_route
 from rest_framework.filters import OrderingFilter
 from rest_framework.generics import get_object_or_404
 from rest_framework.parsers import (
@@ -14,6 +15,7 @@ from rest_framework.permissions import (
     IsAuthenticatedOrReadOnly,
     AllowAny,
 )
+from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from core.constants import StatusChoices
@@ -23,13 +25,14 @@ from form_document.constants import FormCompletionStatus
 from .models import (
     FormDocumentTemplate,
     FormDocumentResponse,
-)
+    FormDocumentResponseAttachment)
 from .serializers import (
     FormDocumentTemplateListSerializer,
     FormDocumentDetailSerializer,
     FormDocumentResponseSerializer,
     FormResponseListSerializer,
-    FormDocumentCreateSerializer)
+    FormDocumentCreateSerializer,
+)
 
 
 
@@ -147,6 +150,27 @@ class FormDocumentResponseViewSet(viewsets.ModelViewSet):
             return (AllowAny(),)
         else:
             return super(FormDocumentResponseViewSet, self).get_permissions()
+
+    @list_route(methods=['post'], permission_classes=(AllowAny,))
+    def upload_attachment(self, request, *args, **kwargs):
+        attachment = request.data['attachment']
+        form_response = None
+        if 'response_id' in request.data:
+            form_response = FormDocumentResponse.objects.get(
+                pk=request.data['response_id'])
+        elif 'form_id' in request.data:
+            form = FormDocumentTemplate.objects.get(
+                pk=request.data['form_id'])
+            cached_form = form.compile_form()
+            form_response = cached_form.create_empty_response()
+        assert isinstance(form_response, FormDocumentResponse)
+        attachment_obj = FormDocumentResponseAttachment.objects.create(
+            attachment=attachment,
+            response=form_response
+        )
+
+        return Response({'attachment_id': attachment_obj.pk})
+
     def perform_create(self, serializer):
         kwargs = self.get_object_kwarg()
         # Check if the cached_form points to null, create a copy

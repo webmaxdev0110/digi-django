@@ -1,3 +1,4 @@
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.urlresolvers import reverse
 from rest_framework.test import (
     APITestCase,
@@ -5,7 +6,12 @@ from rest_framework.test import (
 from accounts.factories import UserFactory
 from core.constants import StatusChoices
 from form_document.factories import FormDocumentTemplateFactory
-from form_document.models import FixedFormDocument, FormDocumentTemplate
+from form_document.models import (
+    FixedFormDocument,
+    FormDocumentTemplate,
+    FormDocumentResponse,
+    FormDocumentResponseAttachment,
+)
 
 
 class FormDocumentRestAPITestCase(APITestCase):
@@ -185,7 +191,50 @@ class FormResponseRestAPITestCase(APITestCase):
         }, HTTP_HOST=self.template_no_pass.owner.site.domain, format='json')
         self.assertIn('response_id', answer_response.json().keys())
 
-        pass
+    def test_anonymouse_user_can_update_form_reponse_object(self):
+        attachment = SimpleUploadedFile(
+            "file_attachment.pdf",
+            "file_content", content_type="application/pdf")
+        upload_url = reverse('api_form:formdocumentresponse-upload-attachment')
+
+        cached_form = self.template_no_pass.compile_form()
+        empty_response = cached_form.create_empty_response()
+        answer_response = self.client.post(upload_url, {
+            'attachment': attachment,
+            'response_id': empty_response.pk
+        }, HTTP_HOST=self.template_no_pass.owner.site.domain, format='multipart')
+        self.assertEqual(FixedFormDocument.objects.count(), 1)
+        # Should create the response object
+        self.assertEqual(FormDocumentResponse.objects.count(), 1)
+        response_obj = FormDocumentResponse.objects.all()[0]
+
+        self.assertEqual(FormDocumentResponseAttachment.objects.count(), 1)
+        attachment_id = answer_response.json()['attachment_id']
+        attachment = FormDocumentResponseAttachment.objects.get(pk=attachment_id)
+        # Should save the file
+        # file should linked back to the response object
+        self.assertEqual(attachment.response.pk, response_obj.pk)
+
+    def test_upload_file_for_file_field_no_response_object(self):
+        attachment = SimpleUploadedFile(
+            "file_attachment.pdf",
+            "file_content", content_type="application/pdf")
+        upload_url = reverse('api_form:formdocumentresponse-upload-attachment')
+        answer_response = self.client.post(upload_url, {
+            'attachment': attachment,
+            'form_id': self.template_no_pass.pk
+        }, HTTP_HOST=self.template_no_pass.owner.site.domain, format='multipart')
+        self.assertEqual(FixedFormDocument.objects.count(), 1)
+        # Should create the response object
+        self.assertEqual(FormDocumentResponse.objects.count(), 1)
+        response_obj = FormDocumentResponse.objects.all()[0]
+
+        self.assertEqual(FormDocumentResponseAttachment.objects.count(), 1)
+        attachment_id = answer_response.json()['attachment_id']
+        attachment = FormDocumentResponseAttachment.objects.get(pk=attachment_id)
+        # Should save the file
+        # file should linked back to the response object
+        self.assertEqual(attachment.response.pk, response_obj.pk)
 
     def test_form_submission_can_be_seen_by_form_owner(self):
         pass
