@@ -27,6 +27,7 @@ class User(AbstractUser):
     timezone = TimeZoneField(default='Australia/Sydney')
     company = models.ForeignKey('Company', null=True)
     site = models.ForeignKey(Site, null=True)
+    activation_code = models.CharField(blank=True, max_length=64)
 
 
     def has_active_subscription(self):
