@@ -3,6 +3,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from rest_framework import mixins
 from rest_framework import viewsets
 from rest_framework.authentication import SessionAuthentication
+from rest_framework.decorators import list_route
 from rest_framework.filters import OrderingFilter
 from rest_framework.generics import get_object_or_404
 from rest_framework.parsers import (
@@ -10,7 +11,11 @@ from rest_framework.parsers import (
     FormParser,
     JSONParser,
 )
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import (
+    IsAuthenticatedOrReadOnly,
+    AllowAny,
+)
+from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from core.constants import StatusChoices
@@ -20,13 +25,14 @@ from form_document.constants import FormCompletionStatus
 from .models import (
     FormDocumentTemplate,
     FormDocumentResponse,
-)
+    FormDocumentResponseAttachment)
 from .serializers import (
     FormDocumentTemplateListSerializer,
     FormDocumentDetailSerializer,
     FormDocumentResponseSerializer,
     FormResponseListSerializer,
-    FormDocumentCreateSerializer)
+    FormDocumentCreateSerializer,
+)
 
 
 
@@ -139,11 +145,42 @@ class FormDocumentResponseViewSet(viewsets.ModelViewSet):
 
         return kwargs
 
+    def get_permissions(self):
+        if self.action == 'create':
+            return (AllowAny(),)
+        else:
+            return super(FormDocumentResponseViewSet, self).get_permissions()
+
+    @list_route(methods=['post'], permission_classes=(AllowAny,))
+    def upload_attachment(self, request, *args, **kwargs):
+        attachment = request.data['file']
+        form_response = None
+        if 'response_id' in request.data:
+            form_response = FormDocumentResponse.objects.get(
+                pk=request.data['response_id'])
+        elif 'form_id' in request.data:
+            form = FormDocumentTemplate.objects.get(
+                pk=request.data['form_id'])
+            cached_form = form.compile_form()
+            form_response = cached_form.create_empty_response()
+        assert isinstance(form_response, FormDocumentResponse)
+        attachment_obj = FormDocumentResponseAttachment.objects.create(
+            attachment=attachment,
+            response=form_response
+        )
+        return Response({
+            'attachment_id': attachment_obj.pk,
+            'file_name': attachment.name
+        })
+
     def perform_create(self, serializer):
         kwargs = self.get_object_kwarg()
         # Check if the cached_form points to null, create a copy
         form_document_template = kwargs.get('form_document')
-        form_document_template.get_or_create_compiled_form()
+        cached_form = form_document_template.get_or_create_compiled_form()
+        kwargs.update({
+            'cached_form': cached_form
+        })
         inst = serializer.save(**kwargs)
         return inst
 

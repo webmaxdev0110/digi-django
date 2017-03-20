@@ -26,7 +26,7 @@ from form_document.constants import (
 
 
 def form_document_template_uploaded_document_path(instance, filename):
-    # documents/users/<user_pk>/<template_id>/uploaded_document/file_name.ext
+    # documents/users/<user_pk>/uploaded_document/file_name.ext
     dir_name = owner_document_path('documents', instance.owner.pk)
     relative_path = os.path.join('uploaded_document', filename)
     return os.path.join(dir_name, relative_path)
@@ -121,10 +121,10 @@ class FormDocumentTemplate(TimeStampedModel, StatusModel):
 
 
 def form_document_cached_document_path(instance, filename):
-    # documents/users/<user_pk>/<template_id>/history/<FixedFormDocument_id>/file_name.ext
+    # documents/users/<user_pk>/templates/<template_id>/history/<FixedFormDocument_id>/file_name.ext
     user = instance.template.owner
     dir_name = owner_document_path('documents', user.pk)
-    relative_path = os.path.join(str(instance.template.pk), 'history', str(instance.pk), filename)
+    relative_path = os.path.join('templates', str(instance.template.pk), 'history', str(instance.pk), filename)
     return os.path.join(dir_name, relative_path)
 
 
@@ -147,12 +147,21 @@ class FixedFormDocument(TimeStampedModel):
     form_config = JSONField(null=True)
     template = models.ForeignKey(FormDocumentTemplate)
 
+    def create_empty_response(self, sender=None, receiver=None):
+        return FormDocumentResponse.objects.create(
+            receiver_user=receiver,
+            sender_user=sender,
+            form_document=self.template,
+            cached_form=self,
+            answers={}
+        )
+
 
 def form_document_template_uploaded_document_preview_path(instance, file_path):
-    # documents/users/<user_pk>/<template_id>/previews/file_name.ext
+    # documents/users/<user_pk>/templates/<template_id>/previews/file_name.ext
     form_document = instance.form_document
     dir_name = owner_document_path('documents', form_document.owner.pk)
-    relative_path = os.path.join(str(form_document.pk), 'previews', ntpath.basename(file_path))
+    relative_path = os.path.join('templates', str(form_document.pk), 'previews', ntpath.basename(file_path))
     return os.path.join(dir_name, relative_path)
 
 class FormDocumentTemplateDocumentPreview(models.Model):
@@ -242,12 +251,32 @@ class FormDocumentResponse(TimeStampedModel):
     last_interactive_timestamp = models.DateTimeField(auto_now=True)
     duration_seconds = models.IntegerField(default=0)
     form_document = models.ForeignKey(FormDocumentTemplate)
+    cached_form = models.ForeignKey(FixedFormDocument, null=True)
     answers = JSONField()
     status = models.SmallIntegerField(choices=FORM_COMPLETION_STATUS, default=FormCompletionStatus.UNOPENED)
 
     class Meta:
         verbose_name = 'FormResponse'
         verbose_name_plural = 'FormResponses'
+
+
+def form_document_attachment_path(instance, filename):
+    # documents/users/<user_pk>/templates/<template_id>/history/<FixedFormDocument_id>/attachments/file_name.ext
+    form_owner = instance.response.form_document.owner
+    dir_name = owner_document_path('documents', form_owner.pk)
+    template = instance.response.form_document
+    cached_form = instance.response.cached_form
+    relative_path = os.path.join('templates', str(template.pk), 'history', str(cached_form.pk), 'attachments', filename)
+    return os.path.join(dir_name, relative_path)
+
+
+class FormDocumentResponseAttachment(models.Model):
+    attachment = models.FileField(upload_to=form_document_attachment_path)
+    response = models.ForeignKey(FormDocumentResponse)
+
+    class Meta:
+        verbose_name = 'FormDocumentResponseAttachment'
+        verbose_name_plural = 'FormDocumentResponseAttachments'
 
 
 class FormDocumentResponseUserPermission(TimeStampedModel):
