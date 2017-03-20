@@ -44,9 +44,10 @@ class User(AbstractUser):
         else:
             return None
 
-    def generate_activation_code(self):
-        self.activation_code = gen_email_activation_code(self.email)
-        self.save()
+    def ensure_activation_code_exists(self):
+        if not self.activation_code:
+            self.activation_code = gen_email_activation_code(self.email)
+            self.save()
 
 
 ####################################
