@@ -76,7 +76,11 @@ class FormDocumentDetailSerializer(ModelSerializer):
     def get_assets_urls(self, instance):
         if self._is_access_code_verified(instance):
             return map(lambda x: {
-                'url': x.image.url,
+                # todo: Unit tests
+                # This needs absolute uri, as our frontend server and backend server uses different port
+                # Without absolute uri, the requests will be send to front-end address while it should
+                # be in the backend
+                'url': self.context['request'].build_absolute_uri(x.image.url),
                 'width': x.cached_image_width,
                 'height': x.cached_image_height,
             }, instance.form_assets.all())
