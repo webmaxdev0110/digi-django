@@ -1,0 +1,44 @@
+{% extends 'core/html5.html' %}
+{% load staticfiles %}
+{% load compress %}
+{% load hotjar_tags %}
+
+
+{% block head_styles %}
+    {% compress css %}
+        <link rel="stylesheet" href="{% static 'stylesheets/bootstrap.css' %}">
+        <link rel="stylesheet" href="{% static 'stylesheets/signup.css' %}">
+        <link rel="stylesheet" href="{% static 'fonts/roblealt_bold_macroman/stylesheet.css' %}">
+        <link rel="stylesheet" href="{% static 'stylesheets/vendor/bootstrap-social.css' %}">
+        <link rel="stylesheet" href="{% static 'stylesheets/vendor/font-awesome.css' %}">
+    {% endcompress %}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400">
+{% endblock %}
+
+{% block wrapper %}
+    <div class="fixed-header-wrapper" style="display: block;">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="header-inner-wrapper text-center">
+                    <img class="logo-img" src="{% static 'images/logo_colour_tagline.svg' %}" width="150">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="col-xs-12 col-sm-8 col-sm-push-2 col-md-6 col-md-push-3">
+            <div class="signup-form-wrapper">
+                {% if is_activation_successful %}
+                    <p>Account activation successful</p>
+                {% else %}
+                    <p>Account activation failed</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block footer_scripts %}
+{% endblock %}
