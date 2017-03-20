@@ -13,7 +13,7 @@ def render_html_email(template_name, context=None):
     """
     email_template_path = 'emails/{0}/html_content.html'.format(template_name)
     context = context or {}
-    t = get_template(template_name)
+    t = get_template(email_template_path)
     # todo: baseurl?
     return transform(t.render(context))
 
@@ -33,11 +33,11 @@ def render_text_email(template_name, context=None):
 
 def send_account_email_verification_email(
         to_address,
-        account_type, first_name, account_email_verification_link):
-    subject = 'Complete your {0} emondo account'.format(account_type)
+        account_email_verification_link):
+    subject = 'Complete your emondo account'
     context = {
         'subject': subject,
-        'first_name': first_name,
+        'first_name': '',
         'email_verification_link': account_email_verification_link
     }
     html_email = render_html_email('verify_email_address', context)

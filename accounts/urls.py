@@ -10,6 +10,7 @@ from accounts.rest import (
     SubdomainVerifyAPIView,
     UserAPIViewSet,
 )
+from accounts.views import AccountActivationView
 
 router = DefaultRouter()
 router.register(r'onboarding-create', OnboardingCreate)
@@ -45,4 +46,7 @@ urlpatterns = [
         api_urlpatterns,
         namespace='api_accounts'),
         name='api_accounts'),
+    url(r'activation/(?P<email>.+)/(?P<activation_code>.+)',
+        AccountActivationView.as_view(),
+        name='account_email_activation')
 ]

@@ -37,8 +37,33 @@ from django.views.generic import (
 #     #     # Redirect somewhere appropriate for this user
 #     #     return get_login_redirect(self.request)
 #     #
+from accounts.models import User
 
 
 class SignupView(TemplateView):
 
     template_name = 'accounts/signup.html'
+
+
+class AccountActivationView(TemplateView):
+
+    template_name = 'accounts/email_activation.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(AccountActivationView, self).get_context_data(**kwargs)
+        email = kwargs.get('email', '')
+        activation_code = kwargs.get('activation_code', '')
+        users = User.objects.filter(email=email, activation_code=activation_code)
+
+        is_activation_successful = False
+        if users.exists():
+            user = users[0]
+            user.is_active = True
+            user.activation_code = ''
+            user.save()
+            is_activation_successful = True
+
+        context.update({
+            'is_activation_successful': is_activation_successful
+        })
+        return context

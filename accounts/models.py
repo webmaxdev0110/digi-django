@@ -5,6 +5,8 @@ from django_countries.fields import CountryField
 from django.db import models
 from timezone_field import TimeZoneField
 
+from accounts.apis import gen_email_activation_code
+
 
 class User(AbstractUser):
     """
@@ -27,6 +29,7 @@ class User(AbstractUser):
     timezone = TimeZoneField(default='Australia/Sydney')
     company = models.ForeignKey('Company', null=True)
     site = models.ForeignKey(Site, null=True)
+    activation_code = models.CharField(blank=True, max_length=64)
 
 
     def has_active_subscription(self):
@@ -40,6 +43,11 @@ class User(AbstractUser):
             return CompanyMember.objects.get(user=self)
         else:
             return None
+
+    def ensure_activation_code_exists(self):
+        if not self.activation_code:
+            self.activation_code = gen_email_activation_code(self.email)
+            self.save()
 
 
 ####################################
