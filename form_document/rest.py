@@ -1,6 +1,7 @@
 from django.contrib.sites.models import Site
 from django.contrib.sites.shortcuts import get_current_site
 from rest_framework import mixins
+from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.decorators import list_route
@@ -32,7 +33,7 @@ from .serializers import (
     FormDocumentResponseSerializer,
     FormResponseListSerializer,
     FormDocumentCreateSerializer,
-)
+    FormDocumentResponseAttachmentCreateSerializer)
 
 
 
@@ -153,25 +154,13 @@ class FormDocumentResponseViewSet(viewsets.ModelViewSet):
 
     @list_route(methods=['post'], permission_classes=(AllowAny,))
     def upload_attachment(self, request, *args, **kwargs):
-        attachment = request.data['file']
-        form_response = None
-        if 'response_id' in request.data:
-            form_response = FormDocumentResponse.objects.get(
-                pk=request.data['response_id'])
-        elif 'form_id' in request.data:
-            form = FormDocumentTemplate.objects.get(
-                pk=request.data['form_id'])
-            cached_form = form.compile_form()
-            form_response = cached_form.create_empty_response()
-        assert isinstance(form_response, FormDocumentResponse)
-        attachment_obj = FormDocumentResponseAttachment.objects.create(
-            attachment=attachment,
-            response=form_response
-        )
-        return Response({
-            'attachment_id': attachment_obj.pk,
-            'file_name': attachment.name
-        })
+        serializer = FormDocumentResponseAttachmentCreateSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        headers = self.get_success_headers(serializer.data)
+        return Response(
+            serializer.data,
+            status=status.HTTP_201_CREATED, headers=headers)
 
     def perform_create(self, serializer):
         kwargs = self.get_object_kwarg()

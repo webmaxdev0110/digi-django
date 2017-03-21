@@ -5,7 +5,11 @@ from rest_framework.serializers import (
 )
 from rest_framework import serializers
 
-from .models import FormDocumentResponse, FormDocumentTemplate
+from .models import (
+    FormDocumentResponse,
+    FormDocumentTemplate,
+    FormDocumentResponseAttachment,
+)
 
 
 class FormDocumentTemplateListSerializer(ModelSerializer):
@@ -212,3 +216,52 @@ class FormResponseListSerializer(ModelSerializer):
 
     def get_status(self, instance):
         return instance.get_status_display()
+
+
+class FormDocumentResponseAttachmentCreateSerializer(serializers.ModelSerializer):
+
+    response_id = serializers.IntegerField(required=False, write_only=True)
+    form_id = serializers.IntegerField(required=False, write_only=True)
+    file = serializers.FileField(required=True, write_only=True)
+    file_name = serializers.ReadOnlyField(source='attachment.name')
+    attachment_id = serializers.ReadOnlyField(source='pk')
+
+    class Meta:
+        model = FormDocumentResponseAttachment
+        fields = (
+            'response_id',
+            'form_id',
+            'file',
+            'file_name',
+            'attachment_id',
+        )
+
+    def validate_file(self, value):
+        if len(value.name) > 100:
+            raise serializers.ValidationError('File name exceeds 100 characters')
+        return value
+
+    def validate(self, attrs):
+        form_id = attrs.get('form_id', None)
+        response_id = attrs.get('response_id', None)
+        if form_id is None and response_id is None:
+            raise serializers.ValidationError('At least one of form_id or response_id is required')
+        return attrs
+
+    def create(self, validated_data):
+        form_response = None
+        response_id = validated_data.get('response_id')
+        form_id = validated_data.get('form_id')
+        if response_id:
+            form_response = FormDocumentResponse.objects.get(pk=response_id)
+        elif form_id:
+            form = FormDocumentTemplate.objects.get(
+                pk=form_id)
+            cached_form = form.compile_form()
+            form_response = cached_form.create_empty_response()
+        assert isinstance(form_response, FormDocumentResponse)
+        instance =  FormDocumentResponseAttachment.objects.create(
+            attachment=validated_data['file'],
+            response=form_response
+        )
+        return instance

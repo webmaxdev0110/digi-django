@@ -242,6 +242,21 @@ class FormResponseRestAPITestCase(APITestCase):
         self.assertEqual(attachment.response.pk, response_obj.pk)
         self.assertIn('file_name', answer_response.json().keys())
 
+    def test_upload_file_for_file_field_validations(self):
+        # Max length of filename is 100
+        attachment = SimpleUploadedFile(
+            "%s.pdf" % 'filename' * 100,
+            "file_content", content_type="application/pdf")
+        upload_url = reverse('api_form:formdocumentresponse-upload-attachment')
+        answer_response = self.client.post(upload_url, {
+            'file': attachment,
+            'form_id': self.template_no_pass.pk
+        }, HTTP_HOST=self.template_no_pass.owner.site.domain, format='multipart')
+        excepted = {
+            'file': [u'File name exceeds 100 characters']
+        }
+        self.assertDictContainsSubset(excepted, answer_response.json())
+
     def test_form_submission_can_be_seen_by_form_owner(self):
         pass
 
