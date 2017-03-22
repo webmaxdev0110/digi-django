@@ -278,6 +278,13 @@ class FormDocumentResponseAttachment(models.Model):
         verbose_name = 'FormDocumentResponseAttachment'
         verbose_name_plural = 'FormDocumentResponseAttachments'
 
+    def attachment_file_name(self):
+        """
+        Return the base file name for the attachment,
+        not the full relative file path to MEDIA_ROOT
+        """
+        return os.path.basename(self.attachment.name)
+
 
 class FormDocumentResponseUserPermission(TimeStampedModel):
     from_user = models.ForeignKey(User, related_name='forms_responses_shared_to_other_users')
