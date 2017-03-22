@@ -257,6 +257,28 @@ class FormResponseRestAPITestCase(APITestCase):
         }
         self.assertDictContainsSubset(excepted, answer_response.json())
 
+    def test_upload_file_response(self):
+        # Max length of filename is 100
+        file_name = 'filename_unique.pdf'
+        attachment = SimpleUploadedFile(
+            file_name,
+            "file_content", content_type="application/pdf")
+        upload_url = reverse('api_form:formdocumentresponse-upload-attachment')
+        answer_response = self.client.post(upload_url, {
+            'file': attachment,
+            'form_id': self.template_no_pass.pk
+        }, HTTP_HOST=self.template_no_pass.owner.site.domain, format='multipart')
+
+        self.assertEqual(FormDocumentResponseAttachment.objects.count(), 1)
+        attachment_id = answer_response.json()['attachment_id']
+        attachment = FormDocumentResponseAttachment.objects.get(pk=attachment_id)
+
+        excepted = {
+            'attachment_id': attachment_id,
+            'file_name': file_name
+        }
+        self.assertDictContainsSubset(excepted, answer_response.json())
+
     def test_form_submission_can_be_seen_by_form_owner(self):
         pass
 

@@ -223,7 +223,7 @@ class FormDocumentResponseAttachmentCreateSerializer(serializers.ModelSerializer
     response_id = serializers.IntegerField(required=False, write_only=True)
     form_id = serializers.IntegerField(required=False, write_only=True)
     file = serializers.FileField(required=True, write_only=True)
-    file_name = serializers.ReadOnlyField(source='attachment.name')
+    file_name = serializers.ReadOnlyField(source='attachment_file_name')
     attachment_id = serializers.ReadOnlyField(source='pk')
 
     class Meta:
