@@ -37,7 +37,7 @@ $(document).ready(function () {
     $(this).addClass('collapsed');
     $(this).find('.js-faq-a').hide();
   });
-  // faq toggle
+  // faq question collapse toggle
   $('.js-faq-q').click(function() {
     var faq = $(this).parent('.js-faq');
     if(faq.hasClass('collapsed')) {
@@ -51,7 +51,6 @@ $(document).ready(function () {
   });
 
   // faq tabs
-
   $('.js-faq-tab').click(function(e) {
     e.preventDefault();
     // deactivate tabs
@@ -68,6 +67,8 @@ $(document).ready(function () {
     var tid = $(this).attr('href');
     $('' + tid).show();
   });
+  // select the product tab by default
+  $('.js-faq-tab[href="#faq-product"]').click();
 
   // offcanvas
   $('.js-toggle-offcanvas').each(function() {

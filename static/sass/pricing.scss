@@ -193,11 +193,11 @@ a.nav-logo-wrapper {
     }
   }
   .pricing-plan-features {
-    @extend .font8;
+    // @extend .font7;
     padding-top: 30px;
     padding-bottom: 20px;
     background: $white;
-    font-size: 14px;
+    font-size: 15px;
     @include border-radius(0 0 4px 4px);
     @include media('>lg') { min-height: 390px; }
     @include media('<=lg') { min-height: 450px; }
@@ -213,6 +213,7 @@ a.nav-logo-wrapper {
       }
       .font1{
         color: $dark-blue;
+        font-size: 16px;
       }
       .icon-tick, .icon-plus {
         position: absolute;
