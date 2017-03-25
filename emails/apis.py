@@ -26,7 +26,7 @@ def render_html_email(template_name, user_context=None):
     # todo: baseurl?
     return transform(t.render(context))
 
-def render_text_email(template_name, context=None):
+def render_text_email(template_name, user_context=None):
     """
     Render a text email using template
     :param template_name: The template folder name, not the full template path
@@ -35,7 +35,9 @@ def render_text_email(template_name, context=None):
     :param context: The render context for the html email
     """
     email_template_path = 'emails/{0}/text_content.txt'.format(template_name)
-    context = context or {}
+    context = get_email_rendering_base_context()
+    user_context = user_context or {}
+    context.update(user_context)
     t = get_template(email_template_path)
     return t.render(context)
 
