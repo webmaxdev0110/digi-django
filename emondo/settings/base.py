@@ -333,7 +333,7 @@ PLIVO_TOKEN = ''
 
 STATIC_URL = '/static/'
 
-PERMANENT_MEDIA_URL = '/media/permanent/'
+PERMANENT_MEDIA_URL = 'http://localdev.emondo.co:8000/media/permanent/'
 
 FEINCMS_RICHTEXT_INIT_TEMPLATE = 'admin/content/richtext/init_ckeditor.html'
 

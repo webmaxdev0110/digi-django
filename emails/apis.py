@@ -1,9 +1,16 @@
 from django.template.loader import get_template
 from premailer import transform
 from notifications.tasks import send_one_off_email
+from django.conf import settings
 
 
-def render_html_email(template_name, context=None):
+def get_email_rendering_base_context():
+    return {
+        'PERMANENT_MEDIA_URL': settings.PERMANENT_MEDIA_URL
+    }
+
+
+def render_html_email(template_name, user_context=None):
     """
     Render a html email using template
     :param template_name: The template folder name, not the full template path
@@ -12,7 +19,9 @@ def render_html_email(template_name, context=None):
     :param context: The render context for the html email
     """
     email_template_path = 'emails/{0}/html_content.html'.format(template_name)
-    context = context or {}
+    context = get_email_rendering_base_context()
+    user_context = user_context or {}
+    context.update(user_context)
     t = get_template(email_template_path)
     # todo: baseurl?
     return transform(t.render(context))
