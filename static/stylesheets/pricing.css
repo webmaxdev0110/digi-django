@@ -27,7 +27,7 @@
   font-weight: 400;
 }
 
-.font8, .pricing-plan .pricing-plan-features {
+.font8 {
   font-family: "Open Sans", sans-serif;
   font-weight: 300;
 }
@@ -335,7 +335,7 @@ a.nav-logo-wrapper > img.logo-img {
   padding-top: 30px;
   padding-bottom: 20px;
   background: #FFFFFF;
-  font-size: 14px;
+  font-size: 15px;
   -moz-border-radius: 0 0 4px 4px;
   -webkit-border-radius: 0;
   border-radius: 0 0 4px 4px;
@@ -367,6 +367,7 @@ a.nav-logo-wrapper > img.logo-img {
 }
 .pricing-plan .pricing-plan-features ul .font1, .pricing-plan.popular .pricing-plan-features ul .pricing-plan-header:before {
   color: #073660;
+  font-size: 16px;
 }
 .pricing-plan .pricing-plan-features ul .icon-tick, .pricing-plan .pricing-plan-features ul .icon-plus {
   position: absolute;
