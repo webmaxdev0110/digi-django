@@ -51,7 +51,6 @@ class AccountRestAPITestCase(APITestCase):
             'avatar': image_file
         }, format='multipart')
         self.assertEqual(response.status_code, 200)
-
         updated_user = User.objects.get(pk=user.pk)
         self.assertEqual(updated_user.first_name, 'unique_first_name')
         self.assertEqual(updated_user.last_name, 'unique_last_name')
@@ -59,4 +58,18 @@ class AccountRestAPITestCase(APITestCase):
         self.assertIsNotNone(updated_user.avatar)
 
     def test_change_account_password(self):
-        pass
+        user = UserFactory()
+        old_password = 'test'
+        new_password = 'new_password'
+        user.set_password(old_password)
+        user.save()
+        self.client.force_login(user)
+        url = reverse('api_accounts:user-detail', args=(user.pk,))
+        response = self.client.put(url, {
+            'old_password': old_password,
+            'new_password1': new_password,
+            'new_password2': new_password,
+        }, format='json')
+        self.assertEqual(response.status_code, 200)
+        updated_user = User.objects.get(pk=user.pk)
+        self.assertTrue(updated_user.check_password(new_password))
