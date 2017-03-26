@@ -1,4 +1,6 @@
 from rest_framework import serializers
+
+from core.fields import TimezoneField
 from accounts.models import User
 import uuid
 
@@ -66,9 +68,9 @@ class UserProfileSerializer(serializers.ModelSerializer):
     """
     This serializer is for returning and updating an user
     """
+    timezone = TimezoneField()
 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email', 'last_login', 'avatar',)
-        read_only_fields = ('date_joined', 'last_login',)
-
+        fields = ('first_name', 'last_name', 'email', 'last_login', 'avatar', 'timezone',)
+        read_only_fields = ('last_login', 'email',)
