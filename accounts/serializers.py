@@ -69,8 +69,11 @@ class UserProfileSerializer(serializers.ModelSerializer):
     This serializer is for returning and updating an user
     """
     timezone = TimezoneField(required=False)
+    old_password = serializers.CharField(required=False, write_only=True)
+    new_password1 = serializers.CharField(required=False, write_only=True)
+    new_password2 = serializers.CharField(required=False, write_only=True)
 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email', 'last_login', 'avatar', 'timezone',)
+        fields = ('first_name', 'last_name', 'email', 'last_login', 'avatar', 'timezone', 'old_password', 'new_password1', 'new_password2')
         read_only_fields = ('last_login', 'email',)
