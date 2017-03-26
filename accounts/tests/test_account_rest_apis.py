@@ -53,10 +53,10 @@ class AccountRestAPITestCase(APITestCase):
         self.assertEqual(response.status_code, 200)
 
         updated_user = User.objects.get(pk=user.pk)
-        self.assertEqual(user.first_name, 'unique_first_name')
-        self.assertEqual(user.last_name, 'unique_last_name')
-        self.assertEqual(user.timezone, 'America/Los_Angeles')
-        self.assertIsNotNone(user.avatar)
+        self.assertEqual(updated_user.first_name, 'unique_first_name')
+        self.assertEqual(updated_user.last_name, 'unique_last_name')
+        self.assertEqual(updated_user.timezone.zone, 'America/Los_Angeles')
+        self.assertIsNotNone(updated_user.avatar)
 
     def test_change_account_password(self):
         pass
