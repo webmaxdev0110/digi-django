@@ -68,7 +68,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
     """
     This serializer is for returning and updating an user
     """
-    timezone = TimezoneField()
+    timezone = TimezoneField(required=False)
 
     class Meta:
         model = User
