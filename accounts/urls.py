@@ -17,7 +17,7 @@ router.register(r'onboarding-create', OnboardingCreate)
 router.register(r'onboarding-free-plan', FreeAccountCreate, base_name='onboarding-free')
 
 
-user_detail = UserAPIViewSet.as_view({
+current_user_detail = UserAPIViewSet.as_view({
     'get': 'retrieve',
     'put': 'update'
 })
@@ -30,8 +30,8 @@ api_urlpatterns = [
         LogoutAPIView.as_view(),
         name='accounts_auth_logout'),
     url(r'^user/$',
-        user_detail,
-        name='accounts_user'),
+        current_user_detail,
+        name='current_user_detail'),
 
     url(r'^subdomain/verify/$',
         SubdomainVerifyAPIView.as_view(),

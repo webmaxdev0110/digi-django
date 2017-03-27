@@ -14,7 +14,7 @@ class AccountRestAPITestCase(APITestCase):
     def test_fetch_user_detail(self):
         user = UserFactory()
         self.client.force_login(user)
-        url = reverse('api_accounts:user-detail', args=(user.pk,))
+        url = reverse('api_accounts:current_user_detail')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         expected_key = [
@@ -43,7 +43,7 @@ class AccountRestAPITestCase(APITestCase):
 
         user = UserFactory()
         self.client.force_login(user)
-        url = reverse('api_accounts:user-detail', args=(user.pk,))
+        url = reverse('api_accounts:current_user_detail')
         response = self.client.put(url, {
             'first_name': 'unique_first_name',
             'last_name': 'unique_last_name',
@@ -64,7 +64,7 @@ class AccountRestAPITestCase(APITestCase):
         user.set_password(old_password)
         user.save()
         self.client.force_login(user)
-        url = reverse('api_accounts:user-detail', args=(user.pk,))
+        url = reverse('api_accounts:current_user_detail')
         response = self.client.put(url, {
             'old_password': old_password,
             'new_password1': new_password,
