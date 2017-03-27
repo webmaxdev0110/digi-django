@@ -72,6 +72,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
     old_password = serializers.CharField(required=False, write_only=True)
     new_password1 = serializers.CharField(required=False, write_only=True)
     new_password2 = serializers.CharField(required=False, write_only=True)
+    avatar = serializers.ImageField(required=False)
 
     class Meta:
         model = User
