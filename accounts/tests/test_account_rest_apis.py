@@ -18,6 +18,7 @@ class AccountRestAPITestCase(APITestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         expected_key = [
+            u'id',
             u'avatar',
             u'email',
             u'first_name',

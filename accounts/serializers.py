@@ -76,6 +76,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = (
+            'id',
             'first_name',
             'last_name',
             'email',
@@ -86,7 +87,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
             'new_password1',
             'new_password2',
         )
-        read_only_fields = ('last_login', 'email',)
+        read_only_fields = ('id', 'last_login', 'email',)
 
     def update(self, instance, validated_data):
         for attr, value in validated_data.items():
