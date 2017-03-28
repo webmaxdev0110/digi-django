@@ -102,3 +102,23 @@ class UserProfileSerializer(serializers.ModelSerializer):
                 setattr(instance, attr, value)
         instance.save()
         return instance
+
+    def validate(self, attrs):
+        old_password = attrs.get('old_password', None)
+        new_password1 = attrs.get('new_password1', None)
+        new_password2 = attrs.get('new_password2', None)
+        if new_password1:
+            if old_password is None:
+                raise serializers.ValidationError({
+                    'old_password': 'Old password is missing'
+                })
+            if not self.context['request'].user.check_password(old_password):
+                raise serializers.ValidationError({
+                    'old_password': 'Old password is incorrect'
+                })
+            if new_password1 != new_password2:
+                raise serializers.ValidationError({
+                    'new_password1': "Password1 and Password2 mismatch"
+                })
+
+        return attrs

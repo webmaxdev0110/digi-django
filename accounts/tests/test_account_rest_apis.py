@@ -93,3 +93,39 @@ class AccountRestAPITestCase(APITestCase):
         self.assertEqual(response.status_code, 200)
         updated_user = User.objects.get(pk=user.pk)
         self.assertTrue(bool(updated_user.avatar) is False)
+
+    def test_change_account_password_failure_cases(self):
+        # Should reject the password change request if old password is incorrect
+        user = UserFactory()
+        old_password = 'test'
+        new_password = 'new_password'
+        user.set_password(old_password)
+        user.save()
+        self.client.force_login(user)
+        url = reverse('api_accounts:current_user_detail')
+
+        # Test old password is incorrect
+        response = self.client.put(url, {
+            'old_password': 'wrong_password',
+            'new_password1': new_password,
+            'new_password2': new_password,
+        }, format='json')
+
+        self.assertEqual(response.status_code, 400)
+        execpted = {
+            u'old_password': [u'Old password is incorrect']
+        }
+        self.assertDictContainsSubset(execpted, response.json())
+
+        # Test two passwords mismatch
+        response = self.client.put(url, {
+            'old_password': old_password,
+            'new_password1': new_password,
+            'new_password2': new_password + '1',
+        }, format='json')
+
+        self.assertEqual(response.status_code, 400)
+        execpted = {
+            u'new_password1': [u'Password1 and Password2 mismatch']
+        }
+        self.assertDictContainsSubset(execpted, response.json())
