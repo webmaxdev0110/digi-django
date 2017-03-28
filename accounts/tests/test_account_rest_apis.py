@@ -74,3 +74,22 @@ class AccountRestAPITestCase(APITestCase):
         self.assertEqual(response.status_code, 200)
         updated_user = User.objects.get(pk=user.pk)
         self.assertTrue(updated_user.check_password(new_password))
+
+    def test_delete_account_avatar(self):
+        image_obj = StringIO()
+        image = Image.new("RGBA", size=(1, 1,), )
+        image.save(image_obj, 'JPEG')
+        image_obj.seek(0)
+        image_file = File(image_obj, name='test_ifle')
+
+        user = UserFactory()
+        self.client.force_login(user)
+        user.avatar = image_file
+        user.save()
+        url = reverse('api_accounts:current_user_detail')
+        response = self.client.put(url, {
+            'avatar': ''
+        }, format='multipart')
+        self.assertEqual(response.status_code, 200)
+        updated_user = User.objects.get(pk=user.pk)
+        self.assertTrue(bool(updated_user.avatar) is False)

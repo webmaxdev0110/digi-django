@@ -72,7 +72,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
     old_password = serializers.CharField(required=False, write_only=True)
     new_password1 = serializers.CharField(required=False, write_only=True)
     new_password2 = serializers.CharField(required=False, write_only=True)
-    avatar = serializers.ImageField(required=False)
+    avatar = serializers.ImageField(required=False, allow_empty_file=True, allow_null=True)
 
     class Meta:
         model = User
@@ -91,9 +91,13 @@ class UserProfileSerializer(serializers.ModelSerializer):
         read_only_fields = ('id', 'last_login', 'email',)
 
     def update(self, instance, validated_data):
+
         for attr, value in validated_data.items():
             if attr == 'new_password1':
                 instance.set_password(value)
+            elif attr == 'avatar' and value is None:
+                instance.avatar.delete(False)
+                instance.avatar = None
             else:
                 setattr(instance, attr, value)
         instance.save()
