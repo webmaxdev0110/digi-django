@@ -48,7 +48,12 @@ class FormDocumentCreateSerializer(ModelSerializer):
 
     def validate_slug(self, value):
         value = slugify(value)
-        if FormDocumentTemplate.objects.filter(slug=value, owner=self.context['request'].user).exists():
+        form_template_id = self.initial_data.get('id', None)
+        exclude_filters = {}
+        if form_template_id:
+            exclude_filters = {'pk': self.initial_data['id']}
+
+        if FormDocumentTemplate.objects.exclude(**exclude_filters).filter(slug=value).exists():
             raise serializers.ValidationError('Same URL exists')
         return value
 

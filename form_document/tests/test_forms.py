@@ -12,6 +12,7 @@ from form_document.models import (
     FormDocumentResponse,
     FormDocumentResponseAttachment,
 )
+import random
 
 
 class FormDocumentRestAPITestCase(APITestCase):
@@ -259,7 +260,7 @@ class FormResponseRestAPITestCase(APITestCase):
 
     def test_upload_file_response(self):
         # Max length of filename is 100
-        file_name = 'filename_unique.pdf'
+        file_name = 'filename_unique%s.pdf' % random.randint(0, 1000)
         attachment = SimpleUploadedFile(
             file_name,
             "file_content", content_type="application/pdf")
