@@ -1,5 +1,3 @@
-from django.contrib.sites.models import Site
-from django.contrib.sites.shortcuts import get_current_site
 from rest_framework import mixins
 from rest_framework import status
 from rest_framework import viewsets
@@ -22,6 +20,7 @@ from rest_framework.viewsets import GenericViewSet
 from core.constants import StatusChoices
 from core.hash_utils import sha1_file
 from core.rest_pagination import get_pagination_class
+from core.site_utils import get_site_from_request_origin
 from form_document.constants import FormCompletionStatus
 from .models import (
     FormDocumentTemplate,
@@ -45,8 +44,10 @@ class FormDocumentRetrieveViewSet(mixins.RetrieveModelMixin, GenericViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get_queryset(self):
-        # get_current_site checks includes both port and non-port included search against Site table
-        site = get_current_site(self.request)
+        # We should get the site from request origin
+        # not from request host
+        # Frontend url is different to backend
+        site = get_site_from_request_origin(self.request)
         return FormDocumentTemplate.objects.filter(owner__site=site)
 
     def get_object(self):
