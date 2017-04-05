@@ -1,4 +1,4 @@
-Hi {{ first_name }},
+Howdy!
 
 Welcome to emondo! You’re only one click away...
 
