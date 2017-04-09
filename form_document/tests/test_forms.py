@@ -1,5 +1,6 @@
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.urlresolvers import reverse
+from django.test import override_settings
 from rest_framework.test import (
     APITestCase,
 )
@@ -13,6 +14,7 @@ from form_document.models import (
     FormDocumentResponseAttachment,
 )
 import random
+from django.core import mail
 
 
 class FormDocumentRestAPITestCase(APITestCase):
@@ -279,6 +281,23 @@ class FormResponseRestAPITestCase(APITestCase):
             'file_name': file_name
         }
         self.assertDictContainsSubset(excepted, answer_response.json())
+
+
+    @override_settings(EMAIL_BACKEND='django.core.mail.backends.locmem.EmailBackend')
+    def test_sending_form_resume_link(self):
+        mail.outbox = []
+        url = reverse('api_form:formdocumentresponse-send-resume-link')
+        cached_form = self.template_no_pass.compile_form()
+        empty_response = cached_form.create_empty_response()
+        test_email = 'test@example.com'
+        answer_response = self.client.post(url, {
+            'response_id': empty_response.pk,
+            'email': test_email,
+            'form_continue_url': 'http://{0}/form_continue/url'.format(self.template_no_pass.owner.site.domain),
+        }, HTTP_ORIGIN=self.template_no_pass.owner.site.domain, format='json')
+
+        self.assertEqual(answer_response.status_code, 201)
+        self.assertEqual(len(mail.outbox), 1)
 
     def test_form_submission_can_be_seen_by_form_owner(self):
         pass
