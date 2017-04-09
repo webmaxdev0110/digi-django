@@ -308,4 +308,5 @@ class FormDocumentResponseResumeLinkSerializer(serializers.Serializer):
             validated_data['form_continue_url'],
             form_title
         )
+        return validated_data
 
