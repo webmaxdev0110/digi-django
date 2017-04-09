@@ -32,8 +32,9 @@ from .serializers import (
     FormDocumentResponseSerializer,
     FormResponseListSerializer,
     FormDocumentCreateSerializer,
-    FormDocumentResponseAttachmentCreateSerializer)
-
+    FormDocumentResponseAttachmentCreateSerializer,
+    FormDocumentResponseResumeLinkSerializer,
+)
 
 
 class FormDocumentRetrieveViewSet(mixins.RetrieveModelMixin, GenericViewSet):
@@ -156,6 +157,16 @@ class FormDocumentResponseViewSet(viewsets.ModelViewSet):
     @list_route(methods=['post'], permission_classes=(AllowAny,))
     def upload_attachment(self, request, *args, **kwargs):
         serializer = FormDocumentResponseAttachmentCreateSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        headers = self.get_success_headers(serializer.data)
+        return Response(
+            serializer.data,
+            status=status.HTTP_201_CREATED, headers=headers)
+
+    @list_route(methods=['post'], permission_classes=(AllowAny,))
+    def send_resume_link(self, request, *args, **kwargs):
+        serializer = FormDocumentResponseResumeLinkSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         headers = self.get_success_headers(serializer.data)

@@ -1,3 +1,4 @@
+from django.http.request import split_domain_port
 from django.utils.text import slugify
 from rest_framework.serializers import (
     ModelSerializer,
@@ -10,6 +11,15 @@ from .models import (
     FormDocumentTemplate,
     FormDocumentResponseAttachment,
 )
+
+from emails.apis import send_form_resume_link
+try:
+    # python 2
+    from urlparse import urlparse
+except ImportError:
+    # Python 3
+    from urllib.parse import urlparse
+
 
 
 class FormDocumentTemplateListSerializer(ModelSerializer):
@@ -270,3 +280,32 @@ class FormDocumentResponseAttachmentCreateSerializer(serializers.ModelSerializer
             response=form_response
         )
         return instance
+
+
+class FormDocumentResponseResumeLinkSerializer(serializers.Serializer):
+    email = serializers.EmailField(required=True, write_only=True)
+    response_id = serializers.IntegerField(required=True, write_only=True)
+    form_continue_url = serializers.CharField(required=True)
+
+    def validate(self, data):
+        response_id = data.get('response_id')
+        form_continue_url = data.get('form_continue_url')
+        form_response  = FormDocumentResponse.objects.get(pk=response_id)
+        subdomain = form_response.form_document.owner.site.domain
+        netloc = urlparse(form_continue_url).netloc
+        continue_url_origin, _= split_domain_port(netloc)
+        if continue_url_origin == subdomain:
+            return data
+        else:
+            raise serializers.ValidationError("Request origin does not match form continue origin")
+
+    def create(self, validated_data):
+        response_id = self.validated_data.get('response_id')
+        form_response = FormDocumentResponse.objects.get(pk=response_id)
+        form_title = form_response.form_document.title
+        send_form_resume_link(
+            validated_data['email'],
+            validated_data['form_continue_url'],
+            form_title
+        )
+
