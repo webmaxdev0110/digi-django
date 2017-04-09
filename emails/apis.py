@@ -54,3 +54,17 @@ def send_account_email_verification_email(
     html_email = render_html_email('verify_email_address', context)
     text_email = render_text_email('verify_email_address', context)
     send_one_off_email.delay(subject, [to_address], text_email, html_email)
+
+def send_form_resume_link(
+        to_address,
+        form_url,
+        form_title):
+    subject = 'Resume your form'
+    context = {
+        'subject': subject,
+        'form_url': form_url,
+        'form_title': form_title
+    }
+    html_email = render_html_email('resuming_form', context)
+    text_email = render_text_email('resuming_form', context)
+    send_one_off_email.delay(subject, [to_address], text_email, html_email)
