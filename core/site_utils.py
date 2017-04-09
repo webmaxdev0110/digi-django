@@ -14,6 +14,10 @@ def get_site_from_request_origin(request):
     if not origin:
         return None
 
+    if not origin.startswith('http'):
+        # During the test, the ORIGIN has not schema
+        origin = '//' + origin
+
     netloc = urlparse(origin).netloc
     domain, port = split_domain_port(netloc)
     try:
