@@ -27,7 +27,7 @@ class FormDocumentRestAPITestCase(APITestCase):
     def test_anonymous_user_can_retrieve_form(self):
         url = reverse('api_form:form_retrieval-detail', args=(self.template_no_pass.pk,))
         site = self.template.owner.site
-        actual = self.client.get(url, HTTP_HOST=site.domain)
+        actual = self.client.get(url, HTTP_ORIGIN=site.domain)
         self.assertEqual(actual.status_code, 200)
         form_data = actual.json()['form_data']
         self.assertIsNotNone(form_data)
@@ -35,14 +35,14 @@ class FormDocumentRestAPITestCase(APITestCase):
     def test_access_code_protected_form(self):
         # Test Anonymous access needs access_code
         url = reverse('api_form:form_retrieval-detail', args=(self.template.pk,))
-        actual = self.client.get(url, HTTP_HOST=self.template.owner.site.domain)
+        actual = self.client.get(url, HTTP_ORIGIN=self.template.owner.site.domain)
         form_data = actual.json()['form_data']
         self.assertIsNone(form_data)
 
         # Test with access code, form_data is returned
         actual = self.client.get(url, data={
             'access_code': self.template.access_code
-        }, HTTP_HOST='example.com')
+        }, HTTP_ORIGIN='example.com')
         self.assertIsNotNone(actual.json()['form_data'])
 
     def test_form_owner_can_access_form(self):
@@ -50,7 +50,7 @@ class FormDocumentRestAPITestCase(APITestCase):
         url = reverse('api_form:form_retrieval-detail', args=(self.template.pk,))
         owner = self.template.owner
         self.client.force_login(owner)
-        actual = self.client.get(url, HTTP_HOST=self.template.owner.site.domain)
+        actual = self.client.get(url, HTTP_ORIGIN=self.template.owner.site.domain)
         self.assertIsNone(actual.json()['form_data'])
 
 
@@ -58,7 +58,7 @@ class FormDocumentRestAPITestCase(APITestCase):
         self.template_no_pass.slug = 'test2'
         self.template_no_pass.save()
         url = reverse('api_form:form_retrieval-detail', args=(self.template_no_pass.slug,))
-        actual = self.client.get(url, HTTP_HOST=self.template.owner.site.domain)
+        actual = self.client.get(url, HTTP_ORIGIN=self.template.owner.site.domain)
         self.assertEqual(actual.status_code, 200)
         form_data = actual.json()['form_data']
         self.assertIsNotNone(form_data)
@@ -67,7 +67,7 @@ class FormDocumentRestAPITestCase(APITestCase):
         self.assertEqual(FixedFormDocument.objects.all().count(), 0)
         # Create first copy of Fixedformdocument
         url = reverse('api_form:form_retrieval-detail', args=(self.template_no_pass.slug,))
-        result = self.client.get(url, HTTP_HOST=self.template_no_pass.owner.site.domain)
+        result = self.client.get(url, HTTP_ORIGIN=self.template_no_pass.owner.site.domain)
         self.assertEqual(FixedFormDocument.objects.all().count(), 1)
         form = FormDocumentTemplate.objects.get(pk=self.template_no_pass.pk)
         self.assertIsInstance(form.cached_form, FixedFormDocument)
@@ -77,7 +77,7 @@ class FormDocumentRestAPITestCase(APITestCase):
         url = reverse('api_form:formdocumenttemplate-detail', args=(self.template_no_pass.pk,))
         actual = self.client.put(url, {
             'title': 'new-title2'
-        }, HTTP_HOST=self.template.owner.site.domain)
+        }, HTTP_ORIGIN=self.template.owner.site.domain)
         form = FormDocumentTemplate.objects.get(pk=self.template_no_pass.pk)
 
         self.assertIsNone(form.cached_form, None)
@@ -128,7 +128,7 @@ class FormDocumentRestAPITestCase(APITestCase):
         url = reverse('api_form:formdocumenttemplate-list',)
         actual = self.client.post(url, {
             'title': 'new-title'
-        }, HTTP_HOST=user.site.domain)
+        }, HTTP_ORIGIN=user.site.domain)
         form_id = actual.json()['id']
         form = FormDocumentTemplate.objects.get(pk=form_id)
         self.assertIn('id', actual.json().keys())
@@ -146,7 +146,7 @@ class FormDocumentRestAPITestCase(APITestCase):
         url = reverse('api_form:formdocumenttemplate-detail', args=(form_id,))
 
         updated_data = {'form_data': {'empty': True}}
-        actual = self.client.put(url, updated_data, format='json', HTTP_HOST=form.owner.site.domain)
+        actual = self.client.put(url, updated_data, format='json', HTTP_ORIGIN=form.owner.site.domain)
         self.assertEqual(actual.status_code, 200)
         # cached_form should be invalidated
         form = FormDocumentTemplate.objects.get(pk=form_id)
@@ -173,7 +173,7 @@ class FormDocumentRestAPITestCase(APITestCase):
         self.client.force_login(owner)
         url = reverse('api_form:formdocumenttemplate-detail', args=(self.template_no_pass.pk,))
         updated_data = {'form_data': {'empty': True}}
-        actual = self.client.put(url, updated_data, format='json', HTTP_HOST=site.domain)
+        actual = self.client.put(url, updated_data, format='json', HTTP_ORIGIN=site.domain)
         self.assertEqual(actual.status_code, 200)
         updated_form_document = FormDocumentTemplate.objects.get(pk=self.template_no_pass.pk)
         self.assertDictContainsSubset(updated_form_document.form_data, {'empty': True})
@@ -189,7 +189,7 @@ class FormResponseRestAPITestCase(APITestCase):
             'answers': [{1: {}}],
             'request_action': 'FORM_AUTOSAVE',
             'form_id': self.template_no_pass.pk
-        }, HTTP_HOST=self.template_no_pass.owner.site.domain, format='json')
+        }, HTTP_ORIGIN=self.template_no_pass.owner.site.domain, format='json')
         self.assertIn('response_id', answer_response.json().keys())
         # Test that response has cached_form attribute and form_document
         response_id = answer_response.json()['response_id']
@@ -208,7 +208,7 @@ class FormResponseRestAPITestCase(APITestCase):
         answer_response = self.client.post(upload_url, {
             'file': attachment,
             'response_id': empty_response.pk
-        }, HTTP_HOST=self.template_no_pass.owner.site.domain, format='multipart')
+        }, HTTP_ORIGIN=self.template_no_pass.owner.site.domain, format='multipart')
         self.assertEqual(FixedFormDocument.objects.count(), 1)
         # Should create the response object
         self.assertEqual(FormDocumentResponse.objects.count(), 1)
@@ -229,7 +229,7 @@ class FormResponseRestAPITestCase(APITestCase):
         answer_response = self.client.post(upload_url, {
             'file': attachment,
             'form_id': self.template_no_pass.pk
-        }, HTTP_HOST=self.template_no_pass.owner.site.domain, format='multipart')
+        }, HTTP_ORIGIN=self.template_no_pass.owner.site.domain, format='multipart')
         self.assertEqual(FixedFormDocument.objects.count(), 1)
         # Should create the response object
         self.assertEqual(FormDocumentResponse.objects.count(), 1)
@@ -252,7 +252,7 @@ class FormResponseRestAPITestCase(APITestCase):
         answer_response = self.client.post(upload_url, {
             'file': attachment,
             'form_id': self.template_no_pass.pk
-        }, HTTP_HOST=self.template_no_pass.owner.site.domain, format='multipart')
+        }, HTTP_ORIGIN=self.template_no_pass.owner.site.domain, format='multipart')
         excepted = {
             'file': [u'File name exceeds 100 characters']
         }
@@ -268,7 +268,7 @@ class FormResponseRestAPITestCase(APITestCase):
         answer_response = self.client.post(upload_url, {
             'file': attachment,
             'form_id': self.template_no_pass.pk
-        }, HTTP_HOST=self.template_no_pass.owner.site.domain, format='multipart')
+        }, HTTP_ORIGIN=self.template_no_pass.owner.site.domain, format='multipart')
 
         self.assertEqual(FormDocumentResponseAttachment.objects.count(), 1)
         attachment_id = answer_response.json()['attachment_id']
