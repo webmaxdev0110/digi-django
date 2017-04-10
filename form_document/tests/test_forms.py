@@ -84,6 +84,17 @@ class FormDocumentRestAPITestCase(APITestCase):
 
         self.assertIsNone(form.cached_form, None)
 
+        # Retrieve the form again should return the new title
+        form.get_or_create_compiled_form()
+        form.cached_form.title = 'Changed'
+        form.cached_form.save()
+        cached_form = FixedFormDocument.objects.get(pk=form.cached_form.pk)
+        self.assertEqual(cached_form.title, 'Changed')
+
+        url = reverse('api_form:form_retrieval-detail', args=(self.template_no_pass.slug,))
+        result = self.client.get(url, HTTP_ORIGIN=self.template_no_pass.owner.site.domain)
+        self.assertEqual(result.json()['title'], 'Changed')
+
 
     def test_form_create_should_have_correct_owner(self):
         user = UserFactory()
