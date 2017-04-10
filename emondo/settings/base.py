@@ -264,6 +264,8 @@ LOGGING = {
     },
 }
 
+if DEBUG:
+    LOGGING['root']['handlers'] = ['console']
 
 AUTH_USER_MODEL = 'accounts.User'
 

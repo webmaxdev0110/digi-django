@@ -1,7 +1,6 @@
-Hello {{ first_name }},
+Howdy!
 
-Our final attempt to bill {{ charge_amount }} to your current payment details, Visa ending in {{payment_last4digits}}, failed.
+Resume your incomplete {{ form_title }} so you don’t need to start it again.
 
-Update your billing settings for emondo to instantly reactivate your account.
-
-Update billing settings (button)
+Copy and paste the following URL into your browser's address bar:
+{{ form_url }}
