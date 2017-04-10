@@ -34,12 +34,13 @@ from .serializers import (
     FormDocumentCreateSerializer,
     FormDocumentResponseAttachmentCreateSerializer,
     FormDocumentResponseResumeLinkSerializer,
+    FixedFormDocumentSerializer,
 )
 
 
 class FormDocumentRetrieveViewSet(mixins.RetrieveModelMixin, GenericViewSet):
     queryset = FormDocumentTemplate.objects.all()
-    serializer_class = FormDocumentDetailSerializer
+    serializer_class = FixedFormDocumentSerializer
     pagination_class = get_pagination_class(page_size=10)
     authentication_classes = []
     permission_classes = [IsAuthenticatedOrReadOnly]
@@ -63,7 +64,8 @@ class FormDocumentRetrieveViewSet(mixins.RetrieveModelMixin, GenericViewSet):
         # May raise a permission denied
         self.check_object_permissions(self.request, obj)
 
-        return obj
+        # Should use the cached_form in the response
+        return obj.cached_form
 
 
 class FormDocumentCreateUpdateViewSet(viewsets.ModelViewSet):

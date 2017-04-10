@@ -10,6 +10,7 @@ from .models import (
     FormDocumentResponse,
     FormDocumentTemplate,
     FormDocumentResponseAttachment,
+    FixedFormDocument,
 )
 
 from emails.apis import send_form_resume_link
@@ -130,6 +131,63 @@ class FormDocumentDetailSerializer(ModelSerializer):
         return None
 
 
+class FixedFormDocumentSerializer(FormDocumentDetailSerializer):
+    uploaded_document = serializers.FileField(write_only=True, required=False)
+    assets_urls = serializers.SerializerMethodField()
+    slug = serializers.SlugField(read_only=True, source='template.slug')
+    is_access_code_protected = serializers.BooleanField(read_only=True)
+    form_data = serializers.SerializerMethodField()
+    document_mapping = serializers.SerializerMethodField()
+
+    class Meta:
+        model = FixedFormDocument
+        fields = (
+            'id',
+            'slug',
+            'title',
+            'uploaded_document',
+            'form_data',
+            'form_config',
+            'document_mapping',
+            'assets_urls',
+            'is_access_code_protected',
+        )
+
+    def get_assets_urls(self, instance):
+        if self._is_access_code_verified(instance):
+            return map(lambda x: {
+                # todo: Unit tests
+                # This needs absolute uri, as our frontend server and backend server uses different port
+                # Without absolute uri, the requests will be send to front-end address while it should
+                # be in the backend
+                'url': self.context['request'].build_absolute_uri(x.image.url),
+                'width': x.cached_image_width,
+                'height': x.cached_image_height,
+            }, instance.template.form_assets.all())
+        else:
+            return None
+
+    def _is_access_code_verified(self, instance):
+        if self.instance.template.is_access_code_protected():
+            user = CurrentUserDefault()
+            if getattr(user, 'id', None) == instance.template.owner.id:
+                return True
+            if self.context['request'].query_params.get('access_code') == instance.template.access_code:
+                return True
+            else:
+                return False
+        else:
+            return True
+
+    def get_form_data(self, instance):
+        if self._is_access_code_verified(instance):
+            return instance.form_data
+        return None
+
+    def get_document_mapping(self, instance):
+        if self._is_access_code_verified(instance):
+            return instance.document_mapping
+        return None
 
 
 class FormDocumentResponseSerializer(ModelSerializer):
