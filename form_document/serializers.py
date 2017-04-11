@@ -138,6 +138,7 @@ class FixedFormDocumentSerializer(FormDocumentDetailSerializer):
     is_access_code_protected = serializers.BooleanField(read_only=True)
     form_data = serializers.SerializerMethodField()
     document_mapping = serializers.SerializerMethodField()
+    number_of_pages = serializers.IntegerField(source='template.number_of_pages')
 
     class Meta:
         model = FixedFormDocument
@@ -145,6 +146,7 @@ class FixedFormDocumentSerializer(FormDocumentDetailSerializer):
             'id',
             'slug',
             'title',
+            'number_of_pages',
             'uploaded_document',
             'form_data',
             'form_config',
