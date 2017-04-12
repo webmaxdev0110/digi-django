@@ -132,6 +132,8 @@ class FormDocumentDetailSerializer(ModelSerializer):
 
 
 class FixedFormDocumentSerializer(FormDocumentDetailSerializer):
+    # Todo: rename to form_id
+    id = serializers.IntegerField(source='template.pk')
     uploaded_document = serializers.FileField(write_only=True, required=False)
     assets_urls = serializers.SerializerMethodField()
     slug = serializers.SlugField(read_only=True, source='template.slug')
