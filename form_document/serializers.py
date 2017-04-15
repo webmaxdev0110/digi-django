@@ -413,7 +413,7 @@ class FormDocumentSigningEmailVerificationSerializer(serializers.Serializer):
             signature.save()
             person.send_email_verification_code()
         else:
-            person.send_email_verification_code()
+            person_query.get().person.send_email_verification_code()
 
         return True
 
