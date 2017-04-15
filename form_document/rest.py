@@ -2,7 +2,7 @@ from rest_framework import mixins
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.authentication import SessionAuthentication
-from rest_framework.decorators import list_route
+from rest_framework.decorators import list_route, detail_route
 from rest_framework.filters import OrderingFilter
 from rest_framework.generics import get_object_or_404
 from rest_framework.parsers import (
@@ -17,6 +17,7 @@ from rest_framework.permissions import (
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
+from contacts.serializers import PersonSerializer
 from core.constants import StatusChoices
 from core.hash_utils import sha1_file
 from core.rest_pagination import get_pagination_class
@@ -25,7 +26,7 @@ from form_document.constants import FormCompletionStatus
 from .models import (
     FormDocumentTemplate,
     FormDocumentResponse,
-    FormDocumentResponseAttachment)
+    FormDocumentResponseAttachment, FormDocumentLink)
 from .serializers import (
     FormDocumentTemplateListSerializer,
     FormDocumentDetailSerializer,
@@ -35,6 +36,7 @@ from .serializers import (
     FormDocumentResponseAttachmentCreateSerializer,
     FormDocumentResponseResumeLinkSerializer,
     FixedFormDocumentSerializer,
+    FormDocumentSigningEmailVerificationSerializer,
 )
 
 
@@ -191,3 +193,32 @@ class FormDocumentResponseViewSet(viewsets.ModelViewSet):
         kwargs = self.get_object_kwarg()
         inst = serializer.save(**kwargs)
         return inst
+
+
+class SigningVerificationViewSet(GenericViewSet):
+    serializer_class = FormDocumentSigningEmailVerificationSerializer
+    queryset = FormDocumentResponse.objects
+
+    @list_route(methods=['get'])
+    def check_email(self, request):
+        s = FormDocumentSigningEmailVerificationSerializer(data=request.GET)
+        s.is_valid(raise_exception=True)
+
+        return Response(
+            s.data,
+            status=status.HTTP_200_OK)
+
+    @list_route(methods=['post'])
+    def request_email_verification_code(self, request):
+        s = FormDocumentSigningEmailVerificationSerializer(data=request.data)
+        s.is_valid(raise_exception=True)
+        s.send_email_verification_code()
+        return Response(status=status.HTTP_200_OK)
+
+    @list_route(methods=['post'])
+    def verify_email_code(self, request):
+        s = FormDocumentSigningEmailVerificationSerializer(data=request.data)
+        s.is_valid(raise_exception=True)
+        s.verify_email_code()
+        return Response(data=s.data,
+                        status=status.HTTP_200_OK)
