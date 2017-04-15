@@ -1,6 +1,8 @@
 from __future__ import unicode_literals
 import ntpath
 
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 from django.core.files.temp import NamedTemporaryFile
 from django.contrib.postgres.fields import (
     JSONField,
@@ -8,7 +10,8 @@ from django.contrib.postgres.fields import (
 from django.db import models
 from wand.image import Image
 from accounts.models import User, Company
-from core.models import TimeStampedModel, StatusModel
+from contacts.models import Person
+from core.models import TimeStampedModel, StatusModel, SelfAwareModel
 import os
 import pyPdf
 from django.core.files import File
@@ -30,6 +33,15 @@ def form_document_template_uploaded_document_path(instance, filename):
     dir_name = owner_document_path('documents', instance.owner.pk)
     relative_path = os.path.join('uploaded_document', filename)
     return os.path.join(dir_name, relative_path)
+
+
+class DocumentSignature(TimeStampedModel):
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey('content_type', 'object_id')
+    person = models.ForeignKey(Person, related_name='signers')
+
+
 
 
 class FormDocumentTemplate(TimeStampedModel, StatusModel):
@@ -224,18 +236,7 @@ class FormDocumentUserShare(TimeStampedModel):
         verbose_name_plural = 'FormUserShares'
 
 
-class DocumentRecipient(models.Model):
-    first_name = models.CharField(max_length=100, blank=True)
-    last_name = models.CharField(max_length=100, blank=True)
-    email = models.EmailField(blank=True)
-    phone = models.CharField(max_length=30, blank=True)
-    access_code = models.CharField(max_length=12)
-
-    class Meta:
-        abstract = True
-
-
-class FormDocumentResponse(TimeStampedModel):
+class FormDocumentResponse(TimeStampedModel, SelfAwareModel):
     """
     FormDocumentResponse represents Form submission per User
     When form is published, users registered to platform or anonymous users can submit form
@@ -301,12 +302,13 @@ class FormDocumentResponseCompanyPermission(TimeStampedModel):
     response = models.ForeignKey(FormDocumentResponse)
 
 
-class FormDocumentLink(TimeStampedModel, DocumentRecipient):
+class FormDocumentLink(TimeStampedModel):
     """
     Model to track document recipient whether or not opened
     the form or not
     """
     form_response = models.OneToOneField(FormDocumentResponse, null=True)
+    receiver_person = models.ForeignKey(Person, null=True)
     from_user = models.ForeignKey(User)
     sending_method = models.IntegerField(
         choices=FORM_SENDING_METHOD_CHOICES, default=FormSendingMethod.DIRECT

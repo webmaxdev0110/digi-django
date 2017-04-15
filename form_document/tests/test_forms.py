@@ -5,6 +5,7 @@ from rest_framework.test import (
     APITestCase,
 )
 from accounts.factories import UserFactory
+from contacts.models import Person
 from core.constants import StatusChoices
 from form_document.factories import FormDocumentTemplateFactory
 from form_document.models import (
@@ -330,3 +331,50 @@ class FormResponseRestAPITestCase(APITestCase):
 
     def test_form_submission_cannot_seen_by_external_company_user(self):
         pass
+
+    @override_settings(EMAIL_BACKEND='django.core.mail.backends.locmem.EmailBackend')
+    def test_sending_signing_person_verification_email(self):
+        mail.outbox = []
+        url = reverse('api_form:signing_verification-request-email-verification-code')
+        cached_form = self.template_no_pass.compile_form()
+        empty_response = cached_form.create_empty_response()
+        test_email = 'test@example.com'
+        answer_response = self.client.post(url, {
+            'response_id': empty_response.pk,
+            'email': test_email,
+        }, format='json')
+
+        self.assertEqual(answer_response.status_code, 200)
+        # Verification email should be sent
+        self.assertEqual(len(mail.outbox), 1)
+
+        # New person should be created
+        persons = Person.objects.filter(email=test_email)
+        self.assertEqual(persons.count(), 1)
+
+        # Email should contain the verification code
+        verification_code = persons[0].email_verification_code
+        self.assertTrue(verification_code in mail.outbox[0].body)
+        self.assertFalse(persons[0].is_email_verified)
+
+        verification_url = reverse('api_form:signing_verification-verify-email-code')
+
+        verification_response = self.client.post(verification_url, {
+            'response_id': empty_response.pk,
+            'email': test_email,
+            'code': verification_code
+        }, format='json')
+        self.assertEqual(verification_response.status_code, 200)
+        self.assertTrue(Person.objects.get(pk=persons[0].pk).is_email_verified)
+        signing_retrieval_url = reverse('api_form:signing_verification-check-email')
+
+        email_check_response = self.client.get(signing_retrieval_url, {
+            'response_id': empty_response.pk,
+            'email': test_email,
+        }, format='json')
+
+        expected = {
+            'is_verified': True
+        }
+
+        self.assertDictContainsSubset(expected, email_check_response.json())

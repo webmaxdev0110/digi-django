@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+import sys
+import logging
 
 
 
@@ -378,3 +380,11 @@ TRULIOO_KEY = {
         'PASSWORD': 'Z6\'$GERgT>T-='
     },
 }
+
+
+
+if len(sys.argv) > 1 and sys.argv[1] == 'test':
+    logging.disable(logging.CRITICAL)
+    PASSWORD_HASHERS = [
+        'django.contrib.auth.hashers.MD5PasswordHasher',
+    ]

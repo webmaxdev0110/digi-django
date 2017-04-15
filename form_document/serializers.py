@@ -6,12 +6,13 @@ from rest_framework.serializers import (
 )
 from rest_framework import serializers
 
+from contacts.models import Person
 from .models import (
     FormDocumentResponse,
     FormDocumentTemplate,
     FormDocumentResponseAttachment,
     FixedFormDocument,
-)
+    DocumentSignature)
 
 from emails.apis import send_form_resume_link
 try:
@@ -373,3 +374,59 @@ class FormDocumentResponseResumeLinkSerializer(serializers.Serializer):
             form_title
         )
         return validated_data
+
+class FormDocumentSigningEmailVerificationSerializer(serializers.Serializer):
+    email = serializers.EmailField(required=True, write_only=True)
+    response_id = serializers.IntegerField(required=True, write_only=True)
+    code = serializers.CharField(required=False, write_only=True)
+    is_verified = serializers.SerializerMethodField()
+
+    def get_is_verified(self, inst):
+        email = inst['email']
+        response = FormDocumentResponse.objects.get(pk=inst['response_id'])
+        signatures = DocumentSignature.objects.filter(
+            content_type=response.get_ct(), object_id=response.pk
+        )
+        persons = [s.person for s in signatures]
+
+        results = filter(lambda x: x.email == email and x.is_email_verified is True, persons)
+        return len(results) > 0
+
+    def send_email_verification_code(self):
+        email = self.validated_data['email']
+        response = FormDocumentResponse.objects.get(
+            pk=self.validated_data['response_id'])
+
+        signatures = DocumentSignature.objects.filter(
+            content_type=response.get_ct(), object_id=response.pk
+        )
+        person_query = signatures.filter(person__email=email)
+        person = None
+        if not person_query.exists():
+            person = Person.objects.create(email=email)
+            signature = DocumentSignature.objects.create(
+                content_type=response.get_ct(),
+                object_id=response.pk,
+                person=person
+            )
+
+            signature.save()
+            person.send_email_verification_code()
+        else:
+            person.send_email_verification_code()
+
+        return True
+
+    def verify_email_code(self):
+        email = self.validated_data['email']
+        code = self.validated_data['code']
+        response = FormDocumentResponse.objects.get(
+            pk=self.validated_data['response_id'])
+        signature = DocumentSignature.objects.filter(
+            content_type=response.get_ct(), object_id=response.pk,
+            person__email=email
+        ).get()
+
+        person = signature.person
+        if person.verify_email_verification_code(code):
+            person.set_email_verified()

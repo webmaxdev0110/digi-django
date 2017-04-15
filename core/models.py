@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 
-
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -47,3 +47,25 @@ class YesNoStatusField(models.Model):
 
     class Meta:
         abstract = True
+
+
+class SelfAwareModel(models.Model):
+    """Model that is aware of its own ContentType"""
+
+    class Meta(object):
+        abstract = True
+
+    @classmethod
+    def get_ct(cls):
+        """Returns the ContentType for this model"""
+        return ContentType.objects.get_for_model(cls)
+
+    def get_ct_id(self):
+        """Returns the ContentType.id for this model"""
+        return self.get_ct().pk
+
+    def get_app_label(self):
+        return self.get_ct().app_label
+
+    def get_model_name(self):
+        return self.get_ct().model_name

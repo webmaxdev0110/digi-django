@@ -1,0 +1,22 @@
+{% extends 'emails/base/base_email.html' %}
+{% load static %}
+
+{% block body_content %}
+    <div class="site-heading-row">
+      <a href="{% url 'cms_blog_home' %}" class="logo nav-logo-wrapper">
+          <img class="logo-img" src="{{ PERMANENT_MEDIA_URL }}email/logo_colour_tagline_w175x2.png" width="175" style="width:175px;" />
+      </a>
+    </div>
+    <table>
+        <tr>
+            <td>
+                <h3>{{ subject }}</h3>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Your email verification code is {{ code }}</p>
+            </td>
+        </tr>
+    </table>
+{% endblock %}
