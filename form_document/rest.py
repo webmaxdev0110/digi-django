@@ -199,7 +199,7 @@ class SigningVerificationViewSet(GenericViewSet):
     serializer_class = FormDocumentSigningEmailVerificationSerializer
     queryset = FormDocumentResponse.objects
 
-    @list_route(methods=['get'])
+    @list_route(methods=['get'], permission_classes=(AllowAny,))
     def check_email(self, request):
         s = FormDocumentSigningEmailVerificationSerializer(data=request.GET)
         s.is_valid(raise_exception=True)
@@ -208,14 +208,14 @@ class SigningVerificationViewSet(GenericViewSet):
             s.data,
             status=status.HTTP_200_OK)
 
-    @list_route(methods=['post'])
+    @list_route(methods=['post'], permission_classes=(AllowAny,))
     def request_email_verification_code(self, request):
         s = FormDocumentSigningEmailVerificationSerializer(data=request.data)
         s.is_valid(raise_exception=True)
         s.send_email_verification_code()
         return Response(status=status.HTTP_200_OK)
 
-    @list_route(methods=['post'])
+    @list_route(methods=['post'], permission_classes=(AllowAny,))
     def verify_email_code(self, request):
         s = FormDocumentSigningEmailVerificationSerializer(data=request.data)
         s.is_valid(raise_exception=True)
