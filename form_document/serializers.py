@@ -78,6 +78,7 @@ class FormDocumentDetailSerializer(ModelSerializer):
     is_access_code_protected = serializers.BooleanField(read_only=True)
     form_data = serializers.SerializerMethodField()
     document_mapping = serializers.SerializerMethodField()
+    subdomain = serializers.CharField(source='owner.site.domain', read_only=True)
 
     class Meta:
         model = FormDocumentTemplate
@@ -91,6 +92,7 @@ class FormDocumentDetailSerializer(ModelSerializer):
             'document_mapping',
             'assets_urls',
             'is_access_code_protected',
+            'subdomain',
         )
 
     def get_assets_urls(self, instance):
@@ -369,4 +371,3 @@ class FormDocumentResponseResumeLinkSerializer(serializers.Serializer):
             form_title
         )
         return validated_data
-
