@@ -56,6 +56,7 @@ class FormDocumentTemplate(TimeStampedModel, StatusModel):
     access_code = models.CharField(max_length=4, null=True)
     owner = models.ForeignKey(User, help_text='The owner of this document')
     cached_sha1 = models.CharField(max_length=40, blank=True)
+    number_of_pages = models.PositiveSmallIntegerField(default=0)
 
     def __unicode__(self):
         return '<FormDocumentTemplate: {0}>'.format(self.title[:16])
@@ -99,6 +100,8 @@ class FormDocumentTemplate(TimeStampedModel, StatusModel):
             with open(original_document.name, 'rb') as original_document_file:
                 pdf = pyPdf.PdfFileReader(original_document_file)
                 number_of_pages = pdf.getNumPages()
+            self.number_of_pages = number_of_pages
+            self.save()
             # todo: Resolution can be decided depending on
             # the size of the document
 

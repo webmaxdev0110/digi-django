@@ -33,6 +33,18 @@ class FormDocumentRestAPITestCase(APITestCase):
         self.assertEqual(actual.status_code, 200)
         form_data = actual.json()['form_data']
         self.assertIsNotNone(form_data)
+        excepted_keys = [
+            u'assets_urls',
+            u'title',
+            u'number_of_pages',
+            u'slug',
+            u'form_config',
+            u'form_data',
+            u'document_mapping',
+            u'id'
+        ]
+
+        self.assertListEqual(excepted_keys, actual.json().keys())
 
     def test_access_code_protected_form(self):
         # Test Anonymous access needs access_code

@@ -15,6 +15,7 @@ class FormDocumentTemplateAdminForm(ModelForm):
 class FormDocumentTemplateAdmin(admin.ModelAdmin):
     form = FormDocumentTemplateAdminForm
     readonly_fields = (
+        'number_of_pages',
         'document_mapping',
         'form_config',
         'cached_form',
