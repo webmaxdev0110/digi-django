@@ -17,13 +17,15 @@ GENDER_CHOICES = (
 # Create your models here.
 class Person(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    first_name = models.CharField(max_length=90)
-    last_name = models.CharField(max_length=90)
+    first_name = models.CharField(max_length=90, blank=True)
+    last_name = models.CharField(max_length=90, blank=True)
     middle_name = models.CharField(max_length=90, blank=True)
     date_of_birth = models.DateField(null=True)
     gender = models.PositiveSmallIntegerField(choices=GENDER_CHOICES, blank=True, null=True)
     mobile_number = models.CharField(max_length=32, blank=True)
     email = models.CharField(max_length=128, blank=True)
+    is_email_verified = models.BooleanField(default=False)
+    email_verification_code = models.CharField(blank=True, default='', max_length=16)
 
 
 class Location(models.Model):
