@@ -13,4 +13,5 @@ class PersonSerializer(serializers.ModelSerializer):
             'date_of_birth',
             'gender',
             'mobile_number',
+            'is_email_verified',
         )
