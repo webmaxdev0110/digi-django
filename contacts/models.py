@@ -22,6 +22,7 @@ class Person(models.Model):
     first_name = models.CharField(max_length=90, blank=True)
     last_name = models.CharField(max_length=90, blank=True)
     middle_name = models.CharField(max_length=90, blank=True)
+    display_name = models.CharField(max_length=128, blank=True)
     date_of_birth = models.DateField(null=True)
     gender = models.PositiveSmallIntegerField(choices=GENDER_CHOICES, blank=True, null=True)
     mobile_number = models.CharField(max_length=32, blank=True)
