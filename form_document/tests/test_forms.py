@@ -319,7 +319,6 @@ class FormResponseRestAPITestCase(APITestCase):
             'email': test_email,
             'form_continue_url': 'http://{0}/form_continue/url'.format(self.template_no_pass.owner.site.domain),
         }, HTTP_ORIGIN=self.template_no_pass.owner.site.domain, format='json')
-
         self.assertEqual(answer_response.status_code, 201)
         self.assertEqual(len(mail.outbox), 1)
 
@@ -339,9 +338,11 @@ class FormResponseRestAPITestCase(APITestCase):
         cached_form = self.template_no_pass.compile_form()
         empty_response = cached_form.create_empty_response()
         test_email = 'test@example.com'
+        test_name = 'John Smith'
         answer_response = self.client.post(url, {
             'response_id': empty_response.pk,
             'email': test_email,
+            'display_name': test_name,
         }, format='json')
 
         self.assertEqual(answer_response.status_code, 200)
@@ -351,6 +352,7 @@ class FormResponseRestAPITestCase(APITestCase):
         # New person should be created
         persons = Person.objects.filter(email=test_email)
         self.assertEqual(persons.count(), 1)
+        self.assertEqual(persons[0].display_name, test_name)
 
         # Email should contain the verification code
         verification_code = persons[0].email_verification_code
