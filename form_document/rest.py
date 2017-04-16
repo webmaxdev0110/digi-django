@@ -126,6 +126,8 @@ class FormDocumentResponseViewSet(viewsets.ModelViewSet):
             return self.serializer_class
 
     def get_queryset(self):
+        if self.action == 'update':
+            return FormDocumentResponse.objects.filter(id=self.request.data['session_id'])
         # All the forms owned by this user
         owned_form_ids = FormDocumentTemplate.objects.filter(
             owner=self.request.user).values_list('id', flat=True)
@@ -153,7 +155,8 @@ class FormDocumentResponseViewSet(viewsets.ModelViewSet):
         return kwargs
 
     def get_permissions(self):
-        if self.action == 'create':
+        # todo: Security review
+        if self.action == 'create' or self.action == 'update':
             return (AllowAny(),)
         else:
             return super(FormDocumentResponseViewSet, self).get_permissions()
