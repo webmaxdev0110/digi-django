@@ -128,6 +128,9 @@ class FormDocumentResponseViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         if self.action == 'update':
             return FormDocumentResponse.objects.filter(id=self.request.data['session_id'])
+        elif self.action == 'retrieve':
+            # todo: Security check! If the form is closed, remove the public access
+            return FormDocumentResponse.objects.filter(id=self.kwargs['pk'])
         # All the forms owned by this user
         owned_form_ids = FormDocumentTemplate.objects.filter(
             owner=self.request.user).values_list('id', flat=True)
@@ -156,7 +159,7 @@ class FormDocumentResponseViewSet(viewsets.ModelViewSet):
 
     def get_permissions(self):
         # todo: Security review
-        if self.action == 'create' or self.action == 'update':
+        if self.action == 'create' or self.action == 'update' or self.action == 'retrieve':
             return (AllowAny(),)
         else:
             return super(FormDocumentResponseViewSet, self).get_permissions()
