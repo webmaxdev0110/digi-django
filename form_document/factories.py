@@ -23,7 +23,7 @@ class SimpleFormDocumentTemplateFactory(factory.DjangoModelFactory):
         )
     )
     form_data = {
-        'questions': 'test'
+        'questions': []
     }
     document_mapping = {}
     form_config = {}
