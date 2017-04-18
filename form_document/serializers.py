@@ -197,6 +197,20 @@ class FixedFormDocumentSerializer(FormDocumentDetailSerializer):
         return None
 
 
+class FormDocumentResponseAttachmentDetailSerializer(serializers.ModelSerializer):
+    file_name = serializers.CharField(read_only=True, source='attachment_file_name')
+    file_size = serializers.CharField(read_only=True, source='attachment.size')
+    file_url = serializers.CharField(read_only=True, source='attachment.url')
+
+    class Meta:
+        model = FormDocumentResponseAttachment
+        fields = (
+            'file_name',
+            'file_size',
+            'file_url',
+        )
+
+
 class FormDocumentResponseSerializer(ModelSerializer):
     response_id = serializers.ReadOnlyField(source='pk')
     form_id = serializers.ReadOnlyField(source='form_document.pk')
@@ -206,8 +220,10 @@ class FormDocumentResponseSerializer(ModelSerializer):
     sent_channel = serializers.SerializerMethodField()
     type = serializers.SerializerMethodField()
     duration_seconds = serializers.SerializerMethodField()
+    contact_name = serializers.SerializerMethodField()
     contact_email = serializers.SerializerMethodField()
     contact_phone = serializers.SerializerMethodField()
+    attachments = FormDocumentResponseAttachmentDetailSerializer(many=True, read_only=True)
 
 
     class Meta:
@@ -223,13 +239,19 @@ class FormDocumentResponseSerializer(ModelSerializer):
             'status',
             'type',
             'duration_seconds',
+            'contact_name',
             'contact_email',
             'contact_phone',
+            'attachments',
         )
 
-
     def get_completion_percent(self, instance):
-        pass
+        cached_form = instance.cached_form
+        try:
+            return float(instance.get_num_of_completed_questions()) / cached_form.get_num_of_questions()
+        except ZeroDivisionError:
+            return 0
+
 
     def get_completed_by_name(self, instance):
         pass
@@ -241,6 +263,9 @@ class FormDocumentResponseSerializer(ModelSerializer):
         pass
 
     def get_duration_seconds(self, instance):
+        pass
+
+    def get_contact_name(self, instance):
         pass
 
     def get_contact_email(self, instance):

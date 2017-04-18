@@ -7,7 +7,7 @@ from rest_framework.test import (
 from accounts.factories import UserFactory
 from contacts.models import Person
 from core.constants import StatusChoices
-from form_document.factories import FormDocumentTemplateFactory
+from form_document.factories import SimpleFormDocumentTemplateFactory, ApplicationFormDocumentTemplateFactory
 from form_document.models import (
     FixedFormDocument,
     FormDocumentTemplate,
@@ -21,8 +21,8 @@ from django.core import mail
 class FormDocumentRestAPITestCase(APITestCase):
 
     def setUp(self):
-        self.template_no_pass = FormDocumentTemplateFactory.create()
-        self.template = FormDocumentTemplateFactory.create(access_code='1234')
+        self.template_no_pass = SimpleFormDocumentTemplateFactory.create()
+        self.template = SimpleFormDocumentTemplateFactory.create(access_code='1234')
 
     def tearDown(self):
         FormDocumentTemplate.objects.all().delete()
@@ -171,7 +171,7 @@ class FormDocumentRestAPITestCase(APITestCase):
         # Change the form template again
         url = reverse('api_form:formdocumenttemplate-detail', args=(form_id,))
 
-        updated_data = {'form_data': {'empty': True}}
+        updated_data = {'form_data': {'questions': [{'type': 'QuestionType'}]}}
         actual = self.client.put(url, updated_data, format='json', HTTP_ORIGIN=form.owner.site.domain)
         self.assertEqual(actual.status_code, 200)
         # cached_form should be invalidated
@@ -208,7 +208,7 @@ class FormDocumentRestAPITestCase(APITestCase):
 class FormResponseRestAPITestCase(APITestCase):
 
     def setUp(self):
-        self.template_no_pass = FormDocumentTemplateFactory.create()
+        self.template_no_pass = SimpleFormDocumentTemplateFactory.create()
 
     def test_anonymous_user_can_submit_form(self):
         answer_response = self.client.post(reverse('api_form:formdocumentresponse-list'), {
@@ -380,3 +380,40 @@ class FormResponseRestAPITestCase(APITestCase):
         }
 
         self.assertDictContainsSubset(expected, email_check_response.json())
+
+    def test_form_response_detail_api(self):
+        template = ApplicationFormDocumentTemplateFactory.create()
+        cached_form = template.compile_form()
+        response = cached_form.create_empty_response()
+        response.answers = [{
+            'id': 1,
+            'value': 'John'
+        }]
+        response.save()
+        detail_url = reverse('api_form:formdocumentresponse-detail', args=(response.pk,))
+        attachment = SimpleUploadedFile(
+            "file_attachment.pdf",
+            "file_content", content_type="application/pdf")
+
+        response_attachment = FormDocumentResponseAttachment(
+            attachment=attachment,
+            response=response
+        )
+        response_attachment.save()
+        form_response_detail = self.client.get(detail_url)
+        response_json = form_response_detail.json()
+
+        # Test completion percent
+        self.assertAlmostEqual(0.1, response_json['completion_percent'])
+        
+        # Test contact_name
+        # Test contact_phone
+        # Test contact_email
+        # Test attachments
+        attachments = response_json['attachments']
+        self.assertEqual(1, len(attachments))
+        attachment = attachments[0]
+        keys = attachment.keys()
+        self.assertIn('file_name', keys)
+        self.assertIn('file_size', keys)
+        self.assertIn('file_url', keys)

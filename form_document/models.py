@@ -156,9 +156,9 @@ class FixedFormDocument(TimeStampedModel):
         storage=get_document_storage(),
         max_length=255,
         help_text='The document uploaded used for populating after a form is completed')
-    form_data = JSONField(null=True)  # All the form data
+    form_data = JSONField(null=True, default=dict)  # All the form data
     # example {1: {type:'standard', positions:[bbox:[0, 0, 10, 10], page:1]}}
-    document_mapping = JSONField(default={})
+    document_mapping = JSONField(default=dict)
     form_config = JSONField(null=True)
     template = models.ForeignKey(FormDocumentTemplate)
 
@@ -169,6 +169,16 @@ class FixedFormDocument(TimeStampedModel):
             form_document=self.template,
             cached_form=self,
             answers={}
+        )
+
+    def get_num_of_questions(self):
+        if not self.form_data:
+            return 0
+        questions = self.form_data.get('questions', None)
+        if questions is None:
+            return 0
+        return len(
+            filter(lambda x: x.get('type', '').lower() != 'group', questions)
         )
 
 
@@ -263,6 +273,9 @@ class FormDocumentResponse(TimeStampedModel, SelfAwareModel):
         verbose_name = 'FormResponse'
         verbose_name_plural = 'FormResponses'
 
+    def get_num_of_completed_questions(self):
+        answers = self.answers or []
+        return len(answers)
 
 def form_document_attachment_path(instance, filename):
     # documents/users/<user_pk>/templates/<template_id>/history/<FixedFormDocument_id>/attachments/file_name.ext
@@ -276,7 +289,7 @@ def form_document_attachment_path(instance, filename):
 
 class FormDocumentResponseAttachment(models.Model):
     attachment = models.FileField(upload_to=form_document_attachment_path)
-    response = models.ForeignKey(FormDocumentResponse)
+    response = models.ForeignKey(FormDocumentResponse, related_name='attachments')
 
     class Meta:
         verbose_name = 'FormDocumentResponseAttachment'
