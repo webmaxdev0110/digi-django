@@ -171,7 +171,7 @@ class FormDocumentRestAPITestCase(APITestCase):
         # Change the form template again
         url = reverse('api_form:formdocumenttemplate-detail', args=(form_id,))
 
-        updated_data = {'form_data': {'empty': True}}
+        updated_data = {'form_data': {'questions': [{'type': 'QuestionType'}]}}
         actual = self.client.put(url, updated_data, format='json', HTTP_ORIGIN=form.owner.site.domain)
         self.assertEqual(actual.status_code, 200)
         # cached_form should be invalidated
