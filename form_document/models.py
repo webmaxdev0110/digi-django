@@ -276,7 +276,7 @@ def form_document_attachment_path(instance, filename):
 
 class FormDocumentResponseAttachment(models.Model):
     attachment = models.FileField(upload_to=form_document_attachment_path)
-    response = models.ForeignKey(FormDocumentResponse)
+    response = models.ForeignKey(FormDocumentResponse, related_name='attachments')
 
     class Meta:
         verbose_name = 'FormDocumentResponseAttachment'
