@@ -8,7 +8,7 @@ class PersonAdmin(ModelAdmin):
     list_display = (
         'first_name',
         'last_name',
-        'middle_name',
+        'display_name',
         'email',
         'date_of_birth',
         'email',

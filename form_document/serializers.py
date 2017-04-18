@@ -379,6 +379,7 @@ class FormDocumentSigningEmailVerificationSerializer(serializers.Serializer):
     email = serializers.EmailField(required=True, write_only=True)
     response_id = serializers.IntegerField(required=True, write_only=True)
     code = serializers.CharField(required=False, write_only=True)
+    display_name = serializers.CharField(required=False, write_only=True)
     is_verified = serializers.SerializerMethodField()
 
     def get_is_verified(self, inst):
@@ -394,6 +395,7 @@ class FormDocumentSigningEmailVerificationSerializer(serializers.Serializer):
 
     def send_email_verification_code(self):
         email = self.validated_data['email']
+        display_name = self.validated_data['display_name']
         response = FormDocumentResponse.objects.get(
             pk=self.validated_data['response_id'])
 
@@ -401,9 +403,11 @@ class FormDocumentSigningEmailVerificationSerializer(serializers.Serializer):
             content_type=response.get_ct(), object_id=response.pk
         )
         person_query = signatures.filter(person__email=email)
-        person = None
         if not person_query.exists():
-            person = Person.objects.create(email=email)
+            person = Person.objects.create(
+                email=email,
+                display_name=display_name
+            )
             signature = DocumentSignature.objects.create(
                 content_type=response.get_ct(),
                 object_id=response.pk,
