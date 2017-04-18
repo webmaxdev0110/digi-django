@@ -171,6 +171,14 @@ class FixedFormDocument(TimeStampedModel):
             answers={}
         )
 
+    def get_num_of_questions(self):
+        questions = self.form_data.get('questions', None)
+        if questions is None:
+            return 0
+        return len(
+            filter(lambda x: x.get('type', '').lower() != 'group', questions)
+        )
+
 
 def form_document_template_uploaded_document_preview_path(instance, file_path):
     # documents/users/<user_pk>/templates/<template_id>/previews/file_name.ext
@@ -263,6 +271,9 @@ class FormDocumentResponse(TimeStampedModel, SelfAwareModel):
         verbose_name = 'FormResponse'
         verbose_name_plural = 'FormResponses'
 
+    def get_num_of_completed_questions(self):
+        answers = self.answers or []
+        return len(answers)
 
 def form_document_attachment_path(instance, filename):
     # documents/users/<user_pk>/templates/<template_id>/history/<FixedFormDocument_id>/attachments/file_name.ext
