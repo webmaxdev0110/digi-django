@@ -321,6 +321,7 @@ class FormDocumentLink(TimeStampedModel):
     the form or not
     """
     form_response = models.OneToOneField(FormDocumentResponse, null=True)
+    form_template = models.ForeignKey(FormDocumentTemplate, null=True)
     receiver_person = models.ForeignKey(Person, null=True)
     from_user = models.ForeignKey(User)
     sending_method = models.IntegerField(
