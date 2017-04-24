@@ -269,6 +269,9 @@ class FormDocumentResponse(TimeStampedModel, SelfAwareModel):
     answers = JSONField()
     status = models.SmallIntegerField(choices=FORM_COMPLETION_STATUS, default=FormCompletionStatus.UNOPENED)
 
+    def __unicode__(self):
+        return 'FormDocumentResponse:{0} - Form:{1}'.format(self.pk, self.form_document.pk)
+
     class Meta:
         verbose_name = 'FormResponse'
         verbose_name_plural = 'FormResponses'
