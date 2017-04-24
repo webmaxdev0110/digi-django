@@ -8,7 +8,7 @@ from form_document.rest import (
     FormDocumentResponseViewSet,
     SigningVerificationViewSet,
 )
-
+from form_document.views import FormTrackingUrlRedirectView
 
 api_urlpatterns = [
 ]
@@ -25,4 +25,7 @@ api_urlpatterns += router.urls
 
 urlpatterns = [
     url(r'^api/', include(api_urlpatterns, namespace='api_form')),
+    url(r't/(?P<form_link_hash>.+)$',
+        FormTrackingUrlRedirectView.as_view(),
+        name='form_tracking_redirect_view')
 ]
