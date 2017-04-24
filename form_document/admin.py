@@ -2,9 +2,13 @@ from django.contrib import admin
 from django.contrib.admin.widgets import AdminFileWidget
 from django.forms import ModelForm
 from django import forms
-
-
-from .models import FormDocumentTemplate, FormDocumentUserShare, FormDocumentCompanyShare, FormDocumentResponse
+from .models import (
+    FormDocumentTemplate,
+    FormDocumentUserShare,
+    FormDocumentCompanyShare,
+    FormDocumentResponse,
+    FormDocumentLink,
+)
 
 
 class FormDocumentTemplateAdminForm(ModelForm):
@@ -22,8 +26,12 @@ class FormDocumentTemplateAdmin(admin.ModelAdmin):
     )
 
 
+class FormDocumentLinkAdmin(admin.ModelAdmin):
+    pass
+
 
 admin.site.register(FormDocumentTemplate, FormDocumentTemplateAdmin)
 admin.site.register(FormDocumentUserShare)
 admin.site.register(FormDocumentCompanyShare)
 admin.site.register(FormDocumentResponse)
+admin.site.register(FormDocumentLink, FormDocumentLinkAdmin)
