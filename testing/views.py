@@ -8,7 +8,6 @@ from emails.apis import render_html_email
 class EmailTestingView(View):
 
     def get(self, request, *args, **kwargs):
-        template_name = 'emails/{0}/html_content.html'.format(self.kwargs['file_name'])
         context = {}
         try:
             context_json = self.kwargs['context_json']
@@ -18,7 +17,5 @@ class EmailTestingView(View):
         except StandardError:
             pass
 
-        result_str = render_html_email(template_name, context)
+        result_str = render_html_email(self.kwargs['file_name'], context)
         return HttpResponse(result_str)
-
-
