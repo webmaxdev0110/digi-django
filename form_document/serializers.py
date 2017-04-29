@@ -87,6 +87,7 @@ class FormDocumentDetailSerializer(ModelSerializer):
             'id',
             'title',
             'slug',
+            'status',
             'uploaded_document',
             'form_data',
             'form_config',
