@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
+from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
 
 from core.constants import (
@@ -69,3 +70,14 @@ class SelfAwareModel(models.Model):
 
     def get_model_name(self):
         return self.get_ct().model_name
+
+
+class ArchiveMixin(models.Model):
+    archived_on = models.DateTimeField(null=True)
+
+    class Meta:
+        abstract = True
+
+    def archive(self):
+        self.archived_on = now()
+        self.save()
