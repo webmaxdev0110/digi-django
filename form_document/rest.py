@@ -1,3 +1,4 @@
+from rest_framework import filters
 from rest_framework import mixins
 from rest_framework import status
 from rest_framework import viewsets
@@ -76,6 +77,15 @@ class FormDocumentViewSet(viewsets.ModelViewSet):
     pagination_class = get_pagination_class(page_size=10)
     parser_classes = (MultiPartParser, FormParser, JSONParser,)
     serializer_class = FormDocumentTemplateListSerializer
+    filter_backends = (filters.OrderingFilter,)
+    ordering_fields = (
+        'id',
+        'title',
+        'slug',
+        'created',
+        'created_by',
+        'status',
+    )
 
     def get_object_kwarg(self):
         kwargs = {}
