@@ -46,6 +46,15 @@ class FormDocumentRestAPITestCase(APITestCase):
         expected_keys = ['id', 'slug', 'title', 'created', 'created_by', 'status']
         self.assertItemsEqual(expected_keys, first_data_obj.keys())
 
+        # Test order by id
+        url = reverse('api_form:formdocumenttemplate-list')
+        response = self.client.get(url, data={
+            'ordering': 'id'
+        })
+        response_json = response.json()
+        self.assertGreater(response_json['data'][1]['id'], response_json['data'][0]['id'])
+
+
     def test_anonymous_user_can_retrieve_form(self):
         url = reverse('api_form:form_retrieval-detail', args=(self.template_no_pass.pk,))
         site = self.template.owner.site
