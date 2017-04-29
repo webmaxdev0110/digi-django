@@ -30,6 +30,22 @@ class FormDocumentRestAPITestCase(APITestCase):
     def tearDown(self):
         FormDocumentTemplate.objects.all().delete()
 
+    def test_anonymous_user_can_not_list_forms(self):
+        url = reverse('api_form:formdocumenttemplate-list')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 403)
+
+    def test_list_form_document_templates(self):
+        url = reverse('api_form:formdocumenttemplate-list')
+        owner = self.template.owner
+        self.client.force_login(owner)
+        response = self.client.get(url)
+        response_json = response.json()
+        self.assertItemsEqual(['count', 'data', 'next', 'previous'], response_json.keys())
+        first_data_obj = response_json['data'][0]
+        expected_keys = ['id', 'slug', 'title', 'created', 'created_by', 'status']
+        self.assertItemsEqual(expected_keys, first_data_obj.keys())
+
     def test_anonymous_user_can_retrieve_form(self):
         url = reverse('api_form:form_retrieval-detail', args=(self.template_no_pass.pk,))
         site = self.template.owner.site
