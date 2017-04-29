@@ -73,8 +73,6 @@ class FormDocumentRestAPITestCase(APITestCase):
         template = FormDocumentTemplate.objects.get(pk=template_id)
         self.assertIsNotNone(template.archived_on)
 
-
-
     def test_anonymous_user_can_retrieve_form(self):
         url = reverse('api_form:form_retrieval-detail', args=(self.template_no_pass.pk,))
         site = self.template.owner.site
