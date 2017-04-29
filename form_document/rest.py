@@ -131,6 +131,11 @@ class FormDocumentViewSet(viewsets.ModelViewSet):
             serializer.data,
             status=status.HTTP_200_OK, headers=headers)
 
+    @detail_route(methods=['delete'])
+    def archive(self, request, pk=None):
+        document = get_object_or_404(FormDocumentTemplate.objects, **{'pk': pk})
+        document.archive()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class FormDocumentResponseViewSet(viewsets.ModelViewSet):
