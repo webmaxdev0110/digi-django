@@ -13,6 +13,7 @@ from wand.image import Image
 from accounts.models import User, Company
 from contacts.models import Person
 from core.models import TimeStampedModel, StatusModel, SelfAwareModel
+from core.managers import ArchiveModelQuerySet
 import os
 import pyPdf
 from django.core.files import File
@@ -46,7 +47,7 @@ class DocumentSignature(TimeStampedModel):
 
 
 
-class FormDocumentTemplate(TimeStampedModel, StatusModel):
+class FormDocumentTemplate(TimeStampedModel, ArchiveMixin, StatusModel):
     """
     Represents a form document created by an user
     The form should be accessible by document owner,
@@ -65,7 +66,7 @@ class FormDocumentTemplate(TimeStampedModel, StatusModel):
     # example {1: {type:'standard', positions:[bbox:[0, 0, 10, 10], page:1]}}
     document_mapping = JSONField(default={})
     cached_form = models.ForeignKey('FixedFormDocument', null=True)
-
+    objects = ArchiveModelQuerySet.as_manager()
     form_config = JSONField(null=True)
     access_code = models.CharField(max_length=4, null=True)
     owner = models.ForeignKey(User, help_text='The owner of this document')
