@@ -12,8 +12,13 @@ from wand.color import Color
 from wand.image import Image
 from accounts.models import User, Company
 from contacts.models import Person
-from core.models import TimeStampedModel, StatusModel, SelfAwareModel
 from core.managers import ArchiveModelQuerySet
+from core.models import (
+    TimeStampedModel,
+    StatusModel,
+    SelfAwareModel,
+    ArchiveMixin,
+)
 import os
 import pyPdf
 from django.core.files import File

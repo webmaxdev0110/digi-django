@@ -17,9 +17,6 @@ from rest_framework.permissions import (
 )
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
-
-from contacts.serializers import PersonSerializer
-from core.constants import StatusChoices
 from core.hash_utils import sha1_file
 from core.rest_pagination import get_pagination_class
 from core.site_utils import get_site_from_request_origin
@@ -28,7 +25,7 @@ from form_document.constants import FormCompletionStatus
 from .models import (
     FormDocumentTemplate,
     FormDocumentResponse,
-    FormDocumentResponseAttachment, FormDocumentLink)
+)
 from .serializers import (
     FormDocumentTemplateListSerializer,
     FormDocumentDetailSerializer,
