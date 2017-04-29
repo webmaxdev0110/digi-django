@@ -71,7 +71,7 @@ class FormDocumentRetrieveViewSet(mixins.RetrieveModelMixin, GenericViewSet):
         return obj.cached_form
 
 
-class FormDocumentCreateUpdateViewSet(viewsets.ModelViewSet):
+class FormDocumentViewSet(viewsets.ModelViewSet):
     queryset = FormDocumentTemplate.objects.all()
     pagination_class = get_pagination_class(page_size=10)
     parser_classes = (MultiPartParser, FormParser, JSONParser,)
