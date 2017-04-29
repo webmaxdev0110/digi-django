@@ -22,6 +22,7 @@ from core.constants import StatusChoices
 from core.hash_utils import sha1_file
 from core.rest_pagination import get_pagination_class
 from core.site_utils import get_site_from_request_origin
+from form_document.apis import email_trackable_form_submission_link
 from form_document.constants import FormCompletionStatus
 from .models import (
     FormDocumentTemplate,
@@ -37,7 +38,7 @@ from .serializers import (
     FormDocumentResponseResumeLinkSerializer,
     FixedFormDocumentSerializer,
     FormDocumentSigningEmailVerificationSerializer,
-)
+    FormDocumentLinkSerializer)
 
 
 class FormDocumentRetrieveViewSet(mixins.RetrieveModelMixin, GenericViewSet):
@@ -104,6 +105,22 @@ class FormDocumentCreateUpdateViewSet(viewsets.ModelViewSet):
             return FormDocumentCreateSerializer
         else:
             return FormDocumentDetailSerializer
+
+    @detail_route(methods=['post'])
+    def email_form_tracking_link(self, request, pk=None):
+        serializer = FormDocumentLinkSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        document = get_object_or_404(FormDocumentTemplate.objects, **{'pk': pk})
+        email_trackable_form_submission_link(
+            document,
+            serializer.validated_data['email'],
+            from_user=request.user
+        )
+        headers = self.get_success_headers(serializer.data)
+        return Response(
+            serializer.data,
+            status=status.HTTP_200_OK, headers=headers)
+
 
 
 class FormDocumentResponseViewSet(viewsets.ModelViewSet):

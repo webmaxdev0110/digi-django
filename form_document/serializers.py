@@ -3,7 +3,7 @@ from django.utils.text import slugify
 from rest_framework.serializers import (
     ModelSerializer,
     CurrentUserDefault,
-)
+    Serializer)
 from rest_framework import serializers
 
 from contacts.models import Person
@@ -132,6 +132,10 @@ class FormDocumentDetailSerializer(ModelSerializer):
         if self._is_access_code_verified(instance):
             return instance.document_mapping
         return None
+
+
+class FormDocumentLinkSerializer(Serializer):
+    email = serializers.EmailField(write_only=True)
 
 
 class FixedFormDocumentSerializer(FormDocumentDetailSerializer):

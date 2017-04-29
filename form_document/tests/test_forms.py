@@ -6,8 +6,10 @@ from rest_framework.test import (
 )
 from accounts.factories import UserFactory
 from contacts.models import Person
-from core.constants import StatusChoices
-from form_document.factories import SimpleFormDocumentTemplateFactory, ApplicationFormDocumentTemplateFactory
+from form_document.factories import (
+    SimpleFormDocumentTemplateFactory,
+    ApplicationFormDocumentTemplateFactory,
+)
 from form_document.models import (
     FixedFormDocument,
     FormDocumentTemplate,
@@ -16,6 +18,7 @@ from form_document.models import (
 )
 import random
 from django.core import mail
+import mock
 
 
 class FormDocumentRestAPITestCase(APITestCase):
@@ -203,6 +206,20 @@ class FormDocumentRestAPITestCase(APITestCase):
         self.assertEqual(actual.status_code, 200)
         updated_form_document = FormDocumentTemplate.objects.get(pk=self.template_no_pass.pk)
         self.assertDictContainsSubset(updated_form_document.form_data, {'empty': True})
+
+    @override_settings(CELERY_ALWAYS_EAGER=True)
+    @mock.patch("form_document.tasks.send_trackable_form_link_email.delay")
+    def test_email_trackable_form_link(self, send):
+        owner = self.template_no_pass.owner
+        self.client.force_login(owner)
+        url = reverse(
+            'api_form:formdocumenttemplate-email-form-tracking-link',
+            args=(self.template_no_pass.pk,))
+        response = self.client.post(url, {
+            'email': 'test@example.com'
+        }, format='json')
+        self.assertEqual(response.status_code, 200)
+        send.assert_called_once()
 
 
 class FormResponseRestAPITestCase(APITestCase):

@@ -20,6 +20,7 @@ from core.core_storages import (
     owner_document_path,
     get_document_storage,
 )
+from core.utils import rand_string
 from form_document.constants import (
     FORM_SENDING_METHOD_CHOICES,
     FormSendingMethod,
@@ -324,6 +325,9 @@ class FormDocumentLink(TimeStampedModel):
     the form or not
     """
     form_response = models.OneToOneField(FormDocumentResponse, null=True)
+
+    # Have a form_template here so we do not need to create an empty
+    # form_response when creating the link object
     form_template = models.ForeignKey(FormDocumentTemplate, null=True)
     receiver_person = models.ForeignKey(Person, null=True)
     from_user = models.ForeignKey(User)
@@ -331,3 +335,13 @@ class FormDocumentLink(TimeStampedModel):
         choices=FORM_SENDING_METHOD_CHOICES, default=FormSendingMethod.DIRECT
     )
     hash = models.CharField(max_length=128)
+
+    @classmethod
+    def create_link_for_form(cls, form, from_user, method=FormSendingMethod.EMAIL):
+        return cls.objects.create(**{
+            'form_template': form,
+            'hash': rand_string(length=32),
+            'from_user': from_user,
+            'sending_method': method
+        })
+
