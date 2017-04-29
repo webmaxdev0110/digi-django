@@ -32,7 +32,7 @@ class Person(models.Model):
 
     def send_email_verification_code(self):
         if not self.email_verification_code:
-            self.email_verification_code = rand_string(12)
+            self.email_verification_code = rand_string(4)
             self.save()
         send_email_verification_code(self.email, self.email_verification_code)
 
