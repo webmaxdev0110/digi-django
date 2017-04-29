@@ -54,6 +54,15 @@ class FormDocumentRestAPITestCase(APITestCase):
         response_json = response.json()
         self.assertGreater(response_json['data'][1]['id'], response_json['data'][0]['id'])
 
+    def test_list_form_should_not_contain_archived_objects(self):
+        FormDocumentTemplate.objects.archive()
+        url = reverse('api_form:formdocumenttemplate-list')
+        owner = self.template.owner
+        self.client.force_login(owner)
+        response = self.client.get(url)
+        response_json = response.json()
+        self.assertEqual(len(response_json['data']), 0)
+
     def test_archive_a_form(self):
         template_id = self.template.pk
         url = reverse('api_form:formdocumenttemplate-archive', args=(self.template.pk,))

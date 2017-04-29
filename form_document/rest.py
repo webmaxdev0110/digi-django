@@ -70,7 +70,7 @@ class FormDocumentRetrieveViewSet(mixins.RetrieveModelMixin, GenericViewSet):
 
 
 class FormDocumentViewSet(viewsets.ModelViewSet):
-    queryset = FormDocumentTemplate.objects.all()
+    queryset = FormDocumentTemplate.objects.available()
     pagination_class = get_pagination_class(page_size=10)
     parser_classes = (MultiPartParser, FormParser, JSONParser,)
     serializer_class = FormDocumentTemplateListSerializer
