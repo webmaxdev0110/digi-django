@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'raven.contrib.django.raven_compat',
     'timezone_field',
     'preventconcurrentlogins',
+    'django_csv_exports',
     'billing',
     'anymail',
     'storages',
@@ -364,6 +365,8 @@ ANYMAIL = {
 }
 EMAIL_BACKEND = "anymail.backends.mailgun.MailgunBackend"  # or sendgrid.SendGridBackend, or...
 
+DJANGO_EXPORTS_REQUIRE_PERM = True
+DJANGO_CSV_GLOBAL_EXPORTS_ENABLED = False
 
 # strip settings
 STRIPE_API_KEY = "sk_test_K0xA7NA4cNaG3PRephS9HWLR"
