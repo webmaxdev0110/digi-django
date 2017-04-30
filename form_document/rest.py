@@ -80,7 +80,6 @@ class FormDocumentViewSet(viewsets.ModelViewSet):
         'title',
         'slug',
         'created',
-        'created_by',
         'status',
     )
 
