@@ -35,3 +35,4 @@ stripe==1.37.0
 django-preventconcurrentlogins==0.7
 factory-boy==2.7.0      # todo: dev only dependency
 mock==2.0.0
+django-csv-exports==1.0.3
