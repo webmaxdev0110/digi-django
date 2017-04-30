@@ -133,6 +133,15 @@ class FormDocumentViewSet(viewsets.ModelViewSet):
         document.archive()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+    @detail_route(methods=['post'])
+    def duplicate(self, request, pk=None):
+        document = get_object_or_404(FormDocumentTemplate.objects, **{'pk': pk})
+        new_document = document.duplicate()
+
+        return Response({
+            'id': new_document.pk
+        }, status=status.HTTP_201_CREATED)
+
 
 class FormDocumentResponseViewSet(viewsets.ModelViewSet):
     queryset = FormDocumentResponse.objects

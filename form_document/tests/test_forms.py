@@ -73,6 +73,18 @@ class FormDocumentRestAPITestCase(APITestCase):
         template = FormDocumentTemplate.objects.get(pk=template_id)
         self.assertIsNotNone(template.archived_on)
 
+    def test_duplicate_a_form(self):
+        url = reverse('api_form:formdocumenttemplate-duplicate', args=(self.template.pk,))
+        owner = self.template.owner
+        self.client.force_login(owner)
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, 201)
+        new_form_document_template_id = response.json()['id']
+        new_template = FormDocumentTemplate.objects.get(pk=new_form_document_template_id)
+        self.assertEqual(self.template.form_data, new_template.form_data)
+        self.assertEqual(self.template.form_config, new_template.form_config)
+        self.assertIsNotNone(new_template.uploaded_document)
+
     def test_anonymous_user_can_retrieve_form(self):
         url = reverse('api_form:form_retrieval-detail', args=(self.template_no_pass.pk,))
         site = self.template.owner.site

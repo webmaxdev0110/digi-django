@@ -104,6 +104,29 @@ class FormDocumentTemplate(TimeStampedModel, ArchiveMixin, StatusModel):
             template=self
         )
 
+    def duplicate(self):
+        new_file = None
+        if self.uploaded_document:
+            new_file = File(self.uploaded_document)
+            new_file.name = ntpath.basename(self.uploaded_document.name)
+
+        new_document = FormDocumentTemplate.objects.create(**{
+            'title': 'Duplicate copy of {0}'.format(self.title),
+            'slug': '{0}-{1}'.format(self.slug, rand_string(4)),
+            'form_data': self.form_data,
+            'document_mapping': self.document_mapping,
+            'form_config': self.form_config,
+            'cached_sha1': self.cached_sha1,
+            'uploaded_document': new_file,
+            'number_of_pages': self.number_of_pages,
+            'owner': self.owner,
+        })
+        for preview_obj in self.form_assets.all():
+            preview_obj.duplicate()
+
+        return new_document
+
+
     def is_access_code_protected(self):
         return self.access_code is not None
 
@@ -215,6 +238,17 @@ class FormDocumentTemplateDocumentPreview(models.Model):
     @property
     def owner(self):
         return self.form_document.owner
+
+    def duplicate(self):
+        new_file = File(self.image.read())
+        new_file.name = ntpath.basename(self.image.name)
+        return FormDocumentTemplateDocumentPreview.objects.create(**{
+            'form_document': self.form_document,
+            'image': new_file,
+            'order': self.order,
+            'cached_image_width': self.cached_image_width,
+            'cached_image_height': self.cached_image_height,
+        })
 
 
 class FormDocumentCompanyShare(TimeStampedModel):
