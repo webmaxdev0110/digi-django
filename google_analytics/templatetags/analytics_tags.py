@@ -19,3 +19,13 @@ def include_mixpanel():
     return {
         'include_mixpanel': not settings.DEBUG,
     }
+
+
+
+
+@register.inclusion_tag(
+    'google_analytics/elements/amplitude.html')
+def include_amplitude():
+    return {
+        'include_amplitude': not settings.DEBUG,
+    }
