@@ -3,6 +3,7 @@ import ntpath
 
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
+from django.core.files.base import ContentFile
 from django.core.files.temp import NamedTemporaryFile
 from django.contrib.postgres.fields import (
     JSONField,
@@ -121,8 +122,9 @@ class FormDocumentTemplate(TimeStampedModel, ArchiveMixin, StatusModel):
             'number_of_pages': self.number_of_pages,
             'owner': self.owner,
         })
+
         for preview_obj in self.form_assets.all():
-            preview_obj.duplicate()
+            preview_obj.duplicate(new_document)
 
         return new_document
 
@@ -239,16 +241,16 @@ class FormDocumentTemplateDocumentPreview(models.Model):
     def owner(self):
         return self.form_document.owner
 
-    def duplicate(self):
-        new_file = File(self.image.read())
-        new_file.name = ntpath.basename(self.image.name)
-        return FormDocumentTemplateDocumentPreview.objects.create(**{
-            'form_document': self.form_document,
-            'image': new_file,
-            'order': self.order,
-            'cached_image_width': self.cached_image_width,
-            'cached_image_height': self.cached_image_height,
-        })
+    def duplicate(self, form_document):
+        new_preview_obj = FormDocumentTemplateDocumentPreview()
+        new_file = ContentFile(self.image.read())
+        new_file.name = self.image.name
+        new_preview_obj.image = new_file
+        new_preview_obj.order = self.order
+        new_preview_obj.form_document = form_document
+        new_preview_obj.save()
+
+        return new_preview_obj
 
 
 class FormDocumentCompanyShare(TimeStampedModel):
