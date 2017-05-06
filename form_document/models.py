@@ -8,6 +8,7 @@ from django.contrib.postgres.fields import (
     JSONField,
 )
 from django.db import models
+from wand.color import Color
 from wand.image import Image
 from accounts.models import User, Company
 from contacts.models import Person
@@ -123,7 +124,8 @@ class FormDocumentTemplate(TimeStampedModel, StatusModel):
                 for page in range(number_of_pages):
                     with Image(filename=original_document.name+'[{0}]'.format(page), resolution=90) as img:
                         img_file = NamedTemporaryFile(delete=False, suffix='_{0}.png'.format(page))
-                        img.alpha_channel = False
+                        img.background_color = Color('white')
+                        img.alpha_channel = 'remove'
                         img.save(filename=img_file.name)
                         generated_image_paths.append(img_file.name)
                 for i, image_path in enumerate(generated_image_paths):
