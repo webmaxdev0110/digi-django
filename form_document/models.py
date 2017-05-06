@@ -122,7 +122,7 @@ class FormDocumentTemplate(TimeStampedModel, StatusModel):
             if number_of_pages > 0:
                 generated_image_paths = []
                 for page in range(number_of_pages):
-                    with Image(filename=original_document.name+'[{0}]'.format(page), resolution=90) as img:
+                    with Image(filename=original_document.name+'[{0}]'.format(page), resolution=150) as img:
                         img_file = NamedTemporaryFile(delete=False, suffix='_{0}.png'.format(page))
                         img.background_color = Color('white')
                         img.alpha_channel = 'remove'
