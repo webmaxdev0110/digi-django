@@ -12,9 +12,19 @@ def list_all_documents_by_user(user):
     pass
 
 
-def email_trackable_form_submission_link(form_document, to_email, from_user):
+def email_trackable_form_submission_link(form_document, to_email, from_user, first_name):
     link_obj = FormDocumentLink.create_link_for_form(form_document, from_user, method=FormSendingMethod.EMAIL)
     form_tracking_url = reverse('form_tracking_redirect_view', kwargs={
         'form_link_hash': link_obj.hash,
     })
-    send_trackable_form_link_email.delay(form_tracking_url, to_email)
+    if from_user.company:
+        company_name = from_user.company.title
+    else:
+        company_name = ''
+    send_trackable_form_link_email.delay(
+        form_tracking_url,
+        to_email,
+        form_document.title,
+        company_name,
+        first_name,
+    )

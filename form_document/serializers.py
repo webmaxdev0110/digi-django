@@ -141,6 +141,8 @@ class FormDocumentDetailSerializer(ModelSerializer):
 
 
 class FormDocumentLinkSerializer(Serializer):
+    first_name = serializers.CharField(required=False)
+    last_name = serializers.CharField(required=False)
     email = serializers.EmailField(write_only=True)
 
 

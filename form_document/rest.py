@@ -120,7 +120,8 @@ class FormDocumentViewSet(viewsets.ModelViewSet):
         email_trackable_form_submission_link(
             document,
             serializer.validated_data['email'],
-            from_user=request.user
+            request.user,
+            serializer.validated_data['first_name']
         )
         headers = self.get_success_headers(serializer.data)
         return Response(
