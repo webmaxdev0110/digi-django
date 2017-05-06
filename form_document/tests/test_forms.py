@@ -30,6 +30,61 @@ class FormDocumentRestAPITestCase(APITestCase):
     def tearDown(self):
         FormDocumentTemplate.objects.all().delete()
 
+    def test_anonymous_user_can_not_list_forms(self):
+        url = reverse('api_form:formdocumenttemplate-list')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 403)
+
+    def test_list_form_document_templates(self):
+        url = reverse('api_form:formdocumenttemplate-list')
+        owner = self.template.owner
+        self.client.force_login(owner)
+        response = self.client.get(url)
+        response_json = response.json()
+        self.assertItemsEqual(['count', 'data', 'next', 'previous'], response_json.keys())
+        first_data_obj = response_json['data'][0]
+        expected_keys = ['id', 'slug', 'title', 'created', 'created_by', 'status']
+        self.assertItemsEqual(expected_keys, first_data_obj.keys())
+
+        # Test order by id
+        url = reverse('api_form:formdocumenttemplate-list')
+        response = self.client.get(url, data={
+            'ordering': 'id'
+        })
+        response_json = response.json()
+        self.assertGreater(response_json['data'][1]['id'], response_json['data'][0]['id'])
+
+    def test_list_form_should_not_contain_archived_objects(self):
+        FormDocumentTemplate.objects.archive()
+        url = reverse('api_form:formdocumenttemplate-list')
+        owner = self.template.owner
+        self.client.force_login(owner)
+        response = self.client.get(url)
+        response_json = response.json()
+        self.assertEqual(len(response_json['data']), 0)
+
+    def test_archive_a_form(self):
+        template_id = self.template.pk
+        url = reverse('api_form:formdocumenttemplate-archive', args=(self.template.pk,))
+        owner = self.template.owner
+        self.client.force_login(owner)
+        response = self.client.delete(url)
+        self.assertEqual(response.status_code, 204)
+        template = FormDocumentTemplate.objects.get(pk=template_id)
+        self.assertIsNotNone(template.archived_on)
+
+    def test_duplicate_a_form(self):
+        url = reverse('api_form:formdocumenttemplate-duplicate', args=(self.template.pk,))
+        owner = self.template.owner
+        self.client.force_login(owner)
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, 201)
+        new_form_document_template_id = response.json()['id']
+        new_template = FormDocumentTemplate.objects.get(pk=new_form_document_template_id)
+        self.assertEqual(self.template.form_data, new_template.form_data)
+        self.assertEqual(self.template.form_config, new_template.form_config)
+        self.assertIsNotNone(new_template.uploaded_document)
+
     def test_anonymous_user_can_retrieve_form(self):
         url = reverse('api_form:form_retrieval-detail', args=(self.template_no_pass.pk,))
         site = self.template.owner.site

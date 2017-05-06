@@ -25,12 +25,17 @@ except ImportError:
 
 
 class FormDocumentTemplateListSerializer(ModelSerializer):
+    created_by = serializers.ReadOnlyField(source='owner.get_full_name')
+    status = serializers.ReadOnlyField(source='get_status_display')
     class Meta:
         model = FormDocumentTemplate
         fields = (
             'id',
             'title',
             'slug',
+            'created',
+            'created_by',
+            'status',
         )
 
 
@@ -136,6 +141,8 @@ class FormDocumentDetailSerializer(ModelSerializer):
 
 
 class FormDocumentLinkSerializer(Serializer):
+    first_name = serializers.CharField(required=False)
+    last_name = serializers.CharField(required=False)
     email = serializers.EmailField(write_only=True)
 
 

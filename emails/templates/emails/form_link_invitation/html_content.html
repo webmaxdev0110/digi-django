@@ -15,8 +15,21 @@
         </tr>
         <tr>
             <td>
-                <p>Your form link is {{ form_tracking_url }}</p>
+                {% if first_name %}
+                    <p>{{ first_name }},</p>
+                {% else %}
+                    <p>Good day,</p>
+                {% endif %}
+                Start your online {{ form_title }} from {{ company_name }} by clicking the button below:
+                <p></p>
+                <p></p>
+                <div class="btn-primary">
+                    <a href="{{ form_tracking_url }}">Start my form</a>
+                </div>
             </td>
+        </tr>
+        <tr>
+            <td></td>
         </tr>
     </table>
 {% endblock %}

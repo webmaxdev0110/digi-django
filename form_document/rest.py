@@ -1,3 +1,4 @@
+from rest_framework import filters
 from rest_framework import mixins
 from rest_framework import status
 from rest_framework import viewsets
@@ -16,9 +17,6 @@ from rest_framework.permissions import (
 )
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
-
-from contacts.serializers import PersonSerializer
-from core.constants import StatusChoices
 from core.hash_utils import sha1_file
 from core.rest_pagination import get_pagination_class
 from core.site_utils import get_site_from_request_origin
@@ -27,7 +25,7 @@ from form_document.constants import FormCompletionStatus
 from .models import (
     FormDocumentTemplate,
     FormDocumentResponse,
-    FormDocumentResponseAttachment, FormDocumentLink)
+)
 from .serializers import (
     FormDocumentTemplateListSerializer,
     FormDocumentDetailSerializer,
@@ -71,11 +69,19 @@ class FormDocumentRetrieveViewSet(mixins.RetrieveModelMixin, GenericViewSet):
         return obj.cached_form
 
 
-class FormDocumentCreateUpdateViewSet(viewsets.ModelViewSet):
-    queryset = FormDocumentTemplate.objects.all()
+class FormDocumentViewSet(viewsets.ModelViewSet):
+    queryset = FormDocumentTemplate.objects.available()
     pagination_class = get_pagination_class(page_size=10)
     parser_classes = (MultiPartParser, FormParser, JSONParser,)
     serializer_class = FormDocumentTemplateListSerializer
+    filter_backends = (filters.OrderingFilter,)
+    ordering_fields = (
+        'id',
+        'title',
+        'slug',
+        'created',
+        'status',
+    )
 
     def get_object_kwarg(self):
         kwargs = {}
@@ -114,13 +120,28 @@ class FormDocumentCreateUpdateViewSet(viewsets.ModelViewSet):
         email_trackable_form_submission_link(
             document,
             serializer.validated_data['email'],
-            from_user=request.user
+            request.user,
+            serializer.validated_data['first_name']
         )
         headers = self.get_success_headers(serializer.data)
         return Response(
             serializer.data,
             status=status.HTTP_200_OK, headers=headers)
 
+    @detail_route(methods=['delete'])
+    def archive(self, request, pk=None):
+        document = get_object_or_404(FormDocumentTemplate.objects, **{'pk': pk})
+        document.archive()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    @detail_route(methods=['post'])
+    def duplicate(self, request, pk=None):
+        document = get_object_or_404(FormDocumentTemplate.objects, **{'pk': pk})
+        new_document = document.duplicate()
+
+        return Response({
+            'id': new_document.pk
+        }, status=status.HTTP_201_CREATED)
 
 
 class FormDocumentResponseViewSet(viewsets.ModelViewSet):

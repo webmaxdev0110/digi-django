@@ -3,6 +3,7 @@ import ntpath
 
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
+from django.core.files.base import ContentFile
 from django.core.files.temp import NamedTemporaryFile
 from django.contrib.postgres.fields import (
     JSONField,
@@ -12,7 +13,13 @@ from wand.color import Color
 from wand.image import Image
 from accounts.models import User, Company
 from contacts.models import Person
-from core.models import TimeStampedModel, StatusModel, SelfAwareModel
+from core.managers import ArchiveModelQuerySet
+from core.models import (
+    TimeStampedModel,
+    StatusModel,
+    SelfAwareModel,
+    ArchiveMixin,
+)
 import os
 import pyPdf
 from django.core.files import File
@@ -46,7 +53,7 @@ class DocumentSignature(TimeStampedModel):
 
 
 
-class FormDocumentTemplate(TimeStampedModel, StatusModel):
+class FormDocumentTemplate(TimeStampedModel, ArchiveMixin, StatusModel):
     """
     Represents a form document created by an user
     The form should be accessible by document owner,
@@ -65,7 +72,7 @@ class FormDocumentTemplate(TimeStampedModel, StatusModel):
     # example {1: {type:'standard', positions:[bbox:[0, 0, 10, 10], page:1]}}
     document_mapping = JSONField(default={})
     cached_form = models.ForeignKey('FixedFormDocument', null=True)
-
+    objects = ArchiveModelQuerySet.as_manager()
     form_config = JSONField(null=True)
     access_code = models.CharField(max_length=4, null=True)
     owner = models.ForeignKey(User, help_text='The owner of this document')
@@ -97,6 +104,30 @@ class FormDocumentTemplate(TimeStampedModel, StatusModel):
             form_config=self.form_config,
             template=self
         )
+
+    def duplicate(self):
+        new_file = None
+        if self.uploaded_document:
+            new_file = File(self.uploaded_document)
+            new_file.name = ntpath.basename(self.uploaded_document.name)
+
+        new_document = FormDocumentTemplate.objects.create(**{
+            'title': 'Duplicate copy of {0}'.format(self.title),
+            'slug': '{0}-{1}'.format(self.slug, rand_string(4)),
+            'form_data': self.form_data,
+            'document_mapping': self.document_mapping,
+            'form_config': self.form_config,
+            'cached_sha1': self.cached_sha1,
+            'uploaded_document': new_file,
+            'number_of_pages': self.number_of_pages,
+            'owner': self.owner,
+        })
+
+        for preview_obj in self.form_assets.all():
+            preview_obj.duplicate(new_document)
+
+        return new_document
+
 
     def is_access_code_protected(self):
         return self.access_code is not None
@@ -209,6 +240,17 @@ class FormDocumentTemplateDocumentPreview(models.Model):
     @property
     def owner(self):
         return self.form_document.owner
+
+    def duplicate(self, form_document):
+        new_preview_obj = FormDocumentTemplateDocumentPreview()
+        new_file = ContentFile(self.image.read())
+        new_file.name = self.image.name
+        new_preview_obj.image = new_file
+        new_preview_obj.order = self.order
+        new_preview_obj.form_document = form_document
+        new_preview_obj.save()
+
+        return new_preview_obj
 
 
 class FormDocumentCompanyShare(TimeStampedModel):
