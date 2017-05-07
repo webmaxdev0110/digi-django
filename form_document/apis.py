@@ -1,5 +1,5 @@
 from django.core.urlresolvers import reverse
-
+from django.conf import settings
 from form_document.constants import FormSendingMethod
 from form_document.models import FormDocumentLink
 from form_document.tasks import send_trackable_form_link_email
@@ -17,12 +17,13 @@ def email_trackable_form_submission_link(form_document, to_email, from_user, fir
     form_tracking_url = reverse('form_tracking_redirect_view', kwargs={
         'form_link_hash': link_obj.hash,
     })
+    absolute_form_link = '%s%s' % (settings.SITE_URL, form_tracking_url)
     if from_user.company:
         company_name = from_user.company.title
     else:
         company_name = ''
     send_trackable_form_link_email.delay(
-        form_tracking_url,
+        absolute_form_link,
         to_email,
         form_document.title,
         company_name,

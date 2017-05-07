@@ -352,6 +352,7 @@ FEINCMS_MEDIALIBRARY_UPLOAD_TO = 'uploads'
 
 # Change this in development
 SPA_ROOT_URL = 'https://app.emondo.co'
+SITE_URL = 'https://emondo.co'
 
 # Obtain your own key, and override in local_settings.py
 
