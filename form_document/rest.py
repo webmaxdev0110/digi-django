@@ -121,7 +121,7 @@ class FormDocumentViewSet(viewsets.ModelViewSet):
             document,
             serializer.validated_data['email'],
             request.user,
-            serializer.validated_data['first_name']
+            serializer.validated_data.get('first_name', None)
         )
         headers = self.get_success_headers(serializer.data)
         return Response(
