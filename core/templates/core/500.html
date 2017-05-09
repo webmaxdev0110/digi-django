@@ -1,0 +1,75 @@
+{% extends 'core/html5.html' %}
+{% load staticfiles %}
+{% load compress %}
+{% load hotjar_tags %}
+{% load intercom_tags %}
+
+
+{% block seo_contents %}
+
+{% endblock %}
+
+{% block head_styles %}
+    {% compress css %}
+        <link rel="stylesheet" href="{% static 'stylesheets/bootstrap.css' %}">
+        <link rel="stylesheet" href="{% static 'stylesheets/error.css' %}">
+    {% endcompress %}
+{% endblock %}
+
+{% block head_scripts %}
+    <script type="text/javascript">
+        var load = function (filePath) {
+            var l = document.createElement('link');
+            l.rel = 'stylesheet';
+            l.href = filePath;
+            var head = document.getElementsByTagName('head')[0];
+            head.appendChild(l);
+        };
+        var asyncLoadCSSFiles = function () {
+            load("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600");
+        };
+        var raf = requestAnimationFrame || mozRequestAnimationFrame ||
+                webkitRequestAnimationFrame || msRequestAnimationFrame;
+        if (raf) {
+            raf(asyncLoadCSSFiles);
+        } else {
+            window.addEventListener('load', asyncLoadCSSFiles);
+        }
+    </script>
+
+{% endblock %}
+
+{% block wrapper %}
+  <div class="container-fluid error-page font9">
+    <div class="row error-header">
+      <a href="/" class="logo nav-logo-wrapper">
+        <img class="logo-img" src="{% static 'images/Emondo-Logo-White.svg' %}" height="38"/>
+      </a>
+    </div>
+    <div class="row">
+      <section class="image-section">
+        <img class="image" src="{% static 'images/500.png' %}" 
+          srcset="{% static 'images/500.png' %} 1x, {% static 'images/500@2x.png' %} 2x">
+      </section>
+      <section class="info-section">
+        <p>Something went wrong. Sorry about that.</p>
+      </section>
+    </div>
+  </div>
+
+{% endblock %}
+
+
+{% block after_wrapper %}
+
+{% endblock %}
+{% block footer_scripts %}
+  <script>
+    window.SPA_ROOT_URL = "{{SPA_ROOT_URL}}";
+  </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+{% endblock %}
+{% block tracking_scripts %}
+    {% include_intercom %}
+    {% include_hotjar %}
+{% endblock %}

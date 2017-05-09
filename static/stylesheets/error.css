@@ -1,0 +1,68 @@
+.font1 {
+  font-family: "roble_alt_boldbold";
+}
+
+.font2 {
+  font-family: "roble_alt_mediummedium";
+}
+
+.font3 {
+  font-family: "roble_altregular";
+}
+
+.font4 {
+  font-family: "roble_alt_bookbook";
+}
+
+.font5 {
+  font-family: "roble_alt_lightlight";
+}
+
+.font6 {
+  font-family: "roble_alt_thinthin";
+}
+
+.font7 {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+}
+
+.font8 {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 300;
+}
+
+.font9 {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+}
+
+.error-page {
+  text-align: center;
+  height: 100%;
+  width: 100%;
+}
+
+.row.error-header {
+  background-color: #3893d0;
+  height: 60px;
+  padding: 12px 0;
+}
+
+.image-section {
+  padding-top: 80px;
+  padding-bottom: 90px;
+  background-color: #eceff2;
+}
+
+@media (max-width: 767px) {
+  .image {
+    max-width: 60%;
+  }
+}
+.info-section {
+  font-weight: 600;
+  margin-top: 70px;
+  font-size: 18px;
+  color: #333c48;
+}
