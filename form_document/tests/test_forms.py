@@ -248,8 +248,35 @@ class FormDocumentRestAPITestCase(APITestCase):
         })
         self.assertEqual(form.fixedformdocument_set.count(), 2)
 
-    def test_company_member_can_access_form(self):
+    def test_admin_modify_form_answer_rest_api(self):
         pass
+
+    def test_admin_edit_form_answer_api(self):
+        site = self.template_no_pass.owner.site
+        owner = self.template_no_pass.owner
+        self.client.force_login(owner)
+        # Submit answer to this
+        answer_response = self.client.post(reverse('api_form:formdocumentresponse-list'), {
+            'answers': [{'id': 1, 'value': 'old'}],
+            'request_action': 'FORM_AUTOSAVE',
+            'form_id': self.template_no_pass.pk
+        }, HTTP_ORIGIN=self.template_no_pass.owner.site.domain, format='json')
+        form_response_id = answer_response.json()['response_id']
+
+        # Now change answer id 1
+        self.client.post(reverse('api_form:formdocumentresponse-change-answer', args=(form_response_id,)), {
+            'question_number': 1,
+            'value': 'new_value',
+        })
+        # Now change an answer that has no value
+        self.client.post(reverse('api_form:formdocumentresponse-change-answer', args=(form_response_id,)), {
+            'question_number': 2,
+            'value': 'new_value2',
+        })
+
+        updated_response = FormDocumentResponse.objects.get(pk=form_response_id)
+        self.assertEqual(updated_response.answers[1]['value'], 'new_value2')
+
 
     def test_form_document_partial_update(self):
         site = self.template_no_pass.owner.site
