@@ -515,3 +515,24 @@ class FormResponseRestAPITestCase(APITestCase):
             'status': ','.join([str(FormCompletionStatus.SAVED), str(FormCompletionStatus.SUBMITTED)])
         }, format='json')
         self.assertEqual(saved_submitted_resopnse.json()['count'], 2)
+
+    def test_assign_submission(self):
+        self.client.force_login(self.template_no_pass.owner)
+
+        response = self.client.get(reverse('api_form:formdocumentresponse-list'), {
+            'assignee__id': self.template_no_pass.owner.pk
+        })
+        self.assertEqual(response.json()['count'], 0)
+
+        # Create an response and assign to owner
+        form_response = self.template_no_pass.compile_form().create_empty_response()
+
+        response = self.client.post(reverse('api_form:formdocumentresponse-assign', args=(form_response.pk,)), {
+            'user_id': self.template_no_pass.owner.pk
+        })
+        self.assertEqual(response.status_code, 200)
+
+        response = self.client.get(reverse('api_form:formdocumentresponse-list'), {
+            'assignee__id': self.template_no_pass.owner.pk
+        })
+        self.assertEqual(response.json()['count'], 1)

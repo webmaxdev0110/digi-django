@@ -22,6 +22,8 @@ from rest_framework.permissions import (
 )
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
+
+from accounts.models import User
 from core.hash_utils import sha1_file
 from core.rest_pagination import get_pagination_class
 from core.site_utils import get_site_from_request_origin
@@ -160,7 +162,7 @@ class FormDocumentResponseFilter(FilterSet):
     status = StatusFilter(name='status')
     class Meta:
         model = FormDocumentResponse
-        fields = ['status']
+        fields = ['status', 'assignee__id']
 
 
 class FormDocumentResponseViewSet(viewsets.ModelViewSet):
@@ -244,6 +246,15 @@ class FormDocumentResponseViewSet(viewsets.ModelViewSet):
         return Response(
             serializer.data,
             status=status.HTTP_201_CREATED, headers=headers)
+
+    @detail_route(methods=['post'])
+    def assign(self, request, pk=None):
+        form_response = get_object_or_404(FormDocumentResponse.objects, **{'pk': pk})
+        assignee = get_object_or_404(User.objects, **{'pk': request.data['user_id']})
+        form_response.assignee = assignee
+        form_response.save()
+        return Response(
+            status=status.HTTP_200_OK)
 
     def perform_create(self, serializer):
         kwargs = self.get_object_kwarg()
