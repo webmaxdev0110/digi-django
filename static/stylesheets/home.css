@@ -827,7 +827,7 @@ a.nav-logo-wrapper > img.logo-img {
 }
 .row.sign-like-star .box-celebrity {
   cursor: pointer;
-  background: #f1f1f1;
+  background: #ffffff;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   border-radius: 4px;
@@ -1471,7 +1471,7 @@ footer ul li {
 }
 
 .remodal {
-  background-image: url('../images/Emondo-Icon-Colour.svg?1457552297') !important;
+  background-image: url('../images/Emondo-Icon-Colour.svg?1470696071') !important;
   background-position: 140% 358% !important;
   background-size: 58% 88% !important;
   background-repeat: no-repeat !important;
