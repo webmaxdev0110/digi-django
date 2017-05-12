@@ -2,7 +2,7 @@ from django.core.urlresolvers import reverse
 from rest_framework.test import (
     APITestCase,
 )
-from accounts.factories import UserFactory
+from accounts.factories import UserFactory, CompanyFactory
 from accounts.models import User
 from StringIO import StringIO
 from PIL import Image
@@ -129,3 +129,28 @@ class AccountRestAPITestCase(APITestCase):
             u'new_password1': [u'Password1 and Password2 mismatch']
         }
         self.assertDictContainsSubset(execpted, response.json())
+
+    def test_list_company_users(self):
+        user1 = UserFactory()
+        user2 = UserFactory()
+        company = CompanyFactory()
+        self.client.force_login(user1)
+
+        user1.company = company
+        user2.company = company
+        user1.save()
+        user2.save()
+
+        response = self.client.get(reverse('api_accounts:company_users-list'))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.json()), 2)
+
+        first_user = response.json()[0]
+        expected_keys = [
+            'first_name',
+            'last_name',
+            'id',
+            'email',
+        ]
+
+        self.assertItemsEqual(expected_keys, first_user.keys())

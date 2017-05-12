@@ -1,5 +1,4 @@
 from django.contrib.sites.models import Site
-from rest_framework.generics import GenericAPIView
 from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import AllowAny
 from django.contrib.auth import (
@@ -11,14 +10,15 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import (
     GenericViewSet,
-    ModelViewSet,
 )
 from accounts.models import User
 from rest_framework import mixins
 from accounts.serializers import (
     PaidSignupFormSerializer,
     UserProfileSerializer,
-    FreeAccountCreateUserSerializer)
+    FreeAccountCreateUserSerializer,
+    SimpleUserReadOnlySerializer,
+)
 
 
 class OnboardingCreate(mixins.CreateModelMixin,
@@ -125,3 +125,16 @@ class SubdomainVerifyAPIView(APIView):
             return Response({
                 'result': True
             })
+
+
+class CompanyUserListReadOnlyViewSet(
+    mixins.ListModelMixin,
+    GenericViewSet):
+    serializer_class = SimpleUserReadOnlySerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        company = user.company
+        if not company:
+            return User.objects.none()
+        return company.user_set.all()

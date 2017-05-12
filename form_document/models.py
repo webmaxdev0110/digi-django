@@ -313,6 +313,7 @@ class FormDocumentResponse(TimeStampedModel, SelfAwareModel):
     cached_form = models.ForeignKey(FixedFormDocument, null=True)
     answers = JSONField()
     status = models.SmallIntegerField(choices=FORM_COMPLETION_STATUS, default=FormCompletionStatus.UNOPENED)
+    assignee = models.ForeignKey(User, null=True)
 
     def __unicode__(self):
         return 'FormDocumentResponse:{0} - Form:{1}'.format(self.pk, self.form_document.pk)

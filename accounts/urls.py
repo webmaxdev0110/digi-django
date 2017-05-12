@@ -9,12 +9,14 @@ from accounts.rest import (
     LogoutAPIView,
     SubdomainVerifyAPIView,
     UserAPIViewSet,
+    CompanyUserListReadOnlyViewSet,
 )
 from accounts.views import AccountActivationView
 
 router = DefaultRouter()
 router.register(r'onboarding-create', OnboardingCreate)
 router.register(r'onboarding-free-plan', FreeAccountCreate, base_name='onboarding-free')
+router.register(r'company_users', CompanyUserListReadOnlyViewSet, base_name= 'company_users')
 
 
 current_user_detail = UserAPIViewSet.as_view({

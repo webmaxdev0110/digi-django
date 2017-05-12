@@ -6,6 +6,7 @@ from rest_framework.test import (
 )
 from accounts.factories import UserFactory
 from contacts.models import Person
+from form_document.constants import FormCompletionStatus
 from form_document.factories import (
     SimpleFormDocumentTemplateFactory,
     ApplicationFormDocumentTemplateFactory,
@@ -489,3 +490,49 @@ class FormResponseRestAPITestCase(APITestCase):
         self.assertIn('file_name', keys)
         self.assertIn('file_size', keys)
         self.assertIn('file_url', keys)
+
+    def test_form_response_in_multiple_status(self):
+        self.client.force_login(self.template_no_pass.owner)
+
+        response_list_url = reverse('api_form:formdocumentresponse-list')
+        # submission 1 with status 1
+        response1 = self.template_no_pass.compile_form().create_empty_response()
+        response1.status = FormCompletionStatus.SAVED
+        response1.save()
+        # submission 1 with status 2
+        response2 = self.template_no_pass.compile_form().create_empty_response()
+        response2.status = FormCompletionStatus.SUBMITTED
+        response2.save()
+
+        saved_response = self.client.get(response_list_url, data={
+            'status': FormCompletionStatus.SAVED
+        }, format='json')
+        self.assertEqual(saved_response.json()['count'], 1)
+        self.assertEqual(saved_response.json()['data'][0]['status'], 'Saved')
+
+
+        saved_submitted_resopnse = self.client.get(response_list_url, data={
+            'status': ','.join([str(FormCompletionStatus.SAVED), str(FormCompletionStatus.SUBMITTED)])
+        }, format='json')
+        self.assertEqual(saved_submitted_resopnse.json()['count'], 2)
+
+    def test_assign_submission(self):
+        self.client.force_login(self.template_no_pass.owner)
+
+        response = self.client.get(reverse('api_form:formdocumentresponse-list'), {
+            'assignee__id': self.template_no_pass.owner.pk
+        })
+        self.assertEqual(response.json()['count'], 0)
+
+        # Create an response and assign to owner
+        form_response = self.template_no_pass.compile_form().create_empty_response()
+
+        response = self.client.post(reverse('api_form:formdocumentresponse-assign', args=(form_response.pk,)), {
+            'user_id': self.template_no_pass.owner.pk
+        })
+        self.assertEqual(response.status_code, 200)
+
+        response = self.client.get(reverse('api_form:formdocumentresponse-list'), {
+            'assignee__id': self.template_no_pass.owner.pk
+        })
+        self.assertEqual(response.json()['count'], 1)
