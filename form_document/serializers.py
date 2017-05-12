@@ -229,7 +229,6 @@ class FormDocumentResponseSerializer(ModelSerializer):
     answers = serializers.JSONField()
     completion_percent = serializers.SerializerMethodField()
     completed_by_name = serializers.SerializerMethodField()
-    sent_channel = serializers.SerializerMethodField()
     type = serializers.SerializerMethodField()
     duration_seconds = serializers.SerializerMethodField()
     contact_name = serializers.SerializerMethodField()
@@ -247,7 +246,6 @@ class FormDocumentResponseSerializer(ModelSerializer):
             'answers',
             'completion_percent',
             'completed_by_name',
-            'sent_channel',
             'status',
             'type',
             'duration_seconds',
@@ -266,9 +264,6 @@ class FormDocumentResponseSerializer(ModelSerializer):
 
 
     def get_completed_by_name(self, instance):
-        pass
-
-    def get_sent_channel(self, instance):
         pass
 
     def get_type(self, instance):

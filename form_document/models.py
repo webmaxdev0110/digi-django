@@ -326,6 +326,27 @@ class FormDocumentResponse(TimeStampedModel, SelfAwareModel):
         answers = self.answers or []
         return len(answers)
 
+    def change_question_answer(self, question_number, new_value):
+        question_number = int(question_number)
+        if isinstance(self.answers, list):
+            answer_object_query = filter(lambda x: x['id'] == question_number, self.answers)
+            if len(answer_object_query) > 0:
+                answer_obj = answer_object_query[0]
+                index = self.answers.index(answer_obj)
+                answer_obj.update({'value': new_value})
+                self.answers[index] = answer_obj
+                self.save()
+                return answer_obj
+            else:
+                # If the answer does not exist, create a new object
+                answer_obj = ({'id': question_number, 'value': new_value})
+                self.answers.append(answer_obj)
+                self.save()
+                return answer_obj
+        else:
+            return None
+
+
 def form_document_attachment_path(instance, filename):
     # documents/users/<user_pk>/templates/<template_id>/history/<FixedFormDocument_id>/attachments/file_name.ext
     form_owner = instance.response.form_document.owner

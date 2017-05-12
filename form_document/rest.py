@@ -248,6 +248,13 @@ class FormDocumentResponseViewSet(viewsets.ModelViewSet):
             status=status.HTTP_201_CREATED, headers=headers)
 
     @detail_route(methods=['post'])
+    def change_answer(self, request, pk=None):
+        response_obj = get_object_or_404(FormDocumentResponse.objects, **{'pk': pk})
+        response_obj.change_question_answer(request.data['question_number'], request.data['value'])
+        return Response(
+            status=status.HTTP_204_NO_CONTENT)
+
+	@detail_route(methods=['post'])
     def assign(self, request, pk=None):
         form_response = get_object_or_404(FormDocumentResponse.objects, **{'pk': pk})
         assignee = get_object_or_404(User.objects, **{'pk': request.data['user_id']})
