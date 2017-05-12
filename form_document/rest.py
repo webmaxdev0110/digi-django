@@ -254,7 +254,7 @@ class FormDocumentResponseViewSet(viewsets.ModelViewSet):
         return Response(
             status=status.HTTP_204_NO_CONTENT)
 
-	@detail_route(methods=['post'])
+    @detail_route(methods=['post'])
     def assign(self, request, pk=None):
         form_response = get_object_or_404(FormDocumentResponse.objects, **{'pk': pk})
         assignee = get_object_or_404(User.objects, **{'pk': request.data['user_id']})
