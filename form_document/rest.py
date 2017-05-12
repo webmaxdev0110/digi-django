@@ -1,10 +1,15 @@
-from rest_framework import filters
+from django_filters import Filter
+from django_filters.fields import Lookup
 from rest_framework import mixins
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.decorators import list_route, detail_route
-from rest_framework.filters import OrderingFilter
+from rest_framework.filters import (
+    OrderingFilter,
+    DjangoFilterBackend,
+    FilterSet
+)
 from rest_framework.generics import get_object_or_404
 from rest_framework.parsers import (
     MultiPartParser,
@@ -36,7 +41,8 @@ from .serializers import (
     FormDocumentResponseResumeLinkSerializer,
     FixedFormDocumentSerializer,
     FormDocumentSigningEmailVerificationSerializer,
-    FormDocumentLinkSerializer)
+    FormDocumentLinkSerializer,
+)
 
 
 class FormDocumentRetrieveViewSet(mixins.RetrieveModelMixin, GenericViewSet):
@@ -74,7 +80,7 @@ class FormDocumentViewSet(viewsets.ModelViewSet):
     pagination_class = get_pagination_class(page_size=10)
     parser_classes = (MultiPartParser, FormParser, JSONParser,)
     serializer_class = FormDocumentTemplateListSerializer
-    filter_backends = (filters.OrderingFilter,)
+    filter_backends = (OrderingFilter,)
     ordering_fields = (
         'id',
         'title',
@@ -144,13 +150,30 @@ class FormDocumentViewSet(viewsets.ModelViewSet):
         }, status=status.HTTP_201_CREATED)
 
 
+class StatusFilter(Filter):
+    def filter(self, qs, value):
+        value_list = value.split(u',')
+        return super(StatusFilter, self).filter(qs, Lookup(value_list, 'in'))
+
+
+class FormDocumentResponseFilter(FilterSet):
+    status = StatusFilter(name='status')
+    class Meta:
+        model = FormDocumentResponse
+        fields = ['status']
+
+
 class FormDocumentResponseViewSet(viewsets.ModelViewSet):
     queryset = FormDocumentResponse.objects
     serializer_class = FormDocumentResponseSerializer
     # Below authentication_classes is necessary for Django browsable API view
     authentication_classes = (SessionAuthentication,)
     pagination_class = get_pagination_class(page_size=10)
-    filter_backends = (OrderingFilter,)
+    filter_backends = (
+        OrderingFilter,
+        DjangoFilterBackend,
+    )
+    filter_class = FormDocumentResponseFilter
     ordering_fields = (
         'id',
         'duration_seconds',
