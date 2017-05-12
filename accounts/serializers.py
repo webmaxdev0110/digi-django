@@ -122,3 +122,16 @@ class UserProfileSerializer(serializers.ModelSerializer):
                 })
 
         return attrs
+
+
+class SimpleUserReadOnlySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = (
+            'id',
+            'first_name',
+            'last_name',
+            'email',
+        )
+        read_only_fields = ('id', 'first_name', 'last_login', 'email',)
+
