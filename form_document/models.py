@@ -16,7 +16,7 @@ from contacts.models import Person
 from core.managers import ArchiveModelQuerySet
 from core.models import (
     TimeStampedModel,
-    StatusModel,
+    PublishableModel,
     SelfAwareModel,
     ArchiveMixin,
 )
@@ -53,7 +53,7 @@ class DocumentSignature(TimeStampedModel):
 
 
 
-class FormDocumentTemplate(TimeStampedModel, ArchiveMixin, StatusModel):
+class FormDocumentTemplate(TimeStampedModel, ArchiveMixin, PublishableModel):
     """
     Represents a form document created by an user
     The form should be accessible by document owner,

@@ -23,7 +23,7 @@ class TimeStampedModel(models.Model):
         abstract = True
 
 
-class StatusModel(models.Model):
+class PublishableModel(models.Model):
     status = models.PositiveSmallIntegerField(choices=STATUS_CHOICES, default=StatusChoices.DRAFT)
 
     class Meta:
