@@ -6,6 +6,6 @@ class StatusChoices(object):
     LIVE = 1
 
 STATUS_CHOICES = (
-    (StatusChoices.DRAFT, _('Pending')),
+    (StatusChoices.DRAFT, _('Draft')),
     (StatusChoices.LIVE, _('Live')),
 )
