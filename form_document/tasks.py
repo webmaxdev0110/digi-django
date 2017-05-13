@@ -71,12 +71,14 @@ def populate_pdf_document(job_id):
 
 
 @app.task
-    form_response = FormDocumentResponse.objects.get(pk=form_response_id)
 def upload_populated_pdf_to_storage(mongo_job_id):
     client = MongoClient(settings.MONGO_HOST, 27017)
     db = client.emondo
-    pdf_file = grid_fs.find_one({'_id': ObjectId(mongo_file_id)})
+    pdf_job_collection = db.pdf_job
+    pdf_job = pdf_job_collection.find_one({'_id': ObjectId(mongo_job_id)})
+    form_response = FormDocumentResponse.objects.get(pk=pdf_job.get('form_response_id'))
     grid_fs = GridFS(db, collection="fs")
+    pdf_file = grid_fs.find_one({'_id': ObjectId(pdf_job.get('output_file_id'))})
     form_response.populated_document.save(pdf_file.filename, ContentFile(pdf_file.read()))
 
 
