@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from core.constants import (
     STATUS_CHOICES,
-    StatusChoices,
+    PublishStatus,
 )
 
 
@@ -24,7 +24,7 @@ class TimeStampedModel(models.Model):
 
 
 class PublishableModel(models.Model):
-    status = models.PositiveSmallIntegerField(choices=STATUS_CHOICES, default=StatusChoices.DRAFT)
+    status = models.PositiveSmallIntegerField(choices=STATUS_CHOICES, default=PublishStatus.DRAFT)
 
     class Meta:
         abstract = True
