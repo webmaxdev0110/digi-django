@@ -1,5 +1,3 @@
-from django_filters import Filter
-from django_filters.fields import Lookup
 from rest_framework import mixins
 from rest_framework import status
 from rest_framework import viewsets
@@ -29,6 +27,7 @@ from core.rest_pagination import get_pagination_class
 from core.site_utils import get_site_from_request_origin
 from form_document.apis import email_trackable_form_submission_link
 from form_document.constants import FormCompletionStatus
+from form_document.filters import StatusFilter
 from .models import (
     FormDocumentTemplate,
     FormDocumentResponse,
@@ -150,12 +149,6 @@ class FormDocumentViewSet(viewsets.ModelViewSet):
         return Response({
             'id': new_document.pk
         }, status=status.HTTP_201_CREATED)
-
-
-class StatusFilter(Filter):
-    def filter(self, qs, value):
-        value_list = value.split(u',')
-        return super(StatusFilter, self).filter(qs, Lookup(value_list, 'in'))
 
 
 class FormDocumentResponseFilter(FilterSet):
