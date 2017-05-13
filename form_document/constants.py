@@ -20,6 +20,7 @@ class FormCompletionStatus(object):
     RECEIVED = 4
     ABANDONED = 5
     AUTO_SAVED = 6
+    ADMIN_EDITED = 7
 
 FORM_COMPLETION_STATUS = (
     (FormCompletionStatus.HIDDEN, _('Hidden')),
@@ -29,4 +30,5 @@ FORM_COMPLETION_STATUS = (
     (FormCompletionStatus.SAVED, _('Saved')),
     (FormCompletionStatus.RECEIVED, _('Received')),
     (FormCompletionStatus.AUTO_SAVED, _('Auto Saved')),
+    (FormCompletionStatus.ADMIN_EDITED, _('Edited')),
 )
