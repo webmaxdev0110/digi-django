@@ -291,6 +291,15 @@ class FormDocumentUserShare(TimeStampedModel):
         verbose_name_plural = 'FormUserShares'
 
 
+def populated_pdf_file_path(instance, filename):
+    # documents/users/<user_pk>/templates/<template_id>/history/<FixedFormDocument_id>/file_name.ext
+    template = instance.form_document
+    user = template.owner
+    dir_name = owner_document_path('documents', user.pk)
+    relative_path = os.path.join('templates', str(template.pk), 'populated_forms', filename)
+    return os.path.join(dir_name, relative_path)
+
+
 class FormDocumentResponse(TimeStampedModel, SelfAwareModel):
     """
     FormDocumentResponse represents Form submission per User
@@ -313,6 +322,11 @@ class FormDocumentResponse(TimeStampedModel, SelfAwareModel):
     cached_form = models.ForeignKey(FixedFormDocument, null=True)
     answers = JSONField()
     status = models.SmallIntegerField(choices=FORM_COMPLETION_STATUS, default=FormCompletionStatus.UNOPENED)
+    populated_document = models.FileField(
+        storage=get_document_storage(),
+        upload_to=populated_pdf_file_path,
+        null=True
+    )
     assignee = models.ForeignKey(User, null=True)
 
     def __unicode__(self):

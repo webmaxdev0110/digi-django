@@ -325,7 +325,7 @@ CELERY_TASK_SERIALIZER = 'json'
 ## Using the database to store task state and results.
 # sqlite (filename)
 CELERY_RESULT_BACKEND = 'db+sqlite:///celery-results.sqlite'
-CELERY_IGNORE_RESULT = True
+
 
 CELERY_TIMEZONE = 'Australia/Sydney'
 
@@ -392,3 +392,6 @@ if len(sys.argv) > 1 and sys.argv[1] == 'test':
     PASSWORD_HASHERS = [
         'django.contrib.auth.hashers.MD5PasswordHasher',
     ]
+
+
+MONGO_HOST = 'localhost'
