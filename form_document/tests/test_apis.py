@@ -18,7 +18,7 @@ class FormDocumentAPITestCase(TestCase):
         email_trackable_form_submission_link(
             self.template_no_pass,
             'text@example.com',
-            'John',
+            self.template_no_pass.owner,
             'Smith'
         )
         self.assertEqual(len(mail.outbox), 1)
