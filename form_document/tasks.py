@@ -67,11 +67,12 @@ def populate_pdf_document(job_id):
         'java', '-jar', 'path_to_jar.jar',
         'populate_pdf_document',
         '--job-id', job_id])
+    return job_id
 
 
 @app.task
-def upload_populated_pdf_to_storage(form_response_id, mongo_file_id):
     form_response = FormDocumentResponse.objects.get(pk=form_response_id)
+def upload_populated_pdf_to_storage(mongo_job_id):
     client = MongoClient(settings.MONGO_HOST, 27017)
     db = client.emondo
     pdf_file = grid_fs.find_one({'_id': ObjectId(mongo_file_id)})
