@@ -1,3 +1,5 @@
+from bson import ObjectId
+from django.core.files.base import ContentFile
 from gridfs import GridFS
 from pymongo import MongoClient
 from emails.apis import (
@@ -12,6 +14,7 @@ from notifications.tasks import send_one_off_email
 from django.conf import settings
 from celery import chain
 import subprocess
+import ntpath
 
 
 
@@ -42,9 +45,10 @@ def store_pdf_fill_task(response_id):
 
     form_template_document = cached_form.template.uploaded_document
     grid_fs = GridFS(db)
-    file_id = grid_fs.put(form_template_document.read(), file_name=form_template_document.name)
+    file_id = grid_fs.put(form_template_document.read(), file_name=ntpath.basename(form_template_document.name))
 
     inserted_result = pdf_job_db.insert_one({
+        'form_response_id': submission.pk,
         'answers': submission.answers,
         'document_mapping': cached_form.document_mapping,
         'form_data': cached_form.form_data,
@@ -61,10 +65,23 @@ def populate_pdf_document(job_id):
     subprocess.call([
         'java', '-jar', 'path_to_jar.jar',
         'populate_pdf_document',
-        '--job-id', job_id]
-        )
+        '--job-id', job_id])
+
+
+@app.task
+def upload_populated_pdf_to_storage(form_response_id, mongo_file_id):
+    form_response = FormDocumentResponse.objects.get(pk=form_response_id)
+    client = MongoClient(settings.MONGO_HOST, 27017)
+    db = client.emondo
+    grid_fs = GridFS(db)
+    pdf_file = grid_fs.find_one({'_id': ObjectId(mongo_file_id)})
+    form_response.populated_document.save(pdf_file.file_name, ContentFile(pdf_file.read()))
 
 
 @app.task
 def request_populating_pdf_document(response_id):
-    chain(store_pdf_fill_task.s(response_id), populate_pdf_document.s())()
+    chain(
+        store_pdf_fill_task.s(response_id),
+        populate_pdf_document.s(),
+        upload_populated_pdf_to_storage.s()
+    )()
