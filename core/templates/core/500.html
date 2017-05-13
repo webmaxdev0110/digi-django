@@ -1,0 +1,26 @@
+{% extends 'core/html5.html' %}
+{% load staticfiles %}
+
+{% block head_styles %}
+    <link rel="stylesheet" href="{% static 'stylesheets/error.css' %}">
+{% endblock %}
+
+{% block wrapper %}
+  <div class="error-page font9">
+    <div class="row error-header">
+      <a href="/" class="logo nav-logo-wrapper">
+        <img class="logo-img" src="{% static 'images/Emondo-Logo-White.svg' %}" height="36"/>
+      </a>
+    </div>
+    <div class="row">
+      <section class="image-section">
+        <img class="image" src="{% static 'images/500.png' %}" 
+          srcset="{% static 'images/500.png' %} 1x, {% static 'images/500@2x.png' %} 2x">
+      </section>
+      <section class="info-section">
+        <p>Something went wrong. Sorry about that.</p>
+      </section>
+    </div>
+  </div>
+
+{% endblock %}

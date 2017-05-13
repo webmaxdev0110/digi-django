@@ -7,7 +7,7 @@ gunicorn==19.4.5
 django-compressor==2.0
 psycopg2==2.6.1
 slacker==0.9.9
-raven==5.12.0
+raven==5.31.0
 djangorestframework==3.4.0
 Markdown==2.6.6   # Markdown support for the browsable API. todo: migrate to dev only requirements
 celery==3.1.23

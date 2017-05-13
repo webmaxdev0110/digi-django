@@ -4,6 +4,7 @@ import sys
 from django.http import (
     HttpResponseServerError,
 )
+from django.template import loader
 from django.template.context_processors import static
 from django.views.debug import technical_500_response
 
@@ -32,4 +33,6 @@ def handler500(request):
 
     context['request'] = request
 
-    return HttpResponseServerError('500 error')
+    template = loader.get_template('core/500.html')
+    return HttpResponseServerError(template.render())
+
