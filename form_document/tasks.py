@@ -55,7 +55,8 @@ def store_pdf_fill_task(response_id):
         'completed': False,
         'created': datetime.now(),
         'last_modified': None,
-        'file_id': str(file_id)
+        'input_file_id': str(file_id),
+        'output_file_id': ''
     })
     return str(inserted_result.inserted_id)
 
