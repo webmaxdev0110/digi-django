@@ -6,12 +6,12 @@ from django.contrib.postgres.fields import (
 )
 from core.models import (
     TimeStampedModel,
-    StatusModel,
+    PublishableModel,
 )
 from django.utils.translation import ugettext_lazy as _
 
 
-class DataSourceModel(TimeStampedModel, StatusModel, models.Model):
+class DataSourceModel(TimeStampedModel, PublishableModel, models.Model):
     source_name = models.CharField(max_length=64)
     columns = ArrayField(
         models.CharField(max_length=32, blank=True)

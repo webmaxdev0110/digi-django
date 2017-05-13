@@ -6,6 +6,7 @@ from rest_framework.test import (
 )
 from accounts.factories import UserFactory
 from contacts.models import Person
+from core.constants import PublishStatus
 from form_document.constants import FormCompletionStatus
 from form_document.factories import (
     SimpleFormDocumentTemplateFactory,
@@ -54,6 +55,45 @@ class FormDocumentRestAPITestCase(APITestCase):
         })
         response_json = response.json()
         self.assertGreater(response_json['data'][1]['id'], response_json['data'][0]['id'])
+
+    def test_form_list_filtering(self):
+        url = reverse('api_form:formdocumenttemplate-list')
+        owner = self.template.owner
+        self.client.force_login(owner)
+
+        # Make one of them live and another one draft
+        self.template_no_pass.status = PublishStatus.DRAFT
+        self.template_no_pass.save()
+        self.template.status = PublishStatus.LIVE
+        self.template.save()
+
+        response = self.client.get(url, {
+            'status': PublishStatus.LIVE
+        })
+        self.assertEqual(response.json()['count'], 1)
+
+        response = self.client.get(url, {
+            'status': ','.join([str(PublishStatus.LIVE), str(PublishStatus.DRAFT)])
+        })
+        self.assertEqual(response.json()['count'], 2)
+
+
+    def test_change_form_stauts(self):
+        url = reverse('api_form:formdocumenttemplate-detail', args=(self.template_no_pass.pk,))
+        owner = self.template.owner
+        self.client.force_login(owner)
+
+        self.template_no_pass.status = PublishStatus.DRAFT
+        self.template_no_pass.save()
+
+        response = self.client.put(url, {
+            'status': PublishStatus.LIVE
+        })
+        self.assertEqual(response.status_code, 200)
+
+        new_document = FormDocumentTemplate.objects.get(pk=self.template_no_pass.pk)
+        self.assertEqual(new_document.status, PublishStatus.LIVE)
+
 
     def test_list_form_should_not_contain_archived_objects(self):
         FormDocumentTemplate.objects.archive()
