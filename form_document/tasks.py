@@ -44,7 +44,7 @@ def store_pdf_fill_task(response_id):
     pdf_job_db = db.pdf_job
 
     form_template_document = cached_form.template.uploaded_document
-    grid_fs = GridFS(db)
+    grid_fs = GridFS(db, collection="fs")
     file_id = grid_fs.put(form_template_document.read(), filename=ntpath.basename(form_template_document.name))
 
     inserted_result = pdf_job_db.insert_one({
@@ -73,8 +73,8 @@ def upload_populated_pdf_to_storage(form_response_id, mongo_file_id):
     form_response = FormDocumentResponse.objects.get(pk=form_response_id)
     client = MongoClient(settings.MONGO_HOST, 27017)
     db = client.emondo
-    grid_fs = GridFS(db)
     pdf_file = grid_fs.find_one({'_id': ObjectId(mongo_file_id)})
+    grid_fs = GridFS(db, collection="fs")
     form_response.populated_document.save(pdf_file.filename, ContentFile(pdf_file.read()))
 
 
