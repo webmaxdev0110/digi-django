@@ -76,12 +76,20 @@ class FormDocumentRetrieveViewSet(mixins.RetrieveModelMixin, GenericViewSet):
         return obj.cached_form
 
 
+class FormDocumentTemplateFilter(FilterSet):
+    status = StatusFilter(name='status')
+    class Meta:
+        model = FormDocumentTemplate
+        fields = ['status']
+
+
 class FormDocumentViewSet(viewsets.ModelViewSet):
     queryset = FormDocumentTemplate.objects.available()
     pagination_class = get_pagination_class(page_size=10)
     parser_classes = (MultiPartParser, FormParser, JSONParser,)
     serializer_class = FormDocumentTemplateListSerializer
-    filter_backends = (OrderingFilter,)
+    filter_backends = (OrderingFilter, DjangoFilterBackend,)
+    filter_class = FormDocumentTemplateFilter
     ordering_fields = (
         'id',
         'title',
