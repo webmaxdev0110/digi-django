@@ -27,6 +27,7 @@ except ImportError:
 class FormDocumentTemplateListSerializer(ModelSerializer):
     created_by = serializers.ReadOnlyField(source='owner.get_full_name')
     status = serializers.ReadOnlyField(source='get_status_display')
+    subdomain = serializers.CharField(source='owner.site.domain', read_only=True)
     class Meta:
         model = FormDocumentTemplate
         fields = (
@@ -36,6 +37,7 @@ class FormDocumentTemplateListSerializer(ModelSerializer):
             'created',
             'created_by',
             'status',
+            'subdomain',
         )
 
 
