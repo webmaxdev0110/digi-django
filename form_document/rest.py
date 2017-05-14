@@ -1,3 +1,7 @@
+import csv
+from collections import OrderedDict
+
+from django.http import HttpResponse
 from rest_framework import mixins
 from rest_framework import status
 from rest_framework import viewsets
@@ -263,6 +267,30 @@ class FormDocumentResponseViewSet(viewsets.ModelViewSet):
         form_response.save()
         return Response(
             status=status.HTTP_200_OK)
+
+    @detail_route(methods=['get'])
+    def export_csv(self, request, pk=None):
+        form_response = get_object_or_404(FormDocumentResponse.objects, **{'pk': pk})
+        title = form_response.form_document.title
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="form_export_%s_%d.csv"' % (
+            title, form_response.pk,
+        )
+        writer = csv.writer(response)
+        answer_dict = OrderedDict({})
+        questions = form_response.cached_form.form_data.get('questions')
+        user_answers = form_response.answers
+        non_group_questions = filter(lambda x: x['type'] != 'Group' and x.has_key('question_instruction'), questions)
+        for question in non_group_questions:
+            answer_query = filter(lambda x: x['id'] == str(question['id']), user_answers)
+            question_answer = ''
+            if len(answer_query) > 0:
+                question_answer = answer_query['value']
+            answer_dict[question['question_instruction']] = question_answer
+
+        writer.writerow(answer_dict.keys())
+        writer.writerow(answer_dict.values())
+        return response
 
     def perform_create(self, serializer):
         kwargs = self.get_object_kwarg()
