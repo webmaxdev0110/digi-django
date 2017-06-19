@@ -290,7 +290,6 @@ class FormResponseListSerializer(ModelSerializer):
     form_title = serializers.ReadOnlyField(source='form_document.title')
     completion_percent = serializers.SerializerMethodField()
     completed_by_name = serializers.SerializerMethodField()
-    sent_channel = serializers.SerializerMethodField()
     contact_email = serializers.SerializerMethodField()
     contact_phone = serializers.SerializerMethodField()
     status = serializers.SerializerMethodField()
@@ -305,7 +304,6 @@ class FormResponseListSerializer(ModelSerializer):
             'created',
             'completion_percent',
             'completed_by_name',
-            'sent_channel',
             'status',
             'duration_seconds',
             'contact_email',
@@ -317,9 +315,6 @@ class FormResponseListSerializer(ModelSerializer):
         pass
 
     def get_completed_by_name(self, instance):
-        pass
-
-    def get_sent_channel(self, instance):
         pass
 
     def get_contact_email(self, instance):
