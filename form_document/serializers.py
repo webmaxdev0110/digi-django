@@ -312,7 +312,11 @@ class FormResponseListSerializer(ModelSerializer):
 
 
     def get_completion_percent(self, instance):
-        pass
+        cached_form = instance.cached_form
+        try:
+            return float(instance.get_num_of_completed_questions()) / cached_form.get_num_of_questions()
+        except ZeroDivisionError:
+            return 0
 
     def get_completed_by_name(self, instance):
         pass
