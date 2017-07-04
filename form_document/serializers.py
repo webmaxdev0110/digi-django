@@ -6,6 +6,7 @@ from rest_framework.serializers import (
     Serializer)
 from rest_framework import serializers
 
+from accounts.serializers import SimpleUserReadOnlySerializer
 from contacts.models import Person
 from .models import (
     FormDocumentResponse,
@@ -293,7 +294,7 @@ class FormResponseListSerializer(ModelSerializer):
     contact_email = serializers.SerializerMethodField()
     contact_phone = serializers.SerializerMethodField()
     status = serializers.SerializerMethodField()
-
+    assignee = SimpleUserReadOnlySerializer()
 
     class Meta:
         model = FormDocumentResponse
@@ -308,6 +309,7 @@ class FormResponseListSerializer(ModelSerializer):
             'duration_seconds',
             'contact_email',
             'contact_phone',
+            'assignee',
         )
 
 
