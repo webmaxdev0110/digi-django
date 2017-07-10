@@ -6,6 +6,7 @@ from rest_framework.serializers import (
     Serializer)
 from rest_framework import serializers
 
+from accounts.serializers import SimpleUserReadOnlySerializer
 from contacts.models import Person
 from .models import (
     FormDocumentResponse,
@@ -27,6 +28,7 @@ except ImportError:
 class FormDocumentTemplateListSerializer(ModelSerializer):
     created_by = serializers.ReadOnlyField(source='owner.get_full_name')
     status = serializers.ReadOnlyField(source='get_status_display')
+    subdomain = serializers.CharField(source='owner.site.domain', read_only=True)
     class Meta:
         model = FormDocumentTemplate
         fields = (
@@ -36,6 +38,7 @@ class FormDocumentTemplateListSerializer(ModelSerializer):
             'created',
             'created_by',
             'status',
+            'subdomain',
         )
 
 
@@ -288,11 +291,10 @@ class FormResponseListSerializer(ModelSerializer):
     form_title = serializers.ReadOnlyField(source='form_document.title')
     completion_percent = serializers.SerializerMethodField()
     completed_by_name = serializers.SerializerMethodField()
-    sent_channel = serializers.SerializerMethodField()
     contact_email = serializers.SerializerMethodField()
     contact_phone = serializers.SerializerMethodField()
     status = serializers.SerializerMethodField()
-
+    assignee = SimpleUserReadOnlySerializer()
 
     class Meta:
         model = FormDocumentResponse
@@ -303,21 +305,22 @@ class FormResponseListSerializer(ModelSerializer):
             'created',
             'completion_percent',
             'completed_by_name',
-            'sent_channel',
             'status',
             'duration_seconds',
             'contact_email',
             'contact_phone',
+            'assignee',
         )
 
 
     def get_completion_percent(self, instance):
-        pass
+        cached_form = instance.cached_form
+        try:
+            return float(instance.get_num_of_completed_questions()) / cached_form.get_num_of_questions()
+        except ZeroDivisionError:
+            return 0
 
     def get_completed_by_name(self, instance):
-        pass
-
-    def get_sent_channel(self, instance):
         pass
 
     def get_contact_email(self, instance):

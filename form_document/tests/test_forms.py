@@ -568,7 +568,7 @@ class FormResponseRestAPITestCase(APITestCase):
         response1.save()
         # submission 1 with status 2
         response2 = self.template_no_pass.compile_form().create_empty_response()
-        response2.status = FormCompletionStatus.SUBMITTED
+        response2.status = FormCompletionStatus.RECEIVED
         response2.save()
 
         saved_response = self.client.get(response_list_url, data={
@@ -579,7 +579,7 @@ class FormResponseRestAPITestCase(APITestCase):
 
 
         saved_submitted_resopnse = self.client.get(response_list_url, data={
-            'status': ','.join([str(FormCompletionStatus.SAVED), str(FormCompletionStatus.SUBMITTED)])
+            'status': ','.join([str(FormCompletionStatus.SAVED), str(FormCompletionStatus.RECEIVED)])
         }, format='json')
         self.assertEqual(saved_submitted_resopnse.json()['count'], 2)
 
